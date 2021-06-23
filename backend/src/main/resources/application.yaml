@@ -1,0 +1,14 @@
+# ***************************************************************************  #
+#                   MySQL Database Spring configuration properties             #
+# ***************************************************************************  #
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+      show-sql: true
+      format-sql: true
+  datasource:
+    url: @dataSource.url@
+    username: @dataSource.user@
+    password: @dataSource.password@

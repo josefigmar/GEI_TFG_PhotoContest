@@ -13,9 +13,46 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>photocontest</name>
 	<description>Photography Contest Application</description>
+
+
 	<properties>
+		<!-- Version de Java -->
 		<java.version>11</java.version>
+
+		<!-- Propiedades generales de la fuente de datos -->
+
+		<dataSource.user>root</dataSource.user>
+		<dataSource.password>root</dataSource.password>
+		<testDataSource.user>${dataSource.user}</testDataSource.user>
+		<testDataSource.password>${dataSource.password}</testDataSource.password>
+
+		<sqlPlugin.version>1.5</sqlPlugin.version>
+
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>MySQL</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Propiedades del driver de JDBC -->
+				<jdbcDriver.groupId>mysql</jdbcDriver.groupId>
+				<jdbcDriver.artifactId>mysql-connector-java</jdbcDriver.artifactId>
+				<jdbcDriver.version>8.0.25</jdbcDriver.version>
+				<jdbcDriver.className>com.mysql.cj.jdbc.Driver</jdbcDriver.className>
+
+				<!-- Propiedades de la fuente de datos -->
+				<dataSource.baseUrl>jdbc:mysql://localhost/photocontest</dataSource.baseUrl>
+				<dataSource.url>${dataSource.baseUrl}?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Europe/Madrid</dataSource.url>
+				<testDataSource.url>${dataSource.baseUrl}_test?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Europe/Madrid</testDataSource.url>
+				<dataSource.createTablesScript>1-MySQLCreateTables.sql</dataSource.createTablesScript>
+				<dataSource.createDataScript>2-MySQLCreateData.sql</dataSource.createDataScript>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -35,8 +72,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>${jdbcDriver.groupId}</groupId>
+			<artifactId>${jdbcDriver.artifactId}</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -57,6 +94,67 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>${sqlPlugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>${jdbcDriver.groupId}</groupId>
+						<artifactId>${jdbcDriver.artifactId}</artifactId>
+						<version>${jdbcDriver.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<driver>${jdbcDriver.className}</driver>
+					<url>${testDataSource.url}</url>
+					<username>${dataSource.user}</username>
+					<password>${dataSource.password}</password>
+					<autocommit>true</autocommit>
+					<!-- OnError está a true porque al hacer los Drops
+					si las tablas no están creadas devuelve un error-->
+					<onError>continue</onError>
+					<orderFile>ascending</orderFile>
+					<fileset>
+						<basedir>${basedir}</basedir>
+						<includes>
+							<include>
+								src/sql/${dataSource.createTablesScript}
+							</include>
+							<include>
+								src/sql/${dataSource.createDataScript}
+							</include>
+						</includes>
+					</fileset>
+				</configuration>
+				<executions>
+					<execution>
+						<id>create-tables-for-testing</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<driver>${jdbcDriver.className}</driver>
+							<url>${testDataSource.url}</url>
+							<username>${testDataSource.user}</username>
+							<password>${testDataSource.password}</password>
+							<autocommit>true</autocommit>
+							<onError>continue</onError>
+							<fileset>
+								<basedir>${basedir}</basedir>
+								<includes>
+									<include>
+										src/sql/${dataSource.createTablesScript}
+									</include>
+								</includes>
+							</fileset>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

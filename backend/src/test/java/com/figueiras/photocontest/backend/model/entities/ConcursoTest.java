@@ -3,13 +3,10 @@ package com.figueiras.photocontest.backend.model.entities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.TestPropertySource;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.text.Format;
-import java.time.LocalDateTime;
 import java.util.Random;
 
 public class ConcursoTest {
@@ -176,6 +173,16 @@ public class ConcursoTest {
     }
 
     @Test
+    public void setMostrarGanadorasTest()
+    {
+        Concurso concurso = new Concurso();
+
+        concurso.setMostrarGanadoras(Boolean.FALSE);
+
+        Assertions.assertEquals(concurso.getMostrarGanadoras(), Boolean.FALSE);
+    }
+
+    @Test
     public void setDatosExifReqTest()
     {
         Concurso concurso = new Concurso();
@@ -230,9 +237,9 @@ public class ConcursoTest {
     {
         Concurso concurso = new Concurso();
 
-        concurso.setOcultarFotos(Boolean.FALSE);
+        concurso.setOcultarVotos(Boolean.FALSE);
 
-        Assertions.assertEquals(concurso.getOcultarFotos(), Boolean.FALSE);
+        Assertions.assertEquals(concurso.getOcultarVotos(), Boolean.FALSE);
     }
 
     @Test
@@ -243,7 +250,16 @@ public class ConcursoTest {
         concurso.setFechaInicioConcurso(Utilidades.FECHA_HOY);
 
         Assertions.assertEquals(concurso.getFechaInicioConcurso(), Utilidades.FECHA_HOY);
+    }
 
+    @Test
+    public void setFechaInicioVotacionTest()
+    {
+        Concurso concurso = new Concurso();
+
+        concurso.setFechaInicioVotacion(Utilidades.FECHA_HOY);
+
+        Assertions.assertEquals(concurso.getFechaInicioVotacion(), Utilidades.FECHA_HOY);
     }
 
     @Test

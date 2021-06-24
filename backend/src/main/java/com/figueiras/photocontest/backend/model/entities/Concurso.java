@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.validation.constraints.Size;
-import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Entity

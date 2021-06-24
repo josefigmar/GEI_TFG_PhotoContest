@@ -4,167 +4,167 @@
 /*                                                                             *
 /******************************************************************************/
 
-DROP TABLE Usuario_sigue_usuario;
-DROP TABLE Usuario_participa_concurso;
-DROP TABLE Usuario_vota_fotografia;
-DROP TABLE Concurso_permite_categoria;
-DROP TABLE Usuario_gusta_categoria;
+DROP TABLE UsuarioSigueUsuario;
+DROP TABLE UsuarioParticipaConcurso;
+DROP TABLE UsuarioVotaFotografia;
+DROP TABLE ConcursoPermiteCategoria;
+DROP TABLE UsuarioGustaCategoria;
 DROP TABLE Notificacion;
 DROP TABLE Fotografia;
-DROP TABLE Categoria_fotografica;
+DROP TABLE CategoriaFotografica;
 DROP TABLE Usuario;
 DROP TABLE Concurso;
 
 
-CREATE TABLE Categoria_fotografica(
-    id_categoria BIGINT NOT NULL AUTO_INCREMENT,
-    nombre_categoria VARCHAR(50),
-    descripcion_categoria VARCHAR(200),
-    CONSTRAINT categoria_fotografica_pk PRIMARY KEY(id_categoria)
+CREATE TABLE CategoriaFotografica(
+    idCategoria BIGINT NOT NULL AUTO_INCREMENT,
+    nombreCategoria VARCHAR(50),
+    descripcionCategoria VARCHAR(200),
+    CONSTRAINT categoria_fotografica_pk PRIMARY KEY(idCategoria)
 );
 
 CREATE TABLE Usuario(
-    id_usuario BIGINT NOT NULL AUTO_INCREMENT,
-    nombre_usuario VARCHAR(50),
-    nombre_pila_usuario VARCHAR(50),
-    apellidos_usuario VARCHAR(100),
-    biografia_usuario VARCHAR(500),
-    correo_electronico_usuario VARCHAR(90),
-    contrasena_usuairo VARCHAR(50),
-    enlace_twitter VARCHAR(200),
-    enlace_facebook VARCHAR(200),
-    CONSTRAINT Usuario_pk PRIMARY KEY(id_usuario),
-    CONSTRAINT Nombre_usuario_unique UNIQUE(nombre_usuario)
+    idUsuario BIGINT NOT NULL AUTO_INCREMENT,
+    nombreUsuario VARCHAR(50),
+    nombrePilaUsuario VARCHAR(50),
+    apellidosUsuario VARCHAR(100),
+    biografiaUsuario VARCHAR(500),
+    correoElectronico_usuario VARCHAR(90),
+    contrasenaUsuairo VARCHAR(50),
+    enlaceTwitter VARCHAR(200),
+    enlaceFacebook VARCHAR(200),
+    CONSTRAINT Usuario_pk PRIMARY KEY(idUsuario),
+    CONSTRAINT Nombre_usuario_unique UNIQUE(nombreUsuario)
 );
 
 CREATE TABLE Notificacion(
-    id_notificacion BIGINT NOT NULL AUTO_INCREMENT,
-    nombre_notificacion VARCHAR(50),
-    mensaje_notificacion VARCHAR(200),
-    fecha_creacion datetime,
-    id_usuario BIGINT NOT NULL,
-    CONSTRAINT Notificacion_pk PRIMARY KEY(id_notificacion),
-    CONSTRAINT Notificacion_id_usuario_fk FOREIGN KEY(id_usuario)
-                         REFERENCES Usuario(id_usuario)
+    idNotificacion BIGINT NOT NULL AUTO_INCREMENT,
+    nombreNotificacion VARCHAR(50),
+    mensajeNotificacion VARCHAR(200),
+    fechaCreacion datetime,
+    idUsuario BIGINT NOT NULL,
+    CONSTRAINT Notificacion_pk PRIMARY KEY(idNotificacion),
+    CONSTRAINT Notificacion_id_usuario_fk FOREIGN KEY(idUsuario)
+                         REFERENCES Usuario(idUsuario)
 );
 
 CREATE TABLE Fotografia(
-    id_fotografia BIGINT NOT NULL AUTO_INCREMENT,
-    titulo_fotografia VARCHAR(50),
-    descripcion_fotografia VARCHAR(200),
-    apertura_diafragma VARCHAR(50),
-    fabricante_camara VARCHAR(50),
-    modelo_camara VARCHAR(50),
-    distancia_focal VARCHAR(50),
-    velocidad_obturacion VARCHAR(50),
+    idFotografia BIGINT NOT NULL AUTO_INCREMENT,
+    tituloFotografia VARCHAR(50),
+    descripcionFotografia VARCHAR(200),
+    aperturaDiafragma VARCHAR(50),
+    fabricanteCamara VARCHAR(50),
+    modeloCamara VARCHAR(50),
+    distanciaFocal VARCHAR(50),
+    velocidadObturacion VARCHAR(50),
     iso VARCHAR(50),
     resolucion VARCHAR(50),
-    datos_jpg MEDIUMBLOB,
-    datos_raw MEDIUMBLOB,
-    fecha_subida DATETIME,
-    fecha_inicio_participacion DATETIME,
-    estado_moderacion TINYINT,
-    id_categoria BIGINT,
-    CONSTRAINT Fotografia_pk PRIMARY KEY(id_fotografia),
-    CONSTRAINT Fotografia_id_categoria_fk FOREIGN KEY(id_categoria)
-                       REFERENCES Categoria_fotografica(id_categoria)
+    datosJpg MEDIUMBLOB,
+    datosRaw MEDIUMBLOB,
+    fechaSubida DATETIME,
+    fechaInicioParticipacion DATETIME,
+    estadoModeracion TINYINT,
+    idCategoria BIGINT,
+    CONSTRAINT Fotografia_pk PRIMARY KEY(idFotografia),
+    CONSTRAINT Fotografia_id_categoria_fk FOREIGN KEY(idCategoria)
+                       REFERENCES CategoriaFotografica(idCategoria)
 );
 
 CREATE TABLE Concurso(
-    id_concurso BIGINT NOT NULL AUTO_INCREMENT,
-    nombre_concurso VARCHAR(50),
-    descripcion_concurso VARCHAR(500),
-    estado_concurso INT,
-    tipo_acceso_concurso INT,
-    tipo_votante_concurso INT,
-    tipo_voto_concurso INT,
-    velocidad_obturacion VARCHAR(50),
-    tipo_participacion_concurso INT,
-    foto_concurso MEDIUMBLOB,
-    categoria_unica TINYINT,
-    max_fotos_usuario INT,
-    max_votos_usuario INT,
-    num_ganadores INT,
-    titulo_req TINYINT,
-    desc_req TINYINT,
-    datos_exif_req TINYINT,
-    loc_req TINYINT,
-    ocultar_fotos TINYINT,
+    idConcurso BIGINT NOT NULL AUTO_INCREMENT,
+    nombreConcurso VARCHAR(50),
+    descripcionConcurso VARCHAR(500),
+    estadoConcurso INT,
+    tipoAccesoConcurso INT,
+    tipoVotanteConcurso INT,
+    tipoVotoConcurso INT,
+    velocidadObturacion VARCHAR(50),
+    tipoParticipacionConcurso INT,
+    fotoConcurso MEDIUMBLOB,
+    categoriaUnica TINYINT,
+    maxFotosUsuario INT,
+    maxVotosUsuario INT,
+    numGanadores INT,
+    tituloReq TINYINT,
+    descReq TINYINT,
+    datosExifReq TINYINT,
+    locReq TINYINT,
+    ocultarFotos TINYINT,
     moderacion TINYINT,
     formato INT,
-    ocultar_votos TINYINT,
-    mostrar_ganadoras TINYINT,
-    fecha_inicio_concurso DATETIME,
-    fecha_inicio_votacion DATETIME,
-    desc_votacion VARCHAR(500),
-    fecha_fin_concurso DATETIME,
-    bases_concurso MEDIUMBLOB,
-    CONSTRAINT Concurso_fk PRIMARY KEY(id_concurso),
-    CONSTRAINT Nombre_concurso_unique UNIQUE(nombre_concurso)
+    ocultarVotos TINYINT,
+    mostrarGanadoras TINYINT,
+    fechaInicioConcurso DATETIME,
+    fechaInicioVotacion DATETIME,
+    descVotacion VARCHAR(500),
+    fechaFinConcurso DATETIME,
+    basesConcurso MEDIUMBLOB,
+    CONSTRAINT Concurso_fk PRIMARY KEY(idConcurso),
+    CONSTRAINT Nombre_concurso_unique UNIQUE(nombreConcurso)
 );
 
-CREATE TABLE Usuario_gusta_categoria(
-    id_usuario BIGINT NOT NULL,
-    id_categoria BIGINT NOT NULL,
-    CONSTRAINT Usuario_gusta_categoria_pk PRIMARY KEY(id_usuario, id_categoria),
+CREATE TABLE UsuarioGustaCategoria(
+    idUsuario BIGINT NOT NULL,
+    idCategoria BIGINT NOT NULL,
+    CONSTRAINT Usuario_gusta_categoria_pk PRIMARY KEY(idUsuario, idCategoria),
     CONSTRAINT Usuario_gusta_categoria_id_usuario_fk
-        FOREIGN KEY(id_usuario)
-            REFERENCES Usuario(id_usuario),
+        FOREIGN KEY(idUsuario)
+            REFERENCES Usuario(idUsuario),
     CONSTRAINT Usuario_gusta_categoria_id_categoria_fk
-        FOREIGN KEY(id_categoria)
-            REFERENCES Categoria_fotografica(id_categoria)
+        FOREIGN KEY(idCategoria)
+            REFERENCES CategoriaFotografica(idCategoria)
 );
 
-CREATE TABLE Usuario_sigue_usuario(
-    id_usuario_seguidor BIGINT NOT NULL,
-    id_usuario_seguido BIGINT NOT NULL,
-    fecha_seguida DATETIME,
+CREATE TABLE UsuarioSigueUsuario(
+    idUsuarioSeguidor BIGINT NOT NULL,
+    idUsuarioSeguido BIGINT NOT NULL,
+    fechaSeguida DATETIME,
     CONSTRAINT Usuario_sigue_usuario_pk
-        PRIMARY KEY(id_usuario_seguidor,id_usuario_seguido),
+        PRIMARY KEY(idUsuarioSeguidor,idUsuarioSeguido),
     CONSTRAINT Usuario_sigue_usuario_id_usuario_seguidor_fk
-        FOREIGN KEY(id_usuario_seguidor)
-            REFERENCES Usuario(id_usuario),
+        FOREIGN KEY(idUsuarioSeguidor)
+            REFERENCES Usuario(idUsuario),
     CONSTRAINT Usuario_sigue_usuario_id_usuario_seguido_fk
-        FOREIGN KEY(id_usuario_seguido)
-            REFERENCES Usuario(id_usuario)
+        FOREIGN KEY(idUsuarioSeguido)
+            REFERENCES Usuario(idUsuario)
 );
 
-CREATE TABLE Concurso_permite_categoria(
-    id_concurso BIGINT NOT NULL,
-    id_categoria BIGINT NOT NULL,
-    CONSTRAINT Concurso_permite_categoria_pk PRIMARY KEY(id_concurso, id_categoria),
+CREATE TABLE ConcursoPermiteCategoria(
+    idConcurso BIGINT NOT NULL,
+    idCategoria BIGINT NOT NULL,
+    CONSTRAINT Concurso_permite_categoria_pk PRIMARY KEY(idConcurso, idCategoria),
     CONSTRAINT Concurso_permite_categoria_id_concurso_fk
-        FOREIGN KEY(id_concurso)
-            REFERENCES Concurso(id_concurso),
+        FOREIGN KEY(idConcurso)
+            REFERENCES Concurso(idConcurso),
     CONSTRAINT Concurso_permite_categoria_id_categoria_fk
-        FOREIGN KEY(id_categoria)
-            REFERENCES Categoria_fotografica(id_categoria)
+        FOREIGN KEY(idCategoria)
+            REFERENCES CategoriaFotografica(idCategoria)
 );
 
-CREATE TABLE Usuario_participa_concurso(
-    id_usuario BIGINT NOT NULL,
-    id_concurso BIGINT NOT NULL,
+CREATE TABLE UsuarioParticipaConcurso(
+    idUsuario BIGINT NOT NULL,
+    idConcurso BIGINT NOT NULL,
     rol INT,
-    fecha_inicio_participacion DATETIME,
-    CONSTRAINT Usuario_participa_concurso_pk PRIMARY KEY(id_usuario, id_concurso),
+    fechaInicioParticipacion DATETIME,
+    CONSTRAINT Usuario_participa_concurso_pk PRIMARY KEY(idUsuario, idConcurso),
     CONSTRAINT Usuario_participa_concurso_id_usuario_fk
-        FOREIGN KEY(id_usuario)
-            REFERENCES Usuario(id_usuario),
+        FOREIGN KEY(idUsuario)
+            REFERENCES Usuario(idUsuario),
     CONSTRAINT Usuario_participa_concurso_id_concurso_fk
-       FOREIGN KEY(id_concurso)
-           REFERENCES Concurso(id_concurso)
+       FOREIGN KEY(idConcurso)
+           REFERENCES Concurso(idConcurso)
 );
 
-CREATE TABLE Usuario_vota_fotografia(
-   id_usuario BIGINT NOT NULL,
-   id_fotografia BIGINT NOT NULL,
+CREATE TABLE UsuarioVotaFotografia(
+   idUsuario BIGINT NOT NULL,
+   idFotografia BIGINT NOT NULL,
    puntuacion INT,
-   fecha_voto DATETIME,
-   CONSTRAINT Usuario_vota_fotografia_pk PRIMARY KEY(id_usuario, id_fotografia),
+   fechaVoto DATETIME,
+   CONSTRAINT Usuario_vota_fotografia_pk PRIMARY KEY(idUsuario, idFotografia),
    CONSTRAINT Usuario_vota_fotografia_id_usuario_fk
-       FOREIGN KEY(id_usuario)
-           REFERENCES Usuario(id_usuario),
+       FOREIGN KEY(idUsuario)
+           REFERENCES Usuario(idUsuario),
    CONSTRAINT Usuario_vota_fotografia_id_fotografia
-       FOREIGN KEY(id_fotografia)
-           REFERENCES Fotografia(id_fotografia)
+       FOREIGN KEY(idFotografia)
+           REFERENCES Fotografia(idFotografia)
 );

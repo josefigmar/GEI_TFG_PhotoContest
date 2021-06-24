@@ -90,6 +90,7 @@
 
 	<build>
 		<plugins>
+			<!-- Plugin de SQL para maven -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

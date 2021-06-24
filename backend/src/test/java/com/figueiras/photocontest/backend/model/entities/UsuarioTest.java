@@ -40,7 +40,7 @@ public class UsuarioTest {
     @Test
     public void setNombreCortoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.cadenaVacia;
+        String nombre = Utilidades.CADENA_VACIA;
 
         usuario.setNombreUsuario(nombre);
 
@@ -50,7 +50,7 @@ public class UsuarioTest {
     @Test
     public void setNombreLargoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.cadenaLarga;
+        String nombre = Utilidades.CADENA_LARGA;
 
         usuario.setNombreUsuario(nombre);
 
@@ -70,7 +70,7 @@ public class UsuarioTest {
     @Test
     public void setNombrePilaCortoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.cadenaVacia;
+        String nombre = Utilidades.CADENA_VACIA;
 
         usuario.setNombrePilaUsuario(nombre);
 
@@ -80,7 +80,7 @@ public class UsuarioTest {
     @Test
     public void setNombrePilaLargoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.cadenaLarga;
+        String nombre = Utilidades.CADENA_LARGA;
 
         usuario.setNombrePilaUsuario(nombre);
 
@@ -100,7 +100,7 @@ public class UsuarioTest {
     @Test
     public void setApellidosInferiorTamanoTest() {
         Usuario usuario = new Usuario();
-        String apellidos = Utilidades.cadenaVacia;
+        String apellidos = Utilidades.CADENA_VACIA;
 
         usuario.setApellidosUsuario(apellidos);
 
@@ -120,7 +120,7 @@ public class UsuarioTest {
     @Test
     public void setBiografiaSuperaTamanoTest() {
         Usuario usuario = new Usuario();
-        String biografia = Utilidades.cadenaLarga;
+        String biografia = Utilidades.CADENA_LARGA;
 
         usuario.setBiografiaUsuario(biografia);
 
@@ -160,7 +160,7 @@ public class UsuarioTest {
     @Test
     public void setContrasenaCortaTest() {
         Usuario usuario = new Usuario();
-        String contrasena = Utilidades.cadenaVacia;
+        String contrasena = Utilidades.CADENA_VACIA;
 
         usuario.setContrasenaUsuario(contrasena);
 
@@ -170,7 +170,7 @@ public class UsuarioTest {
     @Test
     public void setContrasenaLargaTest() {
         Usuario usuario = new Usuario();
-        String contrasena = Utilidades.cadenaLarga;
+        String contrasena = Utilidades.CADENA_LARGA;
 
         usuario.setContrasenaUsuario(contrasena);
 
@@ -191,7 +191,7 @@ public class UsuarioTest {
     @Test
     public void setEnlaceTwitterLargoTest() {
         Usuario usuario = new Usuario();
-        String enlace = Utilidades.cadenaLarga;
+        String enlace = Utilidades.CADENA_LARGA;
 
         usuario.setEnlaceTwitterUsuario(enlace);
 
@@ -211,7 +211,7 @@ public class UsuarioTest {
     @Test
     public void setEnlaceFacebookLargoTest() {
         Usuario usuario = new Usuario();
-        String enlace = Utilidades.cadenaLarga;
+        String enlace = Utilidades.CADENA_LARGA;
 
         usuario.setEnlaceFacebookUsuario(enlace);
 

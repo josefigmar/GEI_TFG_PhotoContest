@@ -79,7 +79,6 @@ CREATE TABLE Concurso(
     tipoVotanteConcurso INT,
     tipoVotoConcurso INT,
     velocidadObturacion VARCHAR(50),
-    tipoParticipacionConcurso INT,
     fotoConcurso MEDIUMBLOB,
     categoriaUnica TINYINT,
     maxFotosUsuario INT,

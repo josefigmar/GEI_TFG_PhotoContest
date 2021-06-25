@@ -7,42 +7,37 @@ import javax.validation.constraints.Size;
 public class CategoriaFotografica {
 
     private Long idCategoria;
-    @Size(min=1, max= 50)
+    @Size(min = 1, max = 50)
     private String nombreCategoria;
-    @Size(min=1, max = 200)
+    @Size(min = 1, max = 200)
     private String descripcion;
 
-    public CategoriaFotografica(){}
+    public CategoriaFotografica() {
+    }
 
-    public void setIdCategoria(Long idCategoria)
-    {
+    public void setIdCategoria(Long idCategoria) {
         this.idCategoria = idCategoria;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getIdCategoria()
-    {
+    public Long getIdCategoria() {
         return idCategoria;
     }
 
-    public String getNombreCategoria()
-    {
+    public String getNombreCategoria() {
         return nombreCategoria;
     }
 
-    public void setNombreCategoria(String nombreCategoria)
-    {
+    public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public String getDescripcion()
-    {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion)
-    {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 }

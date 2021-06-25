@@ -3,30 +3,36 @@ package com.figueiras.photocontest.backend.model.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class Usuario {
 
     private Long idUsuario;
-    @Size(min=1, max=50)
+    @Size(min = 1, max = 50)
     private String nombreUsuario;
-    @Size(min=1, max=50)
+    @Size(min = 1, max = 50)
     private String nombrePilaUsuario;
-    @Size(min=1, max=100)
+    @Size(min = 1, max = 100)
     private String apellidosUsuario;
-    @Size(max=500)
+    @Size(max = 500)
     private String biografiaUsuario;
-    @Size(max=90)
+    @Size(max = 90)
     @Email
     private String correoElectronicoUsuario;
-    @Size(min=4, max=50)
+    @Size(min = 4, max = 50)
     private String contrasenaUsuario;
-    @Size(max=200)
+    @Size(max = 200)
     private String enlaceTwitterUsuario;
-    @Size(max=200)
+    @Size(max = 200)
     private String enlaceFacebookUsuario;
+    @OneToMany(mappedBy="usuarioSeguidor")
+    private Set<UsuarioSigueUsuario> usuariosQueSigue;
+    @OneToMany(mappedBy="usuarioSeguido")
+    private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
 
-    public Usuario() {}
+    public Usuario() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -100,5 +106,21 @@ public class Usuario {
 
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
+    }
+
+    public Set<UsuarioSigueUsuario> getUsuariosQueSigue() {
+        return usuariosQueSigue;
+    }
+
+    public void setUsuariosQueSigue(Set<UsuarioSigueUsuario> usuariosQueSigue) {
+        this.usuariosQueSigue = usuariosQueSigue;
+    }
+
+    public Set<UsuarioSigueUsuario> getUsuariosQueLoSiguen() {
+        return usuariosQueLoSiguen;
+    }
+
+    public void setUsuariosQueLoSiguen(Set<UsuarioSigueUsuario> usuariosQueLoSiguen) {
+        this.usuariosQueLoSiguen = usuariosQueLoSiguen;
     }
 }

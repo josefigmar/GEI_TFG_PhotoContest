@@ -13,23 +13,20 @@ public class CategoriaFotograficaTest {
     private static Validator validator;
 
     @BeforeAll
-    public static void setUp()
-    {
+    public static void setUp() {
         ValidatorFactory vFactory = Validation.buildDefaultValidatorFactory();
         validator = vFactory.getValidator();
     }
 
     @Test
-    public void createInstanceTest()
-    {
+    public void createInstanceTest() {
         CategoriaFotografica categoria = new CategoriaFotografica();
 
         Assertions.assertNotNull(categoria);
     }
 
     @Test
-    public void setNombreTest()
-    {
+    public void setNombreTest() {
         CategoriaFotografica categoria = new CategoriaFotografica();
         String nombre = "name";
 
@@ -39,8 +36,7 @@ public class CategoriaFotograficaTest {
     }
 
     @Test
-    public void setDescripcionTest()
-    {
+    public void setDescripcionTest() {
         CategoriaFotografica categoria = new CategoriaFotografica();
         String desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris malesuada leo at tellus";
         categoria.setNombreCategoria(desc);
@@ -49,8 +45,7 @@ public class CategoriaFotograficaTest {
     }
 
     @Test
-    public void setDescripcionErrorTest()
-    {
+    public void setDescripcionErrorTest() {
         CategoriaFotografica categoria = new CategoriaFotografica();
         String desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed neque neque. Quisque gravida augue et elementum vulputate. Maecenas mattis in libero id aliquet. Pellentesque dignissim blandit arcu. Nam finibus suscipit tristique. Integer vehicula, mauris suscipit mollis auctor, neque orci pulvinar nulla, nec imperdiet quam augue eu justo. Donec sodales commodo dui. Quisque sed luctus mi. Duis pretium eros sed lorem pharetra aliquet vitae id nisl. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed consectetur faucibus nulla in rhoncus. Sed eros erat, hendrerit ac vehicula in, consectetur vel dui. Aenean luctus aliquet massa a dignissim.";
         categoria.setNombreCategoria(desc);

@@ -3,25 +3,28 @@ package com.figueiras.photocontest.backend.model.entities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class UsuarioTest {
 
     private static Validator validator;
 
     @BeforeAll
-    public static void setUp()
-    {
+    public static void setUp() {
         ValidatorFactory vFactory = Validation.buildDefaultValidatorFactory();
         validator = vFactory.getValidator();
     }
 
     @Test
-    public void crearInstanciaTest()
-    {
+    public void crearInstanciaTest() {
         Usuario usuario = new Usuario();
 
         Assertions.assertNotNull(usuario);
@@ -216,5 +219,33 @@ public class UsuarioTest {
         usuario.setEnlaceFacebookUsuario(enlace);
 
         Assertions.assertFalse(validator.validate(usuario).isEmpty());
+    }
+
+    @Test
+    public void setSeguidores(){
+
+        Usuario usuario = Utilidades.crearUsuario("root");
+        Set<UsuarioSigueUsuario> seguidos = new HashSet<>();
+        UsuarioSigueUsuario usuarioSgue = new UsuarioSigueUsuario();
+        usuarioSgue.setUsuarioSeguido(Utilidades.crearUsuario("pepe"));
+        seguidos.add(usuarioSgue);
+
+        usuario.setUsuariosQueSigue(seguidos);
+
+        Assertions.assertEquals(usuario.getUsuariosQueSigue(), seguidos);
+    }
+
+    @Test
+    public void setUsuariosSeguidos(){
+
+        Usuario usuario = Utilidades.crearUsuario("root");
+        Set<UsuarioSigueUsuario> seguidores = new HashSet<>();
+        UsuarioSigueUsuario usuarioSgue = new UsuarioSigueUsuario();
+        usuarioSgue.setUsuarioSeguido(Utilidades.crearUsuario("pepe"));
+        seguidores.add(usuarioSgue);
+
+        usuario.setUsuariosQueLoSiguen(seguidores);
+
+        Assertions.assertEquals(usuario.getUsuariosQueLoSiguen(), seguidores);
     }
 }

@@ -14,34 +14,30 @@ public class ConcursoTest {
     private static Validator validator;
 
     @BeforeAll
-    public static void setUp()
-    {
+    public static void setUp() {
         ValidatorFactory vFactory = Validation.buildDefaultValidatorFactory();
         validator = vFactory.getValidator();
     }
 
     @Test
-    public void crearInstanciaTest()
-    {
+    public void crearInstanciaTest() {
         Concurso concurso = new Concurso();
 
         Assertions.assertNotNull(concurso);
     }
 
     @Test
-    public void setNombreConcursoTest()
-    {
+    public void setNombreConcursoTest() {
         Concurso concurso = new Concurso();
         String nombre = "nombre";
 
         concurso.setNombreConcurso(nombre);
-        
+
         Assertions.assertEquals(concurso.getNombreConcurso(), nombre);
     }
 
     @Test
-    public void setNombreConcursoLargoTest()
-    {
+    public void setNombreConcursoLargoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setNombreConcurso(Utilidades.CADENA_LARGA);
@@ -50,8 +46,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setDescripcionConcursoTest()
-    {
+    public void setDescripcionConcursoTest() {
         Concurso concurso = new Concurso();
         String desc = "desc";
 
@@ -61,8 +56,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setDescripcionConcursoLargoTest()
-    {
+    public void setDescripcionConcursoLargoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setDescripcionConcurso(Utilidades.CADENA_LARGA);
@@ -71,8 +65,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setEstadoConcursoTest()
-    {
+    public void setEstadoConcursoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setEstadoConcurso(EstadoConcurso.ABIERTO);
@@ -81,8 +74,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setTipoAccesoTest()
-    {
+    public void setTipoAccesoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setTipoAccesoConcurso(TipoAcceso.PRIVADO);
@@ -91,8 +83,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setTipoVotanteTest()
-    {
+    public void setTipoVotanteTest() {
         Concurso concurso = new Concurso();
 
         concurso.setTipoVotanteConcurso(TipoVotante.JURADO);
@@ -101,8 +92,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setTipoVotoTest()
-    {
+    public void setTipoVotoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setTipoVotoConcurso(TipoVoto.CINCO_ESTRELLAS);
@@ -111,8 +101,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setFotoConcursoTest()
-    {
+    public void setFotoConcursoTest() {
         Concurso concurso = new Concurso();
         byte[] byteArr = new byte[20];
         new Random().nextBytes(byteArr);
@@ -123,8 +112,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setCategoriaUnicaTest()
-    {
+    public void setCategoriaUnicaTest() {
         Concurso concurso = new Concurso();
 
         concurso.setCategoriaUnica(Boolean.FALSE);
@@ -133,8 +121,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setMaxFotosUsuarioTest()
-    {
+    public void setMaxFotosUsuarioTest() {
         Concurso concurso = new Concurso();
 
         concurso.setMaxFotosUsuario(5);
@@ -143,8 +130,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setNumGanadoresTest()
-    {
+    public void setNumGanadoresTest() {
         Concurso concurso = new Concurso();
 
         concurso.setNumGanadores(2);
@@ -153,8 +139,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setTituloReqTest()
-    {
+    public void setTituloReqTest() {
         Concurso concurso = new Concurso();
 
         concurso.setTituloReq(Boolean.FALSE);
@@ -163,8 +148,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setDescReqTest()
-    {
+    public void setDescReqTest() {
         Concurso concurso = new Concurso();
 
         concurso.setDescReq(Boolean.FALSE);
@@ -173,8 +157,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setMostrarGanadorasTest()
-    {
+    public void setMostrarGanadorasTest() {
         Concurso concurso = new Concurso();
 
         concurso.setMostrarGanadoras(Boolean.FALSE);
@@ -183,8 +166,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setDatosExifReqTest()
-    {
+    public void setDatosExifReqTest() {
         Concurso concurso = new Concurso();
 
         concurso.setDatosExifReq(Boolean.FALSE);
@@ -193,8 +175,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setLocReqTest()
-    {
+    public void setLocReqTest() {
         Concurso concurso = new Concurso();
 
         concurso.setLocReq(Boolean.FALSE);
@@ -203,8 +184,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setOcultarFotosTest()
-    {
+    public void setOcultarFotosTest() {
         Concurso concurso = new Concurso();
 
         concurso.setOcultarFotos(Boolean.FALSE);
@@ -213,8 +193,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setModeracionTest()
-    {
+    public void setModeracionTest() {
         Concurso concurso = new Concurso();
 
         concurso.setModeracion(Boolean.FALSE);
@@ -223,8 +202,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setFormatoTest()
-    {
+    public void setFormatoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setFormato(FormatoFotografia.JPG);
@@ -233,8 +211,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setOcultarVotosTest()
-    {
+    public void setOcultarVotosTest() {
         Concurso concurso = new Concurso();
 
         concurso.setOcultarVotos(Boolean.FALSE);
@@ -243,8 +220,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setFechaInicioConcursoTest()
-    {
+    public void setFechaInicioConcursoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setFechaInicioConcurso(Utilidades.FECHA_HOY);
@@ -253,8 +229,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setFechaInicioVotacionTest()
-    {
+    public void setFechaInicioVotacionTest() {
         Concurso concurso = new Concurso();
 
         concurso.setFechaInicioVotacion(Utilidades.FECHA_HOY);
@@ -263,8 +238,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setFechaFinConcursoTest()
-    {
+    public void setFechaFinConcursoTest() {
         Concurso concurso = new Concurso();
 
         concurso.setFechaFinConcurso(Utilidades.FECHA_HOY);
@@ -274,8 +248,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void testDescVotacionTest()
-    {
+    public void testDescVotacionTest() {
         Concurso concurso = new Concurso();
 
         concurso.setDescVotacion(Utilidades.CADENA_MEDIA);
@@ -284,8 +257,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void testDescVotacionLargaTest()
-    {
+    public void testDescVotacionLargaTest() {
         Concurso concurso = new Concurso();
 
         concurso.setDescVotacion(Utilidades.CADENA_LARGA);
@@ -294,8 +266,7 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setBasesConcurso()
-    {
+    public void setBasesConcurso() {
         Concurso concurso = new Concurso();
         byte[] byteArr = new byte[20];
         new Random().nextBytes(byteArr);

@@ -15,4 +15,12 @@ public class Utilidades {
     public static String CADENA_MEDIA = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
     public static LocalDateTime FECHA_HOY = LocalDateTime.now();
+
+    public static Usuario crearUsuario(String nombre){
+
+        Usuario usuario = new Usuario();
+        usuario.setNombreUsuario(nombre);
+        return usuario;
+    }
+
 }

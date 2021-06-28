@@ -103,10 +103,9 @@ CREATE TABLE Concurso(
 );
 
 CREATE TABLE UsuarioGustaCategoria(
-    idUsuarioGustaCategoria BIGINT NOT NULL AUTO_INCREMENT,
     idUsuario BIGINT NOT NULL,
     idCategoria BIGINT NOT NULL,
-    CONSTRAINT Usuario_gusta_categoria_pk PRIMARY KEY(idUsuarioGustaCategoria),
+    CONSTRAINT Usuario_gusta_categoria_pk PRIMARY KEY(idUsuario, idCategoria),
     CONSTRAINT Usuario_gusta_categoria_id_usuario_fk
         FOREIGN KEY(idUsuario)
             REFERENCES Usuario(idUsuario),

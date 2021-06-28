@@ -248,4 +248,16 @@ public class UsuarioTest {
 
         Assertions.assertEquals(usuario.getUsuariosQueLoSiguen(), seguidores);
     }
+
+    @Test
+    public void setCategoriasQueLeGustanAlUsuarioTest(){
+        Usuario usuario = Utilidades.crearUsuario("root");
+        CategoriaFotografica categoria = new CategoriaFotografica();
+        Set<CategoriaFotografica> categoriasQueGustan = new HashSet<>();
+        categoriasQueGustan.add(categoria);
+
+        usuario.setCategoriaFotograficasQueLeGustan(categoriasQueGustan);
+
+        Assertions.assertEquals(usuario.getCategoriaFotograficasQueLeGustan(), categoriasQueGustan);
+    }
 }

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CategoriaFotograficaTest {
 
@@ -51,5 +53,17 @@ public class CategoriaFotograficaTest {
         categoria.setNombreCategoria(desc);
 
         Assertions.assertFalse(validator.validate(categoria).isEmpty());
+    }
+
+    @Test
+    public void setUsuariosQueLeGustanCategoriaTest(){
+        Usuario usuario = Utilidades.crearUsuario("root");
+        CategoriaFotografica categoria = new CategoriaFotografica();
+        Set<Usuario> usuariosQueGustanCategoria = new HashSet<>();
+        usuariosQueGustanCategoria.add(usuario);
+
+        categoria.setUsuariosALosQueLesGusta(usuariosQueGustanCategoria);
+
+        Assertions.assertEquals(categoria.getUsuariosALosQueLesGusta(), usuariosQueGustanCategoria);
     }
 }

@@ -26,10 +26,12 @@ public class Usuario {
     private String enlaceTwitterUsuario;
     @Size(max = 200)
     private String enlaceFacebookUsuario;
-    @OneToMany(mappedBy="usuarioSeguidor")
+
     private Set<UsuarioSigueUsuario> usuariosQueSigue;
-    @OneToMany(mappedBy="usuarioSeguido")
+
     private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
+
+    private Set<CategoriaFotografica> categoriaFotograficasQueLeGustan;
 
     public Usuario() {
     }
@@ -108,6 +110,7 @@ public class Usuario {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
     }
 
+    @OneToMany(mappedBy="usuarioSeguidor", fetch = FetchType.LAZY)
     public Set<UsuarioSigueUsuario> getUsuariosQueSigue() {
         return usuariosQueSigue;
     }
@@ -116,6 +119,7 @@ public class Usuario {
         this.usuariosQueSigue = usuariosQueSigue;
     }
 
+    @OneToMany(mappedBy="usuarioSeguido", fetch = FetchType.LAZY)
     public Set<UsuarioSigueUsuario> getUsuariosQueLoSiguen() {
         return usuariosQueLoSiguen;
     }
@@ -123,4 +127,20 @@ public class Usuario {
     public void setUsuariosQueLoSiguen(Set<UsuarioSigueUsuario> usuariosQueLoSiguen) {
         this.usuariosQueLoSiguen = usuariosQueLoSiguen;
     }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "UsuarioGustaCategoria",
+            joinColumns = {@JoinColumn(name = "idUsuario")},
+            inverseJoinColumns = {@JoinColumn(name = "idCategoria")}
+
+    )
+    public Set<CategoriaFotografica> getCategoriaFotograficasQueLeGustan() {
+        return categoriaFotograficasQueLeGustan;
+    }
+
+    public void setCategoriaFotograficasQueLeGustan(Set<CategoriaFotografica> categoriaFotograficasQueLeGustan) {
+        this.categoriaFotograficasQueLeGustan = categoriaFotograficasQueLeGustan;
+    }
+
+
 }

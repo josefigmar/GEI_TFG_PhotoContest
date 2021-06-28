@@ -13,6 +13,7 @@ public class CategoriaFotografica {
     @Size(min = 1, max = 200)
     private String descripcion;
     private Set<Usuario> usuariosALosQueLesGusta;
+    private Set<Concurso> concursosEnDondeSeUsa;
 
     public CategoriaFotografica() {
     }
@@ -56,5 +57,20 @@ public class CategoriaFotografica {
 
     public void setUsuariosALosQueLesGusta(Set<Usuario> usuariosALosQueLesGusta) {
         this.usuariosALosQueLesGusta = usuariosALosQueLesGusta;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "ConcursoPermiteCategoria",
+            joinColumns = {@JoinColumn(name = "idCategoria")},
+            inverseJoinColumns = {@JoinColumn(name = "idConcurso")}
+
+    )
+    public Set<Concurso> getConcursosEnDondeSeUsa() {
+        return concursosEnDondeSeUsa;
+    }
+
+    public void setConcursosEnDondeSeUsa(Set<Concurso> concursosEnDondeSeUsa) {
+        this.concursosEnDondeSeUsa = concursosEnDondeSeUsa;
     }
 }

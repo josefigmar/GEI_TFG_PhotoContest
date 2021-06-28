@@ -66,4 +66,16 @@ public class CategoriaFotograficaTest {
 
         Assertions.assertEquals(categoria.getUsuariosALosQueLesGusta(), usuariosQueGustanCategoria);
     }
+
+    @Test
+    public void setConcursosEnDondeSeUsaTest(){
+        Concurso concurso = new Concurso();
+        CategoriaFotografica categoria = new CategoriaFotografica();
+        Set<Concurso> concursos = new HashSet<>();
+        concursos.add(concurso);
+
+        categoria.setConcursosEnDondeSeUsa(concursos);
+
+        Assertions.assertEquals(categoria.getConcursosEnDondeSeUsa(), concursos);
+    }
 }

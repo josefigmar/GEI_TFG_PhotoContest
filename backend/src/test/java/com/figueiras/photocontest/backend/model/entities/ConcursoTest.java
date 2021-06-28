@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class ConcursoTest {
 
@@ -274,5 +276,17 @@ public class ConcursoTest {
         concurso.setBasesConcurso(byteArr);
 
         Assertions.assertEquals(concurso.getBasesConcurso(), byteArr);
+    }
+
+    @Test
+    public void setCategoriasPermitidas(){
+        Concurso concurso = new Concurso();
+        CategoriaFotografica categoria = new CategoriaFotografica();
+        Set<CategoriaFotografica> categorias = new HashSet<>();
+        categorias.add(categoria);
+
+        concurso.setCategoriasPermitidas(categorias);
+
+        Assertions.assertEquals(concurso.getCategoriasPermitidas(), categorias);
     }
 }

@@ -3,6 +3,7 @@ package com.figueiras.photocontest.backend.model.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 public class Concurso {
@@ -16,8 +17,6 @@ public class Concurso {
     private TipoAcceso tipoAccesoConcurso;
     private TipoVotante tipoVotanteConcurso;
     private TipoVoto tipoVotoConcurso;
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] fotoConcurso;
     private Boolean categoriaUnica;
     private Integer maxFotosUsuario;
@@ -36,9 +35,8 @@ public class Concurso {
     private LocalDateTime fechaFinConcurso;
     @Size(max = 500)
     private String descVotacion;
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] basesConcurso;
+    private Set<CategoriaFotografica> categoriasPermitidas;
 
     public Concurso() {
     }
@@ -101,6 +99,8 @@ public class Concurso {
         this.tipoVotoConcurso = tipoVotoConcurso;
     }
 
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
     public byte[] getFotoConcurso() {
         return fotoConcurso;
     }
@@ -237,11 +237,28 @@ public class Concurso {
         this.descVotacion = descVotacion;
     }
 
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
     public byte[] getBasesConcurso() {
         return basesConcurso;
     }
 
     public void setBasesConcurso(byte[] basesConcurso) {
         this.basesConcurso = basesConcurso;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "ConcursoPermiteCategoria",
+            joinColumns = {@JoinColumn(name = "idConcurso")},
+            inverseJoinColumns = {@JoinColumn(name = "idCategoria")}
+
+    )
+    public Set<CategoriaFotografica> getCategoriasPermitidas() {
+        return categoriasPermitidas;
+    }
+
+    public void setCategoriasPermitidas(Set<CategoriaFotografica> categoriasPermitidas) {
+        this.categoriasPermitidas = categoriasPermitidas;
     }
 }

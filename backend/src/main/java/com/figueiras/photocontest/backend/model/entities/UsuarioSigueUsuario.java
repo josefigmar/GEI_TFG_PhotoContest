@@ -15,6 +15,7 @@ public class UsuarioSigueUsuario {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getIdUsuarioSigueUsuario() {
         return idUsuarioSigueUsuario;
     }

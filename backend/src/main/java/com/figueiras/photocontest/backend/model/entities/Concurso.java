@@ -1,9 +1,6 @@
 package com.figueiras.photocontest.backend.model.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -47,6 +44,7 @@ public class Concurso {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getIdConcurso() {
         return idConcurso;
     }

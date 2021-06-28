@@ -103,9 +103,10 @@ CREATE TABLE Concurso(
 );
 
 CREATE TABLE UsuarioGustaCategoria(
+    idUsuarioGustaCategoria BIGINT NOT NULL AUTO_INCREMENT,
     idUsuario BIGINT NOT NULL,
     idCategoria BIGINT NOT NULL,
-    CONSTRAINT Usuario_gusta_categoria_pk PRIMARY KEY(idUsuario, idCategoria),
+    CONSTRAINT Usuario_gusta_categoria_pk PRIMARY KEY(idUsuarioGustaCategoria),
     CONSTRAINT Usuario_gusta_categoria_id_usuario_fk
         FOREIGN KEY(idUsuario)
             REFERENCES Usuario(idUsuario),
@@ -115,11 +116,11 @@ CREATE TABLE UsuarioGustaCategoria(
 );
 
 CREATE TABLE UsuarioSigueUsuario(
+    idUsuarioSigueUsuario BIGINT NOT NULL AUTO_INCREMENT,
     idUsuarioSeguidor BIGINT NOT NULL,
     idUsuarioSeguido BIGINT NOT NULL,
     fechaSeguida DATETIME,
-    CONSTRAINT Usuario_sigue_usuario_pk
-        PRIMARY KEY(idUsuarioSeguidor,idUsuarioSeguido),
+    CONSTRAINT Usuario_sigue_usuario_pk PRIMARY KEY(idUsuarioSigueUsuario),
     CONSTRAINT Usuario_sigue_usuario_id_usuario_seguidor_fk
         FOREIGN KEY(idUsuarioSeguidor)
             REFERENCES Usuario(idUsuario),
@@ -131,7 +132,8 @@ CREATE TABLE UsuarioSigueUsuario(
 CREATE TABLE ConcursoPermiteCategoria(
     idConcurso BIGINT NOT NULL,
     idCategoria BIGINT NOT NULL,
-    CONSTRAINT Concurso_permite_categoria_pk PRIMARY KEY(idConcurso, idCategoria),
+    CONSTRAINT Concurso_permite_categoria_pk
+        PRIMARY KEY(idConcurso, idCategoria),
     CONSTRAINT Concurso_permite_categoria_id_concurso_fk
         FOREIGN KEY(idConcurso)
             REFERENCES Concurso(idConcurso),
@@ -145,7 +147,8 @@ CREATE TABLE UsuarioParticipaConcurso(
     idConcurso BIGINT NOT NULL,
     rol INT,
     fechaInicioParticipacion DATETIME,
-    CONSTRAINT Usuario_participa_concurso_pk PRIMARY KEY(idUsuario, idConcurso),
+    CONSTRAINT Usuario_participa_concurso_pk
+        PRIMARY KEY(idUsuario, idConcurso),
     CONSTRAINT Usuario_participa_concurso_id_usuario_fk
         FOREIGN KEY(idUsuario)
             REFERENCES Usuario(idUsuario),

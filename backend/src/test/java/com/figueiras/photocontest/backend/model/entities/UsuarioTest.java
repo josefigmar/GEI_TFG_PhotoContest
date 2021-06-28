@@ -260,4 +260,16 @@ public class UsuarioTest {
 
         Assertions.assertEquals(usuario.getCategoriaFotograficasQueLeGustan(), categoriasQueGustan);
     }
+
+    @Test
+    public void setNotificacionesUsuarioTest(){
+        Usuario usuario = Utilidades.crearUsuario("root");
+        Notificacion notificacion = new Notificacion();
+        Set<Notificacion> notificaciones = new HashSet<>();
+        notificaciones.add(notificacion);
+
+        usuario.setNotificacionesUsuario(notificaciones);
+
+        Assertions.assertEquals(usuario.getNotificacionesUsuario(), notificaciones);
+    }
 }

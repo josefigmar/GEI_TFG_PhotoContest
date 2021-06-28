@@ -26,12 +26,10 @@ public class Usuario {
     private String enlaceTwitterUsuario;
     @Size(max = 200)
     private String enlaceFacebookUsuario;
-
     private Set<UsuarioSigueUsuario> usuariosQueSigue;
-
     private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
-
     private Set<CategoriaFotografica> categoriaFotograficasQueLeGustan;
+    private Set<Notificacion> notificacionesUsuario;
 
     public Usuario() {
     }
@@ -142,5 +140,12 @@ public class Usuario {
         this.categoriaFotograficasQueLeGustan = categoriaFotograficasQueLeGustan;
     }
 
+    @OneToMany(mappedBy = "usuario")
+    public Set<Notificacion> getNotificacionesUsuario() {
+        return notificacionesUsuario;
+    }
 
+    public void setNotificacionesUsuario(Set<Notificacion> notificacionesUsuario) {
+        this.notificacionesUsuario = notificacionesUsuario;
+    }
 }

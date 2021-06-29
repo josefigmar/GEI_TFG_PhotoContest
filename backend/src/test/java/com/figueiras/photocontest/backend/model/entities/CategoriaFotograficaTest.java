@@ -57,7 +57,7 @@ public class CategoriaFotograficaTest {
 
     @Test
     public void setUsuariosQueLeGustanCategoriaTest(){
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
         CategoriaFotografica categoria = new CategoriaFotografica();
         Set<Usuario> usuariosQueGustanCategoria = new HashSet<>();
         usuariosQueGustanCategoria.add(usuario);

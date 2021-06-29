@@ -2,7 +2,7 @@ package com.figueiras.photocontest.backend.model.entities;
 
 import java.time.LocalDateTime;
 
-public class Utilidades {
+public class UtilidadesParaPruebas {
 
     public static String CADENA_LARGA = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed neque " +
             "neque. Quisque gravida augue et elementum vulputate. Maecenas mattis in libero id aliquet. Pellentesque " +

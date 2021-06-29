@@ -30,16 +30,16 @@ public class FotografiaTest {
     public void setTituloFotografiaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setTituloFotografia(Utilidades.CADENA_MEDIA);
+        fotografia.setTituloFotografia(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getTituloFotografia(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getTituloFotografia(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setTituloFotografiaLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setTituloFotografia(Utilidades.CADENA_LARGA);
+        fotografia.setTituloFotografia(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -48,16 +48,16 @@ public class FotografiaTest {
     public void setDescripcionFotografiaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setDescripcionFotografia(Utilidades.CADENA_MEDIA);
+        fotografia.setDescripcionFotografia(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getDescripcionFotografia(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getDescripcionFotografia(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setDescripcionFotografiaLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setDescripcionFotografia(Utilidades.CADENA_LARGA);
+        fotografia.setDescripcionFotografia(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -66,16 +66,16 @@ public class FotografiaTest {
     public void setAperturaFotografiaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setAperturaDiafragma(Utilidades.CADENA_MEDIA);
+        fotografia.setAperturaDiafragma(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getAperturaDiafragma(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getAperturaDiafragma(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setAperturaFotografiaLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setAperturaDiafragma(Utilidades.CADENA_LARGA);
+        fotografia.setAperturaDiafragma(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -84,16 +84,16 @@ public class FotografiaTest {
     public void setFabricanteCamaraTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setFabricanteCamara(Utilidades.CADENA_MEDIA);
+        fotografia.setFabricanteCamara(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getFabricanteCamara(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getFabricanteCamara(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setFabricanteCamaraLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setFabricanteCamara(Utilidades.CADENA_LARGA);
+        fotografia.setFabricanteCamara(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -102,16 +102,16 @@ public class FotografiaTest {
     public void setModeloCamaraTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setModeloCamara(Utilidades.CADENA_MEDIA);
+        fotografia.setModeloCamara(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getModeloCamara(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getModeloCamara(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setModeloCamaraLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setModeloCamara(Utilidades.CADENA_LARGA);
+        fotografia.setModeloCamara(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -120,16 +120,16 @@ public class FotografiaTest {
     public void setDistanciaFocalTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setDistanciaFocal(Utilidades.CADENA_MEDIA);
+        fotografia.setDistanciaFocal(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getDistanciaFocal(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getDistanciaFocal(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setDistanciaFocalLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setDistanciaFocal(Utilidades.CADENA_LARGA);
+        fotografia.setDistanciaFocal(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -138,16 +138,16 @@ public class FotografiaTest {
     public void setVelocidadObturacionTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setVelocidadObturacion(Utilidades.CADENA_MEDIA);
+        fotografia.setVelocidadObturacion(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getVelocidadObturacion(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getVelocidadObturacion(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setVelocidadObturacionLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setVelocidadObturacion(Utilidades.CADENA_LARGA);
+        fotografia.setVelocidadObturacion(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -156,16 +156,16 @@ public class FotografiaTest {
     public void setIsoTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setIso(Utilidades.CADENA_MEDIA);
+        fotografia.setIso(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getIso(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getIso(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setIsoLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setIso(Utilidades.CADENA_LARGA);
+        fotografia.setIso(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -174,16 +174,16 @@ public class FotografiaTest {
     public void setResolucionTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setResolucion(Utilidades.CADENA_MEDIA);
+        fotografia.setResolucion(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getResolucion(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(fotografia.getResolucion(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setResolucionLargaTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setResolucion(Utilidades.CADENA_LARGA);
+        fotografia.setResolucion(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(fotografia).isEmpty());
     }
@@ -214,9 +214,9 @@ public class FotografiaTest {
     public void setFechaInicioParticipacionTest(){
         Fotografia fotografia = new Fotografia();
 
-        fotografia.setFechaInicioParticipacion(Utilidades.FECHA_HOY);
+        fotografia.setFechaInicioParticipacion(UtilidadesParaPruebas.FECHA_HOY);
 
-        Assertions.assertEquals(fotografia.getFechaInicioParticipacion(), Utilidades.FECHA_HOY);
+        Assertions.assertEquals(fotografia.getFechaInicioParticipacion(), UtilidadesParaPruebas.FECHA_HOY);
     }
 
     @Test
@@ -241,7 +241,7 @@ public class FotografiaTest {
     @Test
     public void setUsuarioTest(){
         Fotografia fotografia = new Fotografia();
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
 
         fotografia.setUsuario(usuario);
 

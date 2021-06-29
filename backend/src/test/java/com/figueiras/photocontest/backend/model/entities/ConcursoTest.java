@@ -42,7 +42,7 @@ public class ConcursoTest {
     public void setNombreConcursoLargoTest() {
         Concurso concurso = new Concurso();
 
-        concurso.setNombreConcurso(Utilidades.CADENA_LARGA);
+        concurso.setNombreConcurso(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(concurso).isEmpty());
     }
@@ -61,7 +61,7 @@ public class ConcursoTest {
     public void setDescripcionConcursoLargoTest() {
         Concurso concurso = new Concurso();
 
-        concurso.setDescripcionConcurso(Utilidades.CADENA_LARGA);
+        concurso.setDescripcionConcurso(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(concurso).isEmpty());
     }
@@ -225,27 +225,37 @@ public class ConcursoTest {
     public void setFechaInicioConcursoTest() {
         Concurso concurso = new Concurso();
 
-        concurso.setFechaInicioConcurso(Utilidades.FECHA_HOY);
+        concurso.setFechaInicioConcurso(UtilidadesParaPruebas.FECHA_HOY);
 
-        Assertions.assertEquals(concurso.getFechaInicioConcurso(), Utilidades.FECHA_HOY);
+        Assertions.assertEquals(concurso.getFechaInicioConcurso(), UtilidadesParaPruebas.FECHA_HOY);
     }
 
     @Test
     public void setFechaInicioVotacionTest() {
         Concurso concurso = new Concurso();
 
-        concurso.setFechaInicioVotacion(Utilidades.FECHA_HOY);
+        concurso.setFechaInicioVotacion(UtilidadesParaPruebas.FECHA_HOY);
 
-        Assertions.assertEquals(concurso.getFechaInicioVotacion(), Utilidades.FECHA_HOY);
+        Assertions.assertEquals(concurso.getFechaInicioVotacion(), UtilidadesParaPruebas.FECHA_HOY);
+    }
+
+    @Test
+    public void setFechaCreacionConcursoTest() {
+        Concurso concurso = new Concurso();
+
+        concurso.setFechaCreacion(UtilidadesParaPruebas.FECHA_HOY);
+
+        Assertions.assertEquals(concurso.getFechaCreacion(), UtilidadesParaPruebas.FECHA_HOY);
+
     }
 
     @Test
     public void setFechaFinConcursoTest() {
         Concurso concurso = new Concurso();
 
-        concurso.setFechaFinConcurso(Utilidades.FECHA_HOY);
+        concurso.setFechaFinConcurso(UtilidadesParaPruebas.FECHA_HOY);
 
-        Assertions.assertEquals(concurso.getFechaFinConcurso(), Utilidades.FECHA_HOY);
+        Assertions.assertEquals(concurso.getFechaFinConcurso(), UtilidadesParaPruebas.FECHA_HOY);
 
     }
 
@@ -253,16 +263,16 @@ public class ConcursoTest {
     public void testDescVotacionTest() {
         Concurso concurso = new Concurso();
 
-        concurso.setDescVotacion(Utilidades.CADENA_MEDIA);
+        concurso.setDescVotacion(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(concurso.getDescVotacion(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(concurso.getDescVotacion(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void testDescVotacionLargaTest() {
         Concurso concurso = new Concurso();
 
-        concurso.setDescVotacion(Utilidades.CADENA_LARGA);
+        concurso.setDescVotacion(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(concurso).isEmpty());
     }

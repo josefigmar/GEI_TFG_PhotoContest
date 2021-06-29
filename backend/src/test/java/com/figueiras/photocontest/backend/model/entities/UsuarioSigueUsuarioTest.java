@@ -3,8 +3,6 @@ package com.figueiras.photocontest.backend.model.entities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
 public class UsuarioSigueUsuarioTest {
 
     @Test
@@ -18,7 +16,7 @@ public class UsuarioSigueUsuarioTest {
     @Test
     public void setUsuarioSeguidorTest() {
 
-        Usuario usuarioSeguidor = Utilidades.crearUsuario("seguidor");
+        Usuario usuarioSeguidor = UtilidadesParaPruebas.crearUsuario("seguidor");
         UsuarioSigueUsuario usuarioSigueUsuario = new UsuarioSigueUsuario();
 
         usuarioSigueUsuario.setUsuarioSeguidor(usuarioSeguidor);
@@ -29,7 +27,7 @@ public class UsuarioSigueUsuarioTest {
     @Test
     public void setUsuarioSeguidoTest() {
 
-        Usuario usuarioSeguido = Utilidades.crearUsuario("seguido");
+        Usuario usuarioSeguido = UtilidadesParaPruebas.crearUsuario("seguido");
         UsuarioSigueUsuario usuarioSigueUsuario = new UsuarioSigueUsuario();
 
         usuarioSigueUsuario.setUsuarioSeguido(usuarioSeguido);
@@ -42,8 +40,8 @@ public class UsuarioSigueUsuarioTest {
 
         UsuarioSigueUsuario usuarioSigueUsuario = new UsuarioSigueUsuario();
 
-        usuarioSigueUsuario.setFechaSeguida(Utilidades.FECHA_HOY);
+        usuarioSigueUsuario.setFechaSeguida(UtilidadesParaPruebas.FECHA_HOY);
 
-        Assertions.assertEquals(usuarioSigueUsuario.getFechaSeguida(), Utilidades.FECHA_HOY);
+        Assertions.assertEquals(usuarioSigueUsuario.getFechaSeguida(), UtilidadesParaPruebas.FECHA_HOY);
     }
 }

@@ -30,6 +30,7 @@ public class Concurso {
     private FormatoFotografia formato;
     private Boolean OcultarVotos;
     private Boolean mostrarGanadoras;
+    private LocalDateTime fechaCreacion;
     private LocalDateTime fechaInicioConcurso;
     private LocalDateTime fechaInicioVotacion;
     private LocalDateTime fechaFinConcurso;
@@ -270,5 +271,13 @@ public class Concurso {
 
     public void setUsuariosQueParticipan(Set<UsuarioParticipaConcurso> usuariosQueParticipan) {
         this.usuariosQueParticipan = usuariosQueParticipan;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

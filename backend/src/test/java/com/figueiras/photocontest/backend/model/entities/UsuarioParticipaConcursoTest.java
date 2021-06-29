@@ -15,7 +15,7 @@ public class UsuarioParticipaConcursoTest {
     @Test
     public void setUsuarioTest(){
         UsuarioParticipaConcurso usuarioParticipaConcurso = new UsuarioParticipaConcurso();
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
 
         usuarioParticipaConcurso.setUsuario(usuario);
 
@@ -45,8 +45,8 @@ public class UsuarioParticipaConcursoTest {
     public void setFechaTest(){
         UsuarioParticipaConcurso usuarioParticipaConcurso = new UsuarioParticipaConcurso();
 
-        usuarioParticipaConcurso.setFechaInicioParticipacion(Utilidades.FECHA_HOY);
+        usuarioParticipaConcurso.setFechaInicioParticipacion(UtilidadesParaPruebas.FECHA_HOY);
 
-        Assertions.assertEquals(usuarioParticipaConcurso.getFechaInicioParticipacion(), Utilidades.FECHA_HOY);
+        Assertions.assertEquals(usuarioParticipaConcurso.getFechaInicioParticipacion(), UtilidadesParaPruebas.FECHA_HOY);
     }
 }

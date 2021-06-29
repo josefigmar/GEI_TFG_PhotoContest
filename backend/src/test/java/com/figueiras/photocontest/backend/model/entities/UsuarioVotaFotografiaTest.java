@@ -15,7 +15,7 @@ public class UsuarioVotaFotografiaTest {
     @Test
     public void setUsuarioTest(){
         UsuarioVotaFotografia usuarioVotaFotografia = new UsuarioVotaFotografia();
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
 
         usuarioVotaFotografia.setUsuario(usuario);
 
@@ -36,9 +36,9 @@ public class UsuarioVotaFotografiaTest {
     public void setFechaVotoTest(){
         UsuarioVotaFotografia usuarioVotaFotografia = new UsuarioVotaFotografia();
 
-        usuarioVotaFotografia.setFechaVoto(Utilidades.FECHA_HOY);
+        usuarioVotaFotografia.setFechaVoto(UtilidadesParaPruebas.FECHA_HOY);
 
-        Assertions.assertEquals(usuarioVotaFotografia.getFechaVoto(), Utilidades.FECHA_HOY);
+        Assertions.assertEquals(usuarioVotaFotografia.getFechaVoto(), UtilidadesParaPruebas.FECHA_HOY);
     }
 
     @Test

@@ -3,14 +3,11 @@ package com.figueiras.photocontest.backend.model.entities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.web.HateoasPageableHandlerMethodArgumentResolver;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class UsuarioTest {
@@ -43,7 +40,7 @@ public class UsuarioTest {
     @Test
     public void setNombreCortoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.CADENA_VACIA;
+        String nombre = UtilidadesParaPruebas.CADENA_VACIA;
 
         usuario.setNombreUsuario(nombre);
 
@@ -53,7 +50,7 @@ public class UsuarioTest {
     @Test
     public void setNombreLargoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.CADENA_LARGA;
+        String nombre = UtilidadesParaPruebas.CADENA_LARGA;
 
         usuario.setNombreUsuario(nombre);
 
@@ -73,7 +70,7 @@ public class UsuarioTest {
     @Test
     public void setNombrePilaCortoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.CADENA_VACIA;
+        String nombre = UtilidadesParaPruebas.CADENA_VACIA;
 
         usuario.setNombrePilaUsuario(nombre);
 
@@ -83,7 +80,7 @@ public class UsuarioTest {
     @Test
     public void setNombrePilaLargoTest() {
         Usuario usuario = new Usuario();
-        String nombre = Utilidades.CADENA_LARGA;
+        String nombre = UtilidadesParaPruebas.CADENA_LARGA;
 
         usuario.setNombrePilaUsuario(nombre);
 
@@ -103,7 +100,7 @@ public class UsuarioTest {
     @Test
     public void setApellidosInferiorTamanoTest() {
         Usuario usuario = new Usuario();
-        String apellidos = Utilidades.CADENA_VACIA;
+        String apellidos = UtilidadesParaPruebas.CADENA_VACIA;
 
         usuario.setApellidosUsuario(apellidos);
 
@@ -123,7 +120,7 @@ public class UsuarioTest {
     @Test
     public void setBiografiaSuperaTamanoTest() {
         Usuario usuario = new Usuario();
-        String biografia = Utilidades.CADENA_LARGA;
+        String biografia = UtilidadesParaPruebas.CADENA_LARGA;
 
         usuario.setBiografiaUsuario(biografia);
 
@@ -163,7 +160,7 @@ public class UsuarioTest {
     @Test
     public void setContrasenaCortaTest() {
         Usuario usuario = new Usuario();
-        String contrasena = Utilidades.CADENA_VACIA;
+        String contrasena = UtilidadesParaPruebas.CADENA_VACIA;
 
         usuario.setContrasenaUsuario(contrasena);
 
@@ -173,7 +170,7 @@ public class UsuarioTest {
     @Test
     public void setContrasenaLargaTest() {
         Usuario usuario = new Usuario();
-        String contrasena = Utilidades.CADENA_LARGA;
+        String contrasena = UtilidadesParaPruebas.CADENA_LARGA;
 
         usuario.setContrasenaUsuario(contrasena);
 
@@ -194,7 +191,7 @@ public class UsuarioTest {
     @Test
     public void setEnlaceTwitterLargoTest() {
         Usuario usuario = new Usuario();
-        String enlace = Utilidades.CADENA_LARGA;
+        String enlace = UtilidadesParaPruebas.CADENA_LARGA;
 
         usuario.setEnlaceTwitterUsuario(enlace);
 
@@ -214,7 +211,7 @@ public class UsuarioTest {
     @Test
     public void setEnlaceFacebookLargoTest() {
         Usuario usuario = new Usuario();
-        String enlace = Utilidades.CADENA_LARGA;
+        String enlace = UtilidadesParaPruebas.CADENA_LARGA;
 
         usuario.setEnlaceFacebookUsuario(enlace);
 
@@ -224,10 +221,10 @@ public class UsuarioTest {
     @Test
     public void setSeguidores(){
 
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
         Set<UsuarioSigueUsuario> seguidos = new HashSet<>();
         UsuarioSigueUsuario usuarioSgue = new UsuarioSigueUsuario();
-        usuarioSgue.setUsuarioSeguido(Utilidades.crearUsuario("pepe"));
+        usuarioSgue.setUsuarioSeguido(UtilidadesParaPruebas.crearUsuario("pepe"));
         seguidos.add(usuarioSgue);
 
         usuario.setUsuariosQueSigue(seguidos);
@@ -238,10 +235,10 @@ public class UsuarioTest {
     @Test
     public void setUsuariosSeguidos(){
 
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
         Set<UsuarioSigueUsuario> seguidores = new HashSet<>();
         UsuarioSigueUsuario usuarioSgue = new UsuarioSigueUsuario();
-        usuarioSgue.setUsuarioSeguido(Utilidades.crearUsuario("pepe"));
+        usuarioSgue.setUsuarioSeguido(UtilidadesParaPruebas.crearUsuario("pepe"));
         seguidores.add(usuarioSgue);
 
         usuario.setUsuariosQueLoSiguen(seguidores);
@@ -251,7 +248,7 @@ public class UsuarioTest {
 
     @Test
     public void setCategoriasQueLeGustanAlUsuarioTest(){
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
         CategoriaFotografica categoria = new CategoriaFotografica();
         Set<CategoriaFotografica> categoriasQueGustan = new HashSet<>();
         categoriasQueGustan.add(categoria);
@@ -263,7 +260,7 @@ public class UsuarioTest {
 
     @Test
     public void setNotificacionesUsuarioTest(){
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
         Notificacion notificacion = new Notificacion();
         Set<Notificacion> notificaciones = new HashSet<>();
         notificaciones.add(notificacion);

@@ -29,7 +29,7 @@ public class NotificacionTest {
     public void setNombreNotificacionCortoTest(){
         Notificacion notificacion = new Notificacion();
 
-        notificacion.setNombreNotificacion(Utilidades.CADENA_VACIA);
+        notificacion.setNombreNotificacion(UtilidadesParaPruebas.CADENA_VACIA);
 
         Assertions.assertFalse(validator.validate(notificacion).isEmpty());
     }
@@ -38,16 +38,16 @@ public class NotificacionTest {
     public void setNombreNotificacionTest(){
         Notificacion notificacion = new Notificacion();
 
-        notificacion.setNombreNotificacion(Utilidades.CADENA_MEDIA);
+        notificacion.setNombreNotificacion(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(notificacion.getNombreNotificacion(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(notificacion.getNombreNotificacion(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setNombreNotificacionLargaTest(){
         Notificacion notificacion = new Notificacion();
 
-        notificacion.setNombreNotificacion(Utilidades.CADENA_LARGA);
+        notificacion.setNombreNotificacion(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(notificacion).isEmpty());
     }
@@ -56,7 +56,7 @@ public class NotificacionTest {
     public void setDescripcionNotificacionCortaTest(){
         Notificacion notificacion = new Notificacion();
 
-        notificacion.setMensajeNotificacion(Utilidades.CADENA_VACIA);
+        notificacion.setMensajeNotificacion(UtilidadesParaPruebas.CADENA_VACIA);
 
         Assertions.assertFalse(validator.validate(notificacion).isEmpty());
     }
@@ -65,16 +65,16 @@ public class NotificacionTest {
     public void setDescripcionNotificacionTest(){
         Notificacion notificacion = new Notificacion();
 
-        notificacion.setMensajeNotificacion(Utilidades.CADENA_MEDIA);
+        notificacion.setMensajeNotificacion(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(notificacion.getMensajeNotificacion(), Utilidades.CADENA_MEDIA);
+        Assertions.assertEquals(notificacion.getMensajeNotificacion(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setDescripcionNotificacionLargaTest(){
         Notificacion notificacion = new Notificacion();
 
-        notificacion.setMensajeNotificacion(Utilidades.CADENA_LARGA);
+        notificacion.setMensajeNotificacion(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(notificacion).isEmpty());
     }
@@ -82,7 +82,7 @@ public class NotificacionTest {
     @Test
     public void setUsuarioTest(){
         Notificacion notificacion = new Notificacion();
-        Usuario usuario = Utilidades.crearUsuario("root");
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
 
         notificacion.setUsuario(usuario);
 

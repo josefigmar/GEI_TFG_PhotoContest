@@ -37,6 +37,7 @@ public class Concurso {
     private String descVotacion;
     private byte[] basesConcurso;
     private Set<CategoriaFotografica> categoriasPermitidas;
+    private Set<UsuarioParticipaConcurso> usuariosQueParticipan;
 
     public Concurso() {
     }
@@ -260,5 +261,14 @@ public class Concurso {
 
     public void setCategoriasPermitidas(Set<CategoriaFotografica> categoriasPermitidas) {
         this.categoriasPermitidas = categoriasPermitidas;
+    }
+
+    @OneToMany(mappedBy = "concurso")
+    public Set<UsuarioParticipaConcurso> getUsuariosQueParticipan() {
+        return usuariosQueParticipan;
+    }
+
+    public void setUsuariosQueParticipan(Set<UsuarioParticipaConcurso> usuariosQueParticipan) {
+        this.usuariosQueParticipan = usuariosQueParticipan;
     }
 }

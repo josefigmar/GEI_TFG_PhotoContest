@@ -30,6 +30,7 @@ public class Usuario {
     private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
     private Set<CategoriaFotografica> categoriaFotograficasQueLeGustan;
     private Set<Notificacion> notificacionesUsuario;
+    private Set<UsuarioParticipaConcurso> concursosEnLosQueParticipa;
 
     public Usuario() {
     }
@@ -147,5 +148,14 @@ public class Usuario {
 
     public void setNotificacionesUsuario(Set<Notificacion> notificacionesUsuario) {
         this.notificacionesUsuario = notificacionesUsuario;
+    }
+
+    @OneToMany(mappedBy = "usuario")
+    public Set<UsuarioParticipaConcurso> getConcursosEnLosQueParticipa() {
+        return concursosEnLosQueParticipa;
+    }
+
+    public void setConcursosEnLosQueParticipa(Set<UsuarioParticipaConcurso> concursosEnLosQueParticipa) {
+        this.concursosEnLosQueParticipa = concursosEnLosQueParticipa;
     }
 }

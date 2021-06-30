@@ -1,4 +1,4 @@
-package com.figueiras.photocontest.backend.model.entities.Daos;
+package com.figueiras.photocontest.backend.model.entities;
 
 import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcurso;
 import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcursoPK;

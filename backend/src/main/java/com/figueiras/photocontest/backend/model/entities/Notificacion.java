@@ -51,7 +51,7 @@ public class Notificacion {
         this.fechaCreacion = fechaCreacion;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "idUsuario")
     public Usuario getUsuario() {
         return usuario;

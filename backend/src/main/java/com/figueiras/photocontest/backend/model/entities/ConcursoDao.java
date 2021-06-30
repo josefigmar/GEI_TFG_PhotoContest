@@ -1,12 +1,13 @@
-package com.figueiras.photocontest.backend.model.entities.Daos;
+package com.figueiras.photocontest.backend.model.entities;
 
-import com.figueiras.photocontest.backend.model.entities.Concurso;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ConcursoDao extends PagingAndSortingRepository<Concurso, Long>, CustomizedConcursoDao {
 
-    Slice<Concurso> findAllByOrderByFechaCreacionAsc(Pageable pageable);
+    @Query("SELECT c FROM Concurso c ORDER BY c.fechaCreacion ASC")
+    Slice<Concurso> buscarConcursosOrdenarPorFechaCreacion(Pageable pageable);
 
 }

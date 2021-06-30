@@ -1,4 +1,4 @@
-package com.figueiras.photocontest.backend.model.entities.Daos;
+package com.figueiras.photocontest.backend.model.entities;
 
 import com.figueiras.photocontest.backend.model.entities.Fotografia;
 import org.springframework.data.repository.PagingAndSortingRepository;

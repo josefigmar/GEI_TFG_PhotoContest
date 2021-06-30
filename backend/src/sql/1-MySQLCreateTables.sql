@@ -93,6 +93,7 @@ CREATE TABLE Concurso(
     formato INT,
     ocultarVotos TINYINT,
     mostrarGanadoras TINYINT,
+    fechaCreacion DATETIME,
     fechaInicioConcurso DATETIME,
     fechaInicioVotacion DATETIME,
     descVotacion VARCHAR(500),

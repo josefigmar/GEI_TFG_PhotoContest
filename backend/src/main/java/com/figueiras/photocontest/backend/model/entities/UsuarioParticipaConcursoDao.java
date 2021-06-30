@@ -1,5 +1,7 @@
-package com.figueiras.photocontest.backend.model.entities;
+package com.figueiras.photocontest.backend.model.entities.Daos;
 
+import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcurso;
+import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcursoPK;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

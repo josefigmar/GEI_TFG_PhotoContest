@@ -1,5 +1,6 @@
-package com.figueiras.photocontest.backend.model.entities;
+package com.figueiras.photocontest.backend.model.entities.Daos;
 
+import com.figueiras.photocontest.backend.model.entities.Concurso;
 import org.springframework.data.domain.Slice;
 
 public interface CustomizedConcursoDao {

@@ -98,6 +98,14 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.0.13.Final</version>
 		</dependency>
+
+		<!-- Jason Web Token para autenticacion -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -121,7 +129,7 @@
 				</dependencies>
 				<configuration>
 					<driver>${jdbcDriver.className}</driver>
-					<url>${testDataSource.url}</url>
+					<url>${dataSource.url}</url>
 					<username>${dataSource.user}</username>
 					<password>${dataSource.password}</password>
 					<autocommit>true</autocommit>
@@ -150,9 +158,9 @@
 						</goals>
 						<configuration>
 							<driver>${jdbcDriver.className}</driver>
-							<url>${testDataSource.url}</url>
-							<username>${testDataSource.user}</username>
-							<password>${testDataSource.password}</password>
+							<url>${dataSource.url}</url>
+							<username>${dataSource.user}</username>
+							<password>${dataSource.password}</password>
 							<autocommit>true</autocommit>
 							<onError>continue</onError>
 							<fileset>

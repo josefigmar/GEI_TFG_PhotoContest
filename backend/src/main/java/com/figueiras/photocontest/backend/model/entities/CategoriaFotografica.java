@@ -11,7 +11,7 @@ public class CategoriaFotografica {
     @Size(min = 1, max = 50)
     private String nombreCategoria;
     @Size(min = 1, max = 200)
-    private String descripcion;
+    private String descripcionCategoria;
     private Set<Usuario> usuariosALosQueLesGusta;
     private Set<Concurso> concursosEnDondeSeUsa;
 
@@ -36,12 +36,12 @@ public class CategoriaFotografica {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescripcionCategoria() {
+        return descripcionCategoria;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripcionCategoria(String descripcion) {
+        this.descripcionCategoria = descripcion;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

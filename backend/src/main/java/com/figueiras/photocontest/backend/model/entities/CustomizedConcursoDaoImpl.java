@@ -15,7 +15,7 @@ public class CustomizedConcursoDaoImpl implements CustomizedConcursoDao{
     private EntityManager entityManager;
 
     @Override
-    public Slice<Concurso> find(Integer estadoConcurso, Long idCategoria, String nombreConcurso, int page, int size) {
+    public Slice<Concurso> find(EstadoConcurso estadoConcurso, Long idCategoria, String nombreConcurso, int page, int size) {
         String[] tokens = UtilidadesParaEntidades.separarPorEspacios(nombreConcurso);
         String queryString = "SELECT c FROM Concurso c";
 

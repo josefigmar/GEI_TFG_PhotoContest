@@ -5,5 +5,27 @@ export default{
     'app.Header.People' : 'Gente',
     'app.Header.Profile' : 'Perfil',
     'app.Header.LogIn' : 'Iniciar sesión',
-    'app.Header.SignIn' : 'Registrarse'
+    'app.Header.SignIn' : 'Registrarse',
+    'app.RedirectHome.paragraphContests' : 'Hecha un vistazo a los concursos o crea uno tú mismo',
+    'app.RedirectHome.paragraphAccount' : 'Inicia sesión o regístrate si no tienes cuenta',
+    'app.RedirectHome.ButtonContests' : 'Buscar concursos',
+    'app.RedirectHome.ButtonCreateContest' : 'Crear concurso',
+    'app.RedirectHome.LogIn' : 'Iniciar sesión',
+    'app.RedirectHome.SignIn' : 'Registrarse',
+    'app.ContestTable.Photo' : 'Foto',
+    'app.ContestTable.Name' : 'Nombre',
+    'app.ContestTable.Status' : 'Estado',
+    'app.ContestTable.Category' : 'Categoria',
+    'app.ContestTable.InitialDate' : 'Fecha de inicio',
+    'app.ContestTable.EndDate' : 'Fecha de fin',
+    'app.Home.NoContests' : '¡Vaya! Parece que no hay concursos recientes',
+    'app.FindContests.CleanSearch' : 'Limpiar resultados',
+    'app.FindContestsResult.NoContests' : '¡Vaya! Parece que no hay concursos que concuerden con tu criterio de búsqueda',
+    'global.buttons.search' : 'Buscar',
+    'catalog.CategorySelector.allCategories' : 'Seleccione una categoría',
+    'catalog.StatusSelector.allStatuses' : 'Seleccione un estado',
+    'project.global.buttons.next' : 'Siguiente',
+    'project.global.buttons.back' : 'Atrás',
+
+    
 }

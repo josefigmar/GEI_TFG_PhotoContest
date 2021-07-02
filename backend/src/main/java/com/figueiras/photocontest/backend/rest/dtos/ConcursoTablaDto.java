@@ -1,24 +1,20 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
-import com.figueiras.photocontest.backend.model.entities.EstadoConcurso;
-
 public class ConcursoTablaDto {
 
     private Long idConcurso;
     private byte[] fotografia;
     private String nombre;
-    private int estadoConcurso;
-    private String[] categorias;
+    private String estadoConcurso;
     private Long fechaInicio;
     private Long fechaFin;
 
-    public ConcursoTablaDto(Long idConcurso, byte[] fotografia, String nombre, int estadoConcurso,
-                            String[] categorias, Long fechaInicio, Long fechaFin) {
+    public ConcursoTablaDto(Long idConcurso, byte[] fotografia, String nombre, String estadoConcurso,
+                            Long fechaInicio, Long fechaFin) {
         this.idConcurso = idConcurso;
         this.fotografia = fotografia;
         this.nombre = nombre;
         this.estadoConcurso = estadoConcurso;
-        this.categorias = categorias;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
     }
@@ -47,20 +43,12 @@ public class ConcursoTablaDto {
         this.nombre = nombre;
     }
 
-    public int getEstadoConcurso() {
+    public String getEstadoConcurso() {
         return estadoConcurso;
     }
 
-    public void setEstadoConcurso(int estadoConcurso) {
+    public void setEstadoConcurso(String estadoConcurso) {
         this.estadoConcurso = estadoConcurso;
-    }
-
-    public String[] getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(String[] categorias) {
-        this.categorias = categorias;
     }
 
     public Long getFechaInicio() {

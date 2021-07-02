@@ -1,6 +1,4 @@
-package com.figueiras.photocontest.backend.rest.controllers;
-
-import org.springframework.stereotype.Component;
+package com.figueiras.photocontest.backend.rest.common;
 
 public interface JwtGenerator {
 

@@ -1,4 +1,4 @@
-package com.figueiras.photocontest.backend.rest.controllers;
+package com.figueiras.photocontest.backend.rest.common;
 
 
 import java.util.Date;

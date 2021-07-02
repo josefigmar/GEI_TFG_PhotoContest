@@ -51,8 +51,10 @@ public class ControladorCatalogo {
                                                       @RequestParam(required = false) String nombre,
                                                       @RequestParam(defaultValue="0") int page,
                                                       @RequestParam(defaultValue="5") int size){
+        // El frontend no funcionaba si el estado Abierto tenía el valor 0. Se suma 1 a los estados en el Frontend y se
+        // vuelve a restar aquí.
         Block<Concurso> blockConcursos = servicioConcurso.recuperarConcursos(idCategoria,
-                estado, nombre, page, size);
+                estado != null? estado - 1 : null, nombre, page, size);
 
         return new Block<>(toConcursosTablaDto( blockConcursos.getItems()), blockConcursos.getExistMoreItems());
     }

@@ -22,8 +22,8 @@ export default{
     'app.FindContests.CleanSearch' : 'Clean results',
     'app.FindContestsResult.NoContests' : 'Ups! It seems that there is no contests matching your requirements',
     'global.buttons.search' : 'Search',
-    'catalog.CategorySelector.allCategories' : 'Select a category',
-    'catalog.StatusSelector.allStatuses' : 'Select a status',
+    'catalog.CategorySelector.allCategories' : 'All categories',
+    'catalog.StatusSelector.allStatuses' : 'All statuses',
     'project.global.buttons.next' : 'Next',
     'project.global.buttons.back' : 'Back',
 

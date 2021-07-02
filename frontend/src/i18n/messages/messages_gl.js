@@ -22,8 +22,8 @@ export default{
     'app.FindContests.CleanSearch' : 'Limpar resultados',
     'app.FindContestsResult.NoContests' : 'Vaia! Parece que non hai concursos que concorden co teu criterio de búsqueda',
     'global.buttons.search' : 'Procurar',
-    'catalog.CategorySelector.allCategories' : 'Escolla unha categoría',
-    'catalog.StatusSelector.allStatuses' : 'Escolla un estado',
+    'catalog.CategorySelector.allCategories' : 'Todas as categorías',
+    'catalog.StatusSelector.allStatuses' : 'Todos os estados',
     'project.global.buttons.next' : 'Seguinte',
     'project.global.buttons.back' : 'Atrás',
 

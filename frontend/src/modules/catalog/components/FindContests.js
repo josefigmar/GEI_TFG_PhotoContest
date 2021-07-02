@@ -1,13 +1,12 @@
 import {useDispatch} from 'react-redux';
 import * as actions from "../actions";
-import { useState } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { useState} from 'react';
+import { Container } from 'react-bootstrap';
 import CategorySelector from './CategorySelector';
 import StatusSelector from './StatusSelector';
 import { FormattedMessage } from 'react-intl';
 import {useHistory} from 'react-router-dom';
 import FindContestsResult from './FindContestsResult';
-
 
 const FindContests = () => {
 

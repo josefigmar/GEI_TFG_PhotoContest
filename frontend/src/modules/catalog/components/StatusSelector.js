@@ -2,10 +2,11 @@ import { FormattedMessage } from "react-intl";
 
 const StatusSelector = (selectProps) => {
 
+    // No funciona si Abierto = 0, se suma una unidad y luego se resta
     const statuses = [
-        {id: 0, value: "Abierto"},
-        {id: 1, value: "Votacion"},
-        {id: 2, value: "Finalizado"},
+        {id: 1, value: "Abierto"},
+        {id: 2, value: "Votacion"},
+        {id: 3, value: "Finalizado"},
     ]
     
     return (

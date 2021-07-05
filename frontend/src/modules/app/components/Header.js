@@ -26,10 +26,10 @@ const Header = () =>{
           </Nav>
           <NavDropdown title={<FormattedMessage id="app.Header.Profile"/>} id="basic-nav-dropdown">
 
-            <Link className="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/users/logIn">
               <FormattedMessage id="app.Header.LogIn"/>
             </Link>
-            <Link className="dropdown-item" to="/">
+            <Link className="dropdown-item" to="/users/signUp">
               <FormattedMessage id="app.Header.SignIn"/>
             </Link>
 

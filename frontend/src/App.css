@@ -8,3 +8,11 @@ Jumbotron {
 .centering {
   text-align: center;
 }
+
+img {
+  max-width: 128px;
+}
+
+.profileImg {
+  border-radius: 50%;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './modules/app/components/App';
+import './App.css';
 
 import {IntlProvider} from 'react-intl';
 import {initReactIntl} from './i18n';

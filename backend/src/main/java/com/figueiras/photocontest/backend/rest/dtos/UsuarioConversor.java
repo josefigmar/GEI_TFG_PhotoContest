@@ -1,6 +1,5 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
-import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
 import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcurso;
 
@@ -32,6 +31,30 @@ public class UsuarioConversor {
         }
 
         return usuarioParticipaConcursoDtos;
+    }
+
+    public static UsuarioTablaDto toUsuarioTablaDto(Usuario usuario){
+
+        UsuarioTablaDto usuarioTablaDto = new UsuarioTablaDto();
+
+        usuarioTablaDto.setIdUsuario(usuario.getIdUsuario());
+        usuarioTablaDto.setFotoPerfil(usuario.getFotoPerfil());
+        usuarioTablaDto.setNombreUsuario(usuario.getNombreUsuario());
+        usuarioTablaDto.setNombrePilaUsuario(usuario.getNombrePilaUsuario());
+        usuarioTablaDto.setApellidosUsuario(usuario.getApellidosUsuario());
+
+        return usuarioTablaDto;
+    }
+
+    public static List<UsuarioTablaDto> toUsuariosTablaDto(List<Usuario> usuarios){
+
+        List<UsuarioTablaDto> usuariosTablaDto = new ArrayList<>();
+
+        for(Usuario u: usuarios){
+
+            usuariosTablaDto.add(toUsuarioTablaDto(u));
+        }
+        return usuariosTablaDto;
     }
 
     public static UsuarioDto toUsuarioDto(Usuario usuario){

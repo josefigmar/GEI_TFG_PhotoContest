@@ -1,8 +1,5 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
-import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
-
-import javax.validation.constraints.Size;
 import java.util.List;
 
 public class UsuarioDto {

@@ -30,7 +30,11 @@ export default{
     'user.Users.Photo' : 'Photo',
     'user.Users.FullName' : 'Full name',
     'user.Users.UserName' : 'Username',
+    'user.Profile.ContestTable.id' : 'Contest Id',
+    'user.Profile.ContestTable.role' : 'Contest role',
+    'user.Profile.ContestTable.fecha' : 'Participating since',
     'user.FindUsers.PlaceHolder' : 'Username',
+    'user.Profile.Follow' : 'Follow',
     'app.FindUsers.NoUsers' : 'The search did not return any coincidences',
 
 

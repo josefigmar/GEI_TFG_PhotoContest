@@ -10,13 +10,15 @@ const RedirectHome = () =>{
     
     return(
 
-        <Jumbotron fluid>
+        <Jumbotron fluid className="bg-light border border-ssecondary">
             <Container>
                 <div className="d-flex justify-content-center">
-                    <h4>
+                    <h5>
                         <FormattedMessage  id="app.RedirectHome.paragraphContests"/>
-                    </h4>
+                    </h5>
                 </div>
+                <br/>
+
                 <div className="d-flex justify-content-center">
                     <form onSubmit={() => history.push('/catalog/find-contests')}>
                         <Button  type="submit" className="d-flex justify-content-center" variant="success">
@@ -31,19 +33,28 @@ const RedirectHome = () =>{
                 </div>
                
                 <br/>
+                <br/>
+
                 <div className="d-flex justify-content-center">
-                    <h4>
+                    <h5>
                         <FormattedMessage id="app.RedirectHome.paragraphAccount"/>
-                    </h4>
+                    </h5>
                 </div>
+                <br/>
                 <div className="d-flex justify-content-center">
-                    <Button variant="info">
-                        <FormattedMessage id="app.RedirectHome.LogIn"/>
-                    </Button>
+                    <form onSubmit={() => history.push('/users/login')}>
+                        <Button type="submit" variant="info">
+                            <FormattedMessage id="app.RedirectHome.LogIn"/>
+                        </Button>
+                    </form>
                     &emsp;
-                    <Button variant="info">
-                        <FormattedMessage id="app.RedirectHome.SignIn"/>    
-                    </Button>
+                    <div className="d-flex justify-content-center">
+                        <form onSubmit={() => history.push('/users/signUp')}>
+                            <Button type="submit" className="d-flex justify-content-center" variant="info">
+                                <FormattedMessage id="app.RedirectHome.SignIn"/>    
+                            </Button>
+                        </form>
+                    </div>
                 </div>
                 
             </Container>

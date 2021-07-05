@@ -35,6 +35,16 @@ export default{
     'user.Profile.ContestTable.role' : 'Rol no concurso',
     'user.Profile.ContestTable.fecha' : 'Participa desde',
     'user.Profile.Follow' : 'Seguir',
+    'user.SignUp.Welcome' : 'Rexístrate para descubrir fotógrafos e concursos dos teus amigos.',
+    'user.SignUp.UserName' : 'Nome de usuario',
+    'user.SignUp.Password' : 'Contrasinal',
+    'user.SignUp.Name' : 'Nome',
+    'user.SignUp.Surnames' : 'Apelidos',
+    'user.SignUp.Email' : 'Correo electrónico',
+    'user.SignUp.SignUp' : 'Rexistrarse',
+    'user.SignUp.Login' : 'Iniciar sesión',
+    'user.Login.ForgotPassword' : 'Olvidaches o teu contrasinal?',
+    'user.Login.RegisterMsg' : 'Necesitas unha conta?',
     'app.FindUsers.NoUsers' : 'A búsqueda non devolveu resultados',
 
 

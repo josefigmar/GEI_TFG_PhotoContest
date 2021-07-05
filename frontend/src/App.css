@@ -16,3 +16,18 @@ img {
 .profileImg {
   border-radius: 50%;
 }
+
+.signUpLogInDivFirst {
+  height: 90px;
+  width: 300px;
+}
+
+.signUpDivSecond {
+  height: 480px;
+  width: 300px;
+}
+
+.LogInDivSecond {
+  height: 350px;
+  width: 300px;
+}

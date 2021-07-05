@@ -5,6 +5,8 @@ import FindContests from '../../catalog/components/FindContests';
 import FindUsers from '../../user/components/FindUsers';
 import User from '../../user/components/User';
 import Home from './Home';
+import SignUp from '../../user/components/SignUp';
+import LogIn from '../../user/components/LogIn';
 
 
 const Body = () => {
@@ -17,7 +19,10 @@ const Body = () => {
                 <Route exact path="/"><Home/></Route>
                 <Route exact path="/catalog/find-contests"><FindContests/></Route>
                 <Route exact path="/users/find-users"><FindUsers/></Route>
+                <Route exact path="/users/signUp"><SignUp/></Route>
+                <Route exact path="/users/login"><LogIn/></Route>
                 <Route exact path="/users/:id"><User/></Route>
+
                 <Route><Home/></Route>
             </Switch>
         </Container>

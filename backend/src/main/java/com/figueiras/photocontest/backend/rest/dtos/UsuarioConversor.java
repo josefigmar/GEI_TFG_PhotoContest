@@ -1,0 +1,70 @@
+package com.figueiras.photocontest.backend.rest.dtos;
+
+import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
+import com.figueiras.photocontest.backend.model.entities.Usuario;
+import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcurso;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+public class UsuarioConversor {
+
+    public static UsuarioParticipaConcursoDto toUsuarioParticipaConcursoDto(UsuarioParticipaConcurso usuarioParticipaConcurso){
+
+        UsuarioParticipaConcursoDto usuarioParticipaConcursoDto = new UsuarioParticipaConcursoDto();
+
+        usuarioParticipaConcursoDto.setIdConcurso(usuarioParticipaConcurso.getConcurso().getIdConcurso());
+        usuarioParticipaConcursoDto.setRolUsuario(usuarioParticipaConcurso.getRolUsuario().toString());
+        usuarioParticipaConcursoDto.setFechaInicioParticipacion(
+                Utilidades.toMillis(usuarioParticipaConcurso.getFechaInicioParticipacion()));
+
+        return usuarioParticipaConcursoDto;
+    }
+
+    public static List<UsuarioParticipaConcursoDto> toUsuarioParticipaConcursosDto(
+            Set<UsuarioParticipaConcurso> usuarioParticipaConcursos){
+
+        List<UsuarioParticipaConcursoDto> usuarioParticipaConcursoDtos = new ArrayList<>();
+
+        for(UsuarioParticipaConcurso usuarioParticipaConcurso: usuarioParticipaConcursos){
+            usuarioParticipaConcursoDtos.add(toUsuarioParticipaConcursoDto(usuarioParticipaConcurso));
+        }
+
+        return usuarioParticipaConcursoDtos;
+    }
+
+    public static UsuarioDto toUsuarioDto(Usuario usuario){
+
+        UsuarioDto usuarioDto = new UsuarioDto();
+
+        usuarioDto.setIdUsuario(usuario.getIdUsuario());
+        usuarioDto.setFotoPerfil(usuario.getFotoPerfil());
+        usuarioDto.setNombreUsuario(usuario.getNombreUsuario());
+        usuarioDto.setIdUsuario(usuario.getIdUsuario());
+        usuarioDto.setNombrePilaUsuario(usuario.getNombrePilaUsuario());
+        usuarioDto.setApellidosUsuario(usuario.getApellidosUsuario());
+        usuarioDto.setBiografiaUsuario(usuario.getBiografiaUsuario());
+        usuarioDto.setEnlaceTwitterUsuario(usuario.getEnlaceTwitterUsuario());
+        usuarioDto.setEnlaceFacebookUsuario(usuario.getEnlaceFacebookUsuario());
+        usuarioDto.setCategoriasFotograficasQueLeGustan(
+                CategoriaFotograficaConversor.toCategoriaFotograficasDto(
+                        usuario.getCategoriaFotograficasQueLeGustan()));
+        usuarioDto.setConcursosEnLosQueParticipa(
+                UsuarioConversor.toUsuarioParticipaConcursosDto(usuario.getConcursosEnLosQueParticipa()));
+
+        return usuarioDto;
+    }
+
+    public static List<UsuarioDto> toUsuariosDto(
+            List<Usuario> usuarioList){
+
+        List<UsuarioDto> usuariosDto = new ArrayList<>();
+
+        for(Usuario usuario: usuarioList){
+            usuariosDto.add(toUsuarioDto(usuario));
+        }
+
+        return usuariosDto;
+    }
+}

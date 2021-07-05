@@ -9,6 +9,7 @@ import java.util.Set;
 public class Usuario {
 
     private Long idUsuario;
+    private String fotoPerfil;
     @Size(min = 1, max = 50)
     private String nombreUsuario;
     @Size(min = 1, max = 50)
@@ -32,6 +33,7 @@ public class Usuario {
     private Set<Notificacion> notificacionesUsuario;
     private Set<UsuarioParticipaConcurso> concursosEnLosQueParticipa;
 
+
     public Usuario() {
     }
 
@@ -44,6 +46,10 @@ public class Usuario {
     public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+    public String getFotoPerfil() { return fotoPerfil; }
+
+    public void setFotoPerfil(String fotoPerfil) { this.fotoPerfil = fotoPerfil; }
 
     public String getNombreUsuario() {
         return nombreUsuario;

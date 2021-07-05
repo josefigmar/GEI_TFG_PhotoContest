@@ -6,7 +6,7 @@ export default{
     'app.Header.Profile' : 'Perfil',
     'app.Header.LogIn' : 'Iniciar sesión',
     'app.Header.SignIn' : 'Registrarse',
-    'app.RedirectHome.paragraphContests' : 'Hecha un vistazo a los concursos o crea uno tú mismo',
+    'app.RedirectHome.paragraphContests' : 'Echa un vistazo a los concursos o crea uno tú mismo',
     'app.RedirectHome.paragraphAccount' : 'Inicia sesión o regístrate si no tienes cuenta',
     'app.RedirectHome.ButtonContests' : 'Buscar concursos',
     'app.RedirectHome.ButtonCreateContest' : 'Crear concurso',
@@ -20,12 +20,18 @@ export default{
     'app.ContestTable.EndDate' : 'Fecha de fin',
     'app.Home.NoContests' : '¡Vaya! Parece que no hay concursos recientes',
     'app.FindContests.CleanSearch' : 'Limpiar resultados',
+    'app.FindContests.PlaceHolder' : 'Nombre del concurso',
     'app.FindContestsResult.NoContests' : '¡Vaya! Parece que no hay concursos que concuerden con tu criterio de búsqueda',
     'global.buttons.search' : 'Buscar',
     'catalog.CategorySelector.allCategories' : 'Todas las categorías',
     'catalog.StatusSelector.allStatuses' : 'Todos los estados',
     'project.global.buttons.next' : 'Siguiente',
     'project.global.buttons.back' : 'Atrás',
+    'user.Users.Photo' : 'Foto',
+    'user.Users.FullName' : 'Nombre completo',
+    'user.Users.UserName' : 'Nombre de usuario',
+    'user.FindUsers.PlaceHolder' : 'Nombre de usuario',
+    'app.FindUsers.NoUsers' : 'La búsqueda no arrojó resultados',
 
     
 }

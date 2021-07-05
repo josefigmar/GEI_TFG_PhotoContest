@@ -1,7 +1,7 @@
 import {useDispatch} from 'react-redux';
 import * as actions from "../actions";
 import { useState} from 'react';
-import { Container } from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 import CategorySelector from './CategorySelector';
 import StatusSelector from './StatusSelector';
 import { FormattedMessage } from 'react-intl';
@@ -39,10 +39,11 @@ const FindContests = () => {
                         value={idCategoria} onChange={e => setIdCategoria(e.target.value)}/>
 
                     <StatusSelector id="statusId" className="custom-select my-1 mr-sm-2"
-                        value={idEstado} onChange={e => setIdEstado(e.target.value)}/>    
+                        value={idEstado} onChange={e => setIdEstado(e.target.value)}/>
 
-                    <input id="keywords" type="text" className="form-control mr-sm-2"
-                        value={nombreConcurso} onChange={e => setNombreConcurso(e.target.value)}/>
+                    <FormattedMessage  id='app.FindContests.PlaceHolder'>
+                        {placeholder=>  <input className="form-control mr-sm-2" id="keywords" placeholder={placeholder} value={nombreConcurso} onChange={e => setNombreConcurso(e.target.value)}/>}
+                    </FormattedMessage> 
 
                     <button type="submit" className="btn btn-primary my-2 my-sm-0">
                         <FormattedMessage id='global.buttons.search'/>

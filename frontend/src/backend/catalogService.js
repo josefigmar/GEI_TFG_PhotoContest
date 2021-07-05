@@ -2,7 +2,7 @@ import {config, appFetch} from './appFetch';
 
 export const findContests = ({idCategoria, estado, nombre, page=0, size}, onSuccess) =>{
     
-    let path = `/catalogo/concursos?page=${page}`;
+    let path = `/catalogo-concursos/concursos?page=${page}`;
 
     path += idCategoria? `&idCategoria=${idCategoria}` : "";
     path += estado? `&estado=${estado}` : "";
@@ -14,7 +14,7 @@ export const findContests = ({idCategoria, estado, nombre, page=0, size}, onSucc
 
 export const findCategories = (onSuccess) =>{
 
-    let path = "/catalogo/categorias";
+    let path = "/catalogo-concursos/categorias";
 
     appFetch(path, config('GET'), onSuccess);
 }

@@ -20,11 +20,8 @@ public class ConcursoConversor {
 
     private static ConcursoTablaDto toConcursoTablaDto(Concurso concurso){
         return new ConcursoTablaDto(concurso.getIdConcurso(), concurso.getFotoConcurso(), concurso.getNombreConcurso(),
-                concurso.getEstadoConcurso().toString(), toMillis(concurso.getFechaInicioConcurso()),
-                toMillis(concurso.getFechaFinConcurso()));
+                concurso.getEstadoConcurso().toString(), Utilidades.toMillis(concurso.getFechaInicioConcurso()),
+                Utilidades.toMillis(concurso.getFechaFinConcurso()));
     }
 
-    private final static long toMillis(LocalDateTime date) {
-        return date.truncatedTo(ChronoUnit.MINUTES).atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli();
-    }
 }

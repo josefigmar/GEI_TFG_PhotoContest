@@ -1,9 +1,6 @@
 package com.figueiras.photocontest.backend.model.entities;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,7 +26,8 @@ public class UsuarioParticipaConcurso {
     }
 
     @ManyToOne
-    @MapsId("idUsuaio")
+    @MapsId("idUsuario")
+    @JoinColumn(name="idUsuario")
     public Usuario getUsuario() {
         return usuario;
     }
@@ -40,6 +38,7 @@ public class UsuarioParticipaConcurso {
 
     @ManyToOne
     @MapsId("idConcurso")
+    @JoinColumn(name="idConcurso")
     public Concurso getConcurso() {
         return concurso;
     }

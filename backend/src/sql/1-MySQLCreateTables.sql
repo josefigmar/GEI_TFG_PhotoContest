@@ -25,14 +25,15 @@ CREATE TABLE CategoriaFotografica(
 
 CREATE TABLE Usuario(
     idUsuario BIGINT NOT NULL AUTO_INCREMENT,
+    fotoPerfil TEXT,
     nombreUsuario VARCHAR(50),
     nombrePilaUsuario VARCHAR(50),
     apellidosUsuario VARCHAR(100),
     biografiaUsuario VARCHAR(500),
-    correoElectronico_usuario VARCHAR(90),
-    contrasenaUsuairo VARCHAR(50),
-    enlaceTwitter VARCHAR(200),
-    enlaceFacebook VARCHAR(200),
+    correoElectronicoUsuario VARCHAR(90),
+    contrasenaUsuario VARCHAR(50),
+    enlaceTwitterUsuario VARCHAR(200),
+    enlaceFacebookUsuario VARCHAR(200),
     CONSTRAINT Usuario_pk PRIMARY KEY(idUsuario),
     CONSTRAINT Nombre_usuario_unique UNIQUE(nombreUsuario)
 );
@@ -145,7 +146,7 @@ CREATE TABLE ConcursoPermiteCategoria(
 CREATE TABLE UsuarioParticipaConcurso(
     idUsuario BIGINT NOT NULL,
     idConcurso BIGINT NOT NULL,
-    rol INT,
+    rolUsuario INT,
     fechaInicioParticipacion DATETIME,
     CONSTRAINT Usuario_participa_concurso_pk
         PRIMARY KEY(idUsuario, idConcurso),

@@ -27,8 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
                 .authorizeRequests()
-                .antMatchers("/catalogo/concursos").permitAll()
-                .antMatchers("/catalogo/categorias").permitAll()
+                .antMatchers("/catalogo-concursos/concursos").permitAll()
+                .antMatchers("/catalogo-concursos/categorias").permitAll()
+                .antMatchers("/catalogo-usuarios/usuarios").permitAll()
                 .anyRequest().hasRole("USER");
 
     }

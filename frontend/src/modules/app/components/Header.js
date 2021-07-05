@@ -20,7 +20,7 @@ const Header = () =>{
             <Link className="nav-link" to="/catalog/find-contests">
                 <FormattedMessage id="app.Header.Contests"/>
             </Link>
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/users/find-users">
                 <FormattedMessage id="app.Header.People"/>
             </Link>
           </Nav>

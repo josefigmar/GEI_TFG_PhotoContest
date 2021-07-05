@@ -17,7 +17,8 @@ const Home = () =>{
     useEffect(() => {
 
       dispatch(catalog.actions.findContests({}));
-    },[]);
+
+    },[dispatch]);
 
     const existenConcursos = () => {
         if(contestsSearch !== null && contestsSearch.result.items.length !== 0){

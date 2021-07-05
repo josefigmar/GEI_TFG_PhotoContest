@@ -21,11 +21,17 @@ export default{
     'app.Home.NoContests' : 'Vaia! Parece que non hai concursos recentes',
     'app.FindContests.CleanSearch' : 'Limpar resultados',
     'app.FindContestsResult.NoContests' : 'Vaia! Parece que non hai concursos que concorden co teu criterio de búsqueda',
+    'app.FindContests.PlaceHolder' : 'Nome do concurso',
     'global.buttons.search' : 'Procurar',
     'catalog.CategorySelector.allCategories' : 'Todas as categorías',
     'catalog.StatusSelector.allStatuses' : 'Todos os estados',
     'project.global.buttons.next' : 'Seguinte',
     'project.global.buttons.back' : 'Atrás',
+    'user.Users.Photo' : 'Imaxe',
+    'user.Users.FullName' : 'Nome completo',
+    'user.Users.UserName' : 'Nome de usuario',
+    'user.FindUsers.PlaceHolder' : 'Nome de usuario',
+    'app.FindUsers.NoUsers' : 'A búsqueda non devolveu resultados',
 
 
 }

@@ -20,12 +20,19 @@ export default{
     'app.ContestTable.EndDate' : 'End date',
     'app.Home.NoContests' : 'Ups! It seems that there is no recent contests',
     'app.FindContests.CleanSearch' : 'Clean results',
+    'app.FindContests.PlaceHolder' : 'Name of the contest',
     'app.FindContestsResult.NoContests' : 'Ups! It seems that there is no contests matching your requirements',
     'global.buttons.search' : 'Search',
     'catalog.CategorySelector.allCategories' : 'All categories',
     'catalog.StatusSelector.allStatuses' : 'All statuses',
     'project.global.buttons.next' : 'Next',
     'project.global.buttons.back' : 'Back',
+    'user.Users.Photo' : 'Photo',
+    'user.Users.FullName' : 'Full name',
+    'user.Users.UserName' : 'Username',
+    'user.FindUsers.PlaceHolder' : 'Username',
+    'app.FindUsers.NoUsers' : 'The search did not return any coincidences',
+
 
     
     

@@ -23,7 +23,7 @@ import java.util.List;
 import static com.figueiras.photocontest.backend.rest.dtos.ConcursoConversor.toConcursosTablaDto;
 
 @RestController
-@RequestMapping("/catalogo")
+@RequestMapping("/catalogo-concursos")
 public class ControladorCatalogo {
 
     @Autowired

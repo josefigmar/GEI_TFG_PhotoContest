@@ -1,12 +1,12 @@
-import RedirectHome from "./RedirectHome";
-import Contests from "../../catalog/components/Contests";
+import React, { useEffect } from 'react';
 import { Container } from "react-bootstrap";
-import {useSelector, useDispatch} from 'react-redux';
 import { FormattedMessage } from "react-intl";
-import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import catalog from '../../catalog';
-
+import Contests from "../../catalog/components/Contests";
 import * as selectors from '../../catalog/selectors';
+import RedirectHome from "./RedirectHome";
+
 
 const Home = () =>{
 

@@ -6,7 +6,11 @@ Jumbotron {
 }
 
 .centering {
+  width: 50%;
   text-align: center;
+  padding: 70px 0;
+
+  height: auto;
 }
 
 img {

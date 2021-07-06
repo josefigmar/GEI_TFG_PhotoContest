@@ -36,11 +36,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     }
 
     @Override
-    public UsuarioDto recuperarUsuario(Long idUsuario) throws InstanceNotFoundException {
-        Optional<Usuario> u = usuarioDao.findById(idUsuario);
+    public UsuarioDto recuperarUsuario(String nombreUsuario) throws InstanceNotFoundException {
+        Optional<Usuario> u = usuarioDao.findByNombreUsuario(nombreUsuario);
 
         if(!u.isPresent()){
-            throw  new InstanceNotFoundException(Usuario.class.getName(), idUsuario);
+            throw  new InstanceNotFoundException(Usuario.class.getName(), nombreUsuario);
         }
 
         UsuarioDto uDto = UsuarioConversor.toUsuarioDto(u.get());

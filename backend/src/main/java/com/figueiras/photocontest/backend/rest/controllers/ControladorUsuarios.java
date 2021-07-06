@@ -25,9 +25,9 @@ public class ControladorUsuarios {
         return blockUsuarios;
     }
 
-    @GetMapping("usuarios/{idUsuario}")
-    public UsuarioDto buscarUsuario(@PathVariable Long idUsuario) throws InstanceNotFoundException {
-        UsuarioDto uDto = servicioUsuario.recuperarUsuario(idUsuario);
+    @GetMapping("usuarios/{nombreUsuario}")
+    public UsuarioDto buscarUsuario(@PathVariable String nombreUsuario) throws InstanceNotFoundException {
+        UsuarioDto uDto = servicioUsuario.recuperarUsuario(nombreUsuario);
 
         return uDto;
     }

@@ -28,7 +28,7 @@ const Users = ({users}) =>{
                                 {`${user.nombrePilaUsuario} ${user.apellidosUsuario}`}
                             </td>
                             <td className="align-middle">
-                                <Link to={`/users/${user.idUsuario}`}>
+                                <Link to={`/users/${user.nombreUsuario}`}>
                                     {`@${user.nombreUsuario}`}
                                 </Link>
                             </td>

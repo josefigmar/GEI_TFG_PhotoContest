@@ -3,6 +3,7 @@ package com.figueiras.photocontest.backend.rest.dtos;
 public class UsuarioParticipaConcursoDto {
 
     private Long idConcurso;
+    private String nombreConcurso;
     private String rolUsuario;
     private Long fechaInicioParticipacion;
 
@@ -15,6 +16,14 @@ public class UsuarioParticipaConcursoDto {
 
     public void setIdConcurso(Long idConcurso) {
         this.idConcurso = idConcurso;
+    }
+
+    public String getNombreConcurso() {
+        return nombreConcurso;
+    }
+
+    public void setNombreConcurso(String nombreConcurso) {
+        this.nombreConcurso = nombreConcurso;
     }
 
     public String getRolUsuario() {

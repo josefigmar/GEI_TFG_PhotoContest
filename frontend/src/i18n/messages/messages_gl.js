@@ -31,7 +31,7 @@ export default{
     'user.Users.FullName' : 'Nome completo',
     'user.Users.UserName' : 'Nome de usuario',
     'user.FindUsers.PlaceHolder' : 'Nome de usuario',
-    'user.Profile.ContestTable.id' : 'Id. concurso',
+    'user.Profile.ContestTable.Name' : 'Nome do concurso',
     'user.Profile.ContestTable.role' : 'Rol no concurso',
     'user.Profile.ContestTable.fecha' : 'Participa desde',
     'user.Profile.Follow' : 'Seguir',

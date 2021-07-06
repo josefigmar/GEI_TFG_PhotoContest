@@ -10,13 +10,11 @@ const User = () => {
 
     const[userData, setUserData] = useState("");
 
-    const {id} = useParams();
+    const {userName} = useParams();
 
     useEffect(() =>{
 
-        const idUsuario = Number(id);
-
-        backend.userService.findUser({idUsuario}, result => 
+        backend.userService.findUser({userName}, result => 
             setUserData(result));
 
     }, [])

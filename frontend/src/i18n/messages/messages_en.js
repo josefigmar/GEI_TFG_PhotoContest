@@ -30,7 +30,7 @@ export default{
     'user.Users.Photo' : 'Photo',
     'user.Users.FullName' : 'Full name',
     'user.Users.UserName' : 'Username',
-    'user.Profile.ContestTable.id' : 'Contest Id',
+    'user.Profile.ContestTable.Name' : 'Contest name',
     'user.Profile.ContestTable.role' : 'Contest role',
     'user.Profile.ContestTable.fecha' : 'Participating since',
     'user.SignUp.Welcome' : 'Sign up to discover photographers and amazing contests',

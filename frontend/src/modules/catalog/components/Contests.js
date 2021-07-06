@@ -44,7 +44,7 @@ const Contests = ({contests}) =>{
                             </td>
                             <td className="align-middle"><Badge variant={tipoLabel(concurso.estadoConcurso)}>{concurso.estadoConcurso}</Badge></td>
                             <td className="align-middle"><FormattedDate value={new Date(concurso.fechaInicio)}/> <FormattedTime value={new Date(concurso.fechaInicio)}/></td>
-                            <td className="align-middle"><FormattedDate value={new Date(concurso.fechaFin)}/> <FormattedTime value={new Date(concurso.fechaInicio)}/></td>
+                            <td className="align-middle"><FormattedDate value={new Date(concurso.fechaFin)}/> <FormattedTime value={new Date(concurso.fechaFin)}/></td>
                         </tr>
                     )}
                 </tbody>

@@ -7,5 +7,5 @@ import com.figueiras.photocontest.backend.rest.dtos.UsuarioTablaDto;
 public interface ServicioUsuario {
 
     Block<UsuarioTablaDto> recuperarUsuarios(String nombre, int page, int size);
-    UsuarioDto recuperarUsuario(Long idUsuario) throws InstanceNotFoundException;
+    UsuarioDto recuperarUsuario(String nombreUsuario) throws InstanceNotFoundException;
 }

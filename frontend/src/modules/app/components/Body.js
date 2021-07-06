@@ -21,7 +21,7 @@ const Body = () => {
                 <Route exact path="/users/find-users"><FindUsers/></Route>
                 <Route exact path="/users/signUp"><SignUp/></Route>
                 <Route exact path="/users/login"><LogIn/></Route>
-                <Route exact path="/users/:id"><User/></Route>
+                <Route exact path="/users/:userName"><User/></Route>
 
                 <Route><Home/></Route>
             </Switch>

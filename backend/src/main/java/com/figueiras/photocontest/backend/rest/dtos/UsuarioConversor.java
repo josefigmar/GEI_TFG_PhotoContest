@@ -1,10 +1,14 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
+import com.figueiras.photocontest.backend.model.entities.Concurso;
+import com.figueiras.photocontest.backend.model.entities.ConcursoDao;
 import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcurso;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class UsuarioConversor {
@@ -14,6 +18,7 @@ public class UsuarioConversor {
         UsuarioParticipaConcursoDto usuarioParticipaConcursoDto = new UsuarioParticipaConcursoDto();
 
         usuarioParticipaConcursoDto.setIdConcurso(usuarioParticipaConcurso.getConcurso().getIdConcurso());
+        usuarioParticipaConcursoDto.setNombreConcurso(usuarioParticipaConcurso.getConcurso().getNombreConcurso());
         usuarioParticipaConcursoDto.setRolUsuario(usuarioParticipaConcurso.getRolUsuario().toString());
         usuarioParticipaConcursoDto.setFechaInicioParticipacion(
                 Utilidades.toMillis(usuarioParticipaConcurso.getFechaInicioParticipacion()));

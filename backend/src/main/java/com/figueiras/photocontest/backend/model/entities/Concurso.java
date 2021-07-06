@@ -17,7 +17,7 @@ public class Concurso {
     private TipoAcceso tipoAccesoConcurso;
     private TipoVotante tipoVotanteConcurso;
     private TipoVoto tipoVotoConcurso;
-    private byte[] fotoConcurso;
+    private String fotoConcurso;
     private Boolean categoriaUnica;
     private Integer maxFotosUsuario;
     private Integer numGanadores;
@@ -103,11 +103,11 @@ public class Concurso {
 
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
-    public byte[] getFotoConcurso() {
+    public String getFotoConcurso() {
         return fotoConcurso;
     }
 
-    public void setFotoConcurso(byte[] fotoConcurso) {
+    public void setFotoConcurso(String fotoConcurso) {
         this.fotoConcurso = fotoConcurso;
     }
 

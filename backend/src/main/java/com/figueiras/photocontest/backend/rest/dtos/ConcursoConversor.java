@@ -2,9 +2,6 @@ package com.figueiras.photocontest.backend.rest.dtos;
 
 import com.figueiras.photocontest.backend.model.entities.Concurso;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 

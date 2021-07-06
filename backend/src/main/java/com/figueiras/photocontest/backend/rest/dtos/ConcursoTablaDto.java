@@ -3,13 +3,13 @@ package com.figueiras.photocontest.backend.rest.dtos;
 public class ConcursoTablaDto {
 
     private Long idConcurso;
-    private byte[] fotografia;
+    private String fotografia;
     private String nombre;
     private String estadoConcurso;
     private Long fechaInicio;
     private Long fechaFin;
 
-    public ConcursoTablaDto(Long idConcurso, byte[] fotografia, String nombre, String estadoConcurso,
+    public ConcursoTablaDto(Long idConcurso, String fotografia, String nombre, String estadoConcurso,
                             Long fechaInicio, Long fechaFin) {
         this.idConcurso = idConcurso;
         this.fotografia = fotografia;
@@ -27,11 +27,11 @@ public class ConcursoTablaDto {
         this.idConcurso = idConcurso;
     }
 
-    public byte[] getFotografia() {
+    public String getFotografia() {
         return fotografia;
     }
 
-    public void setFotografia(byte[] fotografia) {
+    public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
 

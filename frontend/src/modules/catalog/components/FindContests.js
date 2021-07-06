@@ -1,6 +1,6 @@
 import {useDispatch} from 'react-redux';
 import * as actions from "../actions";
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import { Container} from 'react-bootstrap';
 import CategorySelector from './CategorySelector';
 import StatusSelector from './StatusSelector';
@@ -23,7 +23,7 @@ const FindContests = () => {
                 estado: toNumber(idEstado),
                 nombre: nombreConcurso.trim(),
                 page: 0,
-                size: 10}));
+                size: 5}));
         history.push('/catalog/find-contests');
     }
 

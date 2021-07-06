@@ -105,12 +105,10 @@ public class ConcursoTest {
     @Test
     public void setFotoConcursoTest() {
         Concurso concurso = new Concurso();
-        byte[] byteArr = new byte[20];
-        new Random().nextBytes(byteArr);
 
-        concurso.setFotoConcurso(byteArr);
+        concurso.setFotoConcurso(UtilidadesParaPruebas.CADENA_LARGA);
 
-        Assertions.assertEquals(concurso.getFotoConcurso(), byteArr);
+        Assertions.assertEquals(concurso.getFotoConcurso(), UtilidadesParaPruebas.CADENA_LARGA);
     }
 
     @Test

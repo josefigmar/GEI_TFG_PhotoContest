@@ -9,7 +9,7 @@ const FindUsers = () => {
     const [nombreUsuario, setNombreUsuario] = useState("");
     const [findUsersResult, setFindUsersResult] = useState("");
 
-    const paginationSize = 2;
+    const paginationSize = 4;
 
     const handleSubmit = event => {
         event.preventDefault();

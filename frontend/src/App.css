@@ -18,7 +18,18 @@ img {
 }
 
 .profileImg {
+  vertical-align: middle;
+  object-fit: cover;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
+}
+
+.contestsListImg {
+  vertical-align: middle;
+  object-fit: cover;
+  height: 140px;
+  width: 200px;
 }
 
 .signUpLogInDivFirst {

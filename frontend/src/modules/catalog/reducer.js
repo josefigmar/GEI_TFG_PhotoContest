@@ -14,6 +14,9 @@ const contestsSearch = (state = initialState.contestsSearch, action) => {
         case actionTypes.FIND_CONTESTS_COMPLETED:
             return action.contestsSearch;
 
+        case actionTypes.CLEAR_CATEGORIES_SEARCH:
+            return null;
+
         default:
             return state;
     }

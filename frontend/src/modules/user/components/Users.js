@@ -23,11 +23,11 @@ const Users = ({users}) =>{
                 <tbody>
                     {users.map(user => 
                         <tr key={user.idUsuario}>
-                            <td><img className="profileImg" alt="user profile" src={`data:image/jpeg;base64, ${user.fotoPerfil}`}/></td>
-                            <td>
+                            <td className="align-middle"><img className="profileImg" alt="user profile" src={`data:image/jpeg;base64, ${user.fotoPerfil}`}/></td>
+                            <td className="align-middle">
                                 {`${user.nombrePilaUsuario} ${user.apellidosUsuario}`}
                             </td>
-                            <td>
+                            <td className="align-middle">
                                 <Link to={`/users/${user.idUsuario}`}>
                                     {`@${user.nombreUsuario}`}
                                 </Link>

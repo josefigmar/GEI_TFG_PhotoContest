@@ -25,7 +25,7 @@ CREATE TABLE CategoriaFotografica(
 
 CREATE TABLE Usuario(
     idUsuario BIGINT NOT NULL AUTO_INCREMENT,
-    fotoPerfil TEXT,
+    fotoPerfil LONGTEXT,
     nombreUsuario VARCHAR(50),
     nombrePilaUsuario VARCHAR(50),
     apellidosUsuario VARCHAR(100),
@@ -80,7 +80,7 @@ CREATE TABLE Concurso(
     tipoVotanteConcurso INT,
     tipoVotoConcurso INT,
     velocidadObturacion VARCHAR(50),
-    fotoConcurso MEDIUMBLOB,
+    fotoConcurso LONGTEXT,
     categoriaUnica TINYINT,
     maxFotosUsuario INT,
     maxVotosUsuario INT,
@@ -99,7 +99,7 @@ CREATE TABLE Concurso(
     fechaInicioVotacion DATETIME,
     descVotacion VARCHAR(500),
     fechaFinConcurso DATETIME,
-    basesConcurso MEDIUMBLOB,
+    basesConcurso LONGTEXT,
     CONSTRAINT Concurso_fk PRIMARY KEY(idConcurso),
     CONSTRAINT Nombre_concurso_unique UNIQUE(nombreConcurso)
 );

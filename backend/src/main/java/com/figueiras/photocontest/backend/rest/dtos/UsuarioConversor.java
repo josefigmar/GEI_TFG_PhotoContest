@@ -19,7 +19,7 @@ public class UsuarioConversor {
 
         usuarioParticipaConcursoDto.setIdConcurso(usuarioParticipaConcurso.getConcurso().getIdConcurso());
         usuarioParticipaConcursoDto.setNombreConcurso(usuarioParticipaConcurso.getConcurso().getNombreConcurso());
-        usuarioParticipaConcursoDto.setRolUsuario(usuarioParticipaConcurso.getRolUsuario().toString());
+        usuarioParticipaConcursoDto.setRolUsuario(usuarioParticipaConcurso.getRolUsuarioConcurso().toString());
         usuarioParticipaConcursoDto.setFechaInicioParticipacion(
                 Utilidades.toMillis(usuarioParticipaConcurso.getFechaInicioParticipacion()));
 
@@ -94,5 +94,15 @@ public class UsuarioConversor {
         }
 
         return usuariosDto;
+    }
+
+    public static UsuarioAutenticadoDto toUsuarioAutenticadoDto(Usuario usuario, String token){
+
+        UsuarioAutenticadoDto usuarioAutenticadoDto = new UsuarioAutenticadoDto();
+
+        usuarioAutenticadoDto.setUsuarioDto(toUsuarioDto(usuario));
+        usuarioAutenticadoDto.setTokenJwt(token);
+
+        return usuarioAutenticadoDto;
     }
 }

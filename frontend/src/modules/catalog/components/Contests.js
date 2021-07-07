@@ -1,6 +1,7 @@
 import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import constants from "../../commons";
 
 const Contests = ({contests}) =>{
 
@@ -11,6 +12,14 @@ const Contests = ({contests}) =>{
             case "FINALIZADO" : return "danger"
             default : return "success"
         }
+    }
+
+    const contestPhoto = (databasePhoto) => {
+        if(databasePhoto === null || databasePhoto === undefined){
+            return constants.IMG_CONTEST_DEFAULT;
+        }
+        
+        return databasePhoto;
     }
 
     return(
@@ -38,7 +47,7 @@ const Contests = ({contests}) =>{
                 <tbody>
                     {contests.map(concurso => 
                         <tr key={concurso.idConcurso}>
-                            <td><img alt="contest" src={`data:image/jpeg;base64, ${concurso.fotografia}`}/></td>
+                            <td><img alt="contest" src={`data:image/jpeg;base64, ${contestPhoto(concurso.fotografia)}`}/></td>
                             <td className="align-middle">
                                 <Link to={`/catalog/concursos/${concurso.idConcurso}`}>{concurso.nombre}</Link>
                             </td>

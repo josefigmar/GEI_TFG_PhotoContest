@@ -23,15 +23,12 @@ const handleOkResponse = (response, onSuccess) => {
         return true;
     }
 
-    if (response.status === 204) {
-        onSuccess();
+    if (isJson(response)) {
+        response.json().then(payload => onSuccess(payload));
         return true;
     }
 
-    if (isJson(response)) {
-        response.json().then(payload => onSuccess(payload));
-    }
-
+    onSuccess();
     return true;
 
 }

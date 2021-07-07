@@ -13,7 +13,7 @@ public class UsuarioParticipaConcurso {
     private Usuario usuario;
 
     private Concurso concurso;
-    private RolUsuario rolUsuario;
+    private RolUsuarioConcurso rolUsuarioConcurso;
     private LocalDateTime fechaInicioParticipacion;
 
     @EmbeddedId
@@ -47,12 +47,12 @@ public class UsuarioParticipaConcurso {
         this.concurso = concurso;
     }
 
-    public RolUsuario getRolUsuario() {
-        return rolUsuario;
+    public RolUsuarioConcurso getRolUsuarioConcurso() {
+        return rolUsuarioConcurso;
     }
 
-    public void setRolUsuario(RolUsuario rolUsuario) {
-        this.rolUsuario = rolUsuario;
+    public void setRolUsuarioConcurso(RolUsuarioConcurso rolUsuarioConcurso) {
+        this.rolUsuarioConcurso = rolUsuarioConcurso;
     }
 
     public LocalDateTime getFechaInicioParticipacion() {

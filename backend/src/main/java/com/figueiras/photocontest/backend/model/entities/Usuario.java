@@ -3,6 +3,7 @@ package com.figueiras.photocontest.backend.model.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,12 +22,13 @@ public class Usuario {
     @Size(max = 90)
     @Email
     private String correoElectronicoUsuario;
-    @Size(min = 4, max = 50)
+    @Size(min = 4, max = 100)
     private String contrasenaUsuario;
     @Size(max = 200)
     private String enlaceTwitterUsuario;
     @Size(max = 200)
     private String enlaceFacebookUsuario;
+    private RolUsuarioSistema rolUsuarioSistema;
     private Set<UsuarioSigueUsuario> usuariosQueSigue;
     private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
     private Set<CategoriaFotografica> categoriaFotograficasQueLeGustan;
@@ -35,6 +37,12 @@ public class Usuario {
 
 
     public Usuario() {
+        rolUsuarioSistema = RolUsuarioSistema.ESTANDAR;
+        usuariosQueSigue = new HashSet<>();
+        usuariosQueLoSiguen = new HashSet<>();
+        categoriaFotograficasQueLeGustan = new HashSet<>();
+        notificacionesUsuario = new HashSet<>();
+        concursosEnLosQueParticipa = new HashSet<>();
     }
 
     @Id
@@ -113,6 +121,14 @@ public class Usuario {
 
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
+    }
+
+    public RolUsuarioSistema getRolUsuarioSistema() {
+        return rolUsuarioSistema;
+    }
+
+    public void setRolUsuarioSistema(RolUsuarioSistema rolUsuarioSistema) {
+        this.rolUsuarioSistema = rolUsuarioSistema;
     }
 
     @OneToMany(mappedBy="usuarioSeguidor", fetch = FetchType.LAZY)

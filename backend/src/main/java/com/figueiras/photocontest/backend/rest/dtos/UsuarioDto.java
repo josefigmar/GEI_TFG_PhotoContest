@@ -6,6 +6,8 @@ public class UsuarioDto {
 
     private Long idUsuario;
     private String fotoPerfil;
+    private String contraseña;
+    private String email;
     private String nombreUsuario;
     private String nombrePilaUsuario;
     private String apellidosUsuario;
@@ -32,6 +34,22 @@ public class UsuarioDto {
 
     public void setFotoPerfil(String fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNombreUsuario() {

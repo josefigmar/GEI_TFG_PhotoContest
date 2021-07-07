@@ -269,4 +269,14 @@ public class UsuarioTest {
 
         Assertions.assertEquals(usuario.getNotificacionesUsuario(), notificaciones);
     }
+
+    @Test
+    public void setRolUsuarioTest(){
+        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
+
+        usuario.setRolUsuarioSistema(RolUsuarioSistema.ESTANDAR);
+
+        Assertions.assertEquals(usuario.getRolUsuarioSistema(), RolUsuarioSistema.ESTANDAR);
+
+    }
 }

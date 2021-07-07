@@ -41,6 +41,7 @@ export default{
     'user.SignUp.Email' : 'Email',
     'user.SignUp.SignUp' : 'Sign up',
     'user.SignUp.Login' : 'Login',
+    'user.LogIn.Welcome' : 'Login into Photocontest',
     'user.Login.RegisterMsg' : 'You need an account?',
     'user.Login.ForgotPassword' : 'Did you forgot your password?',
     'user.FindUsers.PlaceHolder' : 'Username',

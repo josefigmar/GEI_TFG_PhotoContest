@@ -1,7 +1,16 @@
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-
+import constants
+ from "../../commons";
 const Users = ({users}) =>{
+
+    const userPhoto = (databasePhoto) => {
+        if(databasePhoto === null || databasePhoto === undefined){
+            return constants.IMG_PROFILE_DEFAULT;
+        }
+        
+        return databasePhoto;
+    }
 
 
     return(
@@ -23,7 +32,7 @@ const Users = ({users}) =>{
                 <tbody>
                     {users.map(user => 
                         <tr key={user.idUsuario}>
-                            <td className="align-middle"><img className="profileImg" alt="user profile" src={`data:image/jpeg;base64, ${user.fotoPerfil}`}/></td>
+                            <td className="align-middle"><img className="profileImg" alt="user profile" src={`data:image/jpeg;base64, ${userPhoto(user.fotoPerfil)}`}/></td>
                             <td className="align-middle">
                                 {`${user.nombrePilaUsuario} ${user.apellidosUsuario}`}
                             </td>

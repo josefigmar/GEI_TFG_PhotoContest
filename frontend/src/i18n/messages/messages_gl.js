@@ -43,6 +43,7 @@ export default{
     'user.SignUp.Email' : 'Correo electrónico',
     'user.SignUp.SignUp' : 'Rexistrarse',
     'user.SignUp.Login' : 'Iniciar sesión',
+    'user.LogIn.Welcome' : 'Inicia sesion en Photocontest',
     'user.Login.ForgotPassword' : 'Olvidaches o teu contrasinal?',
     'user.Login.RegisterMsg' : 'Necesitas unha conta?',
     'app.FindUsers.NoUsers' : 'A búsqueda non devolveu resultados',

@@ -2,40 +2,40 @@ package com.figueiras.photocontest.backend.rest.common;
 
 public class JwtInfo {
 
-    private Long userId;
-    private String userName;
-    private String role;
+    private Long idUsuario;
+    private String nombreUsuario;
+    private String rolUsuario;
 
-    public JwtInfo(Long userId, String userName, String role) {
 
-        this.userId = userId;
-        this.userName = userName;
-        this.role = role;
+    public JwtInfo(Long idUsuario, String nombreUsuario, String rolUsuario) {
+
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.rolUsuario = rolUsuario;
 
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public String getRole() {
-        return role;
+    public String getRolUsuario() {
+        return rolUsuario;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRolUsuario(String rolUsuario) {
+        this.rolUsuario = rolUsuario;
     }
-
 }

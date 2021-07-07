@@ -23,8 +23,8 @@ public class JwtGeneratorImpl implements JwtGenerator {
     public String generate(JwtInfo info) {
 
         return Jwts.builder()
-                .claim("userId", info.getUserId())
-                .claim("role", info.getRole())
+                .claim("userId", info.getIdUsuario())
+                .claim("role", info.getRolUsuario())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMinutes*60*1000))
                 .signWith(SignatureAlgorithm.HS512, signKey.getBytes())
                 .compact();

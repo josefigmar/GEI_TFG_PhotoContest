@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/catalogo-concursos/categorias").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios/*").permitAll()
+                .antMatchers("/catalogo-usuarios/registrarse").permitAll()
+                .antMatchers("/catalogo-usuarios/iniciar-sesion").permitAll()
                 .anyRequest().hasRole("USER");
 
     }

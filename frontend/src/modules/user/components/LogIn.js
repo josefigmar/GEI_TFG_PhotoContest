@@ -1,12 +1,29 @@
 import { Container, Button} from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
-import { Link } from "react-router-dom";
-
-
-
-
+import { Link, Redirect, useHistory} from "react-router-dom";
+import { useState } from "react";
+import backend from "../../../backend";
 
 const LogIn = () => {
+
+    const history = useHistory();
+
+    const [nombreUsuario, setNombreUsuario] = useState("");
+    const [contraseñaUsuario, setContraseñaUsuario] = useState("");
+
+    const handleSubmit = event => {
+        
+        event.preventDefault();
+
+        backend.userService.logIn(
+            {
+                nombreUsuario,
+                contraseñaUsuario
+            },
+            () => history.push('/'),
+            () => history.push('/users/logIn'),
+        )
+    }
 
     return(
 
@@ -19,10 +36,10 @@ const LogIn = () => {
             </Container>
             <br/>
             <Container className="LogInDivSecond bg-light border border-secondary ">
-                <form>
+                <form onSubmit={e => handleSubmit(e)}>
                     <br/>
                     <div className="d-flex justify-content-center">
-                        <h6><FormattedMessage id='user.SignUp.Welcome'/></h6>
+                        <h6><FormattedMessage id='user.LogIn.Welcome'/></h6>
                     </div>
                     <br/>
                     
@@ -31,14 +48,14 @@ const LogIn = () => {
                             <span class="input-group-text" id="basic-addon1">@</span>
                         </div>
                         <FormattedMessage id='user.SignUp.UserName'>
-                            {placeholder => <input placeholder={placeholder} className="form-control"/>}
+                            {placeholder => <input value={nombreUsuario} placeholder={placeholder} onChange={e => setNombreUsuario(e.target.value)} required className="form-control"/>}
                         </FormattedMessage>
                         
                     </div>
 
                     <div className="input-group mb-3">
                         <FormattedMessage id='user.SignUp.Password'>
-                            {placeholder => <input placeholder={placeholder} className="form-control" type="password"/>}
+                            {placeholder => <input value={contraseñaUsuario} placeholder={placeholder} onChange={e => setContraseñaUsuario(e.target.value)} required className="form-control" type="password"/>}
                         </FormattedMessage>
                     </div>
                     <br/>

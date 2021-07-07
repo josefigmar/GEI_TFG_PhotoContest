@@ -13,12 +13,12 @@ public interface UsuarioParticipaConcursoDao
         extends PagingAndSortingRepository<UsuarioParticipaConcurso, UsuarioParticipaConcursoPK> {
 
     Optional<UsuarioParticipaConcurso> findByUsuarioIdUsuarioAndConcursoIdConcurso(Long idUsuario, Long idConcurso);
-    @Query("SELECT u FROM UsuarioParticipaConcurso u WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuario = 3")
+    @Query("SELECT u FROM UsuarioParticipaConcurso u WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuarioConcurso = 2")
     List<UsuarioParticipaConcurso> findJurado(Long idConcurso);
-    @Query("SELECT u FROM UsuarioParticipaConcurso u WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuario = 1")
+    @Query("SELECT u FROM UsuarioParticipaConcurso u WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuarioConcurso = 0")
     List<UsuarioParticipaConcurso> findOrganizadores(Long idConcurso);
     @Query("SELECT u FROM UsuarioParticipaConcurso u " +
-            "WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuario = 0 OR u.rolUsuario = 2")
-    List<UsuarioParticipaConcurso> findParticipantes(Long idConcurso);
+            "WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuarioConcurso = 1")
+    List<UsuarioParticipaConcurso> findInscritos(Long idConcurso);
 
 }

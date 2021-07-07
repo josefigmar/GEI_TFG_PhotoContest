@@ -47,9 +47,9 @@ public class JwtFilter extends BasicAuthenticationFilter {
             JwtInfo jwtInfo = jwtGenerator.getInfo(serviceToken);
 
             request.setAttribute("serviceToken", serviceToken);
-            request.setAttribute("userId", jwtInfo.getUserId());
+            request.setAttribute("userId", jwtInfo.getIdUsuario());
 
-            configureSecurityContext(jwtInfo.getUserName(), jwtInfo.getRole());
+            configureSecurityContext(jwtInfo.getNombreUsuario(), jwtInfo.getRolUsuario());
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

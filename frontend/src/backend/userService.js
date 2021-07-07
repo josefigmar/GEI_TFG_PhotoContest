@@ -16,3 +16,17 @@ export const findUser = ({userName}, onSuccess) =>{
 
     appFetch(path, config('GET'), onSuccess);
 }
+
+export const signUp = (usuarioDto, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/registrarse`;
+
+    appFetch(path, config('POST', usuarioDto), onSuccess, onErrors);
+}
+
+export const logIn = (usuarioDto, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/iniciar-sesion`;
+
+    appFetch(path, config('POST', usuarioDto), onSuccess, onErrors);
+}

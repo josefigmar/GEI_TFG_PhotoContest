@@ -33,12 +33,12 @@ public class UsuarioParticipaConcursoTest {
     }
 
     @Test
-    public void setRolUsuarioTest(){
+    public void setRolUsuarioConcursoTest(){
         UsuarioParticipaConcurso usuarioParticipaConcurso = new UsuarioParticipaConcurso();
 
-        usuarioParticipaConcurso.setRolUsuario(RolUsuario.ESTANDAR);
+        usuarioParticipaConcurso.setRolUsuarioConcurso(RolUsuarioConcurso.INSCRITO);
 
-        Assertions.assertEquals(usuarioParticipaConcurso.getRolUsuario(), RolUsuario.ESTANDAR);
+        Assertions.assertEquals(usuarioParticipaConcurso.getRolUsuarioConcurso(), RolUsuarioConcurso.INSCRITO);
     }
 
     @Test

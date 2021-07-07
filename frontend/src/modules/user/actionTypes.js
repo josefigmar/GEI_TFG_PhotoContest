@@ -1,0 +1,2 @@
+export const LOGOUT = "CLEAR_USER_DATA";
+export const USER_LOGIN_COMPLETED = "USER_LOGIN_COMPLETED";

@@ -1,12 +1,15 @@
 import { Container, Button} from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
-import { Link, Redirect, useHistory} from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import { useState } from "react";
 import backend from "../../../backend";
+import { useDispatch } from "react-redux";
+import * as actions from "../actions";
 
 const LogIn = () => {
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [nombreUsuario, setNombreUsuario] = useState("");
     const [contraseñaUsuario, setContraseñaUsuario] = useState("");
@@ -15,14 +18,15 @@ const LogIn = () => {
         
         event.preventDefault();
 
-        backend.userService.logIn(
+        dispatch(actions.login(
             {
                 nombreUsuario,
                 contraseñaUsuario
             },
             () => history.push('/'),
             () => history.push('/users/logIn'),
-        )
+            () => history.push('/users/logIn')
+        ));
     }
 
     return(

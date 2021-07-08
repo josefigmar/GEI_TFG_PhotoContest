@@ -3,8 +3,12 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 import rootReducer from './rootReducer';
+import { loadState } from './localStorage';
 
 const configureStore = () => {
+
+// This is the state of the aplication stored in the local storage of the browser
+    const persistedState = loadState();
 
     const middlewares = [thunk];
 
@@ -12,8 +16,11 @@ const configureStore = () => {
         middlewares.push(logger);
     }
 
-    return createStore(rootReducer, 
-       applyMiddleware(...middlewares));
+    return createStore(
+        rootReducer,
+        persistedState,
+        applyMiddleware(...middlewares)
+    );
 
 }
 

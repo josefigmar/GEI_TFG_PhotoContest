@@ -15,3 +15,7 @@ export const login = (userLoginData, onSuccess, onErrors, reauthenticationCallba
         onErrors,
         reauthenticationCallback);
 };
+
+export const logout = () => ({
+    type: actionTypes.LOGOUT
+});

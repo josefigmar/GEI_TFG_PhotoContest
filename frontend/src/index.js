@@ -3,17 +3,24 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './modules/app/components/App';
 import './App.css';
+import throttle from 'lodash/throttle';
 
 import {IntlProvider} from 'react-intl';
 import {initReactIntl} from './i18n';
 import configureStore from './store';
 import { Provider } from 'react-redux';
+import { loadState, saveState } from './store/localStorage';
 
 /* Configure i18n. */
 const {locale, messages} = initReactIntl();
 
-
 const store = configureStore();
+
+store.subscribe(throttle(() => {
+  saveState({
+    user: store.getState().user
+  });
+}, 1000));
 
 /* Render application. */
 ReactDOM.render(

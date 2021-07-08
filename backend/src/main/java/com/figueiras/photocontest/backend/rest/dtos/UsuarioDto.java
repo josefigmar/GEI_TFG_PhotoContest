@@ -16,6 +16,8 @@ public class UsuarioDto {
     private String enlaceFacebookUsuario;
     private List<CategoriaFotograficaDto> categoriasFotograficasQueLeGustan;
     private List<UsuarioParticipaConcursoDto> concursosEnLosQueParticipa;
+    private List<UsuarioTablaDto> usuariosQueSigue;
+    private List<UsuarioTablaDto> usuariosQueLoSiguen;
 
     public UsuarioDto() {
     }
@@ -114,5 +116,21 @@ public class UsuarioDto {
 
     public void setConcursosEnLosQueParticipa(List<UsuarioParticipaConcursoDto> concursosEnLosQueParticipa) {
         this.concursosEnLosQueParticipa = concursosEnLosQueParticipa;
+    }
+
+    public List<UsuarioTablaDto> getUsuariosQueSigue() {
+        return usuariosQueSigue;
+    }
+
+    public void setUsuariosQueSigue(List<UsuarioTablaDto> usuariosQueSigue) {
+        this.usuariosQueSigue = usuariosQueSigue;
+    }
+
+    public List<UsuarioTablaDto> getUsuariosQueLoSiguen() {
+        return usuariosQueLoSiguen;
+    }
+
+    public void setUsuariosQueLoSiguen(List<UsuarioTablaDto> usuariosQueLoSiguen) {
+        this.usuariosQueLoSiguen = usuariosQueLoSiguen;
     }
 }

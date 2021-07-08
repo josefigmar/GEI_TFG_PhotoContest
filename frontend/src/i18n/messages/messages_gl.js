@@ -9,7 +9,9 @@ export default{
     'app.Header.MyProfile' : 'O meu perfil',
     'app.Header.Config' : 'Configuración',
     'app.Header.LogOut' : 'Pechar sesión',
-    'app.RedirectHome.paragraphContests' : 'Bota un vistazo aos concursos ou crea ti un concurso',
+    'app.Home.Contests': 'Os concursos máis novos',
+    'app.Home.WelcomeBack': 'Benvido',
+    'app.RedirectHome.paragraphContests' : 'Bota un vistazo a todos os concursos ou crea ti un concurso',
     'app.RedirectHome.paragraphAccount' : 'Inicia sesión ou rexístrate se non tes conta',
     'app.RedirectHome.ButtonContests' : 'Atopar concursos',
     'app.RedirectHome.ButtonCreateContest' : 'Crear concurso',
@@ -50,6 +52,8 @@ export default{
     'user.Login.ForgotPassword' : 'Olvidaches o teu contrasinal?',
     'user.Login.RegisterMsg' : 'Necesitas unha conta?',
     'app.FindUsers.NoUsers' : 'A búsqueda non devolveu resultados',
+    'user.Profile.EditData': 'Editar os meus datos',
+    'user.Profile.ChanguePassword': 'Cambiar contrasinal',
 
 
 }

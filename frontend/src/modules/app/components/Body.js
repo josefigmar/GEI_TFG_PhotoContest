@@ -7,6 +7,7 @@ import User from '../../user/components/User';
 import Home from './Home';
 import SignUp from '../../user/components/SignUp';
 import LogIn from '../../user/components/LogIn';
+import FollowersFollowing from '../../user/components/FollowersFollowing';
 
 
 const Body = () => {
@@ -22,6 +23,8 @@ const Body = () => {
                 <Route exact path="/users/signUp"><SignUp/></Route>
                 <Route exact path="/users/login"><LogIn/></Route>
                 <Route exact path="/users/:userName"><User/></Route>
+                <Route exact path="/users/:userName/followers"><FollowersFollowing/></Route>
+                <Route exact path="/users/:userName/following"><FollowersFollowing/></Route>
 
                 <Route><Home/></Route>
             </Switch>

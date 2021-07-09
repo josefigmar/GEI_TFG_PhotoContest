@@ -1,9 +1,6 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
-import com.figueiras.photocontest.backend.model.entities.Concurso;
-import com.figueiras.photocontest.backend.model.entities.ConcursoDao;
-import com.figueiras.photocontest.backend.model.entities.Usuario;
-import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcurso;
+import com.figueiras.photocontest.backend.model.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -65,6 +62,8 @@ public class UsuarioConversor {
     public static UsuarioDto toUsuarioDto(Usuario usuario){
 
         UsuarioDto usuarioDto = new UsuarioDto();
+        List<UsuarioTablaDto> usuariosQueSigueTablaDtos = new ArrayList<>();
+        List<UsuarioTablaDto> usuariosQueLoSiguenTablaDtos = new ArrayList<>();
 
         usuarioDto.setIdUsuario(usuario.getIdUsuario());
         usuarioDto.setFotoPerfil(usuario.getFotoPerfil());
@@ -75,12 +74,15 @@ public class UsuarioConversor {
         usuarioDto.setBiografiaUsuario(usuario.getBiografiaUsuario());
         usuarioDto.setEnlaceTwitterUsuario(usuario.getEnlaceTwitterUsuario());
         usuarioDto.setEnlaceFacebookUsuario(usuario.getEnlaceFacebookUsuario());
+        usuarioDto.setNumeroSeguidores(Long.valueOf(usuario.getUsuariosQueLoSiguen().size()));
+        usuarioDto.setNumeroSeguidos(Long.valueOf(usuario.getUsuariosQueSigue().size()));
         usuarioDto.setCategoriasFotograficasQueLeGustan(
                 CategoriaFotograficaConversor.toCategoriaFotograficasDto(
                         usuario.getCategoriaFotograficasQueLeGustan()));
         usuarioDto.setConcursosEnLosQueParticipa(
                 UsuarioConversor.toUsuarioParticipaConcursosDto(usuario.getConcursosEnLosQueParticipa()));
 
+        
         return usuarioDto;
     }
 

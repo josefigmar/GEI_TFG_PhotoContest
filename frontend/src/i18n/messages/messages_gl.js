@@ -54,6 +54,8 @@ export default{
     'app.FindUsers.NoUsers' : 'A búsqueda non devolveu resultados',
     'user.Profile.EditData': 'Editar os meus datos',
     'user.Profile.ChanguePassword': 'Cambiar contrasinal',
+    'user.Profile.Followers': 'Seguidores',
+    'user.Profile.Following': 'Seguindo',
 
 
 }

@@ -30,3 +30,21 @@ export const logIn = (usuarioDto, onSuccess, onErrors) => {
 
     appFetch(path, config('POST', usuarioDto), onSuccess, onErrors);
 }
+
+export const followersOfUser = ({userName, page, size}, onSuccess) => {
+    let path = `/catalogo-usuarios/usuarios/${userName}/followers`;
+
+    path += page === 0 || page? `?page=${page}` : "";
+    path += size? `&size=${size}` : "";
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
+export const followingOfUser = ({userName, page, size}, onSuccess) => {
+    let path = `/catalogo-usuarios/usuarios/${userName}/following`;
+
+    path += page === 0 || page? `?page=${page}` : "";
+    path += size? `&size=${size}` : "";
+
+    appFetch(path, config('GET'), onSuccess);
+}

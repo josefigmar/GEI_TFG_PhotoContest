@@ -292,3 +292,26 @@ INSERT INTO UsuarioParticipaConcurso
 (idUsuario, idConcurso, rolUsuarioConcurso, fechaInicioParticipacion)
 VALUES
 (1, 3, 2, NOW());
+
+
+-- UsuarioSigueUsuario
+
+INSERT INTO UsuarioSigueUsuario
+(idUsuarioSeguidor, idUsuarioSeguido, fechaSeguida)
+VALUES
+(2, 1, NOW());
+
+INSERT INTO UsuarioSigueUsuario
+(idUsuarioSeguidor, idUsuarioSeguido, fechaSeguida)
+VALUES
+(3, 1, NOW());
+
+INSERT INTO UsuarioSigueUsuario
+(idUsuarioSeguidor, idUsuarioSeguido, fechaSeguida)
+VALUES
+(5, 1, NOW());
+
+INSERT INTO UsuarioSigueUsuario
+(idUsuarioSeguidor, idUsuarioSeguido, fechaSeguida)
+VALUES
+(1, 3, NOW());

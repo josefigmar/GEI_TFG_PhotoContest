@@ -54,6 +54,8 @@ export default {
     'app.FindUsers.NoUsers': 'The search did not return any coincidences',
     'user.Profile.EditData': 'Edit my information',
     'user.Profile.ChanguePassword': 'Changue password',
+    'user.Profile.Followers': 'Followers',
+    'user.Profile.Following': 'Following',
 
 
 

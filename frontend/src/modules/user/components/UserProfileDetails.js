@@ -84,12 +84,12 @@ const UserProfileDetails = ({ userData }) => {
             <div className="d-flex justify-content-center">
                 <br />
 
-                <Link className="nav-link" to={{ pathname: userData.enlaceTwitterUsuario }} target="_blank">
-                    {`Siguiendo`}
+                <Link className="nav-link" to={`/users/${userData.nombreUsuario}/following`} >
+                    {`${userData.numeroSeguidos} Siguiendo`}
                 </Link>
 
-                <Link className="nav-link" to={{ pathname: userData.enlaceTwitterUsuario }} target="_blank">
-                    {`Seguidores`}
+                <Link className="nav-link" to={`/users/${userData.nombreUsuario}/followers`} >
+                    {`${userData.numeroSeguidores} Seguidores`}
                 </Link>
 
             </div>

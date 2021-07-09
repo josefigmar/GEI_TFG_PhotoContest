@@ -14,10 +14,10 @@ public class UsuarioDto {
     private String biografiaUsuario;
     private String enlaceTwitterUsuario;
     private String enlaceFacebookUsuario;
+    private Long numeroSeguidores;
+    private Long numeroSeguidos;
     private List<CategoriaFotograficaDto> categoriasFotograficasQueLeGustan;
     private List<UsuarioParticipaConcursoDto> concursosEnLosQueParticipa;
-    private List<UsuarioTablaDto> usuariosQueSigue;
-    private List<UsuarioTablaDto> usuariosQueLoSiguen;
 
     public UsuarioDto() {
     }
@@ -98,6 +98,22 @@ public class UsuarioDto {
         return enlaceFacebookUsuario;
     }
 
+    public Long getNumeroSeguidores() {
+        return numeroSeguidores;
+    }
+
+    public void setNumeroSeguidores(Long numeroSeguidores) {
+        this.numeroSeguidores = numeroSeguidores;
+    }
+
+    public Long getNumeroSeguidos() {
+        return numeroSeguidos;
+    }
+
+    public void setNumeroSeguidos(Long numeroSeguidos) {
+        this.numeroSeguidos = numeroSeguidos;
+    }
+
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
     }
@@ -118,19 +134,4 @@ public class UsuarioDto {
         this.concursosEnLosQueParticipa = concursosEnLosQueParticipa;
     }
 
-    public List<UsuarioTablaDto> getUsuariosQueSigue() {
-        return usuariosQueSigue;
-    }
-
-    public void setUsuariosQueSigue(List<UsuarioTablaDto> usuariosQueSigue) {
-        this.usuariosQueSigue = usuariosQueSigue;
-    }
-
-    public List<UsuarioTablaDto> getUsuariosQueLoSiguen() {
-        return usuariosQueLoSiguen;
-    }
-
-    public void setUsuariosQueLoSiguen(List<UsuarioTablaDto> usuariosQueLoSiguen) {
-        this.usuariosQueLoSiguen = usuariosQueLoSiguen;
-    }
 }

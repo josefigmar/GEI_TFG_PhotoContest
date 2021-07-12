@@ -57,9 +57,9 @@ const FollowersFollowing = () => {
             <div className="d-flex justify-content-center">
                 <h5>
                     <Link to={`/users/${userName}`}>
-                        {`@${userName}: `}
+                        {`@${userName}`}
                     </Link>
-                    <FormattedMessage id={getTitle()} />
+                    : <FormattedMessage id={getTitle()} />
                 </h5>
             </div>
 

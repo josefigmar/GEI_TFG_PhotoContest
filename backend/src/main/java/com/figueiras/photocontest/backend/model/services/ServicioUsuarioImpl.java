@@ -5,15 +5,15 @@ import com.figueiras.photocontest.backend.model.entities.UsuarioDao;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuarioDao;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
-import com.figueiras.photocontest.backend.rest.dtos.*;
+import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
+import com.figueiras.photocontest.backend.rest.dtos.UsuarioDto;
+import com.figueiras.photocontest.backend.rest.dtos.UsuarioLoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,7 +70,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     }
 
     @Override
-    public Usuario iniciarSesionUsuario(UsuarioLoginDto usuarioLoginDto) {
+    public Usuario iniciarSesionUsuario(UsuarioLoginDto usuarioLoginDto) throws InstanceNotFoundException {
 
         Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(usuarioLoginDto.getNombreUsuario());
 
@@ -80,7 +80,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
         if (!passwordEncoder.matches(usuarioLoginDto.getContraseñaUsuario(),
                 usuarioOptional.get().getContrasenaUsuario())) {
-            //TODO
+            throw new InstanceNotFoundException("todo", "todo");
         }
 
         return usuarioOptional.get();
@@ -107,6 +107,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
     @Override
     public Block<UsuarioSigueUsuario> recuperarSeguidosDeUsuario(String nombreUsuario, int page, int size) {
+
         Optional<Usuario> usuario = usuarioDao.findByNombreUsuario(nombreUsuario);
 
         if(!usuario.isPresent()){
@@ -118,5 +119,48 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         Block<UsuarioSigueUsuario> usuariosQueSigue = new Block<>(sliceSeguidos.getContent(), sliceSeguidos.hasNext());
 
         return usuariosQueSigue;
+    }
+
+    @Override
+    public void cambiarContraseñaUsuario(UsuarioCambioContraseñaDto usuarioCambioContraseñaDto) {
+
+        Optional<Usuario> usuarioOptional =
+                usuarioDao.findByNombreUsuario(usuarioCambioContraseñaDto.getNombreUsuario());
+
+        if(!usuarioOptional.isPresent()){
+            // todo
+        }
+
+        Usuario usuario = usuarioOptional.get();
+
+        if(!passwordEncoder.matches(usuarioCambioContraseñaDto.getContraseñaAntigua(), usuario.getContrasenaUsuario())){
+            // todo
+        }
+
+        usuario.setContrasenaUsuario(passwordEncoder.encode(usuarioCambioContraseñaDto.getContraseñaNueva()));
+
+        usuarioDao.save(usuario);
+    }
+
+    @Override
+    public Usuario actualizarDatosUsuario(UsuarioDto datosFormularioActualizacion) {
+
+        Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(datosFormularioActualizacion.getNombreUsuario());
+
+        if(!usuarioOptional.isPresent()){
+            // todo
+        }
+        Usuario usuario = usuarioOptional.get();
+
+        // Incorporación de datos del formulario
+        usuario.setNombrePilaUsuario(datosFormularioActualizacion.getNombrePilaUsuario());
+        usuario.setApellidosUsuario(datosFormularioActualizacion.getApellidosUsuario());
+        usuario.setBiografiaUsuario(datosFormularioActualizacion.getBiografiaUsuario());
+        usuario.setEnlaceTwitterUsuario(datosFormularioActualizacion.getEnlaceTwitterUsuario());
+        usuario.setEnlaceFacebookUsuario(datosFormularioActualizacion.getEnlaceFacebookUsuario());
+        usuario.setFotoPerfil(datosFormularioActualizacion.getFotoPerfil());
+
+        usuarioDao.save(usuario);
+        return usuario;
     }
 }

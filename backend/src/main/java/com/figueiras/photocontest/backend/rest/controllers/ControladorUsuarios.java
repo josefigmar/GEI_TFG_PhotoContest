@@ -73,6 +73,13 @@ public class ControladorUsuarios {
         return new Block<>(seguidosDeUsuarioTabla, seguidosUsuario.getExistMoreItems());
     }
 
+    @PostMapping("/usuarios/{nombreUsuario}/cambio-contrasena")
+    public void cambioCOntraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto){
+
+        servicioUsuario.cambiarContraseñaUsuario(usuarioCambioContraseñaDto);
+
+    }
+
     @PostMapping("/registrarse")
     public ResponseEntity registrarUsuario(@RequestBody UsuarioDto usuarioDto){
 
@@ -82,7 +89,7 @@ public class ControladorUsuarios {
     }
 
     @PostMapping("/iniciar-sesion")
-    public UsuarioAutenticadoDto iniciarSesion(@RequestBody UsuarioLoginDto usuarioLoginDto){
+    public UsuarioAutenticadoDto iniciarSesion(@RequestBody UsuarioLoginDto usuarioLoginDto) throws InstanceNotFoundException {
 
         Usuario usuario = servicioUsuario.iniciarSesionUsuario(usuarioLoginDto);
         String jwt = generateServiceToken(usuario);
@@ -91,12 +98,21 @@ public class ControladorUsuarios {
 
     }
 
+    @PutMapping("/usuarios/{nombreUsuario}")
+    public UsuarioDto actualizarDatosUsuario(@RequestBody UsuarioDto datosFormularioActualizacion){
+
+        Usuario usuario = servicioUsuario.actualizarDatosUsuario(datosFormularioActualizacion);
+
+        return UsuarioConversor.toUsuarioDto(usuario);
+    }
+
     private String generateServiceToken(Usuario usuario) {
 
         JwtInfo jwtInfo = new JwtInfo(usuario.getIdUsuario(), usuario.getNombreUsuario(),
                 usuario.getRolUsuarioSistema().toString());
 
         return jwtGenerator.generate(jwtInfo);
+
 
     }
 }

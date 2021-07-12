@@ -9,7 +9,7 @@ VALUES
 'Figueiras Martínez',
 'Fotografo aficionado desde 2005, me gusta la fotografía de aviación.',
 'josefigueirasm@udc.es',
-'admin',
+'$2a$10$5DEGRicHkaJT77/DZaHqX.R6k4IRe2deF.doCmmCIRhDfGvU/EeRS',
 'https://twitter.com/josefigm',
 'https://www.facebook.com/jose.figueirasm',
 0

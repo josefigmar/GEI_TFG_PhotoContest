@@ -72,7 +72,7 @@ const UserProfileDetails = ({ userData }) => {
 
                 <div>
                     <br/>
-                    <MyProfileButtons />
+                    <MyProfileButtons userName={userData.nombreUsuario}/>
                 </div>
 
                 :

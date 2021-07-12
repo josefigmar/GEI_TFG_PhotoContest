@@ -1,4 +1,5 @@
 export default{
+    'app.Commons.Save' : 'Guardar',
     'app.Header.Title' : 'PhotoContest',
     'app.Header.Home' : 'Inicio',
     'app.Header.Contests' : 'Concursos',
@@ -56,6 +57,14 @@ export default{
     'user.Profile.ChanguePassword': 'Cambiar contraseña',
     'user.Profile.Followers': 'Seguidores',
     'user.Profile.Following': 'Siguiendo',
+    'user.ChanguePassword.OldPassword' : 'Contraseña antigua',
+    'user.ChanguePassword.NewPassword' : 'Nueva contraseña',
+    'user.ChangueData.ProfilePhoto' : 'Foto de perfil',
+    'user.ChangueData.Name' : 'Nombre',
+    'user.ChangueData.Surnames' : 'Apellidos',
+    'user.ChangueData.Biography' : 'Biografía',
+    'user.ChangueData.TwitterLink' : 'Enlace a Twitter',
+    'user.ChangueData.FacebookLink' : 'Enlace a Facebook',
 
     
 }

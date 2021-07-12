@@ -1,4 +1,5 @@
 export default{
+    'app.Commons.Save' : 'Gardar',
     'app.Header.Title' : 'PhotoContest',
     'app.Header.Home' : 'Inicio',
     'app.Header.Contests' : 'Concursos',
@@ -56,6 +57,14 @@ export default{
     'user.Profile.ChanguePassword': 'Cambiar contrasinal',
     'user.Profile.Followers': 'Seguidores',
     'user.Profile.Following': 'Seguindo',
+    'user.ChanguePassword.OldPassword' : 'Contrasinal vello',
+    'user.ChanguePassword.NewPassword' : 'Novo contrasinal',
+    'user.ChangueData.ProfilePhoto' : 'Foto de perfil',
+    'user.ChangueData.Name' : 'Nome',
+    'user.ChangueData.Surnames' : 'Apelidos',
+    'user.ChangueData.Biography' : 'Biografía',
+    'user.ChangueData.TwitterLink' : 'Enlace a Twitter',
+    'user.ChangueData.FacebookLink' : 'Enlace a Facebook',
 
 
 }

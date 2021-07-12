@@ -8,7 +8,8 @@ import Home from './Home';
 import SignUp from '../../user/components/SignUp';
 import LogIn from '../../user/components/LogIn';
 import FollowersFollowing from '../../user/components/FollowersFollowing';
-
+import ChanguePassword from '../../user/components/ChanguePassword';
+import ChangueProfileData from '../../user/components/ChangueProfileData';
 
 const Body = () => {
     
@@ -23,6 +24,8 @@ const Body = () => {
                 <Route exact path="/users/signUp"><SignUp/></Route>
                 <Route exact path="/users/login"><LogIn/></Route>
                 <Route exact path="/users/:userName"><User/></Route>
+                <Route exact path="/users/:userName/changue-password"><ChanguePassword/></Route>
+                <Route exact path="/users/:userName/changue-data"><ChangueProfileData/></Route>
                 <Route exact path="/users/:userName/followers"><FollowersFollowing/></Route>
                 <Route exact path="/users/:userName/following"><FollowersFollowing/></Route>
 

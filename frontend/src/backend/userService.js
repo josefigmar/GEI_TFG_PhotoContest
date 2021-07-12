@@ -48,3 +48,15 @@ export const followingOfUser = ({userName, page, size}, onSuccess) => {
 
     appFetch(path, config('GET'), onSuccess);
 }
+
+export const changuePassword = (changuePasswordDto, onSuccess, onErrors) => {
+    let path = `/catalogo-usuarios/usuarios/${changuePasswordDto.userName}/cambio-contrasena`;
+
+    appFetch(path, config('POST', changuePasswordDto), onSuccess, onErrors);
+}
+
+export const updateUserData = (userUpdatedData, onSuccess, onErrors) => {
+    let path = `/catalogo-usuarios/usuarios/${userUpdatedData.nombreUsuario}`;
+
+    appFetch(path, config('PUT', userUpdatedData), onSuccess, onErrors);
+}

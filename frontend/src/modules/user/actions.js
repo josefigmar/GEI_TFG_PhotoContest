@@ -16,6 +16,22 @@ export const login = (userLoginData, onSuccess, onErrors, reauthenticationCallba
         reauthenticationCallback);
 };
 
+const userUpdateCompleted = userData => ({
+    type: actionTypes.USER_UPDATE_COMPLETED,
+    userData
+});
+
+export const updateUser = (userUpdateData, onSuccess, onErrors) => dispatch => {
+    backend.userService.updateUserData(userUpdateData,
+        userData => {
+            dispatch(userUpdateCompleted(userData));
+            onSuccess();
+        },
+        onErrors,
+
+    );
+}
+
 export const logout = () => ({
     type: actionTypes.LOGOUT
 });

@@ -13,6 +13,9 @@ const userData = (state = initialState.userData, action) => {
             return null;
 
         case actionTypes.USER_LOGIN_COMPLETED:
+            return action.userData.usuarioDto;
+
+        case actionTypes.USER_UPDATE_COMPLETED:
             return action.userData;
 
         default:

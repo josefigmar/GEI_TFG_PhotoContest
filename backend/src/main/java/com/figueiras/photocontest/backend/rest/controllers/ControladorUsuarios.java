@@ -9,7 +9,6 @@ import com.figueiras.photocontest.backend.rest.common.JwtGenerator;
 import com.figueiras.photocontest.backend.rest.common.JwtInfo;
 import com.figueiras.photocontest.backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -77,7 +76,6 @@ public class ControladorUsuarios {
     public void cambioCOntraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto){
 
         servicioUsuario.cambiarContraseñaUsuario(usuarioCambioContraseñaDto);
-
     }
 
     @PostMapping("/registrarse")
@@ -95,7 +93,6 @@ public class ControladorUsuarios {
         String jwt = generateServiceToken(usuario);
 
         return UsuarioConversor.toUsuarioAutenticadoDto(usuario, jwt);
-
     }
 
     @PutMapping("/usuarios/{nombreUsuario}")
@@ -112,7 +109,30 @@ public class ControladorUsuarios {
                 usuario.getRolUsuarioSistema().toString());
 
         return jwtGenerator.generate(jwtInfo);
-
-
     }
+
+    @PostMapping("/usuarios/{nombreUsuarioSeguidor}/seguir/{nombreUsuarioSeguido}")
+    public UsuarioDto seguirUsuario(@PathVariable String nombreUsuarioSeguidor,
+                                    @PathVariable String nombreUsuarioSeguido) throws InstanceNotFoundException {
+        Usuario usuarioSeguidor = servicioUsuario.usuarioSigueAUsuario(nombreUsuarioSeguidor, nombreUsuarioSeguido);
+
+        return UsuarioConversor.toUsuarioDto(usuarioSeguidor);
+    }
+
+    @PostMapping("/usuarios/{nombreUsuarioSeguidor}/dejar-seguir/{nombreUsuarioSeguido}")
+    public UsuarioDto dejarSeguirUsuario(@PathVariable String nombreUsuarioSeguidor,
+                                    @PathVariable String nombreUsuarioSeguido) throws InstanceNotFoundException {
+        Usuario usuarioSeguidor = servicioUsuario.usuarioDejaDeSeguirAUsuario(nombreUsuarioSeguidor,
+                nombreUsuarioSeguido);
+
+        return UsuarioConversor.toUsuarioDto(usuarioSeguidor);
+    }
+
+    @GetMapping("/usuarios/{nombreUsuarioSeguidor}/sigue/{nombreUsuarioSeguido}")
+    public boolean sigueUsuarioAUsuario(@PathVariable String nombreUsuarioSeguidor,
+                                    @PathVariable String nombreUsuarioSeguido){
+
+        return servicioUsuario.sigueUsuarioAUsuario(nombreUsuarioSeguidor, nombreUsuarioSeguido);
+    }
+
 }

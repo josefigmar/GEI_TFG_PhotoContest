@@ -2,13 +2,21 @@ import { Container, Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 import constants from "../../commons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import * as userSelectors from '../../user/selectors';
 import MyProfileButtons from "./MyProfileButtons";
+import { useEffect, useState } from "react";
+import backend from "../../../backend";
+import * as userActions from "../actions";
+import { useHistory } from "react-router";
 
 const UserProfileDetails = ({ userData }) => {
 
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const userName = useSelector(userSelectors.getUserName);
+    const [renderFollow, setRenderFollow] = useState('');
 
     const userPhoto = (databasePhoto) => {
         if (databasePhoto === null || databasePhoto === undefined) {
@@ -17,6 +25,36 @@ const UserProfileDetails = ({ userData }) => {
 
         return databasePhoto;
     }
+
+    const handleFollow = (event) => {
+        event.preventDefault();
+
+        dispatch(userActions.followUser(
+            userName,
+            userData.nombreUsuario,
+            () => {history.push("/temp");history.push(`users/${userData.nombreUsuario}`)},
+            () => {history.push("/temp");history.push(`users/${userData.nombreUsuario}`)},
+        ));
+    }
+
+    const handleUnfollow = (event) => {
+        event.preventDefault();
+
+        dispatch(userActions.unfollowUser(
+            userName,
+            userData.nombreUsuario,
+            () => {history.push("/temp");history.push(`users/${userData.nombreUsuario}`)},
+            () => {history.push("/temp");history.push(`users/${userData.nombreUsuario}`)},
+        ));
+    }
+
+    useEffect(() => {
+        backend.userService.doesUserFollowUser(userName,
+            userData.nombreUsuario,
+            result => setRenderFollow(result),
+            null
+        );
+    }, [])
 
     return (
         <Container>
@@ -30,19 +68,30 @@ const UserProfileDetails = ({ userData }) => {
                 &nbsp;
                 &nbsp;
                 {
-                    // If the user is seeing hise/her profile, the follow button doesn't have
+                    // If the user is seeing his/her profile, the follow button doesn't have
                     // to exist.
-                    userName === userData.nombreUsuario ?
+                    userName === userData.nombreUsuario || renderFollow === ''?
 
                         null
 
                         :
 
-                        <form>
-                            <Button type="submit" className="d-flex justify-content-center" variant="success">
-                                <FormattedMessage id="user.Profile.Follow" />
-                            </Button>
-                        </form>
+                        renderFollow ?
+
+                            <form onSubmit={e => handleUnfollow(e)}>
+                                <Button type="submit" className="d-flex justify-content-center" variant="danger">
+                                    <FormattedMessage id="user.Profile.Unfollow" />
+                                </Button>
+
+                            </form>
+
+                            :
+
+                            <form onSubmit={e => handleFollow(e)}>
+                                <Button type="submit" className="d-flex justify-content-center" variant="success">
+                                    <FormattedMessage id="user.Profile.Follow" />
+                                </Button>
+                            </form>
                 }
             </div>
             <br />
@@ -68,16 +117,16 @@ const UserProfileDetails = ({ userData }) => {
                 </Link>
             </div>
             {
-                userName === userData.nombreUsuario?
+                userName === userData.nombreUsuario ?
 
-                <div>
-                    <br/>
-                    <MyProfileButtons userName={userData.nombreUsuario}/>
-                </div>
+                    <div>
+                        <br />
+                        <MyProfileButtons userName={userData.nombreUsuario} />
+                    </div>
 
-                :
+                    :
 
-                null
+                    null
             }
 
             <br />

@@ -52,6 +52,7 @@ export default{
     'user.Login.RegisterMsg' : '¿Necesitas una cuenta?',
     'user.Login.ForgotPassword' : '¿Olvidaste tu contraseña?',
     'user.Profile.Follow' : 'Seguir',
+    'user.Profile.Unfollow': 'Dejar de seguir',
     'app.FindUsers.NoUsers' : 'La búsqueda no arrojó resultados',
     'user.Profile.EditData': 'Editar mis datos',
     'user.Profile.ChanguePassword': 'Cambiar contraseña',

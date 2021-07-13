@@ -46,7 +46,7 @@ const FollowersFollowing = () => {
                 (result) => setUsersData(result)
             );
         }
-    });
+    }, []);
 
     if (usersData === '') {
         return null;

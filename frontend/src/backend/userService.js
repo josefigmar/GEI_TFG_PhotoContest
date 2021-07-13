@@ -60,3 +60,24 @@ export const updateUserData = (userUpdatedData, onSuccess, onErrors) => {
 
     appFetch(path, config('PUT', userUpdatedData), onSuccess, onErrors);
 }
+
+export const userFollowsUser = (followerUserName, followedUserName, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/usuarios/${followerUserName}/seguir/${followedUserName}`;
+
+    appFetch(path, config('POST'), onSuccess, onErrors);
+}
+
+export const userUnfollowsUser = (followerUserName, followedUserName, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/usuarios/${followerUserName}/dejar-seguir/${followedUserName}`;
+
+    appFetch(path, config('POST'), onSuccess, onErrors);
+}
+
+export const doesUserFollowUser = (followerUserName, followedUserName, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/usuarios/${followerUserName}/sigue/${followedUserName}`;
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}

@@ -32,6 +32,33 @@ export const updateUser = (userUpdateData, onSuccess, onErrors) => dispatch => {
     );
 }
 
+const relationshipUpdateCompleted = userData => ({
+    type: actionTypes.RELATIONSHIP_UPDATE_COMPLETED,
+    userData
+});
+
+export const followUser = (followerUserName, followedUserName, onSuccess, onErrors) => dispatch => {
+    backend.userService.userFollowsUser(followerUserName,
+        followedUserName,
+        userData => {
+            dispatch(relationshipUpdateCompleted(userData));
+            onSuccess();
+        },
+        onErrors,
+    );
+}
+
+export const unfollowUser = (followerUserName, followedUserName, onSuccess, onErrors) => dispatch => {
+    backend.userService.userUnfollowsUser(followerUserName,
+        followedUserName,
+        userData => {
+            dispatch(relationshipUpdateCompleted(userData));
+            onSuccess();
+        },
+        onErrors,
+    );
+}
+
 export const logout = () => ({
     type: actionTypes.LOGOUT
 });

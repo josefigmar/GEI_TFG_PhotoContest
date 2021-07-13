@@ -16,7 +16,7 @@ const User = () => {
         backend.userService.findUser({userName}, result => 
             setUserData(result));
 
-    }, [])
+    }, [userName])
 
     if(userData === ""){
         return null;

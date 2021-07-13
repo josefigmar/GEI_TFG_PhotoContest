@@ -41,6 +41,7 @@ export default{
     'user.Profile.ContestTable.role' : 'Rol no concurso',
     'user.Profile.ContestTable.fecha' : 'Participa desde',
     'user.Profile.Follow' : 'Seguir',
+    'user.Profile.Unfollow': 'Deixar de seguir',
     'user.SignUp.Welcome' : 'Rexístrate para descubrir fotógrafos e concursos dos teus amigos.',
     'user.SignUp.UserName' : 'Nome de usuario',
     'user.SignUp.Password' : 'Contrasinal',

@@ -52,6 +52,7 @@ export default {
     'user.Login.ForgotPassword': 'Did you forgot your password?',
     'user.FindUsers.PlaceHolder': 'Username',
     'user.Profile.Follow': 'Follow',
+    'user.Profile.Unfollow': 'Unfollow',
     'app.FindUsers.NoUsers': 'The search did not return any coincidences',
     'user.Profile.EditData': 'Edit my information',
     'user.Profile.ChanguePassword': 'Changue password',

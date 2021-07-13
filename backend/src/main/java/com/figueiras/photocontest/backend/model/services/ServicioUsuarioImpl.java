@@ -14,10 +14,11 @@ import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class ServicioUsuarioImpl implements ServicioUsuario{
+public class ServicioUsuarioImpl implements ServicioUsuario {
 
     @Autowired
     UsuarioDao usuarioDao;
@@ -34,9 +35,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         PageRequest pageRequest = PageRequest.of(page, size);
         Slice<Usuario> sliceUsuario;
 
-        if(nombre == null){
+        if (nombre == null) {
             sliceUsuario = usuarioDao.findAndOrderByNombreUsuario(pageRequest);
-        }else{
+        } else {
             sliceUsuario = usuarioDao.findByNombreUsuario(nombre, pageRequest);
         }
 
@@ -47,8 +48,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     public Usuario recuperarUsuario(String nombreUsuario) throws InstanceNotFoundException {
         Optional<Usuario> u = usuarioDao.findByNombreUsuario(nombreUsuario);
 
-        if(!u.isPresent()){
-            throw  new InstanceNotFoundException(Usuario.class.getName(), nombreUsuario);
+        if (!u.isPresent()) {
+            throw new InstanceNotFoundException(Usuario.class.getName(), nombreUsuario);
         }
 
         return u.get();
@@ -92,7 +93,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
         Optional<Usuario> usuario = usuarioDao.findByNombreUsuario(nombreUsuario);
 
-        if(!usuario.isPresent()){
+        if (!usuario.isPresent()) {
             // todo
         }
 
@@ -110,7 +111,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
         Optional<Usuario> usuario = usuarioDao.findByNombreUsuario(nombreUsuario);
 
-        if(!usuario.isPresent()){
+        if (!usuario.isPresent()) {
             // todo
         }
         Slice<UsuarioSigueUsuario> sliceSeguidos =
@@ -127,13 +128,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         Optional<Usuario> usuarioOptional =
                 usuarioDao.findByNombreUsuario(usuarioCambioContraseñaDto.getNombreUsuario());
 
-        if(!usuarioOptional.isPresent()){
+        if (!usuarioOptional.isPresent()) {
             // todo
         }
 
         Usuario usuario = usuarioOptional.get();
 
-        if(!passwordEncoder.matches(usuarioCambioContraseñaDto.getContraseñaAntigua(), usuario.getContrasenaUsuario())){
+        if (!passwordEncoder.matches(usuarioCambioContraseñaDto.getContraseñaAntigua(), usuario.getContrasenaUsuario())) {
             // todo
         }
 
@@ -147,7 +148,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
         Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(datosFormularioActualizacion.getNombreUsuario());
 
-        if(!usuarioOptional.isPresent()){
+        if (!usuarioOptional.isPresent()) {
             // todo
         }
         Usuario usuario = usuarioOptional.get();
@@ -162,5 +163,74 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
         usuarioDao.save(usuario);
         return usuario;
+    }
+
+    @Override
+    public Usuario usuarioSigueAUsuario(String nombreUsuarioSeguidor, String nombreUsuarioSeguido)
+            throws InstanceNotFoundException {
+
+        Optional<Usuario> usuarioSeguidorOptional = usuarioDao.findByNombreUsuario(nombreUsuarioSeguidor);
+        Optional<Usuario> usuarioSeguidoOptional = usuarioDao.findByNombreUsuario(nombreUsuarioSeguido);
+
+        if (!usuarioSeguidorOptional.isPresent() || !usuarioSeguidoOptional.isPresent()) {
+            throw new InstanceNotFoundException(null, null);
+        }
+
+        Usuario usuarioSeguidor = usuarioSeguidorOptional.get();
+        Usuario usuarioSeguido = usuarioSeguidoOptional.get();
+
+        UsuarioSigueUsuario usuarioSigueUsuario = new UsuarioSigueUsuario();
+        usuarioSigueUsuario.setUsuarioSeguidor(usuarioSeguidor);
+        usuarioSigueUsuario.setUsuarioSeguido(usuarioSeguido);
+        usuarioSigueUsuario.setFechaSeguida(LocalDateTime.now());
+
+        usuarioSeguidor.getUsuariosQueSigue().add(usuarioSigueUsuario);
+        usuarioSeguido.getUsuariosQueLoSiguen().add(usuarioSigueUsuario);
+
+        usuarioSigueUsuarioDao.save(usuarioSigueUsuario);
+        usuarioDao.save(usuarioSeguidor);
+        usuarioDao.save(usuarioSeguido);
+
+        return usuarioSeguidor;
+    }
+
+    @Override
+    public Usuario usuarioDejaDeSeguirAUsuario(String nombreUsuarioSeguidor, String nombreUsuarioSeguido)
+            throws InstanceNotFoundException {
+
+        Optional<Usuario> usuarioSeguidorOptional = usuarioDao.findByNombreUsuario(nombreUsuarioSeguidor);
+        Optional<Usuario> usuarioSeguidoOptional = usuarioDao.findByNombreUsuario(nombreUsuarioSeguido);
+        Optional<UsuarioSigueUsuario> usuarioSigueUsuarioOptional =
+                usuarioSigueUsuarioDao.recuperarUsuarioSigueUsuario(nombreUsuarioSeguidor, nombreUsuarioSeguido);
+
+        if (!usuarioSeguidorOptional.isPresent() || !usuarioSeguidoOptional.isPresent()
+                || !usuarioSigueUsuarioOptional.isPresent()) {
+            throw new InstanceNotFoundException(null, null);
+        }
+
+        Usuario usuarioSeguidor = usuarioSeguidorOptional.get();
+        Usuario usuarioSeguido = usuarioSeguidoOptional.get();
+        UsuarioSigueUsuario usuarioSigueUsuario = usuarioSigueUsuarioOptional.get();
+
+        usuarioSeguidor.getUsuariosQueSigue().remove(usuarioSigueUsuario);
+        usuarioSeguido.getUsuariosQueLoSiguen().remove(usuarioSigueUsuario);
+
+        usuarioSigueUsuarioDao.delete(usuarioSigueUsuario);
+        usuarioDao.save(usuarioSeguidor);
+        usuarioDao.save(usuarioSeguido);
+
+        return usuarioSeguidor;
+    }
+
+    @Override
+    public boolean sigueUsuarioAUsuario(String usuarioSeguidor, String usuarioSeguido) {
+
+        Optional<UsuarioSigueUsuario> usuarioSigueUsuario =
+                usuarioSigueUsuarioDao.recuperarUsuarioSigueUsuario(usuarioSeguidor, usuarioSeguido);
+
+        if (!usuarioSigueUsuario.isPresent()) {
+            return false;
+        }
+        return true;
     }
 }

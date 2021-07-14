@@ -40,7 +40,7 @@ export default {
     'user.Profile.ContestTable.role': 'Contest role',
     'user.Profile.ContestTable.fecha': 'Participating since',
     'user.SignUp.Welcome': 'Sign up to discover photographers and amazing contests',
-    'user.SignUp.UserName': 'User name',
+    'user.SignUp.UserName': 'Username',
     'user.SignUp.Password': 'Password',
     'user.SignUp.Name': 'Name',
     'user.SignUp.Surnames': 'Surnames',

@@ -70,7 +70,7 @@ const LogIn = () => {
                     </div>
                     <br/>
                     <div className="d-flex justify-content-center">
-                        <Link to={"/users/signUp"}>
+                        <Link to={"/users/recover"}>
                             <FormattedMessage id='user.Login.ForgotPassword'/>
                         </Link>
                     </div>

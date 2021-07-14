@@ -10,7 +10,7 @@
     "bootstrap": "4.6.0",
     "bootstrap-icons": "^1.5.0",
     "history": "^4.10.1",
-    "jquery": "^1.9.1",
+    "jquery": "^1.12.4",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "popper.js": "^1.16.1",

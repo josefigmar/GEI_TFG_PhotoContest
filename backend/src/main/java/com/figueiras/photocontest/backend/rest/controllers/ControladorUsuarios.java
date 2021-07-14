@@ -135,4 +135,8 @@ public class ControladorUsuarios {
         return servicioUsuario.sigueUsuarioAUsuario(nombreUsuarioSeguidor, nombreUsuarioSeguido);
     }
 
+    @PostMapping("usuarios/{nombreUsuario}/recuperar-cuenta")
+    public void recuperarCuenta(@PathVariable String nombreUsuario) throws InstanceNotFoundException {
+        servicioUsuario.enviarNuevaContraseña(nombreUsuario);
+    }
 }

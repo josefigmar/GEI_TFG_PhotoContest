@@ -81,3 +81,10 @@ export const doesUserFollowUser = (followerUserName, followedUserName, onSuccess
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
+
+export const sendRecoverMail = (userName, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/usuarios/${userName}/recuperar-contrasena`;
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}

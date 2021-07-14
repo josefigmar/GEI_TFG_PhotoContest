@@ -14,8 +14,10 @@ import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class ServicioUsuarioImpl implements ServicioUsuario {
@@ -25,6 +27,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
     @Autowired
     UsuarioSigueUsuarioDao usuarioSigueUsuarioDao;
+
+    @Autowired
+    ServicioEmail servicioEmail;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -232,5 +237,38 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void enviarNuevaContraseña(String nombreUsuarioDestinatario) throws InstanceNotFoundException {
+
+        Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(nombreUsuarioDestinatario);
+
+        if(!usuarioOptional.isPresent()){
+            throw new InstanceNotFoundException(null, null);
+        }
+
+        Usuario usuario = usuarioOptional.get();
+        String nuevaContraseña = generarContraseña(10);
+        String nuevaContraseñaCodificada = passwordEncoder.encode(nuevaContraseña);
+
+        usuario.setContrasenaUsuario(nuevaContraseñaCodificada);
+        try{
+            servicioEmail.enviarMailGmail(usuario.getCorreoElectronicoUsuario(), "New password", nuevaContraseña);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private String generarContraseña(int longitud){
+
+        String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random rnd = new Random();
+
+        StringBuilder sb = new StringBuilder(longitud);
+        for (int i = 0; i < longitud; i++) {
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        }
+        return sb.toString();
     }
 }

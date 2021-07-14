@@ -68,7 +68,7 @@ public class UsuarioConversor {
         usuarioDto.setIdUsuario(usuario.getIdUsuario());
         usuarioDto.setFotoPerfil(usuario.getFotoPerfil());
         usuarioDto.setNombreUsuario(usuario.getNombreUsuario());
-        usuarioDto.setIdUsuario(usuario.getIdUsuario());
+        usuarioDto.setEmail(usuario.getCorreoElectronicoUsuario());
         usuarioDto.setNombrePilaUsuario(usuario.getNombrePilaUsuario());
         usuarioDto.setApellidosUsuario(usuario.getApellidosUsuario());
         usuarioDto.setBiografiaUsuario(usuario.getBiografiaUsuario());

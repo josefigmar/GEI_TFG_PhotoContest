@@ -88,3 +88,10 @@ export const sendRecoverMail = (userName, onSuccess, onErrors) => {
 
     appFetch(path, config('POST'), onSuccess, onErrors);
 }
+
+export const deleteAccount = (userName, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/usuarios/${userName}/eliminar-cuenta`;
+
+    appFetch(path, config('POST'), onSuccess, onErrors);
+}

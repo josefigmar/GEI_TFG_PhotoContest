@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 @Service
 public class ServicioUsuarioImpl implements ServicioUsuario {
@@ -272,5 +274,42 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         }
         return sb.toString();
+    }
+
+    @Override
+    public void eliminarUsuario(String nombreUsuario) throws InstanceNotFoundException {
+
+        Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(nombreUsuario);
+
+        if(!usuarioOptional.isPresent()){
+            throw new InstanceNotFoundException(null, null);
+        }
+
+        Usuario usuario = usuarioOptional.get();
+
+        // Borrado de datos personales en BBDD
+        usuario.setNombrePilaUsuario("");
+        usuario.setApellidosUsuario("");
+        usuario.setBiografiaUsuario("");
+        usuario.setEnlaceTwitterUsuario("");
+        usuario.setEnlaceFacebookUsuario("");
+        // Borrado de seguidos
+        Set<UsuarioSigueUsuario> usuariosQueSigue = usuario.getUsuariosQueSigue();
+        for(UsuarioSigueUsuario usu : usuariosQueSigue){
+            usuarioSigueUsuarioDao.delete(usu);
+        }
+        // Borrado de seguidores
+        Set<UsuarioSigueUsuario> usuariosQueLoSiguen = usuario.getUsuariosQueLoSiguen();
+        for(UsuarioSigueUsuario usu : usuariosQueLoSiguen){
+            usuarioSigueUsuarioDao.delete(usu);
+        }
+
+        usuario.setUsuariosQueSigue(new HashSet<>());
+        usuario.setUsuariosQueLoSiguen(new HashSet<>());
+        usuario.setFotoPerfil(null);
+        usuario.setCorreoElectronicoUsuario(null);
+        usuario.setCuentaEliminada(true);
+
+        usuarioDao.save(usuario);
     }
 }

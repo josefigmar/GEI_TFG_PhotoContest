@@ -21,4 +21,5 @@ public interface ServicioUsuario {
     Usuario usuarioDejaDeSeguirAUsuario(String usuarioSeguidor, String usuarioSeguido) throws InstanceNotFoundException;
     boolean sigueUsuarioAUsuario(String usuarioSeguidor, String usuarioSeguido);
     void enviarNuevaContraseña(String nombreUsuarioDestinatario) throws InstanceNotFoundException;
+    void eliminarUsuario(String nombreUsuario) throws InstanceNotFoundException;
 }

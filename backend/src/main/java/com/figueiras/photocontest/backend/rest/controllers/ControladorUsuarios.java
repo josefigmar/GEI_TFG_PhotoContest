@@ -73,7 +73,7 @@ public class ControladorUsuarios {
     }
 
     @PostMapping("/usuarios/{nombreUsuario}/cambio-contrasena")
-    public void cambioCOntraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto){
+    public void cambioContraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto){
 
         servicioUsuario.cambiarContraseñaUsuario(usuarioCambioContraseñaDto);
     }
@@ -138,5 +138,10 @@ public class ControladorUsuarios {
     @PostMapping("/usuarios/{nombreUsuario}/recuperar-cuenta")
     public void recuperarCuenta(@PathVariable String nombreUsuario) throws InstanceNotFoundException {
         servicioUsuario.enviarNuevaContraseña(nombreUsuario);
+    }
+
+    @PostMapping("/usuarios/{nombreUsuario}/eliminar-cuenta")
+    public void eliminarCuenta(@PathVariable String nombreUsuario) throws InstanceNotFoundException {
+        servicioUsuario.eliminarUsuario(nombreUsuario);
     }
 }

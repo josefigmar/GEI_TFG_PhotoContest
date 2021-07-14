@@ -13,21 +13,22 @@ public class Usuario {
     private String fotoPerfil;
     @Size(min = 1, max = 50)
     private String nombreUsuario;
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     private String nombrePilaUsuario;
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     private String apellidosUsuario;
     @Size(max = 500)
     private String biografiaUsuario;
     @Size(max = 90)
     @Email
     private String correoElectronicoUsuario;
-    @Size(min = 4, max = 100)
+    @Size(min = 0, max = 100)
     private String contrasenaUsuario;
     @Size(max = 200)
     private String enlaceTwitterUsuario;
     @Size(max = 200)
     private String enlaceFacebookUsuario;
+    private boolean cuentaEliminada;
     private RolUsuarioSistema rolUsuarioSistema;
     private Set<UsuarioSigueUsuario> usuariosQueSigue;
     private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
@@ -43,6 +44,7 @@ public class Usuario {
         categoriaFotograficasQueLeGustan = new HashSet<>();
         notificacionesUsuario = new HashSet<>();
         concursosEnLosQueParticipa = new HashSet<>();
+        cuentaEliminada = false;
     }
 
     @Id
@@ -121,6 +123,14 @@ public class Usuario {
 
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
+    }
+
+    public boolean isCuentaEliminada() {
+        return cuentaEliminada;
+    }
+
+    public void setCuentaEliminada(boolean cuentaEliminada) {
+        this.cuentaEliminada = cuentaEliminada;
     }
 
     public RolUsuarioSistema getRolUsuarioSistema() {

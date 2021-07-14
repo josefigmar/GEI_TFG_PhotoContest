@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface UsuarioDao extends PagingAndSortingRepository<Usuario, Long> {
 
-    @Query("SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE %:nombreUsuario% ORDER BY u.nombreUsuario")
+    @Query("SELECT u FROM Usuario u WHERE u.nombreUsuario LIKE %:nombreUsuario% AND u.cuentaEliminada=false ORDER BY u.nombreUsuario")
     Slice<Usuario> findByNombreUsuario(String nombreUsuario, Pageable pageable);
-    @Query("SELECT u FROM Usuario u ORDER BY u.nombreUsuario")
+    @Query("SELECT u FROM Usuario u WHERE u.cuentaEliminada=false ORDER BY u.nombreUsuario")
     Slice<Usuario> findAndOrderByNombreUsuario(Pageable pageable);
     Optional<Usuario> findByNombreUsuario(String nombreUsuario);
 }

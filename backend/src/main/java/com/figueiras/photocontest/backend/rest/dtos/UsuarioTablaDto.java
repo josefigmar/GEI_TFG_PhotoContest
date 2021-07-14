@@ -7,6 +7,7 @@ public class UsuarioTablaDto {
     private String nombreUsuario;
     private String nombrePilaUsuario;
     private String apellidosUsuario;
+    private boolean cuentaEliminada;
 
     public UsuarioTablaDto() {
     }
@@ -49,5 +50,13 @@ public class UsuarioTablaDto {
 
     public void setApellidosUsuario(String apellidosUsuario) {
         this.apellidosUsuario = apellidosUsuario;
+    }
+
+    public boolean isCuentaEliminada() {
+        return cuentaEliminada;
+    }
+
+    public void setCuentaEliminada(boolean cuentaEliminada) {
+        this.cuentaEliminada = cuentaEliminada;
     }
 }

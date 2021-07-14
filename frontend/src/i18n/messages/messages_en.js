@@ -74,6 +74,8 @@ export default {
     'user.Profile.ChanguePassword': 'Changue password',
     'user.Profile.Followers': 'Followers',
     'user.Profile.Following': 'Following',
+    'user.Profile.Delete': 'Delete account',
+    'user.Profile.DeleteMsg': 'Are you sure you want to delete this account?',
 
     'user.ChanguePassword.OldPassword' : 'Old password',
     'user.ChanguePassword.NewPassword' : 'New password',

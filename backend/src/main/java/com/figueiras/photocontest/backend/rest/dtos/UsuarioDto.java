@@ -16,6 +16,7 @@ public class UsuarioDto {
     private String enlaceFacebookUsuario;
     private Long numeroSeguidores;
     private Long numeroSeguidos;
+    private boolean cuentaEliminada;
     private List<CategoriaFotograficaDto> categoriasFotograficasQueLeGustan;
     private List<UsuarioParticipaConcursoDto> concursosEnLosQueParticipa;
 
@@ -112,6 +113,14 @@ public class UsuarioDto {
 
     public void setNumeroSeguidos(Long numeroSeguidos) {
         this.numeroSeguidos = numeroSeguidos;
+    }
+
+    public boolean isCuentaEliminada() {
+        return cuentaEliminada;
+    }
+
+    public void setCuentaEliminada(boolean cuentaEliminada) {
+        this.cuentaEliminada = cuentaEliminada;
     }
 
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {

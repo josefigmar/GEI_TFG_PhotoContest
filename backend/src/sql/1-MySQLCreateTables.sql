@@ -34,6 +34,7 @@ CREATE TABLE Usuario(
     contrasenaUsuario VARCHAR(100),
     enlaceTwitterUsuario VARCHAR(200),
     enlaceFacebookUsuario VARCHAR(200),
+    cuentaEliminada TINYINT,
     rolUsuarioSistema int,
     CONSTRAINT Usuario_pk PRIMARY KEY(idUsuario),
     CONSTRAINT Nombre_usuario_unique UNIQUE(nombreUsuario)

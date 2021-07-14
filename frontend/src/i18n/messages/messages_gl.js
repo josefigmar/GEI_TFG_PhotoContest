@@ -42,6 +42,8 @@ export default{
     'user.Profile.ContestTable.fecha' : 'Participa desde',
     'user.Profile.Follow' : 'Seguir',
     'user.Profile.Unfollow': 'Deixar de seguir',
+    'user.Profile.Delete': 'Eliminar conta',
+    'user.Profile.DeleteMsg': 'Está seguro de que quere eliminar esta conta?',
     'user.SignUp.Welcome' : 'Rexístrate para descubrir fotógrafos e concursos dos teus amigos.',
     'user.SignUp.UserName' : 'Nome de usuario',
     'user.SignUp.Password' : 'Contrasinal',

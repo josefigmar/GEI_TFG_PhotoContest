@@ -44,6 +44,7 @@ public class UsuarioConversor {
         usuarioTablaDto.setNombreUsuario(usuario.getNombreUsuario());
         usuarioTablaDto.setNombrePilaUsuario(usuario.getNombrePilaUsuario());
         usuarioTablaDto.setApellidosUsuario(usuario.getApellidosUsuario());
+        usuarioTablaDto.setCuentaEliminada(usuario.isCuentaEliminada());
 
         return usuarioTablaDto;
     }
@@ -76,6 +77,7 @@ public class UsuarioConversor {
         usuarioDto.setEnlaceFacebookUsuario(usuario.getEnlaceFacebookUsuario());
         usuarioDto.setNumeroSeguidores(Long.valueOf(usuario.getUsuariosQueLoSiguen().size()));
         usuarioDto.setNumeroSeguidos(Long.valueOf(usuario.getUsuariosQueSigue().size()));
+        usuarioDto.setCuentaEliminada(usuario.isCuentaEliminada());
         usuarioDto.setCategoriasFotograficasQueLeGustan(
                 CategoriaFotograficaConversor.toCategoriaFotograficasDto(
                         usuario.getCategoriaFotograficasQueLeGustan()));

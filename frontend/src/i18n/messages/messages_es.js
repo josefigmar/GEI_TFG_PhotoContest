@@ -40,6 +40,8 @@ export default{
     'user.Profile.ContestTable.Name' : 'Nombre del concurso',
     'user.Profile.ContestTable.role' : 'Rol en concurso',
     'user.Profile.ContestTable.fecha' : 'Participa desde',
+    'user.Profile.Delete': 'Eliminar cuenta',
+    'user.Profile.DeleteMsg': '¿Está seguro de que quiere eliminar esta cuenta?',
     'user.SignUp.Welcome' : 'Regístrate para descubrir fotógrafos y concursos de tus amigos.',
     'user.SignUp.UserName' : 'Nombre de usuario',
     'user.SignUp.Password' : 'Contraseña',

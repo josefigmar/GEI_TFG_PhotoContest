@@ -256,6 +256,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         usuario.setContrasenaUsuario(nuevaContraseñaCodificada);
         try{
             servicioEmail.enviarMailGmail(usuario.getCorreoElectronicoUsuario(), "New password", nuevaContraseña);
+            usuarioDao.save(usuario);
         }catch(Exception e){
             e.printStackTrace();
         }

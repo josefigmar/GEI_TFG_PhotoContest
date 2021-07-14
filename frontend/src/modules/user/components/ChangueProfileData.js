@@ -53,6 +53,7 @@ const ChangueProfileData = () => {
             {
                 nombreUsuario: userData.nombreUsuario,
                 nombrePilaUsuario,
+                email,
                 apellidosUsuario,
                 biografiaUsuario,
                 enlaceTwitterUsuario,

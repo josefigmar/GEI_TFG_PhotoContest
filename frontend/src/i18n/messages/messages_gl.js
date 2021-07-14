@@ -62,6 +62,7 @@ export default{
     'user.ChanguePassword.NewPassword' : 'Novo contrasinal',
     'user.ChangueData.ProfilePhoto' : 'Foto de perfil',
     'user.ChangueData.Name' : 'Nome',
+    'user.ChangueData.Email' : 'Correo electrónico',
     'user.ChangueData.Surnames' : 'Apelidos',
     'user.ChangueData.Biography' : 'Biografía',
     'user.ChangueData.TwitterLink' : 'Enlace a Twitter',

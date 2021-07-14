@@ -16,6 +16,7 @@ const ChangueProfileData = () => {
 
     const [nombrePilaUsuario, setNombrePilaUsuario] = useState("");
     const [apellidosUsuario, setApellidosUsuario] = useState("");
+    const [email, setEmail] = useState("");
     const [biografiaUsuario, setBiografiaUsuario] = useState("");
     const [enlaceTwitterUsuario, setEnlaceTwitterUsuario] = useState("");
     const [enlaceFacebookUsuario, setEnlaceFacebookUsuario] = useState("");
@@ -24,6 +25,7 @@ const ChangueProfileData = () => {
     useEffect(() => {
         setNombrePilaUsuario(userData.nombrePilaUsuario);
         setApellidosUsuario(userData.apellidosUsuario);
+        setEmail(userData.email);
         setBiografiaUsuario(userData.biografiaUsuario);
         setEnlaceTwitterUsuario(userData.enlaceTwitterUsuario);
         setEnlaceFacebookUsuario(userData.enlaceFacebookUsuario);
@@ -68,10 +70,13 @@ const ChangueProfileData = () => {
                 <Form.Label><FormattedMessage id='user.ChangueData.Name' /></Form.Label>
                 <Form.Control value={nombrePilaUsuario} maxlength="50" onChange={e => setNombrePilaUsuario(e.target.value)} />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="apellidos">
                 <Form.Label><FormattedMessage id='user.ChangueData.Surnames' /></Form.Label>
                 <Form.Control value={apellidosUsuario} maxlength="100" onChange={e => setApellidosUsuario(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="Email">
+                <Form.Label><FormattedMessage id='user.ChangueData.Email' /></Form.Label>
+                <Form.Control type="emial" value={email} maxlength="200" onChange={e => setEmail(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="Biografia">
                 <Form.Label><FormattedMessage id='user.ChangueData.Biography' /></Form.Label>

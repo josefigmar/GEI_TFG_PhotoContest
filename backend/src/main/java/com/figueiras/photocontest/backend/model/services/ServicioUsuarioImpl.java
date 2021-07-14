@@ -160,6 +160,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         usuario.setEnlaceTwitterUsuario(datosFormularioActualizacion.getEnlaceTwitterUsuario());
         usuario.setEnlaceFacebookUsuario(datosFormularioActualizacion.getEnlaceFacebookUsuario());
         usuario.setFotoPerfil(datosFormularioActualizacion.getFotoPerfil());
+        usuario.setCorreoElectronicoUsuario(datosFormularioActualizacion.getEmail());
 
         usuarioDao.save(usuario);
         return usuario;

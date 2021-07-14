@@ -63,6 +63,7 @@ export default{
     'user.ChangueData.ProfilePhoto' : 'Foto de perfil',
     'user.ChangueData.Name' : 'Nombre',
     'user.ChangueData.Surnames' : 'Apellidos',
+    'user.ChangueData.Email' : 'Correo electrónico',
     'user.ChangueData.Biography' : 'Biografía',
     'user.ChangueData.TwitterLink' : 'Enlace a Twitter',
     'user.ChangueData.FacebookLink' : 'Enlace a Facebook',

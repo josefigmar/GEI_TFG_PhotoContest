@@ -18,7 +18,7 @@ const UserProfileDetails = ({ userData }) => {
     const userName = useSelector(userSelectors.getUserName);
     const isLoggedIn = useSelector(userSelectors.isUserLoggedIn);
 
-    const [renderFollow, setRenderFollow] = useState('');
+    const [renderUnFollow, setRenderUnFollow] = useState('');
 
     const userPhoto = (databasePhoto) => {
         if (databasePhoto === null || databasePhoto === undefined) {
@@ -54,7 +54,7 @@ const UserProfileDetails = ({ userData }) => {
         if (isLoggedIn) {
             backend.userService.doesUserFollowUser(userName,
                 userData.nombreUsuario,
-                result => setRenderFollow(result),
+                result => setRenderUnFollow(result),
                 null
             );
         }
@@ -75,13 +75,13 @@ const UserProfileDetails = ({ userData }) => {
                 {
                     // If the user is seeing his/her profile, the follow button doesn't have
                     // to exist.
-                    isLoggedIn && (userName === userData.nombreUsuario || renderFollow === '') ?
+                    isLoggedIn && (userName === userData.nombreUsuario || renderUnFollow === '') ?
 
                         null
 
                         :
 
-                        renderFollow ?
+                        isLoggedIn && renderUnFollow ?
 
                             <form onSubmit={e => handleUnfollow(e)}>
                                 <Button type="submit" className="d-flex justify-content-center" variant="danger">
@@ -92,6 +92,7 @@ const UserProfileDetails = ({ userData }) => {
 
                             :
 
+                            isLoggedIn &&
                             <form onSubmit={e => handleFollow(e)}>
                                 <Button type="submit" className="d-flex justify-content-center" variant="success">
                                     <FormattedMessage id="user.Profile.Follow" />

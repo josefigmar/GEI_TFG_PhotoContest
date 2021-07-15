@@ -2,6 +2,8 @@ package com.figueiras.photocontest.backend.rest.controllers;
 
 import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
+import com.figueiras.photocontest.backend.model.exceptions.CampoDuplicadoException;
+import com.figueiras.photocontest.backend.model.exceptions.CamposIntroducidosNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.model.services.Block;
@@ -98,7 +100,8 @@ public class ControladorUsuarios {
     }
 
     @PostMapping("/registrarse")
-    public ResponseEntity registrarUsuario(@RequestBody UsuarioDto usuarioDto){
+    public ResponseEntity registrarUsuario(@RequestBody UsuarioDto usuarioDto)
+            throws CampoDuplicadoException, CamposIntroducidosNoValidosException {
 
         servicioUsuario.registrarUsuario(usuarioDto);
 

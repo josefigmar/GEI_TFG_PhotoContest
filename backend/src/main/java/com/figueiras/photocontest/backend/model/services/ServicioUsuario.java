@@ -2,6 +2,8 @@ package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
+import com.figueiras.photocontest.backend.model.exceptions.CampoDuplicadoException;
+import com.figueiras.photocontest.backend.model.exceptions.CamposIntroducidosNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
@@ -12,7 +14,7 @@ public interface ServicioUsuario {
 
     Block<Usuario> recuperarUsuarios(String nombre, int page, int size);
     Usuario recuperarUsuario(String nombreUsuario) throws InstanceNotFoundException;
-    void registrarUsuario(UsuarioDto usuarioDto);
+    void registrarUsuario(UsuarioDto usuarioDto) throws CampoDuplicadoException, CamposIntroducidosNoValidosException;
     Usuario iniciarSesionUsuario(UsuarioLoginDto usuarioLoginDto) throws IncorrectLoginException;
     Block<UsuarioSigueUsuario> recuperarSeguidoresDeUsuario(String nombreUsuario, int page, int size);
     Block<UsuarioSigueUsuario> recuperarSeguidosDeUsuario(String nombreUsuario, int page, int size);

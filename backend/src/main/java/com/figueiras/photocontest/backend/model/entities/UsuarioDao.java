@@ -16,4 +16,5 @@ public interface UsuarioDao extends PagingAndSortingRepository<Usuario, Long> {
     @Query("SELECT u FROM Usuario u WHERE u.cuentaEliminada=false ORDER BY u.nombreUsuario")
     Slice<Usuario> findAndOrderByNombreUsuario(Pageable pageable);
     Optional<Usuario> findByNombreUsuario(String nombreUsuario);
+    Optional<Usuario> findByCorreoElectronicoUsuario(String nombreUsuario);
 }

@@ -4,6 +4,8 @@ import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioDao;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuarioDao;
+import com.figueiras.photocontest.backend.model.exceptions.CampoDuplicadoException;
+import com.figueiras.photocontest.backend.model.exceptions.CamposIntroducidosNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
@@ -62,10 +64,34 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         return u.get();
     }
 
+    /**
+     * Crea un nuevo usuario con los datos del formulario de registro.
+     *
+     * @param usuarioDto Datos del formulario de registro.
+     * @throws CampoDuplicadoException Si el nombre de usuario o el correo electrónico ya existen en la aplicaciçon.
+     */
     @Override
-    public void registrarUsuario(UsuarioDto usuarioDto) {
+    public void registrarUsuario(UsuarioDto usuarioDto) throws CampoDuplicadoException, CamposIntroducidosNoValidosException {
+
+        // Petición no permitida en la aplicación.
+        if(!esValidoFormRegistro(usuarioDto)){
+            throw new CamposIntroducidosNoValidosException();
+        }
+
+        Optional<Usuario> usuarioOptionalNombreUsuario = usuarioDao.findByNombreUsuario(usuarioDto.getNombreUsuario());
+        if(usuarioOptionalNombreUsuario.isPresent()){
+            throw new CampoDuplicadoException("entidades.usuario.nombreusuario", usuarioDto.getNombreUsuario());
+        }
+
+        Optional<Usuario> usuarioOptionalCorreo = usuarioDao.findByCorreoElectronicoUsuario(usuarioDto.getEmail());
+        if(usuarioOptionalCorreo.isPresent()){
+            throw new CampoDuplicadoException("entidades.usuario.correoelectronicousuario", usuarioDto.getEmail());
+        }
+
 
         Usuario usuario = new Usuario();
+
+
 
         usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
         usuario.setContrasenaUsuario(passwordEncoder.encode(usuarioDto.getContraseña()));
@@ -74,7 +100,17 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         usuario.setCorreoElectronicoUsuario(usuarioDto.getEmail());
 
         usuarioDao.save(usuario);
+    }
 
+    private boolean esValidoFormRegistro(UsuarioDto usuarioDto){
+        if((usuarioDto.getNombreUsuario() == null || usuarioDto.getNombreUsuario() == "")
+        || (usuarioDto.getContraseña() == null || usuarioDto.getContraseña() == "")
+        || (usuarioDto.getNombrePilaUsuario() == null || usuarioDto.getNombrePilaUsuario() == "")
+        || (usuarioDto.getApellidosUsuario() == null || usuarioDto.getApellidosUsuario() == "")
+        || (usuarioDto.getEmail() == null || usuarioDto.getEmail() == "")){
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -89,7 +125,6 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     public Usuario iniciarSesionUsuario(UsuarioLoginDto usuarioLoginDto) throws IncorrectLoginException {
 
         Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(usuarioLoginDto.getNombreUsuario());
-
 
         if (!usuarioOptional.isPresent() || (usuarioOptional.isPresent()) && usuarioOptional.get().isCuentaEliminada()){
             throw new IncorrectLoginException();

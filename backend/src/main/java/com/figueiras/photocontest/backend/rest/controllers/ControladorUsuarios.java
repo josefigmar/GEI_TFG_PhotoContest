@@ -2,6 +2,7 @@ package com.figueiras.photocontest.backend.rest.controllers;
 
 import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
+import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.model.services.Block;
 import com.figueiras.photocontest.backend.model.services.ServicioUsuario;
@@ -9,11 +10,13 @@ import com.figueiras.photocontest.backend.rest.common.JwtGenerator;
 import com.figueiras.photocontest.backend.rest.common.JwtInfo;
 import com.figueiras.photocontest.backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,10 +24,26 @@ import java.util.stream.Collectors;
 public class ControladorUsuarios {
 
     @Autowired
-    ServicioUsuario servicioUsuario;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
     private JwtGenerator jwtGenerator;
+
+    @Autowired
+    private MessageSource messageSource;
+
+    private static String INCORRECT_LOGIN_EXCEPTION_CODIGO = "project.exceptions.IncorrectLoginException";
+
+    @ExceptionHandler(IncorrectLoginException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErroresDto manejarExcepcionIncorrectLoginException(IncorrectLoginException e, Locale locale){
+
+        String mensajeExcepcion = messageSource.getMessage(INCORRECT_LOGIN_EXCEPTION_CODIGO,
+               null, INCORRECT_LOGIN_EXCEPTION_CODIGO, locale);
+
+        return  new ErroresDto(mensajeExcepcion);
+    }
 
     @GetMapping("/usuarios")
     public Block<UsuarioTablaDto> buscarUsuarios(@RequestParam(required = false) String nombreUsuario,
@@ -87,7 +106,8 @@ public class ControladorUsuarios {
     }
 
     @PostMapping("/iniciar-sesion")
-    public UsuarioAutenticadoDto iniciarSesion(@RequestBody UsuarioLoginDto usuarioLoginDto) throws InstanceNotFoundException {
+    public UsuarioAutenticadoDto iniciarSesion(@RequestBody UsuarioLoginDto usuarioLoginDto)
+            throws IncorrectLoginException {
 
         Usuario usuario = servicioUsuario.iniciarSesionUsuario(usuarioLoginDto);
         String jwt = generateServiceToken(usuario);

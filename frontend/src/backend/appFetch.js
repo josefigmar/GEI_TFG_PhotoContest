@@ -51,7 +51,7 @@ const handle4xxResponse = (response, onErrors) => {
     if (onErrors) {
 
         response.json().then(payload => {
-            if (payload.globalError || payload.fieldErrors) {
+            if (payload.errorGlobal || payload.erroresCampos) {
                 onErrors(payload);
             }
         });

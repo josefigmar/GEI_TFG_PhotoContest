@@ -5,6 +5,7 @@ import { useState } from "react";
 import backend from "../../../backend";
 import { useDispatch } from "react-redux";
 import * as actions from "../actions";
+import Errors from "../../commons/components/Errors";
 
 const LogIn = () => {
 
@@ -13,6 +14,7 @@ const LogIn = () => {
 
     const [nombreUsuario, setNombreUsuario] = useState("");
     const [contraseñaUsuario, setContraseñaUsuario] = useState("");
+    const [backendErrors, setBackendErrors] = useState(null);
 
     const handleSubmit = event => {
         
@@ -24,7 +26,7 @@ const LogIn = () => {
                 contraseñaUsuario
             },
             () => history.push('/'),
-            () => history.push('/users/logIn'),
+            errors => setBackendErrors(errors),
             () => history.push('/users/logIn')
         ));
     }
@@ -32,6 +34,7 @@ const LogIn = () => {
     return(
 
         <Container>
+            <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
             <Container className="signUpLogInDivFirst bg-light border border-secondary ">
                 <br/>
                 <div className="d-flex justify-content-center">

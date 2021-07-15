@@ -4,6 +4,7 @@ import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioDao;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuarioDao;
+import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioDto;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
@@ -77,22 +77,30 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
     }
 
+    /**
+     * Función que permite a un usuario iniciar sesión
+     *
+     * @param usuarioLoginDto Datos del formulario de inicio de sesión
+     * @return Los datos del usuario
+     * @throws IncorrectLoginException Si el usuario no existe o existe pero su cuenta ha sido borrada
+     *
+     */
     @Override
-    public Usuario iniciarSesionUsuario(UsuarioLoginDto usuarioLoginDto) throws InstanceNotFoundException {
+    public Usuario iniciarSesionUsuario(UsuarioLoginDto usuarioLoginDto) throws IncorrectLoginException {
 
         Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(usuarioLoginDto.getNombreUsuario());
 
-        if (!usuarioOptional.isPresent()) {
-            //TODO
+
+        if (!usuarioOptional.isPresent() || (usuarioOptional.isPresent()) && usuarioOptional.get().isCuentaEliminada()){
+            throw new IncorrectLoginException();
         }
 
         if (!passwordEncoder.matches(usuarioLoginDto.getContraseñaUsuario(),
                 usuarioOptional.get().getContrasenaUsuario())) {
-            throw new InstanceNotFoundException("todo", "todo");
+            throw new IncorrectLoginException();
         }
 
         return usuarioOptional.get();
-
     }
 
     @Override

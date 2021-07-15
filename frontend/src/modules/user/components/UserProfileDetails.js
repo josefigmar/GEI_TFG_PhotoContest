@@ -75,7 +75,7 @@ const UserProfileDetails = ({ userData }) => {
                 {
                     // If the user is seeing his/her profile, the follow button doesn't have
                     // to exist.
-                    isLoggedIn && userName === userData.nombreUsuario || renderFollow === '' ?
+                    isLoggedIn && (userName === userData.nombreUsuario || renderFollow === '') ?
 
                         null
 

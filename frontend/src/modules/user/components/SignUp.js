@@ -16,11 +16,6 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [lenguague, setLenguague] = useState("");
     const [backendErrors, setBackendErrors] = useState(null);
-    const lenguagues = [
-        { id: 1, value: "es" },
-        { id: 2, value: "Votacion" },
-        { id: 3, value: "Finalizado" },
-    ]
 
     const handleSubmit = event => {
 

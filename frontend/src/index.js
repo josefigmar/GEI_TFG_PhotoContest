@@ -4,15 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './modules/app/components/App';
 import './App.css';
 import throttle from 'lodash/throttle';
-
-import {IntlProvider} from 'react-intl';
-import {initReactIntl} from './i18n';
 import configureStore from './store';
 import { Provider } from 'react-redux';
-import { loadState, saveState } from './store/localStorage';
-
-/* Configure i18n. */
-const {locale, messages} = initReactIntl();
+import { saveState } from './store/localStorage';
 
 const store = configureStore();
 
@@ -25,10 +19,7 @@ store.subscribe(throttle(() => {
 /* Render application. */
 ReactDOM.render(
   <Provider store={store}>
-    <IntlProvider locale={locale} messages={messages}>
       <App/>
-    </IntlProvider>
   </Provider>,
   document.getElementById('root')
 );
-

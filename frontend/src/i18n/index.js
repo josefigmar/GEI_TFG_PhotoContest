@@ -1,6 +1,8 @@
 import messages from './messages';
+import * as userSelectors from "../../src/modules/user/selectors";
+import { useSelector } from 'react-redux';
 
-export const initReactIntl = () => {
+export const InitReactIntl = () => {
 
     let locale = (navigator.languages && navigator.languages[0]) ||
         navigator.language || navigator.userLanguage || 'en';
@@ -10,6 +12,6 @@ export const initReactIntl = () => {
 
     locale = localeMessages === messages['en'] ? 'en' : locale;
 
-    return {locale, messages: localeMessages};
+    return {locale, messages};
 
 }

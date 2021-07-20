@@ -75,6 +75,7 @@ public class UsuarioConversor {
         usuarioDto.setNumeroSeguidores(Long.valueOf(usuario.getUsuariosQueLoSiguen().size()));
         usuarioDto.setNumeroSeguidos(Long.valueOf(usuario.getUsuariosQueSigue().size()));
         usuarioDto.setCuentaEliminada(usuario.isCuentaEliminada());
+        usuarioDto.setLenguaje(usuario.getLenguaje().ordinal());
         usuarioDto.setCategoriasFotograficasQueLeGustan(
                 CategoriaFotograficaConversor.toCategoriaFotograficasDto(
                         usuario.getCategoriaFotograficasQueLeGustan()));

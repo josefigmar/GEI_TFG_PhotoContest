@@ -35,6 +35,7 @@ CREATE TABLE Usuario(
     enlaceTwitterUsuario VARCHAR(200),
     enlaceFacebookUsuario VARCHAR(200),
     cuentaEliminada TINYINT,
+    lenguaje int,
     rolUsuarioSistema int,
     CONSTRAINT Usuario_pk PRIMARY KEY(idUsuario),
     CONSTRAINT Nombre_usuario_unique UNIQUE(nombreUsuario)
@@ -45,7 +46,9 @@ CREATE TABLE Notificacion(
     nombreNotificacion VARCHAR(50),
     mensajeNotificacion VARCHAR(200),
     fechaCreacion datetime,
+    leida TINYINT,
     idUsuario BIGINT NOT NULL,
+    fotoNotificacion LONGTEXT,
     CONSTRAINT Notificacion_pk PRIMARY KEY(idNotificacion),
     CONSTRAINT Notificacion_id_usuario_fk FOREIGN KEY(idUsuario)
                          REFERENCES Usuario(idUsuario)

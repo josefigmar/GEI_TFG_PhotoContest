@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.AddressException;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -101,7 +102,8 @@ public class ControladorUsuarios {
 
     @PostMapping("/registrarse")
     public ResponseEntity registrarUsuario(@RequestBody UsuarioDto usuarioDto)
-            throws CampoDuplicadoException, CamposIntroducidosNoValidosException {
+            throws CampoDuplicadoException, CamposIntroducidosNoValidosException,
+            InstanceNotFoundException {
 
         servicioUsuario.registrarUsuario(usuarioDto);
 

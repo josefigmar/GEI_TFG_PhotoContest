@@ -25,6 +25,14 @@ img {
   border-radius: 50%;
 }
 
+.notificationImg {
+  vertical-align: middle;
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
 .contestsListImg {
   vertical-align: middle;
   object-fit: cover;
@@ -38,7 +46,7 @@ img {
 }
 
 .signUpDivSecond {
-  height: 480px;
+  height: 520px;
   width: 300px;
 }
 

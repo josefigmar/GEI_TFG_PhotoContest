@@ -1,9 +1,6 @@
 package com.figueiras.photocontest.backend.model.services;
 
-import com.figueiras.photocontest.backend.model.entities.Usuario;
-import com.figueiras.photocontest.backend.model.entities.UsuarioDao;
-import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
-import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuarioDao;
+import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.CampoDuplicadoException;
 import com.figueiras.photocontest.backend.model.exceptions.CamposIntroducidosNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
@@ -12,31 +9,36 @@ import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioLoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.AddressException;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ServicioUsuarioImpl implements ServicioUsuario {
 
     @Autowired
-    UsuarioDao usuarioDao;
+    private UsuarioDao usuarioDao;
 
     @Autowired
-    UsuarioSigueUsuarioDao usuarioSigueUsuarioDao;
+    private UsuarioSigueUsuarioDao usuarioSigueUsuarioDao;
 
     @Autowired
-    ServicioEmail servicioEmail;
+    private ServicioEmail servicioEmail;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ServicioNotificacion servicioNotificacion;
+
+    @Autowired
+    MessageSource messageSource;
 
     @Override
     public Block<Usuario> recuperarUsuarios(String nombre, int page, int size) {
@@ -71,7 +73,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
      * @throws CampoDuplicadoException Si el nombre de usuario o el correo electrónico ya existen en la aplicaciçon.
      */
     @Override
-    public void registrarUsuario(UsuarioDto usuarioDto) throws CampoDuplicadoException, CamposIntroducidosNoValidosException {
+    public void registrarUsuario(UsuarioDto usuarioDto) throws CampoDuplicadoException,
+            CamposIntroducidosNoValidosException, InstanceNotFoundException {
 
         // Petición no permitida en la aplicación.
         if(!esValidoFormRegistro(usuarioDto)){
@@ -88,18 +91,30 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
             throw new CampoDuplicadoException("entidades.usuario.correoelectronicousuario", usuarioDto.getEmail());
         }
 
-
         Usuario usuario = new Usuario();
-
-
 
         usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
         usuario.setContrasenaUsuario(passwordEncoder.encode(usuarioDto.getContraseña()));
         usuario.setNombrePilaUsuario(usuarioDto.getNombrePilaUsuario());
         usuario.setApellidosUsuario(usuarioDto.getApellidosUsuario());
         usuario.setCorreoElectronicoUsuario(usuarioDto.getEmail());
+        usuario.setLenguaje(Lenguaje.values()[usuarioDto.getLenguaje()]);
 
         usuarioDao.save(usuario);
+
+        // Envío de mensaje de bienvenida
+        servicioNotificacion.crearNotificacion(messageSource.getMessage("project.notifications.welcomeTitle",
+                new Object[] {usuarioDto.getNombrePilaUsuario()}, new Locale(usuario.getLenguaje().toString())),
+                messageSource.getMessage("project.notifications.welcomeMessage",
+                null, new Locale(usuario.getLenguaje().toString())),
+                usuario.getNombreUsuario());
+
+        // Envio de email de bienvenida
+        servicioEmail.enviarMailGmail(usuario.getCorreoElectronicoUsuario(),
+                messageSource.getMessage("project.notifications.welcomeTitle",
+                new Object[] {usuarioDto.getNombrePilaUsuario()}, new Locale(usuario.getLenguaje().toString())),
+                messageSource.getMessage("project.notifications.welcomeMessage",
+                        null, new Locale(usuario.getLenguaje().toString())));
     }
 
     private boolean esValidoFormRegistro(UsuarioDto usuarioDto){

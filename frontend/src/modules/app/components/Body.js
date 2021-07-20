@@ -11,6 +11,7 @@ import FollowersFollowing from '../../user/components/FollowersFollowing';
 import ChanguePassword from '../../user/components/ChanguePassword';
 import ChangueProfileData from '../../user/components/ChangueProfileData';
 import RecoverUser from '../../user/components/RecoverUser';
+import Notifications from '../../notificacion/components/Notifications';
 
 const Body = () => {
     
@@ -30,6 +31,7 @@ const Body = () => {
                 <Route exact path="/users/:userName/changue-data"><ChangueProfileData/></Route>
                 <Route exact path="/users/:userName/followers"><FollowersFollowing/></Route>
                 <Route exact path="/users/:userName/following"><FollowersFollowing/></Route>
+                <Route exact path="/notifications/:userName"><Notifications/></Route>
                 <Route><Home/></Route>
             </Switch>
         </Container>

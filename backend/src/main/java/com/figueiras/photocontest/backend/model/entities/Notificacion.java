@@ -7,18 +7,24 @@ import java.time.LocalDateTime;
 @Entity
 public class Notificacion {
 
+    private static int TAM_PREV = 40;
+
     private Long idNotificacion;
     @Size(min = 1, max = 50)
     private String nombreNotificacion;
     @Size(min = 1, max = 200)
     private String mensajeNotificacion;
+    private String fotoNotificacion;
     private LocalDateTime fechaCreacion;
+    private boolean leida;
     private Usuario usuario;
 
     public Notificacion() {
+        leida = false;
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getIdNotificacion() {
         return idNotificacion;
     }
@@ -39,8 +45,27 @@ public class Notificacion {
         return mensajeNotificacion;
     }
 
+    @Transient
+    public String getPrevisualizacionMensajeNotificacion () {
+
+        StringBuilder previsualizacion = new StringBuilder();
+
+        if(mensajeNotificacion != null)
+            previsualizacion.append(mensajeNotificacion.substring(0, TAM_PREV));
+
+        return previsualizacion.toString();
+    }
+
     public void setMensajeNotificacion(String mensajeNotificacion) {
         this.mensajeNotificacion = mensajeNotificacion;
+    }
+
+    public String getFotoNotificacion() {
+        return fotoNotificacion;
+    }
+
+    public void setFotoNotificacion(String fotoNotificacion) {
+        this.fotoNotificacion = fotoNotificacion;
     }
 
     public LocalDateTime getFechaCreacion() {
@@ -49,6 +74,14 @@ public class Notificacion {
 
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public boolean isLeida() {
+        return leida;
+    }
+
+    public void setLeida(boolean leida) {
+        this.leida = leida;
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

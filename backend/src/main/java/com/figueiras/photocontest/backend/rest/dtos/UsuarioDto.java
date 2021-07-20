@@ -17,6 +17,7 @@ public class UsuarioDto {
     private Long numeroSeguidores;
     private Long numeroSeguidos;
     private boolean cuentaEliminada;
+    private int lenguaje;
     private List<CategoriaFotograficaDto> categoriasFotograficasQueLeGustan;
     private List<UsuarioParticipaConcursoDto> concursosEnLosQueParticipa;
 
@@ -123,6 +124,14 @@ public class UsuarioDto {
         this.cuentaEliminada = cuentaEliminada;
     }
 
+    public int getLenguaje() {
+        return lenguaje;
+    }
+
+    public void setLenguaje(int lenguaje) {
+        this.lenguaje = lenguaje;
+    }
+
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
     }
@@ -142,5 +151,4 @@ public class UsuarioDto {
     public void setConcursosEnLosQueParticipa(List<UsuarioParticipaConcursoDto> concursosEnLosQueParticipa) {
         this.concursosEnLosQueParticipa = concursosEnLosQueParticipa;
     }
-
 }

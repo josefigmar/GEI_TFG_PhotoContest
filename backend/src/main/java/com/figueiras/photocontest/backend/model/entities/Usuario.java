@@ -9,6 +9,8 @@ import java.util.Set;
 @Entity
 public class Usuario {
 
+    private static Lenguaje LENGUAJE_POR_DEFECTO = Lenguaje.es;
+
     private Long idUsuario;
     private String fotoPerfil;
     @Size(min = 1, max = 50)
@@ -29,6 +31,7 @@ public class Usuario {
     @Size(max = 200)
     private String enlaceFacebookUsuario;
     private boolean cuentaEliminada;
+    private Lenguaje lenguaje;
     private RolUsuarioSistema rolUsuarioSistema;
     private Set<UsuarioSigueUsuario> usuariosQueSigue;
     private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
@@ -45,6 +48,7 @@ public class Usuario {
         notificacionesUsuario = new HashSet<>();
         concursosEnLosQueParticipa = new HashSet<>();
         cuentaEliminada = false;
+        lenguaje = LENGUAJE_POR_DEFECTO;
     }
 
     @Id
@@ -131,6 +135,14 @@ public class Usuario {
 
     public void setCuentaEliminada(boolean cuentaEliminada) {
         this.cuentaEliminada = cuentaEliminada;
+    }
+
+    public Lenguaje getLenguaje() {
+        return lenguaje;
+    }
+
+    public void setLenguaje(Lenguaje lenguaje) {
+        this.lenguaje = lenguaje;
     }
 
     public RolUsuarioSistema getRolUsuarioSistema() {

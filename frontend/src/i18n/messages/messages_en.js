@@ -5,6 +5,7 @@ export default {
     'app.Header.Home': 'Home',
     'app.Header.Contests': 'Contests',
     'app.Header.People': 'People',
+    'app.Header.Notifications' : 'Notifications',
     'app.Header.Profile': 'Profile',
     'app.Header.LogIn': 'Login',
     'app.Header.SignIn': 'Sign in',
@@ -14,7 +15,7 @@ export default {
 
     'app.Home.Contests': 'The newest contests',
     'app.Home.WelcomeBack': 'Welcome',
-    'app.Home.NoContests': 'Ups! It seems that there is no recent contests',
+    'app.Home.NoContests': 'Ups! It seems that there are no recent contests',
 
     'app.RedirectHome.paragraphContests': 'Take a look to all of our contests or create your own contest',
     'app.RedirectHome.paragraphAccount': 'Login or register if you dont have an account',
@@ -53,6 +54,7 @@ export default {
     'user.SignUp.Password': 'Password',
     'user.SignUp.Name': 'Name',
     'user.SignUp.Surnames': 'Surnames',
+    'user.SignUp.Lenguagues': 'Choose the lenguague',
     'user.SignUp.Email': 'Email',
     'user.SignUp.SignUp': 'Sign up',
     'user.SignUp.Login': 'Login',
@@ -87,4 +89,8 @@ export default {
     'user.ChangueData.Biography' : 'Biography',
     'user.ChangueData.TwitterLink' : 'Twitter link',
     'user.ChangueData.FacebookLink' : 'Facebook link',
+
+    'user.Notifications.NoNotifications' : 'You dont have any notifications',
+    'user.Notifications.Read' : 'Read',
+    'user.Notifications.Unread' : 'Unread',
 }

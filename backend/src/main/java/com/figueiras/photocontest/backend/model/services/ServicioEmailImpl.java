@@ -12,10 +12,17 @@ import java.util.Properties;
 public class ServicioEmailImpl implements ServicioEmail{
 
     @Override
-    public void enviarMailGmail(String destinatario, String asunto, String cuerpo) throws AddressException {
+    public void enviarMailGmail(String destinatario, String asunto, String cuerpo) {
 
         String remitente = "photocontestes";
-        Address direccionDestinatario = new InternetAddress(destinatario);
+        Address direccionDestinatario = null;
+
+        try{
+            direccionDestinatario = new InternetAddress(destinatario);
+        } catch (AddressException ae){
+            ae.printStackTrace();
+            return;
+        }
 
         Properties props = System.getProperties();
         props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google

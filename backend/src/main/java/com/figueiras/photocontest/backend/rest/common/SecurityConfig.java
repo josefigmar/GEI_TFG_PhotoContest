@@ -11,6 +11,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -41,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/catalogo-usuarios/usuarios/*/sigue/*").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios/*/recuperar-cuenta").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios/*/eliminar-cuenta").permitAll()
+                .antMatchers("/catalogo-notificaciones/notificaciones/*").permitAll()
+                .antMatchers("/catalogo-notificaciones/notificaciones/*/has-new").permitAll()
                 .anyRequest().hasRole("USER");
 
     }
@@ -52,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+        config.setAllowedOrigins(Arrays.asList("http://192.168.1.42:3000", "http://192.168.1.60:3000", "http://localhost:3000"));
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 

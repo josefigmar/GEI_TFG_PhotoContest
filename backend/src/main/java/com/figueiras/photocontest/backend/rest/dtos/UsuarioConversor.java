@@ -1,16 +1,15 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
-import com.figueiras.photocontest.backend.model.entities.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.figueiras.photocontest.backend.model.entities.Usuario;
+import com.figueiras.photocontest.backend.model.entities.UsuarioParticipaConcurso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class UsuarioConversor {
 
-    public static UsuarioParticipaConcursoDto toUsuarioParticipaConcursoDto(UsuarioParticipaConcurso usuarioParticipaConcurso){
+    public static UsuarioParticipaConcursoDto toUsuarioParticipaConcursoDto(UsuarioParticipaConcurso usuarioParticipaConcurso) {
 
         UsuarioParticipaConcursoDto usuarioParticipaConcursoDto = new UsuarioParticipaConcursoDto();
 
@@ -24,18 +23,18 @@ public class UsuarioConversor {
     }
 
     public static List<UsuarioParticipaConcursoDto> toUsuarioParticipaConcursosDto(
-            Set<UsuarioParticipaConcurso> usuarioParticipaConcursos){
+            Set<UsuarioParticipaConcurso> usuarioParticipaConcursos) {
 
         List<UsuarioParticipaConcursoDto> usuarioParticipaConcursoDtos = new ArrayList<>();
 
-        for(UsuarioParticipaConcurso usuarioParticipaConcurso: usuarioParticipaConcursos){
+        for (UsuarioParticipaConcurso usuarioParticipaConcurso : usuarioParticipaConcursos) {
             usuarioParticipaConcursoDtos.add(toUsuarioParticipaConcursoDto(usuarioParticipaConcurso));
         }
 
         return usuarioParticipaConcursoDtos;
     }
 
-    public static UsuarioTablaDto toUsuarioTablaDto(Usuario usuario){
+    public static UsuarioTablaDto toUsuarioTablaDto(Usuario usuario) {
 
         UsuarioTablaDto usuarioTablaDto = new UsuarioTablaDto();
 
@@ -49,22 +48,20 @@ public class UsuarioConversor {
         return usuarioTablaDto;
     }
 
-    public static List<UsuarioTablaDto> toUsuariosTablaDto(List<Usuario> usuarios){
+    public static List<UsuarioTablaDto> toUsuariosTablaDto(List<Usuario> usuarios) {
 
         List<UsuarioTablaDto> usuariosTablaDto = new ArrayList<>();
 
-        for(Usuario u: usuarios){
+        for (Usuario u : usuarios) {
 
             usuariosTablaDto.add(toUsuarioTablaDto(u));
         }
         return usuariosTablaDto;
     }
 
-    public static UsuarioDto toUsuarioDto(Usuario usuario){
+    public static UsuarioDto toUsuarioDto(Usuario usuario) {
 
         UsuarioDto usuarioDto = new UsuarioDto();
-        List<UsuarioTablaDto> usuariosQueSigueTablaDtos = new ArrayList<>();
-        List<UsuarioTablaDto> usuariosQueLoSiguenTablaDtos = new ArrayList<>();
 
         usuarioDto.setIdUsuario(usuario.getIdUsuario());
         usuarioDto.setFotoPerfil(usuario.getFotoPerfil());
@@ -83,24 +80,22 @@ public class UsuarioConversor {
                         usuario.getCategoriaFotograficasQueLeGustan()));
         usuarioDto.setConcursosEnLosQueParticipa(
                 UsuarioConversor.toUsuarioParticipaConcursosDto(usuario.getConcursosEnLosQueParticipa()));
-
-        
         return usuarioDto;
     }
 
     public static List<UsuarioDto> toUsuariosDto(
-            List<Usuario> usuarioList){
+            List<Usuario> usuarioList) {
 
         List<UsuarioDto> usuariosDto = new ArrayList<>();
 
-        for(Usuario usuario: usuarioList){
+        for (Usuario usuario : usuarioList) {
             usuariosDto.add(toUsuarioDto(usuario));
         }
 
         return usuariosDto;
     }
 
-    public static UsuarioAutenticadoDto toUsuarioAutenticadoDto(Usuario usuario, String token){
+    public static UsuarioAutenticadoDto toUsuarioAutenticadoDto(Usuario usuario, String token) {
 
         UsuarioAutenticadoDto usuarioAutenticadoDto = new UsuarioAutenticadoDto();
 

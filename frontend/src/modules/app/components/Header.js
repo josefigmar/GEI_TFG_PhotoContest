@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { Link, withRouter} from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as selectors from "../../user/selectors";
 import { useDispatch } from 'react-redux';
 import * as userActions from '../../user/actions';
@@ -22,14 +22,6 @@ const Header = () => {
       userName,
       result => setNewNotifications(result));
   })
-
-  const notificationColor = () => {
-    if(newNotifications){
-      return "#084FF1";
-    }
-
-    return "grey";
-  }
 
   return (
     <div>
@@ -52,9 +44,19 @@ const Header = () => {
               <Link className="nav-link" to={`/notifications/${userName}`}>
                 <FormattedMessage id="app.Header.Notifications" />
                 &nbsp;
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill={notificationColor()} class="bi bi-bell" viewBox="0 0 16 16">
-                  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
-                </svg>
+
+                {
+                  newNotifications ?
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#e54720" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                      <circle cx="8" cy="8" r="8" />
+                    </svg>
+
+                    :
+
+                    null
+                }
+
               </Link>
 
             }

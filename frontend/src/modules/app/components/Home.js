@@ -18,7 +18,12 @@ const Home = () => {
 
     useEffect(() => {
 
-        dispatch(catalog.actions.findContests({}));
+        dispatch(catalog.actions.findContests(
+            { 
+                page: 0,
+                size: 5
+            }
+        ));
 
     }, [dispatch]);
 

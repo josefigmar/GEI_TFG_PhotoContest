@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import * as actions from "../actions";
 import * as selectors from "../selectors";
 import { FormattedMessage } from "react-intl";
@@ -11,10 +10,6 @@ const FindContestsResult = () =>{
 
     const contestsSearch = useSelector(selectors.contestsSearch);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(actions.clearContestsSearch);
-    });
 
     if(!contestsSearch){
         return null;

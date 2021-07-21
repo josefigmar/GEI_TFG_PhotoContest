@@ -72,13 +72,10 @@ public class UsuarioConversor {
         usuarioDto.setBiografiaUsuario(usuario.getBiografiaUsuario());
         usuarioDto.setEnlaceTwitterUsuario(usuario.getEnlaceTwitterUsuario());
         usuarioDto.setEnlaceFacebookUsuario(usuario.getEnlaceFacebookUsuario());
-        usuarioDto.setNumeroSeguidores(Long.valueOf(usuario.getUsuariosQueLoSiguen().size()));
-        usuarioDto.setNumeroSeguidos(Long.valueOf(usuario.getUsuariosQueSigue().size()));
+        usuarioDto.setNumeroSeguidores((long) usuario.getUsuariosQueLoSiguen().size());
+        usuarioDto.setNumeroSeguidos((long) usuario.getUsuariosQueSigue().size());
         usuarioDto.setCuentaEliminada(usuario.isCuentaEliminada());
         usuarioDto.setLenguaje(usuario.getLenguaje().ordinal());
-        usuarioDto.setCategoriasFotograficasQueLeGustan(
-                CategoriaFotograficaConversor.toCategoriaFotograficasDto(
-                        usuario.getCategoriaFotograficasQueLeGustan()));
         usuarioDto.setConcursosEnLosQueParticipa(
                 UsuarioConversor.toUsuarioParticipaConcursosDto(usuario.getConcursosEnLosQueParticipa()));
         return usuarioDto;

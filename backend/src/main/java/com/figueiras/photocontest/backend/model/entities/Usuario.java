@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 public class Usuario {
 
-    private static Lenguaje LENGUAJE_POR_DEFECTO = Lenguaje.es;
+    private static final Lenguaje LENGUAJE_POR_DEFECTO = Lenguaje.es;
 
     private Long idUsuario;
     private String fotoPerfil;
@@ -24,7 +24,7 @@ public class Usuario {
     @Size(max = 90)
     @Email
     private String correoElectronicoUsuario;
-    @Size(min = 0, max = 100)
+    @Size(max = 100)
     private String contrasenaUsuario;
     @Size(max = 200)
     private String enlaceTwitterUsuario;
@@ -35,7 +35,6 @@ public class Usuario {
     private RolUsuarioSistema rolUsuarioSistema;
     private Set<UsuarioSigueUsuario> usuariosQueSigue;
     private Set<UsuarioSigueUsuario> usuariosQueLoSiguen;
-    private Set<CategoriaFotografica> categoriaFotograficasQueLeGustan;
     private Set<Notificacion> notificacionesUsuario;
     private Set<UsuarioParticipaConcurso> concursosEnLosQueParticipa;
 
@@ -44,7 +43,6 @@ public class Usuario {
         rolUsuarioSistema = RolUsuarioSistema.ESTANDAR;
         usuariosQueSigue = new HashSet<>();
         usuariosQueLoSiguen = new HashSet<>();
-        categoriaFotograficasQueLeGustan = new HashSet<>();
         notificacionesUsuario = new HashSet<>();
         concursosEnLosQueParticipa = new HashSet<>();
         cuentaEliminada = false;
@@ -169,20 +167,6 @@ public class Usuario {
 
     public void setUsuariosQueLoSiguen(Set<UsuarioSigueUsuario> usuariosQueLoSiguen) {
         this.usuariosQueLoSiguen = usuariosQueLoSiguen;
-    }
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "UsuarioGustaCategoria",
-            joinColumns = {@JoinColumn(name = "idUsuario")},
-            inverseJoinColumns = {@JoinColumn(name = "idCategoria")}
-
-    )
-    public Set<CategoriaFotografica> getCategoriaFotograficasQueLeGustan() {
-        return categoriaFotograficasQueLeGustan;
-    }
-
-    public void setCategoriaFotograficasQueLeGustan(Set<CategoriaFotografica> categoriaFotograficasQueLeGustan) {
-        this.categoriaFotograficasQueLeGustan = categoriaFotograficasQueLeGustan;
     }
 
     @OneToMany(mappedBy = "usuario")

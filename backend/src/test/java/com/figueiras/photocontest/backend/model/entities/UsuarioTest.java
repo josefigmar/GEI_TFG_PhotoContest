@@ -28,6 +28,55 @@ public class UsuarioTest {
     }
 
     @Test
+    public void crearInstanciaRolPorDefectoTest() {
+        Usuario usuario = new Usuario();
+
+        Assertions.assertEquals(usuario.getRolUsuarioSistema(), RolUsuarioSistema.ESTANDAR);
+    }
+
+    @Test
+    public void crearInstanciaListaSeguidosPorDefectoTest() {
+        Usuario usuario = new Usuario();
+
+        Assertions.assertEquals(usuario.getUsuariosQueSigue(), new HashSet<>());
+    }
+
+    @Test
+    public void crearInstanciaListaSeguidoresPorDefectoTest() {
+        Usuario usuario = new Usuario();
+
+        Assertions.assertEquals(usuario.getUsuariosQueLoSiguen(), new HashSet<>());
+    }
+
+    @Test
+    public void crearInstanciaNotificacionesPorDefectoTest() {
+        Usuario usuario = new Usuario();
+
+        Assertions.assertEquals(usuario.getNotificacionesUsuario(), new HashSet<>());
+    }
+
+    @Test
+    public void crearInstanciaConcursosEnLosQuePArticipaPorDefectoTest() {
+        Usuario usuario = new Usuario();
+
+        Assertions.assertEquals(usuario.getConcursosEnLosQueParticipa(), new HashSet<>());
+    }
+
+    @Test
+    public void crearInstanciaCuentaEliminadaPorDefectoTest() {
+        Usuario usuario = new Usuario();
+
+        Assertions.assertFalse(usuario.isCuentaEliminada());
+    }
+
+    @Test
+    public void crearInstanciaLenguajePorDefectoTest() {
+        Usuario usuario = new Usuario();
+
+        Assertions.assertEquals(usuario.getLenguaje(), Lenguaje.es);
+    }
+
+    @Test
     public void setNombreTest() {
         Usuario usuario = new Usuario();
         String nombre = "name";
@@ -68,16 +117,6 @@ public class UsuarioTest {
     }
 
     @Test
-    public void setNombrePilaCortoTest() {
-        Usuario usuario = new Usuario();
-        String nombre = UtilidadesParaPruebas.CADENA_VACIA;
-
-        usuario.setNombrePilaUsuario(nombre);
-
-        Assertions.assertFalse(validator.validate(usuario).isEmpty());
-    }
-
-    @Test
     public void setNombrePilaLargoTest() {
         Usuario usuario = new Usuario();
         String nombre = UtilidadesParaPruebas.CADENA_LARGA;
@@ -95,16 +134,6 @@ public class UsuarioTest {
         usuario.setApellidosUsuario(apellidos);
 
         Assertions.assertEquals(usuario.getApellidosUsuario(), apellidos);
-    }
-
-    @Test
-    public void setApellidosInferiorTamanoTest() {
-        Usuario usuario = new Usuario();
-        String apellidos = UtilidadesParaPruebas.CADENA_VACIA;
-
-        usuario.setApellidosUsuario(apellidos);
-
-        Assertions.assertFalse(validator.validate(usuario).isEmpty());
     }
 
     @Test
@@ -155,16 +184,6 @@ public class UsuarioTest {
         usuario.setContrasenaUsuario(contrasena);
 
         Assertions.assertEquals(usuario.getContrasenaUsuario(), contrasena);
-    }
-
-    @Test
-    public void setContrasenaCortaTest() {
-        Usuario usuario = new Usuario();
-        String contrasena = UtilidadesParaPruebas.CADENA_VACIA;
-
-        usuario.setContrasenaUsuario(contrasena);
-
-        Assertions.assertFalse(validator.validate(usuario).isEmpty());
     }
 
     @Test
@@ -219,6 +238,35 @@ public class UsuarioTest {
     }
 
     @Test
+    public void setCuentaEliminadaTest(){
+        Usuario u = new Usuario();
+
+        u.setCuentaEliminada(true);
+
+        Assertions.assertTrue(u.isCuentaEliminada());
+    }
+
+    @Test
+    public void setLenguajeTest(){
+        Usuario u = new Usuario();
+
+        u.setLenguaje(Lenguaje.gl);
+
+        Assertions.assertEquals(u.getLenguaje(), Lenguaje.gl);
+    }
+
+    @Test
+    public void setRolSistemaTest(){
+        Usuario u = new Usuario();
+
+        u.setRolUsuarioSistema(RolUsuarioSistema.DESARROLLADOR);
+
+        Assertions.assertEquals(u.getRolUsuarioSistema(), RolUsuarioSistema.DESARROLLADOR);
+    }
+
+
+
+    @Test
     public void setSeguidores(){
 
         Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
@@ -247,18 +295,6 @@ public class UsuarioTest {
     }
 
     @Test
-    public void setCategoriasQueLeGustanAlUsuarioTest(){
-        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
-        CategoriaFotografica categoria = new CategoriaFotografica();
-        Set<CategoriaFotografica> categoriasQueGustan = new HashSet<>();
-        categoriasQueGustan.add(categoria);
-
-        usuario.setCategoriaFotograficasQueLeGustan(categoriasQueGustan);
-
-        Assertions.assertEquals(usuario.getCategoriaFotograficasQueLeGustan(), categoriasQueGustan);
-    }
-
-    @Test
     public void setNotificacionesUsuarioTest(){
         Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
         Notificacion notificacion = new Notificacion();
@@ -271,12 +307,14 @@ public class UsuarioTest {
     }
 
     @Test
-    public void setRolUsuarioTest(){
-        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
+    public void setConcursosEnLosQueParticipaTest() {
+        Usuario usuario = new Usuario();
+        UsuarioParticipaConcurso upc = new UsuarioParticipaConcurso();
+        Set<UsuarioParticipaConcurso> usuarioParticipaConcursoSet = new HashSet<>();
+        usuarioParticipaConcursoSet.add(upc);
 
-        usuario.setRolUsuarioSistema(RolUsuarioSistema.ESTANDAR);
+        usuario.setConcursosEnLosQueParticipa(usuarioParticipaConcursoSet);
 
-        Assertions.assertEquals(usuario.getRolUsuarioSistema(), RolUsuarioSistema.ESTANDAR);
-
+        Assertions.assertEquals(usuario.getConcursosEnLosQueParticipa(), usuarioParticipaConcursoSet);
     }
 }

@@ -18,7 +18,6 @@ public class UsuarioDto {
     private Long numeroSeguidos;
     private boolean cuentaEliminada;
     private int lenguaje;
-    private List<CategoriaFotograficaDto> categoriasFotograficasQueLeGustan;
     private List<UsuarioParticipaConcursoDto> concursosEnLosQueParticipa;
 
     public UsuarioDto() {
@@ -134,14 +133,6 @@ public class UsuarioDto {
 
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
-    }
-
-    public List<CategoriaFotograficaDto> getCategoriasFotograficasQueLeGustan() {
-        return categoriasFotograficasQueLeGustan;
-    }
-
-    public void setCategoriasFotograficasQueLeGustan(List<CategoriaFotograficaDto> categoriasFotograficasQueLeGustan) {
-        this.categoriasFotograficasQueLeGustan = categoriasFotograficasQueLeGustan;
     }
 
     public List<UsuarioParticipaConcursoDto> getConcursosEnLosQueParticipa() {

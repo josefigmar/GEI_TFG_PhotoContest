@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 @Entity
 public class Notificacion {
 
-    private static int TAM_PREV = 40;
-
     private Long idNotificacion;
     @Size(min = 1, max = 50)
     private String nombreNotificacion;

@@ -1,7 +1,42 @@
-# PhotoContest
+# PhotoContest: Aplicación de gestión de concursos fotográficos.
 
-Proyecto de final de carrera. Aplicación de gestión de concursos fotográficos.
+Trabajo Final de Grado en Ingeniería Informática.
 
+## Ejecutar aplicación
+
+Se necesitan las siguientes dependencias:
+
+* Node 14.15.0+.
+* Java 11
+* Maven 3.6+.
+* MySQL 8+.
+
+Luego de su instalación:
+
+[Backend]
+
+```
+cd backend
+mvn sql:execute (only first time to create tables)
+mvn spring-boot:run
+```
+[Frontend]
+
+```
+cd frontend
+npm install (only first time to download libraries)
+npm start
+```
+
+## Resumen
+
+Existen una serie de problemas en la realización de los concursos fotográficos a día de hoy en el ámbito de la fotografía amateur: estos concursos suelen depender de páginas externas como Facebook para la subida de las fotografías y también de agentes externos. También fallan a la hora del seguimiento del concurso, siendo el propio participante el que tiene que enterarse del transcurso del mismo, en vez de que el concurso vaya notificando a los participantes de ciertos eventos. Por último, el proceso de finalización del concurso y entrega de resultados es mejorable, ya que esto suele hacerlo el organizador tiempo después y no siempre se deja constancia precisa de los resultados obtenidos en el concurso.
+
+Por tanto, el TFG consiste en crear una aplicación web que reúna toda esa funcionalidad: permitir la creación de concursos de fotografía, permitir la subida de fotografías por parte de los participantes, permitir la evaluación posterior de estas fotos y finalmente la entrega automática de notificaciones y resultados. De esta manera se tendrán todos los datos y funcionalidad centralizada en una única página, facilitando el trabajo de los organizadores y los participantes.
+
+Para ello se dotará a la aplicación de la capacidad de la creación de usuarios con roles en función de las tareas que desempeñen. Los organizadores se encargarán de la creación del concurso y sus modificaciones: eligen los elementos descriptivos como el nombre y la descripción, las fechas de inicio y fin, qué usuarios formarán parte del concurso y qué roles desempeñarán (comité organizador, jurado o concursante), la categoría del concurso (bodegón, naturaleza, macrofotografía...), detalles técnicos tales como el formato de imagen requerido o los datos que se aportan por cada imagen y entre otros los detalles de cómo se llevará a cabo la votación, pues se permitirá configurar diferentes parámetros tales como el tipo de participantes que pueden votar o cómo se elige a las fotografías ganadoras y el tipo de votación.
+
+Con este desarrollo se intenta proveer a la comunidad una herramienta gratuita que satisfaga sus necesidades de una manera eficaz.
 
 ## Summary
 

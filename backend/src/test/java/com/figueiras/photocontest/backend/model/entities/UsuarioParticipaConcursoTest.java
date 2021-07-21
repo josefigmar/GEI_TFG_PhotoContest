@@ -13,6 +13,16 @@ public class UsuarioParticipaConcursoTest {
     }
 
     @Test
+    public void setEmbeddedIdTest() {
+        UsuarioParticipaConcurso usuarioParticipaConcurso = new UsuarioParticipaConcurso();
+        UsuarioParticipaConcursoPK upPk = new UsuarioParticipaConcursoPK();
+
+        usuarioParticipaConcurso.setUsuarioParticipaConcursoPK(upPk);
+
+        Assertions.assertEquals(usuarioParticipaConcurso.getUsuarioParticipaConcursoPK(), upPk);
+    }
+
+    @Test
     public void setUsuarioTest(){
         UsuarioParticipaConcurso usuarioParticipaConcurso = new UsuarioParticipaConcurso();
         Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");

@@ -6,12 +6,9 @@ import java.time.LocalDateTime;
 @Entity
 public class UsuarioParticipaConcurso {
 
-
     private UsuarioParticipaConcursoPK usuarioParticipaConcursoPK = new UsuarioParticipaConcursoPK();
 
-
     private Usuario usuario;
-
     private Concurso concurso;
     private RolUsuarioConcurso rolUsuarioConcurso;
     private LocalDateTime fechaInicioParticipacion;

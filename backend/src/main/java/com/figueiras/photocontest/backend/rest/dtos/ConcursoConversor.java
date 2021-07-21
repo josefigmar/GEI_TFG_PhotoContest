@@ -15,7 +15,7 @@ public class ConcursoConversor {
     }
 
 
-    private static ConcursoTablaDto toConcursoTablaDto(Concurso concurso){
+    static ConcursoTablaDto toConcursoTablaDto(Concurso concurso){
         return new ConcursoTablaDto(concurso.getIdConcurso(), concurso.getFotoConcurso(), concurso.getNombreConcurso(),
                 concurso.getEstadoConcurso().toString(), Utilidades.toMillis(concurso.getFechaInicioConcurso()),
                 Utilidades.toMillis(concurso.getFechaFinConcurso()));

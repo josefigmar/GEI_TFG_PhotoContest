@@ -26,6 +26,13 @@ public class NotificacionTest {
     }
 
     @Test
+    public void crearInstanciaComprobarValorLeidoFalse(){
+        Notificacion notificacion = new Notificacion();
+
+        Assertions.assertFalse(notificacion.isLeida());
+    }
+
+    @Test
     public void setNombreNotificacionCortoTest(){
         Notificacion notificacion = new Notificacion();
 
@@ -77,6 +84,33 @@ public class NotificacionTest {
         notificacion.setMensajeNotificacion(UtilidadesParaPruebas.CADENA_LARGA);
 
         Assertions.assertFalse(validator.validate(notificacion).isEmpty());
+    }
+
+    @Test
+    public void setFotoNotificacion() {
+        Notificacion notificacion = new Notificacion();
+
+        notificacion.setFotoNotificacion(UtilidadesParaPruebas.CADENA_LARGA);
+
+        Assertions.assertEquals(notificacion.getFotoNotificacion(), UtilidadesParaPruebas.CADENA_LARGA);
+    }
+
+    @Test
+    public void setFechaCreacion(){
+        Notificacion notificacion = new Notificacion();
+
+        notificacion.setFechaCreacion(UtilidadesParaPruebas.FECHA_HOY);
+
+        Assertions.assertEquals(notificacion.getFechaCreacion(), UtilidadesParaPruebas.FECHA_HOY);
+    }
+
+    @Test
+    public void setLeidoTrue(){
+        Notificacion notification = new Notificacion();
+
+        notification.setLeida(true);
+
+        Assertions.assertTrue(notification.isLeida());
     }
 
     @Test

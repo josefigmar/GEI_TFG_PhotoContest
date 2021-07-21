@@ -13,7 +13,6 @@ public class NotificacionConversor {
 
         resultado.setIdNotificacion(notificacion.getIdNotificacion());
         resultado.setNombreNotificacion(notificacion.getNombreNotificacion());
-        resultado.setPrevisualizacionNotificacion(notificacion.getPrevisualizacionMensajeNotificacion());
         resultado.setMensajeNotificacion(notificacion.getMensajeNotificacion());
         resultado.setFotoNotificacion(notificacion.getFotoNotificacion());
         resultado.setFechaCreacion(Utilidades.toMillis(notificacion.getFechaCreacion()));

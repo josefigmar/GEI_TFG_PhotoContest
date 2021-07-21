@@ -1,13 +1,9 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
-import com.figueiras.photocontest.backend.model.entities.Usuario;
-
-
 public class NotificacionDto {
 
     private Long idNotificacion;
     private String nombreNotificacion;
-    private String previsualizacionNotificacion;
     private String mensajeNotificacion;
     private String fotoNotificacion;
     private Long fechaCreacion;
@@ -27,14 +23,6 @@ public class NotificacionDto {
 
     public void setNombreNotificacion(String nombreNotificacion) {
         this.nombreNotificacion = nombreNotificacion;
-    }
-
-    public String getPrevisualizacionNotificacion() {
-        return previsualizacionNotificacion;
-    }
-
-    public void setPrevisualizacionNotificacion(String previsualizacionNotificacion) {
-        this.previsualizacionNotificacion = previsualizacionNotificacion;
     }
 
     public String getMensajeNotificacion() {

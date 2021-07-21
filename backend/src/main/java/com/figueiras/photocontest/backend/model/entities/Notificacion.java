@@ -45,17 +45,6 @@ public class Notificacion {
         return mensajeNotificacion;
     }
 
-    @Transient
-    public String getPrevisualizacionMensajeNotificacion () {
-
-        StringBuilder previsualizacion = new StringBuilder();
-
-        if(mensajeNotificacion != null)
-            previsualizacion.append(mensajeNotificacion.substring(0, TAM_PREV));
-
-        return previsualizacion.toString();
-    }
-
     public void setMensajeNotificacion(String mensajeNotificacion) {
         this.mensajeNotificacion = mensajeNotificacion;
     }

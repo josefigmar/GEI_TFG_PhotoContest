@@ -30,6 +30,7 @@ const ChangueProfileData = () => {
         setEnlaceTwitterUsuario(userData.enlaceTwitterUsuario);
         setEnlaceFacebookUsuario(userData.enlaceFacebookUsuario);
         setFotoPerfilUsuario(userData.fotoPerfil);
+        // eslint-disable-next-line
     }, []);
 
     const updateProfilePhoto = (file) => {

@@ -1,6 +1,4 @@
 import messages from './messages';
-import * as userSelectors from "../../src/modules/user/selectors";
-import { useSelector } from 'react-redux';
 
 export const InitReactIntl = () => {
 

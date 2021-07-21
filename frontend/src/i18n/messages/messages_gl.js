@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 export default{
     'app.Commons.Save' : 'Gardar',
     'app.Header.Title' : 'PhotoContest',

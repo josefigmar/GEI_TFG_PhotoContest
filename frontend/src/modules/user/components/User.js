@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import backend from "../../../backend";
 import UserContests from "./UserContests";
 import UserProfileDetails from "./UserProfileDetails";

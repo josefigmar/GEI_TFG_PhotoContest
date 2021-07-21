@@ -10,11 +10,9 @@ import { useDispatch } from 'react-redux';
 import * as userActions from '../../user/actions';
 import { useEffect, useState } from 'react';
 import backend from '../../../backend';
-import { useHistory } from 'react-router';
 
 const Header = () => {
 
-  const history = useHistory();
   const userName = useSelector(selectors.getUserName);
   const dispatch = useDispatch();
   const [newNotifications, setNewNotifications] = useState(false);

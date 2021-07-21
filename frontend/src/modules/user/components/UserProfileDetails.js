@@ -58,7 +58,7 @@ const UserProfileDetails = ({ userData }) => {
                 null
             );
         }
-
+    // eslint-disable-next-line
     }, [])
 
     return (

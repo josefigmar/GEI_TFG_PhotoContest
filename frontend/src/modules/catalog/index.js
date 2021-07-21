@@ -7,4 +7,6 @@ export {default as ContestDetails} from "./components/Contests";
 export {default as FindContests} from "./components/Contests";
 export {default as FindContestsResult} from "./components/Contests";
 
-export default {actions, actionTypes, reducer, selectors};
+let exportObj = {actions, actionTypes, reducer, selectors}
+
+export default exportObj;

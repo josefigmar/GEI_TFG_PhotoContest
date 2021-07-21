@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Container, Alert } from "react-bootstrap";
-import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
 import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router";
 import backend from "../../../backend";
@@ -32,6 +31,7 @@ const Notifications = () => {
             },
             (result) => setNotificationsData(result)
         );
+        // eslint-disable-next-line
     }, []);
 
 
@@ -39,7 +39,7 @@ const Notifications = () => {
         return null;
     }
 
-    if (notificationsData.items.length == 0) {
+    if (notificationsData.items.length === 0) {
         return (
             <Alert variant="dark">
                 <FormattedMessage id="user.Notifications.NoNotifications" />

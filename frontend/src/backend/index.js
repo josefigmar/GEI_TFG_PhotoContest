@@ -6,4 +6,6 @@ import * as notificationService from './notificationService';
 
 export {default as NetworkError} from "./NetworkError";
 
-export default {init, catalogService, userService, notificationService};
+let exportObj = {init, catalogService, userService, notificationService};
+
+export default exportObj;

@@ -46,6 +46,7 @@ const FollowersFollowing = () => {
                 (result) => setUsersData(result)
             );
         }
+    // eslint-disable-next-line
     }, []);
 
     if (usersData === '') {

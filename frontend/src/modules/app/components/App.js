@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Body from './Body';
 import { useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as userSelectors from "../../user/selectors";
 
 const App = () => {
@@ -24,9 +24,10 @@ const App = () => {
   /* The user locale comes from the backend with a code from 0 to 2, this function returns the locale value of the code*/
   const i18nUSerLocales = code => {
     switch (code) {
-      case 0: return "es"; break;
-      case 1: return "gl"; break;
-      case 2: return "en"; break;
+      case 0: return "es";
+      case 1: return "gl";
+      case 2: return "en";
+      default: return "es";
     }
   }
 
@@ -42,7 +43,8 @@ const App = () => {
       setAppLocale(locale);
       setAppMessages( messages[locale] || messages[localeWithoutRegionCode] || messages['en']);
     }
-  })
+    // eslint-disable-next-line
+  }, [userLocale])
 
   return (
     <div>

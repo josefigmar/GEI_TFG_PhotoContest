@@ -1,6 +1,6 @@
 import {useDispatch} from 'react-redux';
 import * as actions from "../actions";
-import { useState, useEffect} from 'react';
+import { useState } from 'react';
 import { Container} from 'react-bootstrap';
 import CategorySelector from './CategorySelector';
 import StatusSelector from './StatusSelector';

@@ -1,5 +1,5 @@
 import { Container, Button } from "react-bootstrap";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useState } from "react";
 import backend from "../../../backend";
 import { useHistory } from 'react-router-dom';
@@ -9,31 +9,44 @@ import LenguagueSelector from "./LenguagueSelector";
 const SignUp = () => {
 
     const history = useHistory();
+    const intl = useIntl();
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
     const [name, setName] = useState("");
     const [surnames, setSurnames] = useState("");
     const [email, setEmail] = useState("");
     const [lenguague, setLenguague] = useState("");
     const [backendErrors, setBackendErrors] = useState(null);
 
+    const checkPassword = () => {
+
+        if(password !== repeatPassword){
+            setBackendErrors({"errorGlobal" : intl.formatMessage({id:'user.SignUp.Error.PasswordsDoNotMatch'})});
+            return false;
+        }
+
+        return true;
+    }
+
     const handleSubmit = event => {
 
         event.preventDefault();
 
-        backend.userService.signUp(
-            {
-                nombreUsuario: userName.trim(),
-                contraseña: password,
-                nombrePilaUsuario: name.trim(),
-                apellidosUsuario: surnames.trim(),
-                email: email.trim(),
-                lenguaje: lenguague
-            },
-            () => history.push("/users/logIn"),
-            errors => setBackendErrors(errors)
-        );
-
+        if(checkPassword()){
+            backend.userService.signUp(
+                {
+                    nombreUsuario: userName.trim(),
+                    contraseña: password,
+                    nombrePilaUsuario: name.trim(),
+                    apellidosUsuario: surnames.trim(),
+                    email: email.trim(),
+                    lenguaje: lenguague
+                },
+                () => history.push("/users/logIn"),
+                errors => setBackendErrors(errors)
+            );
+        }
     }
 
     return (
@@ -68,6 +81,12 @@ const SignUp = () => {
                     <div className="input-group mb-3">
                         <FormattedMessage id='user.SignUp.Password'>
                             {placeholder => <input placeholder={placeholder} className="form-control" type="password" value={password} onChange={e => setPassword(e.target.value)} required />}
+                        </FormattedMessage>
+                    </div>
+
+                    <div className="input-group mb-3">
+                        <FormattedMessage id='user.SignUp.RepeatPassword'>
+                            {placeholder => <input placeholder={placeholder} className="form-control" type="password" value={repeatPassword} onChange={e => setRepeatPassword(e.target.value)} required />}
                         </FormattedMessage>
                     </div>
 

@@ -1,10 +1,7 @@
 package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
-import com.figueiras.photocontest.backend.model.exceptions.CampoDuplicadoException;
-import com.figueiras.photocontest.backend.model.exceptions.CamposIntroducidosNoValidosException;
-import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
-import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
+import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioLoginDto;
@@ -188,19 +185,24 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public void cambiarContraseñaUsuario(UsuarioCambioContraseñaDto usuarioCambioContraseñaDto) {
+    public void cambiarContraseñaUsuario(UsuarioCambioContraseñaDto usuarioCambioContraseñaDto)
+            throws IncorrectPasswordException {
 
         Optional<Usuario> usuarioOptional =
                 usuarioDao.findByNombreUsuario(usuarioCambioContraseñaDto.getNombreUsuario());
 
+
+
+        // Esto no debería ser posible
         if (!usuarioOptional.isPresent()) {
-            // todo
+            return;
         }
 
         Usuario usuario = usuarioOptional.get();
 
-        if (!passwordEncoder.matches(usuarioCambioContraseñaDto.getContraseñaAntigua(), usuario.getContrasenaUsuario())) {
-            // todo
+        if (!passwordEncoder.matches(usuarioCambioContraseñaDto.getContraseñaAntigua(),
+                usuario.getContrasenaUsuario())) {
+            throw new IncorrectPasswordException();
         }
 
         usuario.setContrasenaUsuario(passwordEncoder.encode(usuarioCambioContraseñaDto.getContraseñaNueva()));

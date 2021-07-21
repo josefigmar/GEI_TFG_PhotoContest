@@ -1,12 +1,11 @@
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import constants
-    from "../../commons";
+import commonsExportObj from "../../commons";
 const Users = ({ users }) => {
 
     const userPhoto = (databasePhoto) => {
         if (databasePhoto === null || databasePhoto === undefined) {
-            return constants.IMG_PROFILE_DEFAULT;
+            return commonsExportObj.constants.IMG_PROFILE_DEFAULT;
         }
 
         return databasePhoto;

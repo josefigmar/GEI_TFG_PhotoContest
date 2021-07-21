@@ -63,6 +63,8 @@ export default{
     'user.SignUp.Welcome' : 'Rexístrate para descubrir fotógrafos e concursos dos teus amigos.',
     'user.SignUp.UserName' : 'Nome de usuario',
     'user.SignUp.Password' : 'Contrasinal',
+    'user.SignUp.RepeatPassword': 'Repita o contrasinal',
+    'user.SignUp.Error.PasswordsDoNotMatch': 'Os contrasinais non coinciden',
     'user.SignUp.Name' : 'Nome',
     'user.SignUp.Surnames' : 'Apelidos',
     'user.SignUp.Email' : 'Correo electrónico',
@@ -83,6 +85,7 @@ export default{
 
     'user.ChanguePassword.OldPassword' : 'Contrasinal vello',
     'user.ChanguePassword.NewPassword' : 'Novo contrasinal',
+    'user.ChanguePassword.RepeatPassword' : 'Repita o novo contrasinal',
 
     'user.ChangueData.ProfilePhoto' : 'Foto de perfil',
     'user.ChangueData.Name' : 'Nome',

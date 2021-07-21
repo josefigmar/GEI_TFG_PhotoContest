@@ -3,7 +3,7 @@ import { Container, Alert } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { useParams } from "react-router";
 import backend from "../../../backend";
-import constants from "../../commons";
+import commonExportObj from "../../commons";
 import Pager from "../../commons/components/Pager";
 
 const Notifications = () => {
@@ -16,7 +16,7 @@ const Notifications = () => {
 
     const notificationPhoto = (databasePhoto) => {
         if (databasePhoto === null || databasePhoto === undefined) {
-            return constants.IMG_PHOTOCONTEST;
+            return commonExportObj.constants.IMG_PHOTOCONTEST;
         }
 
         return databasePhoto;

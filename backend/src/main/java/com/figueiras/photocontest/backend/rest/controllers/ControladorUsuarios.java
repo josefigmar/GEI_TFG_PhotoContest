@@ -2,10 +2,7 @@ package com.figueiras.photocontest.backend.rest.controllers;
 
 import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.entities.UsuarioSigueUsuario;
-import com.figueiras.photocontest.backend.model.exceptions.CampoDuplicadoException;
-import com.figueiras.photocontest.backend.model.exceptions.CamposIntroducidosNoValidosException;
-import com.figueiras.photocontest.backend.model.exceptions.IncorrectLoginException;
-import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
+import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.model.services.Block;
 import com.figueiras.photocontest.backend.model.services.ServicioUsuario;
 import com.figueiras.photocontest.backend.rest.common.JwtGenerator;
@@ -36,6 +33,7 @@ public class ControladorUsuarios {
     private MessageSource messageSource;
 
     private static String INCORRECT_LOGIN_EXCEPTION_CODIGO = "project.exceptions.IncorrectLoginException";
+    private static String INCORRECT_PASSWORD_EXCEPTION_CODIGO = "project.exceptions.IncorrectPasswordException";
 
     @ExceptionHandler(IncorrectLoginException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -44,6 +42,17 @@ public class ControladorUsuarios {
 
         String mensajeExcepcion = messageSource.getMessage(INCORRECT_LOGIN_EXCEPTION_CODIGO,
                null, INCORRECT_LOGIN_EXCEPTION_CODIGO, locale);
+
+        return  new ErroresDto(mensajeExcepcion);
+    }
+
+    @ExceptionHandler(IncorrectPasswordException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErroresDto manejarExcepcionIncorrectPasswordException(IncorrectPasswordException e, Locale locale){
+
+        String mensajeExcepcion = messageSource.getMessage(INCORRECT_PASSWORD_EXCEPTION_CODIGO,
+                null, INCORRECT_PASSWORD_EXCEPTION_CODIGO, locale);
 
         return  new ErroresDto(mensajeExcepcion);
     }
@@ -95,7 +104,8 @@ public class ControladorUsuarios {
     }
 
     @PostMapping("/usuarios/{nombreUsuario}/cambio-contrasena")
-    public void cambioContraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto){
+    public void cambioContraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto)
+            throws IncorrectPasswordException {
 
         servicioUsuario.cambiarContraseñaUsuario(usuarioCambioContraseñaDto);
     }

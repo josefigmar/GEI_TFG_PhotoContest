@@ -53,6 +53,8 @@ export default {
     'user.SignUp.Welcome': 'Sign up to discover photographers and amazing contests',
     'user.SignUp.UserName': 'Username',
     'user.SignUp.Password': 'Password',
+    'user.SignUp.RepeatPassword': 'Repeat password',
+    'user.SignUp.Error.PasswordsDoNotMatch': 'Passwords do not match',
     'user.SignUp.Name': 'Name',
     'user.SignUp.Surnames': 'Surnames',
     'user.SignUp.Lenguagues': 'Choose the lenguague',
@@ -83,6 +85,7 @@ export default {
 
     'user.ChanguePassword.OldPassword' : 'Old password',
     'user.ChanguePassword.NewPassword' : 'New password',
+    'user.ChanguePassword.RepeatPassword' : 'Repeat the new password',
 
     'user.ChangueData.ProfilePhoto' : 'Profile photo',
     'user.ChangueData.Name' : 'Name',

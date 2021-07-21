@@ -1,52 +1,76 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import * as userSelectors from "../selectors";
-import { Button, Form } from "react-bootstrap";
-import { FormattedMessage } from "react-intl";
+import { Button, Container, Form } from "react-bootstrap";
+import { FormattedMessage, useIntl } from "react-intl";
 import backend from "../../../backend";
 import { useHistory } from "react-router";
+import Errors from "../../commons/components/Errors";
 
 
 const ChanguePassword = () => {
 
+    const intl = useIntl();
     const userName = useSelector(userSelectors.getUserName);
     const history = useHistory();
+    const [backendErrors, setBackendErrors] = useState("");
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [repeatNewPassword, setRepeatNewPassword] = useState("");
 
-    const handleSubmit = (event) =>{
+    const checkPassword = () => {
+
+        if (newPassword !== repeatNewPassword) {
+            setBackendErrors({ "errorGlobal": intl.formatMessage({ id: 'user.SignUp.Error.PasswordsDoNotMatch' }) });
+            return false;
+        }
+
+        return true;
+    }
+
+    const handleSubmit = (event) => {
         event.preventDefault();
 
-        backend.userService.changuePassword(
-            {
-                nombreUsuario: userName,
-                contraseñaAntigua: oldPassword,
-                contraseñaNueva : newPassword,
-            },
-            () => history.push(`/users/${userName}`),
-            () => history.push(`/users/${userName}/changue-password`)
-        )
-
+        if (checkPassword()) {
+            backend.userService.changuePassword(
+                {
+                    nombreUsuario: userName,
+                    contraseñaAntigua: oldPassword,
+                    contraseñaNueva: newPassword,
+                },
+                () => history.push(`/users/${userName}`),
+                errors => setBackendErrors(errors)
+            )
+        }
     }
 
     return (
-        <Form onSubmit={e => handleSubmit(e)}>
-            <Form.Group className="mb-3" controlId="formOldPassword">
-                <Form.Label><FormattedMessage id='user.ChanguePassword.OldPassword' /></Form.Label>
-                <Form.Control type="password" onChange={e => setOldPassword(e.target.value)}/>
-                <Form.Text className="text-muted">
-                </Form.Text>
-            </Form.Group>
+        <Container>
+            <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
+            <Form onSubmit={e => handleSubmit(e)}>
+                <Form.Group className="mb-3" controlId="formOldPassword">
+                    <Form.Label><FormattedMessage id='user.ChanguePassword.OldPassword' /></Form.Label>
+                    <Form.Control type="password" onChange={e => setOldPassword(e.target.value)} />
+                    <Form.Text className="text-muted">
+                    </Form.Text>
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label><FormattedMessage id='user.ChanguePassword.NewPassword' /></Form.Label>
-                <Form.Control type="password" onChange={e => setNewPassword(e.target.value)} />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label><FormattedMessage id='user.ChanguePassword.NewPassword' /></Form.Label>
+                    <Form.Control type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                </Form.Group>
 
-            <Button variant="primary" type="submit">
-                <FormattedMessage id='app.Commons.Save' />
-            </Button>
-        </Form>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label><FormattedMessage id='user.ChanguePassword.RepeatPassword' /></Form.Label>
+                    <Form.Control type="password" value={repeatNewPassword} onChange={e => setRepeatNewPassword(e.target.value)} />
+                </Form.Group>
+
+                <Button variant="primary" type="submit">
+                    <FormattedMessage id='app.Commons.Save' />
+                </Button>
+            </Form>
+        </Container>
+
     );
 }
 

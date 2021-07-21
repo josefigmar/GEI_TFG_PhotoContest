@@ -1,7 +1,7 @@
 import { Container, Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
-import constants from "../../commons";
+import commonsExportObj from "../../commons";
 import { useSelector, useDispatch } from "react-redux";
 import * as userSelectors from '../../user/selectors';
 import MyProfileButtons from "./MyProfileButtons";
@@ -22,7 +22,7 @@ const UserProfileDetails = ({ userData }) => {
 
     const userPhoto = (databasePhoto) => {
         if (databasePhoto === null || databasePhoto === undefined) {
-            return constants.IMG_PROFILE_DEFAULT;
+            return commonsExportObj.constants.IMG_PROFILE_DEFAULT;
         }
 
         return databasePhoto;
@@ -153,8 +153,6 @@ const UserProfileDetails = ({ userData }) => {
                         null
 
                 }
-
-
             </div>
             {
                 userName === userData.nombreUsuario ?

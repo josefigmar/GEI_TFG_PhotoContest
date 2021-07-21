@@ -31,12 +31,12 @@ const User = () => {
         <div>
             <UserProfileDetails userData={userData} />
             <br />
-            {userData.cuentaEliminada === false && userData.concursosEnLosQueParticipa.length !== 0?
+            {userData.cuentaEliminada === false && userData.concursosEnLosQueParticipa.length !== 0 ?
 
                 <UserContests userContestsData={userData.concursosEnLosQueParticipa} />
 
-                : 
-                
+                :
+
                 null
             }
             <br />
@@ -48,7 +48,7 @@ const User = () => {
                     // Delete account button should be active
                     isLoggedIn && userNameLogged === userData.nombreUsuario ?
 
-                        <DeleteUser userName={userName}/>
+                        <DeleteUser userName={userName} />
 
                         :
 

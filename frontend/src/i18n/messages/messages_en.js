@@ -90,6 +90,7 @@ export default {
     'user.ChangueData.Biography' : 'Biography',
     'user.ChangueData.TwitterLink' : 'Twitter link',
     'user.ChangueData.FacebookLink' : 'Facebook link',
+    'user.ChangueData.InstagramLink' : 'Instagram link',
 
     'user.Notifications.NoNotifications' : 'You dont have any notifications',
     'user.Notifications.Read' : 'Read',

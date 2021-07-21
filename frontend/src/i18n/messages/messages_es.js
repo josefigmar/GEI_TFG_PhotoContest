@@ -89,6 +89,7 @@ export default{
     'user.ChangueData.Biography' : 'Biografía',
     'user.ChangueData.TwitterLink' : 'Enlace a Twitter',
     'user.ChangueData.FacebookLink' : 'Enlace a Facebook',
+    'user.ChangueData.InstagramLink' : 'Enlace a Instagram',
 
     'user.Notifications.NoNotifications' : 'No tienes ninguna notificación',
     'user.Notifications.Read' : 'Leída',

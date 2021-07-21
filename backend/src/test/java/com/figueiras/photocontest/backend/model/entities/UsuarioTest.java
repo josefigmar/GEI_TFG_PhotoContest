@@ -238,6 +238,26 @@ public class UsuarioTest {
     }
 
     @Test
+    public void setEnlaceInstagram() {
+        Usuario usuario = new Usuario();
+        String enlace = "fasdjklhgfkjhsdfgj.com";
+
+        usuario.setEnlaceInstagramUsuario(enlace);
+
+        Assertions.assertEquals(usuario.getEnlaceInstagramUsuario(), enlace);
+    }
+
+    @Test
+    public void setEnlaceInstagramLargoTest() {
+        Usuario usuario = new Usuario();
+        String enlace = UtilidadesParaPruebas.CADENA_LARGA;
+
+        usuario.setEnlaceInstagramUsuario(enlace);
+
+        Assertions.assertFalse(validator.validate(usuario).isEmpty());
+    }
+
+    @Test
     public void setCuentaEliminadaTest(){
         Usuario u = new Usuario();
 

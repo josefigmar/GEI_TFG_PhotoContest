@@ -14,6 +14,7 @@ public class UsuarioDto {
     private String biografiaUsuario;
     private String enlaceTwitterUsuario;
     private String enlaceFacebookUsuario;
+    private String enlaceInstagramUsuario;
     private Long numeroSeguidores;
     private Long numeroSeguidos;
     private boolean cuentaEliminada;
@@ -99,6 +100,18 @@ public class UsuarioDto {
         return enlaceFacebookUsuario;
     }
 
+    public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
+        this.enlaceFacebookUsuario = enlaceFacebookUsuario;
+    }
+
+    public String getEnlaceInstagramUsuario() {
+        return enlaceInstagramUsuario;
+    }
+
+    public void setEnlaceInstagramUsuario(String enlaceInstagramUsuario) {
+        this.enlaceInstagramUsuario = enlaceInstagramUsuario;
+    }
+
     public Long getNumeroSeguidores() {
         return numeroSeguidores;
     }
@@ -129,10 +142,6 @@ public class UsuarioDto {
 
     public void setLenguaje(int lenguaje) {
         this.lenguaje = lenguaje;
-    }
-
-    public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
-        this.enlaceFacebookUsuario = enlaceFacebookUsuario;
     }
 
     public List<UsuarioParticipaConcursoDto> getConcursosEnLosQueParticipa() {

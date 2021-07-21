@@ -34,6 +34,7 @@ CREATE TABLE Usuario(
     contrasenaUsuario VARCHAR(100),
     enlaceTwitterUsuario VARCHAR(200),
     enlaceFacebookUsuario VARCHAR(200),
+    enlaceInstagramUsuario VARCHAR(200),
     cuentaEliminada TINYINT,
     lenguaje int,
     rolUsuarioSistema int,

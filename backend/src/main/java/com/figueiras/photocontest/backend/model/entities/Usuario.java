@@ -30,6 +30,8 @@ public class Usuario {
     private String enlaceTwitterUsuario;
     @Size(max = 200)
     private String enlaceFacebookUsuario;
+    @Size(max = 200)
+    private String enlaceInstagramUsuario;
     private boolean cuentaEliminada;
     private Lenguaje lenguaje;
     private RolUsuarioSistema rolUsuarioSistema;
@@ -125,6 +127,14 @@ public class Usuario {
 
     public void setEnlaceFacebookUsuario(String enlaceFacebookUsuario) {
         this.enlaceFacebookUsuario = enlaceFacebookUsuario;
+    }
+
+    public String getEnlaceInstagramUsuario() {
+        return enlaceInstagramUsuario;
+    }
+
+    public void setEnlaceInstagramUsuario(String enlaceInstagramUsuario) {
+        this.enlaceInstagramUsuario = enlaceInstagramUsuario;
     }
 
     public boolean isCuentaEliminada() {

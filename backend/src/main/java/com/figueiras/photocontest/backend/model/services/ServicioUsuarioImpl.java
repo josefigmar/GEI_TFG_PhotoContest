@@ -224,6 +224,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         usuario.setBiografiaUsuario(datosFormularioActualizacion.getBiografiaUsuario());
         usuario.setEnlaceTwitterUsuario(datosFormularioActualizacion.getEnlaceTwitterUsuario());
         usuario.setEnlaceFacebookUsuario(datosFormularioActualizacion.getEnlaceFacebookUsuario());
+        usuario.setEnlaceInstagramUsuario(datosFormularioActualizacion.getEnlaceInstagramUsuario());
         usuario.setFotoPerfil(datosFormularioActualizacion.getFotoPerfil());
         usuario.setCorreoElectronicoUsuario(datosFormularioActualizacion.getEmail());
 

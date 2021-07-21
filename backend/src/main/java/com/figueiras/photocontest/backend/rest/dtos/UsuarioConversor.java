@@ -72,6 +72,7 @@ public class UsuarioConversor {
         usuarioDto.setBiografiaUsuario(usuario.getBiografiaUsuario());
         usuarioDto.setEnlaceTwitterUsuario(usuario.getEnlaceTwitterUsuario());
         usuarioDto.setEnlaceFacebookUsuario(usuario.getEnlaceFacebookUsuario());
+        usuarioDto.setEnlaceInstagramUsuario(usuario.getEnlaceInstagramUsuario());
         usuarioDto.setNumeroSeguidores((long) usuario.getUsuariosQueLoSiguen().size());
         usuarioDto.setNumeroSeguidos((long) usuario.getUsuariosQueSigue().size());
         usuarioDto.setCuentaEliminada(usuario.isCuentaEliminada());

@@ -20,6 +20,7 @@ public class UsuarioConversorTest {
         u.setBiografiaUsuario(UtilidadesParaPruebas.CADENA_LARGA);
         u.setEnlaceTwitterUsuario(UtilidadesParaPruebas.CADENA_MEDIA);
         u.setEnlaceFacebookUsuario(UtilidadesParaPruebas.CADENA_MEDIA);
+        u.setEnlaceInstagramUsuario(UtilidadesParaPruebas.CADENA_MEDIA);
 
         return u;
     }
@@ -164,6 +165,15 @@ public class UsuarioConversorTest {
         UsuarioDto usuarioDto = UsuarioConversor.toUsuarioDto(u);
 
         Assertions.assertEquals(usuarioDto.getEnlaceFacebookUsuario(), u.getEnlaceFacebookUsuario());
+    }
+
+    @Test
+    public void crearUsuarioDtoEnlaceInstagramTest() {
+        Usuario u = crearUsuario();
+
+        UsuarioDto usuarioDto = UsuarioConversor.toUsuarioDto(u);
+
+        Assertions.assertEquals(usuarioDto.getEnlaceInstagramUsuario(), u.getEnlaceInstagramUsuario());
     }
 
     @Test

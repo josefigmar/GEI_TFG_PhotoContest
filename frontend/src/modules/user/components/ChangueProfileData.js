@@ -20,6 +20,7 @@ const ChangueProfileData = () => {
     const [biografiaUsuario, setBiografiaUsuario] = useState("");
     const [enlaceTwitterUsuario, setEnlaceTwitterUsuario] = useState("");
     const [enlaceFacebookUsuario, setEnlaceFacebookUsuario] = useState("");
+    const [enlaceInstagramUsuario, setEnlaceInstagramUsuario] = useState("");
     const [fotoPerfil, setFotoPerfilUsuario] = useState("");
 
     useEffect(() => {
@@ -29,6 +30,7 @@ const ChangueProfileData = () => {
         setBiografiaUsuario(userData.biografiaUsuario);
         setEnlaceTwitterUsuario(userData.enlaceTwitterUsuario);
         setEnlaceFacebookUsuario(userData.enlaceFacebookUsuario);
+        setEnlaceInstagramUsuario(userData.enlaceInstagramUsuario);
         setFotoPerfilUsuario(userData.fotoPerfil);
         // eslint-disable-next-line
     }, []);
@@ -59,6 +61,7 @@ const ChangueProfileData = () => {
                 biografiaUsuario,
                 enlaceTwitterUsuario,
                 enlaceFacebookUsuario,
+                enlaceInstagramUsuario,
                 fotoPerfil
             },
             () => { history.push(`users/${userData.nombreUsuario}`); window.localStorage.clear() },
@@ -91,6 +94,10 @@ const ChangueProfileData = () => {
             <Form.Group className="mb-3" controlId="EnlaceFacebook">
                 <Form.Label><FormattedMessage id='user.ChangueData.FacebookLink' /></Form.Label>
                 <Form.Control value={enlaceFacebookUsuario} maxlength="200" onChange={e => setEnlaceFacebookUsuario(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="EnlaceInstagram">
+                <Form.Label><FormattedMessage id='user.ChangueData.InstagramLink' /></Form.Label>
+                <Form.Control value={enlaceInstagramUsuario} maxlength="200" onChange={e => setEnlaceInstagramUsuario(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label><FormattedMessage id='user.ChangueData.ProfilePhoto'/></Form.Label>

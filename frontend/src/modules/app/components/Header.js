@@ -18,9 +18,12 @@ const Header = () => {
   const [newNotifications, setNewNotifications] = useState(false);
 
   useEffect(() => {
-    backend.notificationService.hasUserNewNotifications(
-      userName,
-      result => setNewNotifications(result));
+    if(userName){
+      backend.notificationService.hasUserNewNotifications(
+        userName,
+        result => setNewNotifications(result));
+    }
+
   })
 
   return (

@@ -51,6 +51,7 @@ export default{
 
     'user.FindUsers.PlaceHolder' : 'Nome de usuario',
 
+    'user.Profile.ContestTable.Title': 'Concursos nos que participa',
     'user.Profile.ContestTable.Name' : 'Nome do concurso',
     'user.Profile.ContestTable.role' : 'Rol no concurso',
     'user.Profile.ContestTable.fecha' : 'Participa desde',

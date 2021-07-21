@@ -68,6 +68,7 @@ export default {
 
     'app.FindUsers.NoUsers': 'The search did not return any coincidences',
     
+    'user.Profile.ContestTable.Title': 'Participates in',
     'user.Profile.ContestTable.Name': 'Contest name',
     'user.Profile.ContestTable.role': 'Contest role',
     'user.Profile.ContestTable.fecha': 'Participating since',

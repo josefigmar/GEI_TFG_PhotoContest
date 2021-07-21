@@ -1,3 +1,5 @@
 import * as constants from "./constants";
+import * as commonFunctions from "./functions";
 
-export default constants;
+let exportObj = {constants, commonFunctions}
+export default exportObj;

@@ -6,6 +6,7 @@ public class UsuarioParticipaConcursoDto {
     private String nombreConcurso;
     private String rolUsuario;
     private Long fechaInicioParticipacion;
+    private String estadoConcurso;
 
     public UsuarioParticipaConcursoDto() {
     }
@@ -40,5 +41,13 @@ public class UsuarioParticipaConcursoDto {
 
     public void setFechaInicioParticipacion(Long fechaInicioParticipacion) {
         this.fechaInicioParticipacion = fechaInicioParticipacion;
+    }
+
+    public String getEstadoConcurso() {
+        return estadoConcurso;
+    }
+
+    public void setEstadoConcurso(String estadoConcurso) {
+        this.estadoConcurso = estadoConcurso;
     }
 }

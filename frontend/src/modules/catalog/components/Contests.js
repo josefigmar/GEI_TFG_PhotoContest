@@ -2,17 +2,9 @@ import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import constants from "../../commons";
+import tipoLabelConcurso from "../../commons/functions";
 
 const Contests = ({contests}) =>{
-
-    const tipoLabel = (estado) =>{
-        switch(estado){
-            case "ABIERTO" : return "success"
-            case "VOTACION": return "warning"
-            case "FINALIZADO" : return "danger"
-            default : return "success"
-        }
-    }
 
     const contestPhoto = (databasePhoto) => {
         if(databasePhoto === null || databasePhoto === undefined){
@@ -51,7 +43,7 @@ const Contests = ({contests}) =>{
                             <td className="align-middle">
                                 <Link to={`/catalog/concursos/${concurso.idConcurso}`}>{concurso.nombre}</Link>
                             </td>
-                            <td className="align-middle"><Badge variant={tipoLabel(concurso.estadoConcurso)}>{concurso.estadoConcurso}</Badge></td>
+                            <td className="align-middle"><Badge variant={tipoLabelConcurso(concurso.estadoConcurso)}>{concurso.estadoConcurso}</Badge></td>
                             <td className="align-middle"><FormattedDate value={new Date(concurso.fechaInicio)}/> <FormattedTime value={new Date(concurso.fechaInicio)}/></td>
                             <td className="align-middle"><FormattedDate value={new Date(concurso.fechaFin)}/> <FormattedTime value={new Date(concurso.fechaFin)}/></td>
                         </tr>

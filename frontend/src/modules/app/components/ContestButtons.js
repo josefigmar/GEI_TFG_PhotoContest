@@ -23,9 +23,11 @@ const ContestButtons = () => {
                 </form>
 
                 &emsp;
-                <Button variant="success">
-                    <FormattedMessage id="app.RedirectHome.ButtonCreateContest" />
-                </Button>
+                <form onSubmit={() => history.push('/contests/create-contest')}>
+                    <Button type="submit" variant="success">
+                        <FormattedMessage id="app.RedirectHome.ButtonCreateContest" />
+                    </Button>
+                </form>
             </div>
         </div>
     )

@@ -74,8 +74,11 @@ const Header = () => {
                 <Link className="dropdown-item" to={`/users/${userName}`}>
                   <FormattedMessage id="app.Header.MyProfile" />
                 </Link>
-                <Link className="dropdown-item" to="/users/signUp">
-                  <FormattedMessage id="app.Header.Config" />
+                <Link className="dropdown-item" to={`/users/${userName}/changue-data`}>
+                  <FormattedMessage id='user.Profile.EditData'/>
+                </Link>
+                <Link className="dropdown-item" to={`/users/${userName}/changue-password`}>
+                  <FormattedMessage id='user.Profile.ChanguePassword'/>
                 </Link>
                 <NavDropdown.Divider />
                 <Link className="dropdown-item" onClick={() => dispatch(userActions.logout())} to="/">

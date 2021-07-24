@@ -12,6 +12,7 @@ import ChanguePassword from '../../user/components/ChanguePassword';
 import ChangueProfileData from '../../user/components/ChangueProfileData';
 import RecoverUser from '../../user/components/RecoverUser';
 import Notifications from '../../notificacion/components/Notifications';
+import CreateContest from '../../contest/components/CreateContest';
 
 const Body = () => {
     
@@ -32,6 +33,7 @@ const Body = () => {
                 <Route exact path="/users/:userName/followers"><FollowersFollowing/></Route>
                 <Route exact path="/users/:userName/following"><FollowersFollowing/></Route>
                 <Route exact path="/notifications/:userName"><Notifications/></Route>
+                <Route exact path="/contests/create-contest"><CreateContest/></Route>
                 <Route><Home/></Route>
             </Switch>
         </Container>

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Container } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from 'react-redux';
-import catalog from '../../catalog';
-import Contests from "../../catalog/components/Contests";
-import * as catalogSelectors from '../../catalog/selectors';
+import catalog from '../../contest';
+import Contests from "../../contest/components/Contests";
+import * as catalogSelectors from '../../contest/selectors';
 import * as userSelectors from '../../user/selectors';
 import RedirectHome from "./RedirectHome";
 

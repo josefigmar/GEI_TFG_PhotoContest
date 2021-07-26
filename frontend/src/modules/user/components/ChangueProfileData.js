@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import * as userSelectors from "../selectors";
 import * as userActions from "../actions";
-
+import commonFunctions from "../../commons/functions";
 
 const ChangueProfileData = () => {
 
@@ -101,7 +101,7 @@ const ChangueProfileData = () => {
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label><FormattedMessage id='user.ChangueData.ProfilePhoto'/></Form.Label>
-                <Form.Control id="fotoPerfil" type="file"  onChange={e => updateProfilePhoto(e.target.files[0])}/>
+                <Form.Control id="fotoPerfil" type="file"  onChange={e => setFotoPerfilUsuario(commonFunctions.imgToBase64(e.target.files[0]))}/>
             </Form.Group>
             <Button variant="primary" type="submit" onClick={e => handleSubmit(e)}>
                 <FormattedMessage id="app.Commons.Save" />

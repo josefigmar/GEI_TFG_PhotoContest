@@ -49,8 +49,9 @@ export const followingOfUser = ({userName, page, size}, onSuccess) => {
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const changuePassword = (changuePasswordDto, onSuccess, onErrors) => {
+export const changuePassword = (changuePasswordDto, isFromReset, onSuccess, onErrors) => {
     let path = `/catalogo-usuarios/usuarios/${changuePasswordDto.userName}/cambio-contrasena`;
+    isFromReset? path+= `?isFromReset=${isFromReset}` : path+="";
 
     appFetch(path, config('POST', changuePasswordDto), onSuccess, onErrors);
 }
@@ -87,6 +88,13 @@ export const sendRecoverMail = (userName, onSuccess, onErrors) => {
     let path = `/catalogo-usuarios/usuarios/${userName}/recuperar-cuenta`;
 
     appFetch(path, config('POST'), onSuccess, onErrors);
+}
+
+export const isRecoveryTokenOk = (data, onSuccess, onErrors) => {
+
+    let path = `/catalogo-usuarios/usuarios/${data.userName}/restablecer-contrasena/${data.token}`;
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
 }
 
 export const deleteAccount = (userName, onSuccess, onErrors) => {

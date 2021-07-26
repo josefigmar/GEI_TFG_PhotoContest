@@ -2,6 +2,8 @@ package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
+import com.figueiras.photocontest.backend.rest.common.JwtGenerator;
+import com.figueiras.photocontest.backend.rest.common.JwtInfo;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioLoginDto;
@@ -12,7 +14,6 @@ import org.springframework.data.domain.Slice;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.mail.internet.AddressException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -36,6 +37,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
     @Autowired
     MessageSource messageSource;
+
+    @Autowired
+    JwtGenerator jwtGenerator;
 
     @Override
     public Block<Usuario> recuperarUsuarios(String nombre, int page, int size) {
@@ -185,7 +189,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public void cambiarContraseñaUsuario(UsuarioCambioContraseñaDto usuarioCambioContraseñaDto)
+    public void cambiarContraseñaUsuario(UsuarioCambioContraseñaDto usuarioCambioContraseñaDto, boolean isFromReset)
             throws IncorrectPasswordException {
 
         Optional<Usuario> usuarioOptional =
@@ -200,14 +204,27 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 
         Usuario usuario = usuarioOptional.get();
 
-        if (!passwordEncoder.matches(usuarioCambioContraseñaDto.getContraseñaAntigua(),
-                usuario.getContrasenaUsuario())) {
-            throw new IncorrectPasswordException();
+        // Este método se reutiliza para el cambio normal de contraseña como para restablecerla luego de olvidarla.
+        if(!isFromReset){
+            if (!passwordEncoder.matches(usuarioCambioContraseñaDto.getContraseñaAntigua(),
+                    usuario.getContrasenaUsuario())) {
+                throw new IncorrectPasswordException();
+            }
         }
 
         usuario.setContrasenaUsuario(passwordEncoder.encode(usuarioCambioContraseñaDto.getContraseñaNueva()));
 
         usuarioDao.save(usuario);
+
+        try{
+            servicioEmail.enviarMailGmail(usuario.getCorreoElectronicoUsuario(),
+                    messageSource.getMessage("project.emails.subject.NewPasswordSubject",
+                            null, new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage("project.emails.subject.NewPasswordMessage",
+                            null, new Locale(usuario.getLenguaje().toString())));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -304,7 +321,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
-    public void enviarNuevaContraseña(String nombreUsuarioDestinatario) throws InstanceNotFoundException {
+    public void enviarEnlaceRecuperacionContrasena(String nombreUsuarioDestinatario) throws InstanceNotFoundException {
 
         Optional<Usuario> usuarioOptional = usuarioDao.findByNombreUsuario(nombreUsuarioDestinatario);
 
@@ -313,28 +330,35 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         }
 
         Usuario usuario = usuarioOptional.get();
-        String nuevaContraseña = generarContraseña(10);
-        String nuevaContraseñaCodificada = passwordEncoder.encode(nuevaContraseña);
+        Long idUsuario = usuario.getIdUsuario();
 
-        usuario.setContrasenaUsuario(nuevaContraseñaCodificada);
+        JwtInfo jwtInfoUsuario = new JwtInfo(idUsuario);
+
+        String jwtRecuperarContraseña = jwtGenerator.generateForPassword(jwtInfoUsuario);
+        String path = "http://localhost:3000/users/" + usuario.getNombreUsuario() + "/reset-password/" + jwtRecuperarContraseña;
+
         try{
-            servicioEmail.enviarMailGmail(usuario.getCorreoElectronicoUsuario(), "New password", nuevaContraseña);
-            usuarioDao.save(usuario);
+            servicioEmail.enviarMailGmail(usuario.getCorreoElectronicoUsuario(), messageSource.getMessage("project.emails.subject.LinkToNewPasswordSubject", null, new Locale(usuario.getLenguaje().toString())), path);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    private String generarContraseña(int longitud){
+    @Override
+    public boolean comprobarEnlaceRecuperacionContrasena(String jwt) throws InstanceNotFoundException {
 
-        String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        Random rnd = new Random();
-
-        StringBuilder sb = new StringBuilder(longitud);
-        for (int i = 0; i < longitud; i++) {
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        // Si el token no se decodifica bien y salta excepción o si el usuario no existe, se devuelve falso
+        // indicando que algo ha fallado.
+        try {
+            JwtInfo jwtInfo = jwtGenerator.getInfoForPassword(jwt);
+            Optional<Usuario> usuarioOptional = usuarioDao.findById(jwtInfo.getIdUsuario());
+            if(!usuarioOptional.isPresent()){
+                return false;
+            }
+        } catch(Exception e){
+            return false;
         }
-        return sb.toString();
+        return true;
     }
 
     @Override

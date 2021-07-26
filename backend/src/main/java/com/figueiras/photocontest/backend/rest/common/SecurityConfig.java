@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/catalogo-usuarios/usuarios/*/sigue/*").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios/*/recuperar-cuenta").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios/*/eliminar-cuenta").permitAll()
+                .antMatchers("/catalogo-usuarios/usuarios/*/restablecer-contrasena/*").permitAll()
                 .antMatchers("/catalogo-notificaciones/notificaciones/*").permitAll()
                 .antMatchers("/catalogo-notificaciones/notificaciones/*/has-new").permitAll()
                 .anyRequest().hasRole("USER");

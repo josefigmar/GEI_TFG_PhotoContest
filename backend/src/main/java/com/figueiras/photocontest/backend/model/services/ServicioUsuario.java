@@ -18,12 +18,13 @@ public interface ServicioUsuario {
     Usuario iniciarSesionUsuario(UsuarioLoginDto usuarioLoginDto) throws IncorrectLoginException;
     Block<UsuarioSigueUsuario> recuperarSeguidoresDeUsuario(String nombreUsuario, int page, int size);
     Block<UsuarioSigueUsuario> recuperarSeguidosDeUsuario(String nombreUsuario, int page, int size);
-    void cambiarContraseñaUsuario(UsuarioCambioContraseñaDto usuarioCambioContraseñaDto)
+    void cambiarContraseñaUsuario(UsuarioCambioContraseñaDto usuarioCambioContraseñaDto, boolean isFromReset)
             throws IncorrectPasswordException;
     Usuario actualizarDatosUsuario(UsuarioDto usuarioDto);
     Usuario usuarioSigueAUsuario(String usuarioSeguidor, String usuarioSeguido) throws InstanceNotFoundException;
     Usuario usuarioDejaDeSeguirAUsuario(String usuarioSeguidor, String usuarioSeguido) throws InstanceNotFoundException;
     boolean sigueUsuarioAUsuario(String usuarioSeguidor, String usuarioSeguido);
-    void enviarNuevaContraseña(String nombreUsuarioDestinatario) throws InstanceNotFoundException;
+    void enviarEnlaceRecuperacionContrasena(String nombreUsuarioDestinatario) throws InstanceNotFoundException;
+    boolean comprobarEnlaceRecuperacionContrasena(String jwt) throws InstanceNotFoundException;
     void eliminarUsuario(String nombreUsuario) throws InstanceNotFoundException;
 }

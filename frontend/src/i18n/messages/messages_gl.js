@@ -76,6 +76,9 @@ export default {
     'user.Login.ForgotPassword': 'Olvidaches o teu contrasinal?',
     'user.Login.RegisterMsg': 'Necesitas unha conta?',
 
+    'user.RecoverUser.UserName' : 'Introduzca o seu nome de usuario',
+    'user.RecoverUser.SendRecoveryLink' : 'Enviar correo de recuperación',
+
     'app.FindUsers.NoUsers': 'A búsqueda non devolveu resultados',
 
     'user.Profile.EditData': 'Editar os meus datos',

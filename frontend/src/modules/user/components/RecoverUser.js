@@ -25,11 +25,11 @@ const RecoverUser = () => {
         <Container>
             <Form>
                 <Form.Group className="mb-3" controlId="nombreUsuario">
-                    <Form.Label><FormattedMessage id='user.SignUp.UserName' /></Form.Label>
+                    <Form.Label><FormattedMessage id='user.RecoverUser.UserName' /></Form.Label>
                     <Form.Control maxlength="50" onChange={e => setUserName(e.target.value)} />
                 </Form.Group>
                 <Button type="submit" variant="primary" onClick={e => handleSubmit(e)}>
-                    <FormattedMessage id="app.Commons.Save" />
+                    <FormattedMessage id='user.RecoverUser.SendRecoveryLink' />
                 </Button>
             </Form>
         </Container>

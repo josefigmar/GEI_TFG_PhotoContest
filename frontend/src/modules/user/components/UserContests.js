@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
 import Pager from "../../commons/components/Pager";
 import { Badge } from "react-bootstrap";
-import tipoLabelConcurso from "../../commons/functions";
+import commonFunctions from "../../commons/functions";
 
 const UserContests = ({ userContestsData }) => {
 
@@ -44,7 +44,7 @@ const UserContests = ({ userContestsData }) => {
                                 <Badge variant="primary">{`${c.rolUsuario}`}</Badge>
                             </td>
                             <td>
-                                <Badge variant={tipoLabelConcurso(c.estadoConcurso)}>{`${c.estadoConcurso}`}</Badge>
+                                <Badge variant={commonFunctions.tipoLabelConcurso(c.estadoConcurso)}>{`${c.estadoConcurso}`}</Badge>
                             </td>
                             <td>
                                 <FormattedDate value={new Date(c.fechaInicioParticipacion)} /> <FormattedTime value={new Date(c.fechaInicioParticipacion)} />

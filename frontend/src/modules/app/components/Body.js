@@ -13,6 +13,7 @@ import ChangueProfileData from '../../user/components/ChangueProfileData';
 import RecoverUser from '../../user/components/RecoverUser';
 import Notifications from '../../notificacion/components/Notifications';
 import CreateContest from '../../contest/components/CreateContest';
+import ResetPassword from '../../user/components/ResetPassword';
 
 const Body = () => {
     
@@ -29,6 +30,7 @@ const Body = () => {
                 <Route exact path="/users/recover"><RecoverUser/></Route>
                 <Route exact path="/users/:userName"><User/></Route>
                 <Route exact path="/users/:userName/changue-password"><ChanguePassword/></Route>
+                <Route exact path="/users/:userName/reset-password/:token"><ResetPassword/></Route>
                 <Route exact path="/users/:userName/changue-data"><ChangueProfileData/></Route>
                 <Route exact path="/users/:userName/followers"><FollowersFollowing/></Route>
                 <Route exact path="/users/:userName/following"><FollowersFollowing/></Route>

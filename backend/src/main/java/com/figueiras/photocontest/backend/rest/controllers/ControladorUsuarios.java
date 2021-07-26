@@ -104,10 +104,11 @@ public class ControladorUsuarios {
     }
 
     @PostMapping("/usuarios/{nombreUsuario}/cambio-contrasena")
-    public void cambioContraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto)
+    public void cambioContraseña(@RequestBody UsuarioCambioContraseñaDto usuarioCambioContraseñaDto,
+                                @RequestParam(defaultValue = "false") boolean isFromReset)
             throws IncorrectPasswordException {
 
-        servicioUsuario.cambiarContraseñaUsuario(usuarioCambioContraseñaDto);
+        servicioUsuario.cambiarContraseñaUsuario(usuarioCambioContraseñaDto, isFromReset);
     }
 
     @PostMapping("/registrarse")
@@ -172,7 +173,14 @@ public class ControladorUsuarios {
 
     @PostMapping("/usuarios/{nombreUsuario}/recuperar-cuenta")
     public void recuperarCuenta(@PathVariable String nombreUsuario) throws InstanceNotFoundException {
-        servicioUsuario.enviarNuevaContraseña(nombreUsuario);
+        servicioUsuario.enviarEnlaceRecuperacionContrasena(nombreUsuario);
+    }
+
+    @GetMapping("/usuarios/{nombreUsuario}/restablecer-contrasena/{token}")
+    public boolean esElTokenDeRestablecerContraseñaCorrecto(@PathVariable String token)
+            throws InstanceNotFoundException{
+
+        return servicioUsuario.comprobarEnlaceRecuperacionContrasena(token);
     }
 
     @PostMapping("/usuarios/{nombreUsuario}/eliminar-cuenta")

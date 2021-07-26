@@ -7,6 +7,12 @@ public class JwtInfo {
     private String rolUsuario;
 
 
+    public JwtInfo(Long idUsuario) {
+
+        this.idUsuario = idUsuario;
+
+    }
+
     public JwtInfo(Long idUsuario, String nombreUsuario, String rolUsuario) {
 
         this.idUsuario = idUsuario;

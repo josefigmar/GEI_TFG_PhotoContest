@@ -1,20 +1,18 @@
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import * as userSelectors from "../selectors";
-import { Button, Container, Form } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { FormattedMessage, useIntl } from "react-intl";
 import backend from "../../../backend";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import Errors from "../../commons/components/Errors";
 
 
-const ChanguePassword = () => {
+const ResetPassword = () => {
 
     const intl = useIntl();
-    const userName = useSelector(userSelectors.getUserName);
     const history = useHistory();
     const [backendErrors, setBackendErrors] = useState("");
-    const [oldPassword, setOldPassword] = useState("");
+    const { userName, token } = useParams();
+    const [renderForm, setRenderForm] = useState(false);
     const [newPassword, setNewPassword] = useState("");
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
 
@@ -35,27 +33,45 @@ const ChanguePassword = () => {
             backend.userService.changuePassword(
                 {
                     nombreUsuario: userName,
-                    contraseñaAntigua: oldPassword,
                     contraseñaNueva: newPassword,
                 },
-                // Is from reset is false 
-                false,
-                () => history.push(`/users/${userName}`),
+                // Is from reset is true
+                true,
+                () => history.push(`/`),
                 errors => setBackendErrors(errors)
             )
         }
+    }
+
+    const isTokenOk = result => {
+        result === true ? setRenderForm(true) : history.push(`/`);
+    }
+
+    useEffect(() => {
+        backend.userService.isRecoveryTokenOk(
+            {
+                userName,
+                token
+            },
+            result => isTokenOk(result),
+            () => history.push(`/`)
+        )
+        // eslint-disable-next-line
+    }, [])
+
+    if (!renderForm) {
+        return (
+            <Container className="centering">
+                <Spinner animation="border" role="status">
+                </Spinner>
+            </Container>
+        )
     }
 
     return (
         <Container>
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <Form onSubmit={e => handleSubmit(e)}>
-                <Form.Group className="mb-3" controlId="formOldPassword">
-                    <Form.Label><FormattedMessage id='user.ChanguePassword.OldPassword' /></Form.Label>
-                    <Form.Control type="password" onChange={e => setOldPassword(e.target.value)} />
-                    <Form.Text className="text-muted">
-                    </Form.Text>
-                </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label><FormattedMessage id='user.ChanguePassword.NewPassword' /></Form.Label>
@@ -76,4 +92,4 @@ const ChanguePassword = () => {
     );
 }
 
-export default ChanguePassword;
+export default ResetPassword;

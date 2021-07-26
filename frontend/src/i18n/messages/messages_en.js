@@ -66,6 +66,9 @@ export default {
     'user.Login.RegisterMsg': 'You need an account?',
     'user.Login.ForgotPassword': 'Did you forgot your password?',
 
+    'user.RecoverUser.UserName' : 'Input your username',
+    'user.RecoverUser.SendRecoveryLink' : 'Send recovery link',
+
     'user.FindUsers.PlaceHolder': 'Username',
 
     'app.FindUsers.NoUsers': 'The search did not return any coincidences',

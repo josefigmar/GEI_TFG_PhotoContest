@@ -73,6 +73,9 @@ export default {
     'user.Login.RegisterMsg': '¿Necesitas una cuenta?',
     'user.Login.ForgotPassword': '¿Olvidaste tu contraseña?',
 
+    'user.RecoverUser.UserName' : 'Introduzca su nombre de usuario',
+    'user.RecoverUser.SendRecoveryLink' : 'Enviar correo de recuperación',
+
     'user.Profile.Follow': 'Seguir',
     'user.Profile.Unfollow': 'Dejar de seguir',
 

@@ -6,4 +6,8 @@ public interface JwtGenerator {
 
     JwtInfo getInfo(String token);
 
+    String generateForPassword(JwtInfo info);
+
+    JwtInfo getInfoForPassword(String token);
+
 }

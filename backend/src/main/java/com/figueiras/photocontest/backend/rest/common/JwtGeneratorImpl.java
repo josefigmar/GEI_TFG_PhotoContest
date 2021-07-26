@@ -46,4 +46,22 @@ public class JwtGeneratorImpl implements JwtGenerator {
 
     }
 
+    @Override
+    public String generateForPassword(JwtInfo info) {
+        return Jwts.builder()
+                .claim("userId", info.getIdUsuario())
+                .signWith(SignatureAlgorithm.HS512, signKey.getBytes())
+                .compact();
+    }
+
+    @Override
+    public JwtInfo getInfoForPassword(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(signKey.getBytes())
+                .parseClaimsJws(token)
+                .getBody();
+
+        return new JwtInfo(
+                ((Integer) claims.get("userId")).longValue());
+    }
 }

@@ -7,6 +7,7 @@ public class CrearConcursoDto {
     private String fotoConcurso;
     private String basesConcurso;
     private boolean categoriaUnica;
+    private long idCategoria;
     private String[] listaCategorias;
     private String[] miembrosDeLaOrganizacion;
     private String fechaInicio;
@@ -68,6 +69,14 @@ public class CrearConcursoDto {
 
     public boolean isCategoriaUnica() {
         return categoriaUnica;
+    }
+
+    public long getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(long idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public void setCategoriaUnica(boolean categoriaUnica) {

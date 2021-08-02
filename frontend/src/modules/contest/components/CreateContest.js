@@ -22,6 +22,7 @@ const CreateContest = () => {
     const [fotoConcurso, setFotoConcurso] = useState('');
     const [basesConcurso, setBasesConcurso] = useState('');
     const [categoriaUnica, setCategoriaUnica] = useState(true);
+    const [idCategoria, setIdCategoria] = useState("");
     const [listaCategoriasMultiselect, setListaCategoriasMultiselect] = useState([]);
     const [listaCategorias, setListaCategorias] = useState([]);
     const [miembrosDeLaOrganizacion, setMiembrosDeLaOrganizacion] = useState([]);
@@ -30,7 +31,6 @@ const CreateContest = () => {
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaInicioVotacion, setFechaInicioVotacion] = useState('');
     const [nombreNuevaCategoria, setnombreNuevaCategoria] = useState("");
-    const [idCategoria, setIdCategoria] = useState("");
     const [participanteAbierto, setParticipanteAbierto] = useState(true);
     const [numeroMaximoFotografias, setNumeroMaximoFotografias] = useState("");
     const [numeroMaximoFotografiasParticipante, setNumeroMaximoFotografiasParticipante] = useState("");

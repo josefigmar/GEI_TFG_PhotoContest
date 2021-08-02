@@ -2,6 +2,7 @@ package com.figueiras.photocontest.backend.model.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,6 +17,7 @@ CategoriaFotografica {
     private Set<Concurso> concursosEnDondeSeUsa;
 
     public CategoriaFotografica() {
+        this.setConcursosEnDondeSeUsa(new HashSet<>());
     }
 
     public void setIdCategoria(Long idCategoria) {

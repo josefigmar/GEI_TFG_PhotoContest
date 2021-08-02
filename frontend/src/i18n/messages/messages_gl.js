@@ -117,6 +117,8 @@ export default {
     'contest.CreateContest.FechaInicio': 'Data de inicio do concurso',
     'contest.CreateContest.FechaLimiteSubida': 'Data límite para a subida de fotografías',
     'contest.CreateContest.CreateCategory': 'Crear nova categoría',
+    'contest.CreateContest.CreateCategory.Name': 'Nome',
+    'contest.CreateContest.CreateCategory.Desc': 'Descripcion',
     'contest.CreateContest.CreateCategoryConfirm': 'Crear',
     'contest.CreateContest.UniqueCategory': ' Categoría única',
     'contest.CreateContest.CategoryList' : 'Seleccione as categorias',

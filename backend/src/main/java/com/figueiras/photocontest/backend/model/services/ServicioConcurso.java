@@ -1,8 +1,10 @@
 package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.Concurso;
+import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
 import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
+import com.figueiras.photocontest.backend.rest.dtos.CategoriaFotograficaDto;
 import com.figueiras.photocontest.backend.rest.dtos.CrearConcursoDto;
 
 public interface ServicioConcurso {
@@ -14,4 +16,6 @@ public interface ServicioConcurso {
 
      void crearConcurso(CrearConcursoDto datosConcurso, String nombreUsuario)
              throws InstanceNotFoundException, DatosDeConcursoNoValidosException;
+
+     void crearCategoria(CategoriaFotograficaDto datosCategoria) throws CategoriaDuplicadaException;
 }

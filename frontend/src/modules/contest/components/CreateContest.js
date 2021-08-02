@@ -2,11 +2,11 @@ import { Button, Container, Form, Jumbotron } from "react-bootstrap";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import CategorySelector from "./CategorySelector";
 import commonFunctions from "../../commons/functions";
 import { Multiselect } from 'multiselect-react-dropdown';
 import Errors from "../../commons/components/Errors";
 import backend from "../../../backend";
+import CreateCategory from "./CreateCategory";
 
 const CreateContest = () => {
 
@@ -30,7 +30,6 @@ const CreateContest = () => {
     const [miembrosDelJurado, setMiembrosDelJurado] = useState([]);
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaInicioVotacion, setFechaInicioVotacion] = useState('');
-    const [nombreNuevaCategoria, setnombreNuevaCategoria] = useState("");
     const [participanteAbierto, setParticipanteAbierto] = useState(true);
     const [numeroMaximoFotografias, setNumeroMaximoFotografias] = useState("");
     const [numeroMaximoFotografiasParticipante, setNumeroMaximoFotografiasParticipante] = useState("");
@@ -48,7 +47,7 @@ const CreateContest = () => {
     const [fechaLimiteVotacion, setFechaLimiteVotacion] = useState("");
     const [numeroMaximoVotosPorUsuario, setNumeroMaximoVotosPorUsuario] = useState("");
     const [numeroMaximoDeFotografiasGanadoras, setNumeroMaximoDeFotografiasGanadoras] = useState("");
-
+    const [triggerCategoryUpdate, setTriggerCategoryUpdate] = useState([]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -66,7 +65,6 @@ const CreateContest = () => {
                 miembrosDelJurado,
                 fechaInicio,
                 fechaInicioVotacion,
-                nombreNuevaCategoria,
                 idCategoria,
                 participanteAbierto,
                 numeroMaximoFotografias,
@@ -92,7 +90,7 @@ const CreateContest = () => {
         )
     }
 
-    const removeElementsFromTwoLists = (list, collection1, collection2) =>{
+    const removeElementsFromTwoLists = (list, collection1, collection2) => {
         let auxList = list.filter(e => !collection1.includes(e));
         auxList = auxList.filter(e => !collection2.includes(e));
         return auxList;
@@ -101,24 +99,26 @@ const CreateContest = () => {
     useEffect(() => {
 
         // Primera carga de la página, la lista de usuarios tiene el valor 0
-        if(listaUsuariosMultiselect === null){
+        if (listaUsuariosMultiselect === null) {
             backend.userService.findUserNames(result => setListaUsuariosMultiselect(result));
-            backend.catalogService.findCategories(result => setListaCategoriasMultiselect(result));
-
             // Se setea al usuario que está creando el concurso como organizador. Esto puede ser cambiado en el futuro.
             setMiembrosDeLaOrganizacion(["josefigueirasm"])
         } else {
 
-        // Un organizador no puede ni participar ni ser jurado
-        setListaOrganizadoresMultiselect(removeElementsFromTwoLists(listaUsuariosMultiselect, participantes, miembrosDelJurado));
-        // Un participante no puede ser organizador ni jurado
-        setListaParticipantesMultiselect(removeElementsFromTwoLists(listaUsuariosMultiselect, miembrosDeLaOrganizacion, miembrosDelJurado));
-        // Un juez no puede ni participar ni ser organizador a no ser que se seleccione expresamente
-        // la opción de que los jueces son los participantes
-        setListaJuradoMultiselect(removeElementsFromTwoLists(listaUsuariosMultiselect, miembrosDeLaOrganizacion, participantes));
+            // Un organizador no puede ni participar ni ser jurado
+            setListaOrganizadoresMultiselect(removeElementsFromTwoLists(listaUsuariosMultiselect, participantes, miembrosDelJurado));
+            // Un participante no puede ser organizador ni jurado
+            setListaParticipantesMultiselect(removeElementsFromTwoLists(listaUsuariosMultiselect, miembrosDeLaOrganizacion, miembrosDelJurado));
+            // Un juez no puede ni participar ni ser organizador a no ser que se seleccione expresamente
+            // la opción de que los jueces son los participantes
+            setListaJuradoMultiselect(removeElementsFromTwoLists(listaUsuariosMultiselect, miembrosDeLaOrganizacion, participantes));
         }
 
-    },[listaUsuariosMultiselect, miembrosDeLaOrganizacion, participantes, miembrosDelJurado]);
+    }, [listaUsuariosMultiselect, miembrosDeLaOrganizacion, participantes, miembrosDelJurado]);
+
+    useEffect(() => {
+        backend.catalogService.findCategories(result => setListaCategoriasMultiselect(result));
+    }, [triggerCategoryUpdate])
 
     return (
 
@@ -155,7 +155,7 @@ const CreateContest = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="contestRules">
                         <Form.Label><FormattedMessage id='contest.CreateContest.SubirBases' /></Form.Label>
-                        <Form.Control type="file" accept="application/pdf" required onChange={e => commonFunctions.fileToBase64(e.target.files[0],setBasesConcurso)} />
+                        <Form.Control type="file" accept="application/pdf" required onChange={e => commonFunctions.fileToBase64(e.target.files[0], setBasesConcurso)} />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
@@ -177,11 +177,21 @@ const CreateContest = () => {
                 &nbsp;
                 <label><FormattedMessage id='contest.CreateContest.UniqueCategory' /></label>
                 <br />
-                <label><FormattedMessage id='contest.CreateContest.CreateCategory' /></label>:&nbsp;
-                <input className="mb-3" type="text" value={nombreNuevaCategoria} onChange={e => setnombreNuevaCategoria(e.target.value)}></input>&nbsp;
-                <Button variant="success"><FormattedMessage id='contest.CreateContest.CreateCategoryConfirm' /></Button>
-                <CategorySelector id="categoryId" className="custom-select my-1 mr-sm-2"
-                    required={categoriaUnica} value={idCategoria} onChange={e => setIdCategoria(e.target.value)} disabled={!categoriaUnica} />
+                <CreateCategory onNew={(a) => setTriggerCategoryUpdate(a)} />
+                {/* Selector de categoria unica */}
+                <select id="categoryId" className="custom-select my-1 mr-sm-2"
+                    required={categoriaUnica} value={idCategoria} onChange={e => setIdCategoria(e.target.value)} disabled={!categoriaUnica} >
+
+                    <FormattedMessage id='catalog.CategorySelector.allCategories'>
+                        {message => (<option value="">{message}</option>)}
+                    </FormattedMessage>
+
+                    {listaCategoriasMultiselect && listaCategoriasMultiselect.map(category =>
+                        <option key={category.idCategoria} value={category.idCategoria}>{category.nombreCategoria}</option>
+                    )}
+
+                </select>
+
                 <br /><br />
                 <div hidden={categoriaUnica}>
                     <Multiselect placeholder={intl.formatMessage({ id: 'contest.CreateContest.CategoryList' })} options={listaCategoriasMultiselect} displayValue="nombreCategoria" onSelect={() => setListaCategorias()} />
@@ -191,13 +201,13 @@ const CreateContest = () => {
                 {/*Seccion de Miembros de la organización*/}
                 <h4><FormattedMessage id="contest.CreateContest.OrganizationMembersSection" /></h4>
                 <br />
-                <Multiselect 
-                    placeholder={intl.formatMessage({ id: 'contest.CreateContest.StaffList' })} 
+                <Multiselect
+                    placeholder={intl.formatMessage({ id: 'contest.CreateContest.StaffList' })}
                     isObject={false}
                     selectedValues={[`josefigueirasm`]}
                     options={listaOrganizadoresMultiselect}
-                    onSelect={selectedList => setMiembrosDeLaOrganizacion(Array.from(selectedList))} 
-                    onRemove={selectedList => setMiembrosDeLaOrganizacion(Array.from(selectedList))} 
+                    onSelect={selectedList => setMiembrosDeLaOrganizacion(Array.from(selectedList))}
+                    onRemove={selectedList => setMiembrosDeLaOrganizacion(Array.from(selectedList))}
                     showArrow="true" />
                 <br /><br /><hr />
 
@@ -209,13 +219,13 @@ const CreateContest = () => {
                 <label><FormattedMessage id='contest.CreateContest.ParticipantTypeOpen' /></label>&emsp;
                 <input type="radio" name="tipoParticipante" onChange={e => setParticipanteAbierto(false)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.ParticipantTypeRestricted' /></label><br /><br />
-                <Multiselect 
-                    placeholder={intl.formatMessage({ id: 'contest.CreateContest.ParticipantList' })} 
+                <Multiselect
+                    placeholder={intl.formatMessage({ id: 'contest.CreateContest.ParticipantList' })}
                     options={listaParticipantesMultiselect}
-                    isObject={false} 
+                    isObject={false}
                     onSelect={selectedList => setParticipantes(Array.from(selectedList))}
-                    onRemove={selectedList => setParticipantes(Array.from(selectedList))} 
-                    showArrow="true" 
+                    onRemove={selectedList => setParticipantes(Array.from(selectedList))}
+                    showArrow="true"
                     disable={participanteAbierto} />
                 <br /><br /><hr />
 
@@ -264,17 +274,17 @@ const CreateContest = () => {
 
                 <Form.Group className="mb-3" controlId="DesripcionVotacionJurado">
                     <Form.Label><FormattedMessage id='contest.CreateContest.VotingDescription' /></Form.Label>
- ar                    <Form.Control as="textarea" required={tipoVotante === "JURADO" ? true : false} disabled={tipoVotante === "JURADO" ? false : true} value={descripcionVotacionJurado} onChange={e => setDescripcionVotacionJurado(e.target.value)} />
+                    <Form.Control as="textarea" required={tipoVotante === "JURADO" ? true : false} disabled={tipoVotante === "JURADO" ? false : true} value={descripcionVotacionJurado} onChange={e => setDescripcionVotacionJurado(e.target.value)} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
-                <Multiselect 
-                    placeholder={intl.formatMessage({ id: 'contest.CreateContest.JuryList' })} 
+                <Multiselect
+                    placeholder={intl.formatMessage({ id: 'contest.CreateContest.JuryList' })}
                     options={listaJuradoMultiselect}
-                    isObject={false} 
+                    isObject={false}
                     onSelect={selectedList => setMiembrosDelJurado(Array.from(selectedList))}
-                    onRemove={selectedList => setMiembrosDelJurado(Array.from(selectedList))} 
-                    showArrow="true" 
+                    onRemove={selectedList => setMiembrosDelJurado(Array.from(selectedList))}
+                    showArrow="true"
                     disable={tipoVotante === "JURADO" ? false : true} /><br /><br />
                 <labe><FormattedMessage id='contest.CreateContest.VotingEndDate' /></labe>:&nbsp;
                 <input type="datetime-local" value={fechaLimiteVotacion} min={fechaInicioVotacion} required onChange={e => setFechaLimiteVotacion(e.target.value)} /><br /><br />

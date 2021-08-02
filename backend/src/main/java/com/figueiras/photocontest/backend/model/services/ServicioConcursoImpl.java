@@ -1,6 +1,7 @@
 package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
+import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
 import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.rest.dtos.*;
@@ -84,6 +85,24 @@ public class ServicioConcursoImpl implements ServicioConcurso{
             c.setConcursosEnDondeSeUsa(concuros);
             categoriaFotograficaDao.save(c);
         }
+    }
+
+    @Override
+    public void crearCategoria(CategoriaFotograficaDto datosCategoria) throws CategoriaDuplicadaException {
+
+        Optional<CategoriaFotografica> categoriaFotograficaOptional =
+                categoriaFotograficaDao.findByNombreCategoria(datosCategoria.getNombreCategoria());
+
+        // Se comprueba si la categoría ya existe
+        if(categoriaFotograficaOptional.isPresent()){
+            throw new CategoriaDuplicadaException();
+        }
+        CategoriaFotografica categoriaFotografica = new CategoriaFotografica();
+
+        categoriaFotografica.setNombreCategoria(datosCategoria.getNombreCategoria());
+        categoriaFotografica.setDescripcionCategoria(datosCategoria.getDescripcion());
+
+        categoriaFotograficaDao.save(categoriaFotografica);
     }
 
     private void validarConcurso(CrearConcursoDto datosConcurso, Usuario usuario)

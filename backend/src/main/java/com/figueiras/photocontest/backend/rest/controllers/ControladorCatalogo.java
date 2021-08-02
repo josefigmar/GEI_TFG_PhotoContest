@@ -4,6 +4,7 @@ import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
 import com.figueiras.photocontest.backend.model.entities.CategoriaFotograficaDao;
 import com.figueiras.photocontest.backend.model.entities.Concurso;
 import com.figueiras.photocontest.backend.model.entities.EstadoConcurso;
+import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
 import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.model.services.Block;
@@ -36,6 +37,12 @@ public class ControladorCatalogo {
     public ErroresDto manejarExcepcionDatosDeConcurso(DatosDeConcursoNoValidosException e){
 
         return e.getErroresDto();
+    }
+
+    @PostMapping("/categorias")
+    public void crearCategoria(@RequestBody CategoriaFotograficaDto datosCategoria) throws CategoriaDuplicadaException {
+
+        servicioConcurso.crearCategoria(datosCategoria);
     }
 
     @GetMapping("/categorias")

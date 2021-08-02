@@ -25,3 +25,10 @@ export const createContest = (contestData, userName, onSuccess, onErrors) => {
 
     appFetch(path, config('POST', contestData), onSuccess, onErrors);
 }
+
+export const createCategory = (categoryData, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/categorias`;
+
+    appFetch(path, config('POST', categoryData), onSuccess, onErrors);
+}

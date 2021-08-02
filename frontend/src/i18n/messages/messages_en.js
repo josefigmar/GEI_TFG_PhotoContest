@@ -117,6 +117,8 @@ export default {
     'contest.CreateContest.FechaInicio': 'Start date',
     'contest.CreateContest.FechaLimiteSubida': 'Images upload deadline',
     'contest.CreateContest.CreateCategory': 'Create new category',
+    'contest.CreateContest.CreateCategory.Name': 'Name',
+    'contest.CreateContest.CreateCategory.Desc': 'Description',
     'contest.CreateContest.CreateCategoryConfirm': 'Create',
     'contest.CreateContest.UniqueCategory': 'Unique category',
     'contest.CreateContest.CategoryList': 'Select the categories',

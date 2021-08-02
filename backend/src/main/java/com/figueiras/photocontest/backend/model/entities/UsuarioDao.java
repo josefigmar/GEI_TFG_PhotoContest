@@ -17,4 +17,6 @@ public interface UsuarioDao extends PagingAndSortingRepository<Usuario, Long> {
     Slice<Usuario> findAndOrderByNombreUsuario(Pageable pageable);
     Optional<Usuario> findByNombreUsuario(String nombreUsuario);
     Optional<Usuario> findByCorreoElectronicoUsuario(String nombreUsuario);
+    @Query("SELECT u.nombreUsuario FROM Usuario u ORDER BY u.nombreUsuario")
+    List<String> findAllUserNames();
 }

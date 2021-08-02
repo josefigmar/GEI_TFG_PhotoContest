@@ -57,6 +57,12 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     }
 
     @Override
+    public List<String> recuperarNombresUsuarios() {
+
+        return usuarioDao.findAllUserNames();
+    }
+
+    @Override
     public Usuario recuperarUsuario(String nombreUsuario) throws InstanceNotFoundException {
         Optional<Usuario> u = usuarioDao.findByNombreUsuario(nombreUsuario);
 
@@ -396,5 +402,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         usuario.setCuentaEliminada(true);
 
         usuarioDao.save(usuario);
+    }
+
+    @Override
+    public Usuario actualizarUsuario(Usuario usuario) {
+        return usuarioDao.save(usuario);
     }
 }

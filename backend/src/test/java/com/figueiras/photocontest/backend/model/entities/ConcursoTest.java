@@ -121,12 +121,30 @@ public class ConcursoTest {
     }
 
     @Test
+    public void setMaxFotosTest() {
+        Concurso concurso = new Concurso();
+
+        concurso.setMaxFotos(5);
+
+        Assertions.assertEquals(concurso.getMaxFotos(), 5);
+    }
+
+    @Test
     public void setMaxFotosUsuarioTest() {
         Concurso concurso = new Concurso();
 
         concurso.setMaxFotosUsuario(5);
 
         Assertions.assertEquals(concurso.getMaxFotosUsuario(), 5);
+    }
+
+    @Test
+    public void setMaxVotosUsuarioTest() {
+        Concurso concurso = new Concurso();
+
+        concurso.setMaxVotosUsuario(5);
+
+        Assertions.assertEquals(concurso.getMaxVotosUsuario(), 5);
     }
 
     @Test
@@ -154,15 +172,6 @@ public class ConcursoTest {
         concurso.setDescReq(Boolean.FALSE);
 
         Assertions.assertEquals(concurso.getDescReq(), Boolean.FALSE);
-    }
-
-    @Test
-    public void setMostrarGanadorasTest() {
-        Concurso concurso = new Concurso();
-
-        concurso.setMostrarGanadoras(Boolean.FALSE);
-
-        Assertions.assertEquals(concurso.getMostrarGanadoras(), Boolean.FALSE);
     }
 
     @Test
@@ -278,12 +287,10 @@ public class ConcursoTest {
     @Test
     public void setBasesConcurso() {
         Concurso concurso = new Concurso();
-        byte[] byteArr = new byte[20];
-        new Random().nextBytes(byteArr);
 
-        concurso.setBasesConcurso(byteArr);
+        concurso.setBasesConcurso(UtilidadesParaPruebas.CADENA_LARGA);
 
-        Assertions.assertEquals(concurso.getBasesConcurso(), byteArr);
+        Assertions.assertEquals(concurso.getBasesConcurso(), UtilidadesParaPruebas.CADENA_LARGA);
     }
 
     @Test

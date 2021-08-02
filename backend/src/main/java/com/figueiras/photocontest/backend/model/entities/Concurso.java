@@ -3,6 +3,8 @@ package com.figueiras.photocontest.backend.model.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -19,8 +21,10 @@ public class Concurso {
     private TipoVoto tipoVotoConcurso;
     private String fotoConcurso;
     private Boolean categoriaUnica;
+    private Integer maxFotos;
     private Integer maxFotosUsuario;
     private Integer numGanadores;
+    private Integer maxVotosUsuario;
     private Boolean tituloReq;
     private Boolean descReq;
     private Boolean datosExifReq;
@@ -29,18 +33,20 @@ public class Concurso {
     private Boolean moderacion;
     private FormatoFotografia formato;
     private Boolean OcultarVotos;
-    private Boolean mostrarGanadoras;
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaInicioConcurso;
     private LocalDateTime fechaInicioVotacion;
     private LocalDateTime fechaFinConcurso;
     @Size(max = 500)
     private String descVotacion;
-    private byte[] basesConcurso;
+    private String basesConcurso;
     private Set<CategoriaFotografica> categoriasPermitidas;
     private Set<UsuarioParticipaConcurso> usuariosQueParticipan;
 
     public Concurso() {
+
+        this.estadoConcurso = EstadoConcurso.EN_PREPARACION;
+        this.fechaCreacion = LocalDateTime.now();
     }
 
     @Id
@@ -119,6 +125,14 @@ public class Concurso {
         this.categoriaUnica = categoriaUnica;
     }
 
+    public Integer getMaxFotos() {
+        return maxFotos;
+    }
+
+    public void setMaxFotos(Integer maxFotos) {
+        this.maxFotos = maxFotos;
+    }
+
     public Integer getMaxFotosUsuario() {
         return maxFotosUsuario;
     }
@@ -133,6 +147,14 @@ public class Concurso {
 
     public void setNumGanadores(Integer numGanadores) {
         this.numGanadores = numGanadores;
+    }
+
+    public Integer getMaxVotosUsuario() {
+        return maxVotosUsuario;
+    }
+
+    public void setMaxVotosUsuario(Integer maxVotosUsuario) {
+        this.maxVotosUsuario = maxVotosUsuario;
     }
 
     public Boolean getTituloReq() {
@@ -199,14 +221,6 @@ public class Concurso {
         OcultarVotos = ocultarVotos;
     }
 
-    public Boolean getMostrarGanadoras() {
-        return mostrarGanadoras;
-    }
-
-    public void setMostrarGanadoras(Boolean mostrarGanadoras) {
-        this.mostrarGanadoras = mostrarGanadoras;
-    }
-
     public LocalDateTime getFechaInicioConcurso() {
         return fechaInicioConcurso;
     }
@@ -241,11 +255,11 @@ public class Concurso {
 
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
-    public byte[] getBasesConcurso() {
+    public String getBasesConcurso() {
         return basesConcurso;
     }
 
-    public void setBasesConcurso(byte[] basesConcurso) {
+    public void setBasesConcurso(String basesConcurso) {
         this.basesConcurso = basesConcurso;
     }
 

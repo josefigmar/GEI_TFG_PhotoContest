@@ -29,6 +29,10 @@ export default {
     'app.ContestTable.Category': 'Categoria',
     'app.ContestTable.InitialDate': 'Fecha de inicio',
     'app.ContestTable.EndDate': 'Fecha de fin',
+    'app.ContestTable.Status.EN_PREPARACION': 'En preparación',
+    'app.ContestTable.Status.ABIERTO': 'Aberto',
+    'app.ContestTable.Status.VOTACION': 'Votación',
+    'app.ContestTable.Status.FINALIZADO': 'Finalizado',
 
     'app.Home.NoContests': 'Vaia! Parece que non hai concursos recentes',
 

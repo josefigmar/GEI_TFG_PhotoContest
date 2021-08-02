@@ -31,6 +31,10 @@ export default {
     'app.ContestTable.Category': 'Category',
     'app.ContestTable.InitialDate': 'Initial date',
     'app.ContestTable.EndDate': 'End date',
+    'app.ContestTable.Status.EN_PREPARACION': 'In preparation',
+    'app.ContestTable.Status.ABIERTO': 'Open',
+    'app.ContestTable.Status.VOTACION': 'Voting',
+    'app.ContestTable.Status.FINALIZADO': 'Finished',
 
 
     'app.FindContests.CleanSearch': 'Clean results',

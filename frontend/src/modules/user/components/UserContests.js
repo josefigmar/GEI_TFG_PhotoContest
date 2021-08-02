@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
+import { FormattedMessage, FormattedDate, FormattedTime, useIntl} from "react-intl";
 import Pager from "../../commons/components/Pager";
 import { Badge } from "react-bootstrap";
 import commonFunctions from "../../commons/functions";
@@ -8,6 +8,7 @@ import commonFunctions from "../../commons/functions";
 const UserContests = ({ userContestsData }) => {
 
     const size = 4;
+    const intl = useIntl();
     const [page, setPage] = useState(0);
 
     const modifyContests = (newPage) => {
@@ -44,7 +45,7 @@ const UserContests = ({ userContestsData }) => {
                                 <Badge variant="primary">{`${c.rolUsuario}`}</Badge>
                             </td>
                             <td>
-                                <Badge variant={commonFunctions.tipoLabelConcurso(c.estadoConcurso)}>{`${c.estadoConcurso}`}</Badge>
+                                <Badge variant={commonFunctions.tipoLabelConcurso(c.estadoConcurso)}>{intl.formatMessage({id: 'app.ContestTable.Status.' + c.estadoConcurso})}</Badge>
                             </td>
                             <td>
                                 <FormattedDate value={new Date(c.fechaInicioParticipacion)} /> <FormattedTime value={new Date(c.fechaInicioParticipacion)} />

@@ -15,25 +15,29 @@ public class CustomizedConcursoDaoImpl implements CustomizedConcursoDao{
     private EntityManager entityManager;
 
     @Override
-    public Slice<Concurso> find(EstadoConcurso estadoConcurso, Long idCategoria, String nombreConcurso, int page, int size) {
+    public Slice<Concurso> find(EstadoConcurso estadoConcurso, CategoriaFotografica categoriaFotografica, String nombreConcurso, int page, int size) {
         String[] tokens = UtilidadesParaEntidades.separarPorEspacios(nombreConcurso);
         String queryString = "SELECT c FROM Concurso c";
 
-        if (estadoConcurso != null || idCategoria != null || tokens.length > 0) {
+        if (estadoConcurso != null || categoriaFotografica != null || tokens.length > 0) {
             queryString += " WHERE ";
+        }
+
+        if (categoriaFotografica != null) {
+            queryString += ":categoriaFotografica MEMBER OF c.categoriasPermitidas";
+        }
+
+        if(categoriaFotografica != null && estadoConcurso!= null){
+            queryString += " AND ";
         }
 
         if (estadoConcurso != null) {
             queryString += "c.estadoConcurso = :estadoConcurso";
         }
 
-        if (idCategoria != null) {
-            queryString += " AND c.idCategoria = :idCategoria";
-        }
-
         if (tokens.length != 0) {
 
-            if (idCategoria != null || estadoConcurso != null) {
+            if (categoriaFotografica != null || estadoConcurso != null) {
                 queryString += " AND ";
             }
 
@@ -53,8 +57,8 @@ public class CustomizedConcursoDaoImpl implements CustomizedConcursoDao{
             query.setParameter("estadoConcurso", estadoConcurso);
         }
 
-        if (idCategoria != null) {
-            query.setParameter("idCategoria", idCategoria);
+        if (categoriaFotografica != null) {
+            query.setParameter("categoriaFotografica", categoriaFotografica);
         }
 
         if (tokens.length != 0) {

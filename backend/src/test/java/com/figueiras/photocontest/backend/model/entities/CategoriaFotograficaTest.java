@@ -56,18 +56,6 @@ public class CategoriaFotograficaTest {
     }
 
     @Test
-    public void setUsuariosQueLeGustanCategoriaTest(){
-        Usuario usuario = UtilidadesParaPruebas.crearUsuario("root");
-        CategoriaFotografica categoria = new CategoriaFotografica();
-        Set<Usuario> usuariosQueGustanCategoria = new HashSet<>();
-        usuariosQueGustanCategoria.add(usuario);
-
-        categoria.setUsuariosALosQueLesGusta(usuariosQueGustanCategoria);
-
-        Assertions.assertEquals(categoria.getUsuariosALosQueLesGusta(), usuariosQueGustanCategoria);
-    }
-
-    @Test
     public void setConcursosEnDondeSeUsaTest(){
         Concurso concurso = new Concurso();
         CategoriaFotografica categoria = new CategoriaFotografica();

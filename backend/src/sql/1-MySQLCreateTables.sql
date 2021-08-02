@@ -1,8 +1,4 @@
-/******************************************************************************/
-/*                                                                             *
-/*          This script creates the tables needed for PhotoContest             *
-/*                                                                             *
-/******************************************************************************/
+-- noinspection SqlNoDataSourceInspectionForFile
 
 DROP TABLE UsuarioSigueUsuario;
 DROP TABLE UsuarioParticipaConcurso;
@@ -88,6 +84,7 @@ CREATE TABLE Concurso(
     velocidadObturacion VARCHAR(50),
     fotoConcurso LONGTEXT,
     categoriaUnica TINYINT,
+    maxFotos INT,
     maxFotosUsuario INT,
     maxVotosUsuario INT,
     numGanadores INT,
@@ -99,7 +96,6 @@ CREATE TABLE Concurso(
     moderacion TINYINT,
     formato INT,
     ocultarVotos TINYINT,
-    mostrarGanadoras TINYINT,
     fechaCreacion DATETIME,
     fechaInicioConcurso DATETIME,
     fechaInicioVotacion DATETIME,

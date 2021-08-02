@@ -5,14 +5,14 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-public class CategoriaFotografica {
+public class
+CategoriaFotografica {
 
     private Long idCategoria;
     @Size(min = 1, max = 50)
     private String nombreCategoria;
     @Size(min = 1, max = 200)
     private String descripcionCategoria;
-    private Set<Usuario> usuariosALosQueLesGusta;
     private Set<Concurso> concursosEnDondeSeUsa;
 
     public CategoriaFotografica() {
@@ -42,21 +42,6 @@ public class CategoriaFotografica {
 
     public void setDescripcionCategoria(String descripcion) {
         this.descripcionCategoria = descripcion;
-    }
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "UsuarioGustaCategoria",
-            joinColumns = {@JoinColumn(name = "idCategoria")},
-            inverseJoinColumns = {@JoinColumn(name = "idUsuario")}
-
-    )
-    public Set<Usuario> getUsuariosALosQueLesGusta() {
-        return usuariosALosQueLesGusta;
-    }
-
-    public void setUsuariosALosQueLesGusta(Set<Usuario> usuariosALosQueLesGusta) {
-        this.usuariosALosQueLesGusta = usuariosALosQueLesGusta;
     }
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -4,5 +4,5 @@ import org.springframework.data.domain.Slice;
 
 public interface CustomizedConcursoDao {
 
-    Slice<Concurso> find(EstadoConcurso estado, Long idCategoria, String nombreConcurso, int page, int size);
+    Slice<Concurso> find(EstadoConcurso estado, CategoriaFotografica categoriaFotografica, String nombreConcurso, int page, int size);
 }

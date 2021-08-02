@@ -21,7 +21,7 @@ const ChangueProfileData = () => {
     const [enlaceTwitterUsuario, setEnlaceTwitterUsuario] = useState("");
     const [enlaceFacebookUsuario, setEnlaceFacebookUsuario] = useState("");
     const [enlaceInstagramUsuario, setEnlaceInstagramUsuario] = useState("");
-    const [fotoPerfil, setFotoPerfilUsuario] = useState("");
+    const [fotoPerfil, setFotoPerfil] = useState("");
 
     useEffect(() => {
         setNombrePilaUsuario(userData.nombrePilaUsuario);
@@ -31,24 +31,9 @@ const ChangueProfileData = () => {
         setEnlaceTwitterUsuario(userData.enlaceTwitterUsuario);
         setEnlaceFacebookUsuario(userData.enlaceFacebookUsuario);
         setEnlaceInstagramUsuario(userData.enlaceInstagramUsuario);
-        setFotoPerfilUsuario(userData.fotoPerfil);
+        setFotoPerfil(userData.fotoPerfil);
         // eslint-disable-next-line
     }, []);
-
-    const updateProfilePhoto = (file) => {
-
-        const reader = new FileReader();
-
-        if (file) {
-            reader.readAsDataURL(file);
-            reader.onloadend = function () {
-                let imgB64 = reader.result;
-                let indexOfComma = imgB64.indexOf(",");
-                imgB64 = imgB64.substr(indexOfComma + 1);
-                setFotoPerfilUsuario(imgB64);
-              }
-        }
-    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -101,7 +86,7 @@ const ChangueProfileData = () => {
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label><FormattedMessage id='user.ChangueData.ProfilePhoto'/></Form.Label>
-                <Form.Control id="fotoPerfil" type="file"  onChange={e => setFotoPerfilUsuario(commonFunctions.imgToBase64(e.target.files[0]))}/>
+                <Form.Control id="fotoPerfil" type="file"  onChange={e => commonFunctions.fileToBase64(e.target.files[0], setFotoPerfil)}/>
             </Form.Group>
             <Button variant="primary" type="submit" onClick={e => handleSubmit(e)}>
                 <FormattedMessage id="app.Commons.Save" />

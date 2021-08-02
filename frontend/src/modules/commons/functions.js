@@ -1,6 +1,7 @@
 const tipoLabelConcurso = (estado) => {
 
     switch(estado){
+        case "EN_PREPARACION" : return "info"
         case "ABIERTO" : return "success"
         case "VOTACION": return "warning"
         case "FINALIZADO" : return "danger"
@@ -8,7 +9,7 @@ const tipoLabelConcurso = (estado) => {
     }
 }
 
-const imgToBase64 = (file) => {
+const fileToBase64 = (file, funcion) => {
 
     const reader = new FileReader();
 
@@ -18,11 +19,11 @@ const imgToBase64 = (file) => {
             let imgB64 = reader.result;
             let indexOfComma = imgB64.indexOf(",");
             imgB64 = imgB64.substr(indexOfComma + 1);
-            return imgB64;
+            funcion(imgB64);
           }
     }
 }
 
-let exportObj = {tipoLabelConcurso, imgToBase64}
+let exportObj = {tipoLabelConcurso, fileToBase64}
 
 export default exportObj;

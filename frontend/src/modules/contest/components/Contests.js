@@ -1,10 +1,12 @@
-import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
+import { FormattedMessage, FormattedDate, FormattedTime, useIntl } from "react-intl";
 import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import constants from "../../commons";
 import commonFunctions from "../../commons/functions";
 
 const Contests = ({contests}) =>{
+
+    const intl = useIntl();
 
     const contestPhoto = (databasePhoto) => {
         if(databasePhoto === null || databasePhoto === undefined){
@@ -43,7 +45,7 @@ const Contests = ({contests}) =>{
                             <td className="align-middle">
                                 <Link to={`/catalog/concursos/${concurso.idConcurso}`}>{concurso.nombre}</Link>
                             </td>
-                            <td className="align-middle"><Badge variant={commonFunctions.tipoLabelConcurso(concurso.estadoConcurso)}>{concurso.estadoConcurso}</Badge></td>
+                            <td className="align-middle"><Badge variant={commonFunctions.tipoLabelConcurso(concurso.estadoConcurso)}>{intl.formatMessage({id: 'app.ContestTable.Status.' + concurso.estadoConcurso})}</Badge></td>
                             <td className="align-middle"><FormattedDate value={new Date(concurso.fechaInicio)}/> <FormattedTime value={new Date(concurso.fechaInicio)}/></td>
                             <td className="align-middle"><FormattedDate value={new Date(concurso.fechaFin)}/> <FormattedTime value={new Date(concurso.fechaFin)}/></td>
                         </tr>

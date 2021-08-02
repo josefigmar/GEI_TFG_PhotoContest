@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.internet.AddressException;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -68,6 +67,13 @@ public class ControladorUsuarios {
                         blockUsuarios.getExistMoreItems());
 
         return usuarioDtoBlock;
+    }
+
+    @GetMapping("/usuarios/nombresUsuario")
+    public List<String> buscarUsuarios(){
+
+        List<String> nombresDeUsuario = servicioUsuario.recuperarNombresUsuarios();
+        return nombresDeUsuario;
     }
 
     @GetMapping("/usuarios/{nombreUsuario}")

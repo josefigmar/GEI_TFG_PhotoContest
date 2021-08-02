@@ -88,7 +88,7 @@ VALUES
 -- Concursos
 
 INSERT INTO Concurso
-(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,mostrarGanadoras,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
+(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
 VALUES(
 'Fotografía aérea',
 'Las mejores fotografías relacionadas con la aviación sacadas en la provincia de La Coruña',
@@ -109,7 +109,6 @@ VALUES(
 0,
 0,
 0,
-1,
 NOW(),
 NOW(),
 NOW(),
@@ -120,7 +119,7 @@ NOW(),
 
 
 INSERT INTO Concurso
-(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,mostrarGanadoras,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
+(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
 VALUES(
 'Fotografía Naturaleza A Coruña',
 'Las mejores fotografías relacionadas con la naturaleza sacadas en la provincia de La Coruña',
@@ -141,7 +140,6 @@ VALUES(
 0,
 0,
 0,
-1,
 NOW(),
 NOW(),
 NOW(),
@@ -151,7 +149,7 @@ NOW(),
 );
 
 INSERT INTO Concurso
-(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,mostrarGanadoras,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
+(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
 VALUES(
 'Fotografía Oceano Atlántico',
 'Las mejores fotografías relacionadas con la oceanía atlántica sacadas en la provincia de La Coruña',
@@ -172,7 +170,6 @@ VALUES(
 0,
 0,
 0,
-1,
 NOW(),
 NOW(),
 NOW(),
@@ -183,7 +180,7 @@ NOW(),
 
 
 INSERT INTO Concurso
-(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,mostrarGanadoras,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
+(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
 VALUES(
 'Fotografía puerto de A Coruña',
 'Las mejores fotografías relacionadas con la navegación marítima sacadas en la provincia de La Coruña',
@@ -204,7 +201,6 @@ VALUES(
 0,
 0,
 0,
-1,
 NOW(),
 NOW(),
 NOW(),
@@ -215,7 +211,7 @@ NOW(),
 
 
 INSERT INTO Concurso
-(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,mostrarGanadoras,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
+(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
 VALUES(
 'Concurso R.C Deportivo 2021',
 'Las mejores fotografías relacionadas con el equipo sacadas en la provincia de La Coruña',
@@ -236,7 +232,6 @@ VALUES(
 0,
 0,
 0,
-1,
 NOW(),
 NOW(),
 NOW(),
@@ -247,7 +242,7 @@ NOW(),
 
 
 INSERT INTO Concurso
-(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,mostrarGanadoras,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
+(nombreConcurso,descripcionConcurso,estadoConcurso,tipoAccesoConcurso,tipoVotanteConcurso,tipoVotoConcurso,velocidadObturacion,fotoConcurso,categoriaUnica,maxFotosUsuario,numGanadores,tituloReq,descReq,datosExifReq,locReq,ocultarFotos,moderacion,formato,ocultarVotos,fechaCreacion,fechaInicioConcurso,fechaInicioVotacion,descVotacion,fechaFinConcurso,basesConcurso)
 VALUES(
 'Concurso Torre de Hércules 2022',
 'Las mejores fotografías relacionadas con la torre sacadas en la provincia de La Coruña',
@@ -268,7 +263,6 @@ VALUES(
 0,
 0,
 0,
-1,
 NOW(),
 NOW(),
 NOW(),
@@ -327,3 +321,22 @@ INSERT INTO UsuarioSigueUsuario
 (idUsuarioSeguidor, idUsuarioSeguido, fechaSeguida)
 VALUES
 (3, 2, NOW());
+
+
+-- Categorias fotográficas
+
+
+INSERT INTO CategoriaFotografica
+(nombreCategoria, descripcionCategoria)
+VALUES
+('Retrato', 'Retrato desc');
+
+INSERT INTO CategoriaFotografica
+(nombreCategoria, descripcionCategoria)
+VALUES
+('Macrofotografía', 'Macro desc');
+
+INSERT INTO CategoriaFotografica
+(nombreCategoria, descripcionCategoria)
+VALUES
+('Aviación', 'Aviacion desc');

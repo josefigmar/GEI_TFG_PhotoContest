@@ -19,7 +19,9 @@ const Home = () => {
     useEffect(() => {
 
         dispatch(catalog.actions.findContests(
-            { 
+            {
+                // Estado == null indica que busque cualquier estado
+                estado: null,
                 page: 0,
                 size: 5
             }

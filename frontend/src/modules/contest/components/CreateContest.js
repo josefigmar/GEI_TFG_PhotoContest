@@ -145,7 +145,8 @@ const CreateContest = () => {
                 </Form.Group>
                 {/*Foto y bases*/}
                 <Jumbotron>
-                    <h5><FormattedMessage id='contest.CreateContest.Foto&BasesTitle' /></h5>
+                    <h5><FormattedMessage id='contest.CreateContest.Foto&BasesTitle' /></h5><br/>
+                    <h6><FormattedMessage id='contest.CreateContest.Foto&BasesDesc' /></h6>
                     <br />
                     <Form.Group className="mb-3" controlId="contestPhoto">
                         <Form.Label><FormattedMessage id='contest.CreateContest.SubirFoto' /></Form.Label>
@@ -199,7 +200,8 @@ const CreateContest = () => {
 
                 <br /><hr />
                 {/*Seccion de Miembros de la organización*/}
-                <h4><FormattedMessage id="contest.CreateContest.OrganizationMembersSection" /></h4>
+                <h4><FormattedMessage id="contest.CreateContest.OrganizationMembersSection" /></h4><br/>
+                    <h6><FormattedMessage id='contest.CreateContest.OrganizationMembersSection.Desc' /></h6>
                 <br />
                 <Multiselect
                     placeholder={intl.formatMessage({ id: 'contest.CreateContest.StaffList' })}
@@ -231,8 +233,10 @@ const CreateContest = () => {
 
                 {/*Seccion de fotografias*/}
                 <h4><FormattedMessage id='contest.CreateContest.Photographies' /></h4><br />
+                <h6><FormattedMessage id='contest.CreateContest.MaxPhotographies.Desc' /></h6>
                 <label><FormattedMessage id='contest.CreateContest.MaxPhotographies' /></label>:&nbsp;
                 <input type="number" value={numeroMaximoFotografias} min="2" max="200" required onChange={e => setNumeroMaximoFotografias(e.target.value)} /><br />
+                <h6><FormattedMessage id='contest.CreateContest.MaxPhotographiesPerUser.Desc' /></h6>
                 <label><FormattedMessage id='contest.CreateContest.MaxPhotographiesPerUser' /></label>:&nbsp;
                 <input type="number" value={numeroMaximoFotografiasParticipante} min="1" max="3" required onChange={e => setNumeroMaximoFotografiasParticipante(e.target.value)} /><br /><br />
 
@@ -294,10 +298,12 @@ const CreateContest = () => {
                     <option value="SIMPLE">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelSimple' })}</option>
                     <option value="CINCO_ESTRELLAS">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelFiveStars' })}</option>
                     <option value="EUROVISION">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelEurovision' })}</option>
-                </select><br />
+                </select><br /><br />
 
+                <h6><FormattedMessage id='contest.CreateContest.MaxVotesPerUser.Desc' /></h6>
                 <label><FormattedMessage id='contest.CreateContest.MaxVotesPerUser' /></label>:&nbsp;
                 <input type="number" required={metodoVoto === "SIMPLE" ? true : false} disabled={metodoVoto === "SIMPLE" ? false : true} value={numeroMaximoVotosPorUsuario} min="1" max="5" onChange={e => setNumeroMaximoVotosPorUsuario(e.target.value)} /><br />
+                <h6><FormattedMessage id='contest.CreateContest.NumberOfWiningPhotos.Desc' /></h6>
                 <label><FormattedMessage id='contest.CreateContest.NumberOfWiningPhotos' /></label>:&nbsp;
                 <input type="number" value={numeroMaximoDeFotografiasGanadoras} min="1" max="10" required onChange={e => setNumeroMaximoDeFotografiasGanadoras(e.target.value)} /><br /><br />
                 <div className="d-flex justify-content-center">

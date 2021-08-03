@@ -34,6 +34,7 @@ const CreateCategory = ({onNew}) => {
         <Jumbotron>
             <Form>
                 <h4><FormattedMessage id='contest.CreateContest.CreateCategory' /></h4><br />
+                <h6><FormattedMessage id='contest.CreateContest.CreateCategoryDesc' /></h6><br/>
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
                 <Form.Group className="mb-3">
                     <Form.Label><FormattedMessage id='contest.CreateContest.CreateCategory.Name' /></Form.Label>

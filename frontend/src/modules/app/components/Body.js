@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import FindContests from '../../contest/components/FindContests';
 import FindUsers from '../../user/components/FindUsers';
@@ -14,29 +14,34 @@ import RecoverUser from '../../user/components/RecoverUser';
 import Notifications from '../../notificacion/components/Notifications';
 import CreateContest from '../../contest/components/CreateContest';
 import ResetPassword from '../../user/components/ResetPassword';
+import * as selectors from "../../user/selectors";
+import { useSelector } from 'react-redux';
 
 const Body = () => {
-    
-   return (
+
+    const isUserLoggedIn = useSelector(selectors.isUserLoggedIn);
+
+    return (
 
         <Container>
-            <br/>
+            <br />
             <Switch>
-                <Route exact path="/"><Home/></Route>
-                <Route exact path="/catalog/find-contests"><FindContests/></Route>
-                <Route exact path="/users/find-users"><FindUsers/></Route>
-                <Route exact path="/users/signUp"><SignUp/></Route>
-                <Route exact path="/users/login"><LogIn/></Route>
-                <Route exact path="/users/recover"><RecoverUser/></Route>
-                <Route exact path="/users/:userName"><User/></Route>
-                <Route exact path="/users/:userName/changue-password"><ChanguePassword/></Route>
-                <Route exact path="/users/:userName/reset-password/:token"><ResetPassword/></Route>
-                <Route exact path="/users/:userName/changue-data"><ChangueProfileData/></Route>
-                <Route exact path="/users/:userName/followers"><FollowersFollowing/></Route>
-                <Route exact path="/users/:userName/following"><FollowersFollowing/></Route>
-                <Route exact path="/notifications/:userName"><Notifications/></Route>
-                <Route exact path="/contests/create-contest"><CreateContest/></Route>
-                <Route><Home/></Route>
+                <Route exact path="/"><Home /></Route>
+                <Route exact path="/catalog/find-contests"><FindContests /></Route>
+                <Route exact path="/users/find-users"><FindUsers /></Route>
+                <Route exact path="/users/signUp"><SignUp /></Route>
+                <Route exact path="/users/login"><LogIn /></Route>
+                <Route exact path="/users/recover"><RecoverUser /></Route>
+                <Route exact path="/users/:userName"><User /></Route>
+                <Route exact path="/users/:userName/changue-password"><ChanguePassword /></Route>
+                <Route exact path="/users/:userName/reset-password/:token"><ResetPassword /></Route>
+                <Route exact path="/users/:userName/changue-data"><ChangueProfileData /></Route>
+                <Route exact path="/users/:userName/followers"><FollowersFollowing /></Route>
+                <Route exact path="/users/:userName/following"><FollowersFollowing /></Route>
+                <Route exact path="/notifications/:userName"><Notifications /></Route>
+                {!isUserLoggedIn && <Route exact path="/contests/create-contest"><SignUp /></Route>}
+                {isUserLoggedIn && <Route exact path="/contests/create-contest"><CreateContest /></Route>}
+                <Route><Home /></Route>
             </Switch>
         </Container>
 

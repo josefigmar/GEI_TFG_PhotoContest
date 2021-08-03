@@ -9,6 +9,26 @@ const tipoLabelConcurso = (estado) => {
     }
 }
 
+const tipoLabelAcceso = (estado) => {
+
+    switch(estado){
+        case true : return "success"
+        case false : return "warning"
+        default : return "success"
+    }
+}
+
+const tipoLabelVotante = (estado) => {
+
+    switch(estado){
+        case "CUALQUIERA" : return "success"
+        case "JURADO" : return "warning"
+        case "PARTICIPANTE" : return "info"
+        default : return "success"
+    }
+}
+
+
 const fileToBase64 = (file, funcion) => {
 
     const reader = new FileReader();
@@ -24,6 +44,6 @@ const fileToBase64 = (file, funcion) => {
     }
 }
 
-let exportObj = {tipoLabelConcurso, fileToBase64}
+let exportObj = {tipoLabelConcurso, tipoLabelAcceso, tipoLabelVotante, fileToBase64}
 
 export default exportObj;

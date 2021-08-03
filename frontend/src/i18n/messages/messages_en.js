@@ -166,5 +166,23 @@ export default {
     'contest.CreateContest.NumberOfWiningPhotos': 'Maximun number of winning photos',
     'contest.CreateContest.NumberOfWiningPhotos.Desc': 'The maximum value possible is 10. The minimum, 1.',
 
+    'contest.contestDetail.Header.contestInfoTable.Title' : 'Contest information',
+    'contest.contestDetail.Header.contestInfoTable.Status' : 'Status',
+    'contest.contestDetail.Header.contestInfoTable.Access' : 'Access',
+    'contest.contestDetail.Header.contestInfoTable.Access.PUBLICO' : 'Open',
+    'contest.contestDetail.Header.contestInfoTable.Access.PRIVADO' : 'Private',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote' : 'Who can vote',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.CUALQUIERA' : 'Everybody',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.JURADO' : 'Jury',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.PARTICIPANTE' : 'Contenders',
+    'contest.contestDetail.Header.contestInfoTable.NumberOfContenders' : 'Number of contenders',
+    'contest.contestDetail.Header.contestInfoTable.InitialUploadDate' : 'Initial upload date',
+    'contest.contestDetail.Header.contestInfoTable.StartOfVoting' : 'Voting start date',
+    'contest.contestDetail.Header.contestInfoTable.EndContestDate' : 'End date',
+
+    'contest.contestDetail.Header.contestHeaderButtons.DownloadRules' : 'Download rules',
+
+    'contest.contestDetail.Body.PreparationState.CountDown.Title' : 'Time remaining for contest start',
+
 
 }

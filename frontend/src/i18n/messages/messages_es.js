@@ -165,4 +165,23 @@ export default {
     'contest.CreateContest.MaxVotesPerUser.Desc': 'El máximo valor es 5. El mínimo, 1.',
     'contest.CreateContest.NumberOfWiningPhotos': 'Número máximo de fotografías ganadoras',
     'contest.CreateContest.NumberOfWiningPhotos.Desc': 'El máximo valor es 10. El mínimo, 1.',
+
+    'contest.contestDetail.Header.contestInfoTable.Title' : 'Información del concurso',
+    'contest.contestDetail.Header.contestInfoTable.Status' : 'Estado',
+    'contest.contestDetail.Header.contestInfoTable.Access' : 'Acceso',
+    'contest.contestDetail.Header.contestInfoTable.Access.PUBLICO' : 'Abierto',
+    'contest.contestDetail.Header.contestInfoTable.Access.PRIVADO' : 'Privado',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote' : 'Quién puede votar',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.CUALQUIERA' : 'Todo el mundo',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.JURADO' : 'Jurado',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.PARTICIPANTE' : 'Participantes',
+    'contest.contestDetail.Header.contestInfoTable.NumberOfContenders' : 'Número de participantes',
+    'contest.contestDetail.Header.contestInfoTable.InitialUploadDate' : 'Fecha de inicio de subidas',
+    'contest.contestDetail.Header.contestInfoTable.StartOfVoting' : 'Fecha de inicio de votación',
+    'contest.contestDetail.Header.contestInfoTable.EndContestDate' : 'Fecha de finalización',
+
+    'contest.contestDetail.Header.contestHeaderButtons.DownloadRules' : 'Descargar bases',
+
+    'contest.contestDetail.Body.PreparationState.CountDown.Title' : 'Tiempo restante para que se inicie el concurso',
+
 }

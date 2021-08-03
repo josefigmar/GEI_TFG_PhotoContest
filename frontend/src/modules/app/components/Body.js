@@ -16,6 +16,7 @@ import CreateContest from '../../contest/components/CreateContest';
 import ResetPassword from '../../user/components/ResetPassword';
 import * as selectors from "../../user/selectors";
 import { useSelector } from 'react-redux';
+import ContestDemux from '../../contest/components/ContestDemux';
 
 const Body = () => {
 
@@ -41,6 +42,8 @@ const Body = () => {
                 <Route exact path="/notifications/:userName"><Notifications /></Route>
                 {!isUserLoggedIn && <Route exact path="/contests/create-contest"><LogIn /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/create-contest"><CreateContest /></Route>}
+                {!isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><LogIn /></Route>}
+                {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><ContestDemux /></Route>}
                 <Route><Home /></Route>
             </Switch>
         </Container>

@@ -1,18 +1,32 @@
-import {config, appFetch} from './appFetch';
+import { config, appFetch } from './appFetch';
 
-export const findContests = ({idCategoria, estado, nombre, page=0, size}, onSuccess) =>{
-    
+export const findContests = ({ idCategoria, estado, nombre, page = 0, size }, onSuccess) => {
+
     let path = `/catalogo-concursos/concursos?page=${page}`;
 
-    path += idCategoria? `&idCategoria=${idCategoria}` : "";
-    path += estado !==null? `&estado=${estado}` : "";
-    path += nombre? `&nombre=${nombre}` : "";
-    path += size? `&size=${size}` : "";
+    path += idCategoria ? `&idCategoria=${idCategoria}` : "";
+    path += estado !== null ? `&estado=${estado}` : "";
+    path += nombre ? `&nombre=${nombre}` : "";
+    path += size ? `&size=${size}` : "";
 
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const findCategories = (onSuccess) =>{
+export const getContestData = ({ contestId, contestName }, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}`;
+
+    appFetch(path, config('POST', contestId), onSuccess);
+}
+
+export const getNumberContenders = (contestId, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestId}/numeroParticipantes`;
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
+export const findCategories = (onSuccess) => {
 
     let path = "/catalogo-concursos/categorias";
 

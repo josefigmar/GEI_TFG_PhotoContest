@@ -1,11 +1,13 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
-public class CrearConcursoDto {
+public class ConcursoDto {
 
+    private long idConcurso;
     private String nombreConcurso;
     private String descripcionConcurso;
     private String fotoConcurso;
     private String basesConcurso;
+    private String estadoConcurso;
     private boolean categoriaUnica;
     private long idCategoria;
     private String[] listaCategorias;
@@ -13,6 +15,7 @@ public class CrearConcursoDto {
     private String fechaInicio;
     private String fechaInicioVotacion;
     private boolean participanteAbierto;
+    private String tipoAcceso;
     private String[] participantes;
     private int numeroMaximoFotografias;
     private int numeroMaximoFotografiasParticipante;
@@ -32,7 +35,15 @@ public class CrearConcursoDto {
     private int numeroMaximoVotosPorUsuario;
     private int numeroMaximoDeFotografiasGanadoras;
 
-    public CrearConcursoDto() {
+    public ConcursoDto() {
+    }
+
+    public long getIdConcurso() {
+        return idConcurso;
+    }
+
+    public void setIdConcurso(long idConcurso) {
+        this.idConcurso = idConcurso;
     }
 
     public String getNombreConcurso() {
@@ -65,6 +76,14 @@ public class CrearConcursoDto {
 
     public void setBasesConcurso(String basesConcurso) {
         this.basesConcurso = basesConcurso;
+    }
+
+    public String getEstadoConcurso() {
+        return estadoConcurso;
+    }
+
+    public void setEstadoConcurso(String estadoConcurso) {
+        this.estadoConcurso = estadoConcurso;
     }
 
     public boolean isCategoriaUnica() {
@@ -113,6 +132,14 @@ public class CrearConcursoDto {
 
     public void setParticipanteAbierto(boolean participanteAbierto) {
         this.participanteAbierto = participanteAbierto;
+    }
+
+    public String getTipoAcceso() {
+        return tipoAcceso;
+    }
+
+    public void setTipoAcceso(String tipoAcceso) {
+        this.tipoAcceso = tipoAcceso;
     }
 
     public int getNumeroMaximoFotografias() {

@@ -33,7 +33,7 @@ public class ConcursoConversor {
                 Utilidades.toMillis(concurso.getFechaFinConcurso()));
     }
 
-    public static Concurso toConcurso(CrearConcursoDto datosConcurso, String nombreUsuarioCreador)
+    public static Concurso toConcurso(ConcursoDto datosConcurso, String nombreUsuarioCreador)
             throws InstanceNotFoundException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         Concurso nuevoConcurso = new Concurso();
@@ -167,6 +167,47 @@ public class ConcursoConversor {
         nuevoConcurso.setMaxVotosUsuario(datosConcurso.getNumeroMaximoVotosPorUsuario());
 
         return nuevoConcurso;
+    }
+
+    public static ConcursoDto toConcursoDto(Concurso concurso){
+        ConcursoDto concursoDto = new ConcursoDto();
+
+        concursoDto.setIdConcurso(concurso.getIdConcurso());
+        concursoDto.setNombreConcurso(concurso.getNombreConcurso());
+        concursoDto.setDescripcionConcurso(concurso.getDescripcionConcurso());
+        concursoDto.setFotoConcurso(concurso.getFotoConcurso());
+        concursoDto.setBasesConcurso(concurso.getBasesConcurso());
+        concursoDto.setEstadoConcurso(concurso.getEstadoConcurso().toString());
+        concursoDto.setCategoriaUnica(concurso.getCategoriaUnica());
+        concursoDto.setIdCategoria(concurso.getIdConcurso());
+        // Seteo de la lista de categorías
+        if(!concursoDto.isCategoriaUnica()){
+            String[] listaCategorias = new String[1000];
+            int i = 0;
+            for(CategoriaFotografica c : concurso.getCategoriasPermitidas()){
+                listaCategorias[i] = c.getNombreCategoria();
+                i++;
+            }
+            concursoDto.setListaCategorias(listaCategorias);
+        }
+        // Fechas
+        concursoDto.setFechaInicio(concurso.getFechaInicioConcurso().toString());
+        concursoDto.setFechaInicioVotacion(concurso.getFechaInicioVotacion().toString());
+        concursoDto.setFechaLimiteVotacion(concurso.getFechaFinConcurso().toString());
+        concursoDto.setTipoAcceso(concurso.getTipoAccesoConcurso().toString());
+        concursoDto.setTipoVotante(concurso.getTipoVotanteConcurso().toString());
+        concursoDto.setFormatoRequerido(concurso.getFormato().toString());
+        concursoDto.setTituloRequerido(concurso.getTituloReq());
+        concursoDto.setDescripcionRequerida(concurso.getDescReq());
+        concursoDto.setDatosExifRequeridos(concurso.getDatosExifReq());
+        concursoDto.setLocalizacionRequerida(concurso.getLocReq());
+        concursoDto.setOcutarFotosHastaVotacion(concurso.getOcultarFotos());
+        concursoDto.setOcultarResultadosHastaFinal(concurso.getOcultarVotos());
+        concursoDto.setActivarModeracion(concurso.getModeracion());
+        concursoDto.setMetodoVoto(concurso.getTipoVotoConcurso().toString());
+        concursoDto.setDescripcionVotacionJurado(concurso.getDescVotacion());
+
+        return concursoDto;
     }
 
     @Autowired

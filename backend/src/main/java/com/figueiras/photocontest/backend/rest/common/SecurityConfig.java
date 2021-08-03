@@ -29,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
                 .authorizeRequests()
                 .antMatchers("/catalogo-concursos/concursos").permitAll()
+                .antMatchers("/catalogo-concursos/concursos/*").permitAll()
+                .antMatchers("/catalogo-concursos/concursos/*/numeroParticipantes").permitAll()
                 .antMatchers("/catalogo-concursos/categorias").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios/*").permitAll()

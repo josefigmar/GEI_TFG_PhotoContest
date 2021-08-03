@@ -5,7 +5,7 @@ import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaExc
 import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
 import com.figueiras.photocontest.backend.rest.dtos.CategoriaFotograficaDto;
-import com.figueiras.photocontest.backend.rest.dtos.CrearConcursoDto;
+import com.figueiras.photocontest.backend.rest.dtos.ConcursoDto;
 
 public interface ServicioConcurso {
 
@@ -14,8 +14,12 @@ public interface ServicioConcurso {
 
      Concurso recuperarConcurso(Long idConcurso) throws InstanceNotFoundException;
 
-     void crearConcurso(CrearConcursoDto datosConcurso, String nombreUsuario)
+     ConcursoDto recuperarDatosConcurso(Long idConcurso) throws InstanceNotFoundException;
+
+     void crearConcurso(ConcursoDto datosConcurso, String nombreUsuario)
              throws InstanceNotFoundException, DatosDeConcursoNoValidosException;
 
      void crearCategoria(CategoriaFotograficaDto datosCategoria) throws CategoriaDuplicadaException;
+
+     int getNumeroDeParticipantes(long idConcurso);
 }

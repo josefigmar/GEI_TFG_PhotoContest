@@ -38,7 +38,7 @@ const UserContests = ({ userContestsData }) => {
                 <tbody>
                     {userContestsData.slice(page * size, page * size + size).map(c =>
                         <tr key={c.idConcurso}>
-                            <Link className="nav-link" to={`/concursos/${c.idConcurso}`}>
+                            <Link className="nav-link" to={`/contests/${c.nombreConcurso}/${c.idConcurso}`}>
                                 {`${c.nombreConcurso}`}
                             </Link>
                             <td>

@@ -3,7 +3,6 @@ package com.figueiras.photocontest.backend.rest.controllers;
 import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
 import com.figueiras.photocontest.backend.model.entities.CategoriaFotograficaDao;
 import com.figueiras.photocontest.backend.model.entities.Concurso;
-import com.figueiras.photocontest.backend.model.entities.EstadoConcurso;
 import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
 import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
@@ -12,13 +11,10 @@ import com.figueiras.photocontest.backend.model.services.ServicioConcurso;
 import com.figueiras.photocontest.backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import static com.figueiras.photocontest.backend.rest.dtos.ConcursoConversor.toConcursosTablaDto;
 
@@ -72,11 +68,28 @@ public class ControladorCatalogo {
         return new Block<>(toConcursosTablaDto( blockConcursos.getItems()), blockConcursos.getExistMoreItems());
     }
 
+    @GetMapping("/concursos/{idConcurso}/numeroParticipantes")
+    public int numeroDeParticipantes(@PathVariable long idConcurso){
+
+        int numeroDeParticipantes = servicioConcurso.getNumeroDeParticipantes(idConcurso);
+
+        return numeroDeParticipantes;
+    }
+
     @PostMapping("/concursos")
     public void crearConcurso(@RequestParam String userName,
-                              @RequestBody CrearConcursoDto datosConcurso)
+                              @RequestBody ConcursoDto datosConcurso)
             throws InstanceNotFoundException, DatosDeConcursoNoValidosException {
 
         servicioConcurso.crearConcurso(datosConcurso, userName);
+    }
+
+    @PostMapping("/concursos/{nombreConcurso}")
+    public ConcursoDto recuperarConcursos(@RequestBody Long idConcurso)
+            throws InstanceNotFoundException {
+
+        ConcursoDto concursoDto = servicioConcurso.recuperarDatosConcurso(idConcurso);
+
+        return concursoDto;
     }
 }

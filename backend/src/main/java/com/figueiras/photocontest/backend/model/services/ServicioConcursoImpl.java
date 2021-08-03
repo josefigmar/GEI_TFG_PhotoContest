@@ -53,14 +53,26 @@ public class ServicioConcursoImpl implements ServicioConcurso{
     public Concurso recuperarConcurso(Long idConcurso) throws InstanceNotFoundException {
 
         Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
-        if(!concursoOptional.isPresent()){
+        if(concursoOptional.isEmpty()){
             throw new InstanceNotFoundException(Concurso.class.getName(), idConcurso);
         }
         return concursoOptional.get();
     }
 
     @Override
-    public void crearConcurso(CrearConcursoDto datosConcurso, String nombreUsuario)
+    public ConcursoDto recuperarDatosConcurso(Long idConcurso) throws InstanceNotFoundException {
+
+        Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
+        if(concursoOptional.isEmpty()){
+            throw new InstanceNotFoundException(Concurso.class.getName(), idConcurso);
+        }
+        ConcursoDto resultado = ConcursoConversor.toConcursoDto(concursoOptional.get());
+
+        return resultado;
+    }
+
+    @Override
+    public void crearConcurso(ConcursoDto datosConcurso, String nombreUsuario)
             throws InstanceNotFoundException, DatosDeConcursoNoValidosException {
 
         Usuario usuario = servicioUsuario.recuperarUsuario(nombreUsuario);
@@ -105,7 +117,26 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         categoriaFotograficaDao.save(categoriaFotografica);
     }
 
-    private void validarConcurso(CrearConcursoDto datosConcurso, Usuario usuario)
+    @Override
+    public int getNumeroDeParticipantes(long idConcurso) {
+
+        Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
+
+        if(concursoOptional.isEmpty()){
+            return 0;
+        }
+
+        int numeroDeParticipantes = 0;
+
+        for (UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()){
+            if(upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.INSCRITO)){
+                numeroDeParticipantes++;
+            }
+        }
+        return numeroDeParticipantes;
+    }
+
+    private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)
             throws DatosDeConcursoNoValidosException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         boolean hayErrores = false;

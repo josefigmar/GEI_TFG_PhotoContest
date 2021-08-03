@@ -54,3 +54,46 @@ img {
   height: 350px;
   width: 300px;
 }
+
+.contestPresentation {
+  display: flex;
+  height: 430px;
+  width: 600px;
+}
+
+.contestPresentationAndButtons {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  width: 600px;
+}
+
+.contestHeader {
+  display: flex;
+  height: 500px;
+  width: 1200px;
+}
+
+.contestInfoTable {
+  display: flex;
+  flex-direction: column;
+  height: 475px;
+  width: 400px;
+}
+
+.contestHeaderImg {
+  vertical-align: middle;
+  object-fit: cover;
+  max-height: 200px;
+  max-width: 250px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));;
+}
+
+hr {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.hWithoutLineBreak {
+  display: inline-block;
+}

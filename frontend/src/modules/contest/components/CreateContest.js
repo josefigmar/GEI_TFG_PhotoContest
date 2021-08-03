@@ -48,46 +48,53 @@ const CreateContest = () => {
     const [numeroMaximoVotosPorUsuario, setNumeroMaximoVotosPorUsuario] = useState("");
     const [numeroMaximoDeFotografiasGanadoras, setNumeroMaximoDeFotografiasGanadoras] = useState("");
     const [triggerCategoryUpdate, setTriggerCategoryUpdate] = useState([]);
+    let form;
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        backend.catalogService.createContest(
-            {
-                nombreConcurso,
-                descripcionConcurso,
-                fotoConcurso,
-                basesConcurso,
-                categoriaUnica,
-                listaCategorias,
-                miembrosDeLaOrganizacion,
-                participantes,
-                miembrosDelJurado,
-                fechaInicio,
-                fechaInicioVotacion,
-                idCategoria,
-                participanteAbierto,
-                numeroMaximoFotografias,
-                numeroMaximoFotografiasParticipante,
-                formatoRequerido,
-                tituloRequerido,
-                descripcionRequerida,
-                datosExifRequeridos,
-                localizacionRequerida,
-                ocultarFotosHastaVotacion,
-                ocultarResultadosHastaFinal,
-                activarModeracion,
-                tipoVotante,
-                metodoVoto,
-                descripcionVotacionJurado,
-                fechaLimiteVotacion,
-                numeroMaximoVotosPorUsuario,
-                numeroMaximoDeFotografiasGanadoras
-            },
-            "josefigueirasm",
-            () => history.push("/"),
-            errors => setBackendErrors(errors)
-        )
+        if (form.checkValidity()) {
+            backend.catalogService.createContest(
+                {
+                    nombreConcurso,
+                    descripcionConcurso,
+                    fotoConcurso,
+                    basesConcurso,
+                    categoriaUnica,
+                    listaCategorias,
+                    miembrosDeLaOrganizacion,
+                    participantes,
+                    miembrosDelJurado,
+                    fechaInicio,
+                    fechaInicioVotacion,
+                    idCategoria,
+                    participanteAbierto,
+                    numeroMaximoFotografias,
+                    numeroMaximoFotografiasParticipante,
+                    formatoRequerido,
+                    tituloRequerido,
+                    descripcionRequerida,
+                    datosExifRequeridos,
+                    localizacionRequerida,
+                    ocultarFotosHastaVotacion,
+                    ocultarResultadosHastaFinal,
+                    activarModeracion,
+                    tipoVotante,
+                    metodoVoto,
+                    descripcionVotacionJurado,
+                    fechaLimiteVotacion,
+                    numeroMaximoVotosPorUsuario,
+                    numeroMaximoDeFotografiasGanadoras
+                },
+                "josefigueirasm",
+                () => history.push("/"),
+                errors => setBackendErrors(errors)
+
+
+            )
+        } else {
+            form.classList.add('was-validated');
+        }
     }
 
     const removeElementsFromTwoLists = (list, collection1, collection2) => {
@@ -128,24 +135,24 @@ const CreateContest = () => {
             <h2><FormattedMessage id="contest.CreateContest.Title" /></h2>
             <hr />
             <h4><FormattedMessage id="contest.CreateContest.GeneralInfoSection" /></h4>
-            <Form onSubmit={e => handleSubmit(e)}>
+            <form ref={node => form = node} onSubmit={e => handleSubmit(e)} noValidate={false}>
                 {/*Nombre del concurso*/}
                 <Form.Group className="mb-3" controlId="NombreConcurso">
                     <Form.Label><FormattedMessage id='contest.CreateContest.NombreConcurso' /></Form.Label>
-                    <Form.Control value={nombreConcurso} maxLength="50" required onChange={e => setNombreConcurso(e.target.value)} />
+                    <Form.Control value={nombreConcurso} maxLength="50" onChange={e => setNombreConcurso(e.target.value)} required={true} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
                 {/*Descripción del concurso*/}
                 <Form.Group className="mb-3" controlId="DescripcionConcurso">
                     <Form.Label><FormattedMessage id='contest.CreateContest.DescripcionConcurso' /></Form.Label>
-                    <Form.Control as="textarea" maxLength="500" required value={descripcionConcurso} onChange={e => setDescripcionConcurso(e.target.value)} />
+                    <Form.Control as="textarea" maxLength="500" value={descripcionConcurso} onChange={e => setDescripcionConcurso(e.target.value)} required />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
                 {/*Foto y bases*/}
                 <Jumbotron>
-                    <h5><FormattedMessage id='contest.CreateContest.Foto&BasesTitle' /></h5><br/>
+                    <h5><FormattedMessage id='contest.CreateContest.Foto&BasesTitle' /></h5><br />
                     <h6><FormattedMessage id='contest.CreateContest.Foto&BasesDesc' /></h6>
                     <br />
                     <Form.Group className="mb-3" controlId="contestPhoto">
@@ -200,8 +207,8 @@ const CreateContest = () => {
 
                 <br /><hr />
                 {/*Seccion de Miembros de la organización*/}
-                <h4><FormattedMessage id="contest.CreateContest.OrganizationMembersSection" /></h4><br/>
-                    <h6><FormattedMessage id='contest.CreateContest.OrganizationMembersSection.Desc' /></h6>
+                <h4><FormattedMessage id="contest.CreateContest.OrganizationMembersSection" /></h4><br />
+                <h6><FormattedMessage id='contest.CreateContest.OrganizationMembersSection.Desc' /></h6>
                 <br />
                 <Multiselect
                     placeholder={intl.formatMessage({ id: 'contest.CreateContest.StaffList' })}
@@ -312,7 +319,7 @@ const CreateContest = () => {
                     </Button>
                 </div>
 
-            </Form>
+            </form>
             <br /><br /><br /><br /><br /><br /><br />
         </Container>
     );

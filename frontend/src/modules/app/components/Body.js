@@ -39,7 +39,7 @@ const Body = () => {
                 <Route exact path="/users/:userName/followers"><FollowersFollowing /></Route>
                 <Route exact path="/users/:userName/following"><FollowersFollowing /></Route>
                 <Route exact path="/notifications/:userName"><Notifications /></Route>
-                {!isUserLoggedIn && <Route exact path="/contests/create-contest"><SignUp /></Route>}
+                {!isUserLoggedIn && <Route exact path="/contests/create-contest"><LogIn /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/create-contest"><CreateContest /></Route>}
                 <Route><Home /></Route>
             </Switch>

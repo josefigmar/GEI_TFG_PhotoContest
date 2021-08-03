@@ -38,7 +38,7 @@ const CreateCategory = ({onNew}) => {
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
                 <Form.Group className="mb-3">
                     <Form.Label><FormattedMessage id='contest.CreateContest.CreateCategory.Name' /></Form.Label>
-                    <Form.Control type="text" value={nombreCategoria} onChange={e => setNombreCategoria(e.target.value)} />
+                    <Form.Control type="text" value={nombreCategoria} onChange={e => setNombreCategoria(e.target.value)} required/>
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label><FormattedMessage id='contest.CreateContest.CreateCategory.Desc' /></Form.Label>

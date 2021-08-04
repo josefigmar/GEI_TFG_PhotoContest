@@ -1,5 +1,5 @@
 import { FormattedMessage, FormattedDate, FormattedTime, useIntl } from "react-intl";
-import { Badge, Container, Spinner} from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import constants from "../../commons";
 import commonFunctions from "../../commons/functions";

@@ -26,6 +26,13 @@ export const getNumberContenders = (contestId, onSuccess) => {
     appFetch(path, config('GET'), onSuccess);
 }
 
+export const isOrganizador = ({userName, contestId}, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestId}/${userName}/esOrganizador`;
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
 export const findCategories = (onSuccess) => {
 
     let path = "/catalogo-concursos/categorias";
@@ -45,4 +52,31 @@ export const createCategory = (categoryData, onSuccess, onErrors) => {
     let path = `/catalogo-concursos/categorias`;
 
     appFetch(path, config('POST', categoryData), onSuccess, onErrors);
+}
+
+export const findStaff = ({contestId, page=0, size}, onSuccess) =>{
+    
+    let path = `/catalogo-concursos/concursos/${contestId}/organizadores?page=${page}`;
+
+    path += size? `&size=${size}` : "";
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
+export const findContenders = ({contestId, page=0, size}, onSuccess) =>{
+    
+    let path = `/catalogo-concursos/concursos/${contestId}/participantes?page=${page}`;
+
+    path += size? `&size=${size}` : "";
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
+export const findJury = ({contestId, page=0, size}, onSuccess) =>{
+    
+    let path = `/catalogo-concursos/concursos/${contestId}/jurado?page=${page}`;
+
+    path += size? `&size=${size}` : "";
+
+    appFetch(path, config('GET'), onSuccess);
 }

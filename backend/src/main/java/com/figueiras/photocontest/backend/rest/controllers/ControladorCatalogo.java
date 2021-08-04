@@ -3,6 +3,7 @@ package com.figueiras.photocontest.backend.rest.controllers;
 import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
 import com.figueiras.photocontest.backend.model.entities.CategoriaFotograficaDao;
 import com.figueiras.photocontest.backend.model.entities.Concurso;
+import com.figueiras.photocontest.backend.model.entities.Usuario;
 import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
 import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
 import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
@@ -74,6 +75,60 @@ public class ControladorCatalogo {
         int numeroDeParticipantes = servicioConcurso.getNumeroDeParticipantes(idConcurso);
 
         return numeroDeParticipantes;
+    }
+
+    @GetMapping("/concursos/{idConcurso}/organizadores")
+    public Block<UsuarioTablaDto> recuperarOrganizadores(@PathVariable long idConcurso,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "5") int size)
+            throws InstanceNotFoundException {
+
+        Block<Usuario> blockUsuarios = servicioConcurso.recuperarOrganizadores(idConcurso, page, size);
+
+        Block<UsuarioTablaDto> usuarioDtoBlock =
+                new Block<>(UsuarioConversor.toUsuariosTablaDto(blockUsuarios.getItems()),
+                        blockUsuarios.getExistMoreItems());
+
+        return usuarioDtoBlock;
+    }
+
+    @GetMapping("/concursos/{idConcurso}/participantes")
+    public Block<UsuarioTablaDto> recuperarParticipantes(@PathVariable long idConcurso,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "5") int size)
+            throws InstanceNotFoundException {
+
+        Block<Usuario> blockUsuarios = servicioConcurso.recuperarParticipantes(idConcurso, page, size);
+
+        Block<UsuarioTablaDto> usuarioDtoBlock =
+                new Block<>(UsuarioConversor.toUsuariosTablaDto(blockUsuarios.getItems()),
+                        blockUsuarios.getExistMoreItems());
+
+        return usuarioDtoBlock;
+    }
+
+    @GetMapping("/concursos/{idConcurso}/jurado")
+    public Block<UsuarioTablaDto> recuperarJurado(@PathVariable long idConcurso,
+                                                         @RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "5") int size)
+            throws InstanceNotFoundException {
+
+        Block<Usuario> blockUsuarios = servicioConcurso.recuperarJurado(idConcurso, page, size);
+
+        Block<UsuarioTablaDto> usuarioDtoBlock =
+                new Block<>(UsuarioConversor.toUsuariosTablaDto(blockUsuarios.getItems()),
+                        blockUsuarios.getExistMoreItems());
+
+        return usuarioDtoBlock;
+    }
+
+    @GetMapping("/concursos/{idConcurso}/{nombreUsuario}/esOrganizador")
+    public boolean esOrganizador(@PathVariable long idConcurso, @PathVariable String nombreUsuario)
+            throws InstanceNotFoundException {
+
+        boolean resultado = servicioConcurso.isOrganizador(nombreUsuario, idConcurso);
+
+        return resultado;
     }
 
     @PostMapping("/concursos")

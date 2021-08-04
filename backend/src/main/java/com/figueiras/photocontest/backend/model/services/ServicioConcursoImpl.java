@@ -8,12 +8,14 @@ import com.figueiras.photocontest.backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ServicioConcursoImpl implements ServicioConcurso{
@@ -134,6 +136,68 @@ public class ServicioConcursoImpl implements ServicioConcurso{
             }
         }
         return numeroDeParticipantes;
+    }
+
+    @Override
+    public boolean isOrganizador(String nombreUsuario, long idConcurso) throws InstanceNotFoundException {
+
+        boolean result = false;
+        Usuario usuario = servicioUsuario.recuperarUsuario(nombreUsuario);
+        Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
+
+        if(concursoOptional.isEmpty()){
+            throw new InstanceNotFoundException(Concurso.class.toString(), idConcurso);
+        }
+
+        for(UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()){
+            if(upc.getUsuario().equals(usuario) && upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.ORGANIZADOR)){
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Block<Usuario> recuperarOrganizadores(long idConcurso, int page, int size) throws InstanceNotFoundException {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Slice<UsuarioParticipaConcurso> organizadoresSlice =
+                usuarioParticipaConcursoDao.findOrganizadores(idConcurso, pageable);
+
+        Block<Usuario> organizadores = new Block<Usuario>(
+                organizadoresSlice.getContent().stream().map(upc -> upc.getUsuario()).collect(Collectors.toList()),
+                organizadoresSlice.hasNext());
+
+        return organizadores;
+    }
+
+    @Override
+    public Block<Usuario> recuperarParticipantes(long idConcurso, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Slice<UsuarioParticipaConcurso> participantesSlice =
+                usuarioParticipaConcursoDao.findInscritos(idConcurso, pageable);
+
+        Block<Usuario> participantes = new Block<Usuario>(
+                participantesSlice.getContent().stream().map(upc -> upc.getUsuario()).collect(Collectors.toList()),
+                participantesSlice.hasNext());
+
+        return participantes;
+    }
+
+    @Override
+    public Block<Usuario> recuperarJurado(long idConcurso, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Slice<UsuarioParticipaConcurso> juradoSlice =
+                usuarioParticipaConcursoDao.findJurado(idConcurso, pageable);
+
+        Block<Usuario> jurado = new Block<Usuario>(
+                juradoSlice.getContent().stream().map(upc -> upc.getUsuario()).collect(Collectors.toList()),
+                juradoSlice.hasNext());
+
+        return jurado;
     }
 
     private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)

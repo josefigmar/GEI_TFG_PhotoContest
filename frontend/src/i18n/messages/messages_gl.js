@@ -179,8 +179,13 @@ export default {
     'contest.contestDetail.Header.contestInfoTable.InitialUploadDate' : 'Data de inicio de subidas',
     'contest.contestDetail.Header.contestInfoTable.StartOfVoting' : 'Data de inicio de votación',
     'contest.contestDetail.Header.contestInfoTable.EndContestDate' : 'Data de finalización',
+    'contest.contestDetail.Header.contestInfoTable.Staff' : 'Organizadores',
+    'contest.contestDetail.Header.contestInfoTable.Contenders' : 'Participantes',
+    'contest.contestDetail.Header.contestInfoTable.Jury' : 'Xurado',
+    'contest.contestDetail.Header.contestInfoTable.DownloadRules' : 'Descargar bases',
 
-    'contest.contestDetail.Header.contestHeaderButtons.DownloadRules' : 'Descargar bases',
+    'contest.contestDetail.Header.contestHeaderButtons.EditContest' : 'Editar o concurso',
+    'contest.contestDetail.Header.contestHeaderButtons.DeleteContest' : 'Borrar o concurso',
 
     'contest.contestDetail.Body.PreparationState.CountDown.Title' : 'Tempo restante para o comezo do concurso',
 }

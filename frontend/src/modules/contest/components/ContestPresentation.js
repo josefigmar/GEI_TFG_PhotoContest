@@ -1,12 +1,18 @@
 const ContestPresentation = ({ contestData }) => {
     return (
         <div className="contestPresentation">
-            <div>
-                <img className="contestHeaderImg" src={`data:image/jpeg;base64, ${contestData.fotoConcurso}`} />
-            </div>&ensp;&ensp;&ensp;
-            <div>
+            <div className="centeredHorizontalDiv">
                 <h3>{contestData.nombreConcurso}</h3>
-                <h6>{contestData.descripcionConcurso}</h6>
+            </div>
+            <br/><br/>
+            <div>
+                <img className="centeredImg contestHeaderImg" alt="Contest Header" src={`data:image/jpeg;base64, ${contestData.fotoConcurso}`} />
+            <div/>
+            <br/>
+            <div>
+                <p className="p2">{contestData.descripcionConcurso}</p>
+            </div>
+                
             </div>
         </div>
     )

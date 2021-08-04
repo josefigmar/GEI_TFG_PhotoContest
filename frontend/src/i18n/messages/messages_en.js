@@ -179,8 +179,13 @@ export default {
     'contest.contestDetail.Header.contestInfoTable.InitialUploadDate' : 'Initial upload date',
     'contest.contestDetail.Header.contestInfoTable.StartOfVoting' : 'Voting start date',
     'contest.contestDetail.Header.contestInfoTable.EndContestDate' : 'End date',
-
-    'contest.contestDetail.Header.contestHeaderButtons.DownloadRules' : 'Download rules',
+    'contest.contestDetail.Header.contestInfoTable.Staff' : 'Staff',
+    'contest.contestDetail.Header.contestInfoTable.Contenders' : 'Contenders',
+    'contest.contestDetail.Header.contestInfoTable.Jury' : 'Jury',
+    'contest.contestDetail.Header.contestInfoTable.DownloadRules' : 'Download rules',
+    
+    'contest.contestDetail.Header.contestHeaderButtons.EditContest' : 'Edit contest',
+    'contest.contestDetail.Header.contestHeaderButtons.DeleteContest' : 'Delete contest',
 
     'contest.contestDetail.Body.PreparationState.CountDown.Title' : 'Time remaining for contest start',
 

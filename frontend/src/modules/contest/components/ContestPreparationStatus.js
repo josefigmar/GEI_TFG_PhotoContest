@@ -2,7 +2,6 @@ import ContestHeader from "./ContestHeader";
 import Countdown from "react-countdown";
 import { Container, Spinner } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
-import { detailed } from "yargs-parser";
 
 const ContestPreparationStatus = ({ contestData }) => {
 

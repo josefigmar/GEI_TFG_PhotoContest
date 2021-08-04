@@ -7,7 +7,6 @@ import User from '../../user/components/User';
 import Home from './Home';
 import SignUp from '../../user/components/SignUp';
 import LogIn from '../../user/components/LogIn';
-import FollowersFollowing from '../../user/components/FollowersFollowing';
 import ChanguePassword from '../../user/components/ChanguePassword';
 import ChangueProfileData from '../../user/components/ChangueProfileData';
 import RecoverUser from '../../user/components/RecoverUser';
@@ -17,6 +16,7 @@ import ResetPassword from '../../user/components/ResetPassword';
 import * as selectors from "../../user/selectors";
 import { useSelector } from 'react-redux';
 import ContestDemux from '../../contest/components/ContestDemux';
+import UserList from '../../commons/components/UserList';
 
 const Body = () => {
 
@@ -37,8 +37,11 @@ const Body = () => {
                 <Route exact path="/users/:userName/changue-password"><ChanguePassword /></Route>
                 <Route exact path="/users/:userName/reset-password/:token"><ResetPassword /></Route>
                 <Route exact path="/users/:userName/changue-data"><ChangueProfileData /></Route>
-                <Route exact path="/users/:userName/followers"><FollowersFollowing /></Route>
-                <Route exact path="/users/:userName/following"><FollowersFollowing /></Route>
+                <Route exact path="/users/:userName/followers"><UserList /></Route>
+                <Route exact path="/users/:userName/following"><UserList /></Route>
+                <Route exact path="/contests/:contestName/:contestId/staffMembers"><UserList /></Route>
+                <Route exact path="/contests/:contestName/:contestId/contenders"><UserList /></Route>
+                <Route exact path="/contests/:contestName/:contestId/juryMembers"><UserList /></Route>
                 <Route exact path="/notifications/:userName"><Notifications /></Route>
                 {!isUserLoggedIn && <Route exact path="/contests/create-contest"><LogIn /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/create-contest"><CreateContest /></Route>}

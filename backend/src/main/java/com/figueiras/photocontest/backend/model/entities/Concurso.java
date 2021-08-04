@@ -107,8 +107,6 @@ public class Concurso {
         this.tipoVotoConcurso = tipoVotoConcurso;
     }
 
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
     public String getFotoConcurso() {
         return fotoConcurso;
     }
@@ -253,8 +251,6 @@ public class Concurso {
         this.descVotacion = descVotacion;
     }
 
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
     public String getBasesConcurso() {
         return basesConcurso;
     }

@@ -51,28 +51,6 @@ CREATE TABLE Notificacion(
                          REFERENCES Usuario(idUsuario)
 );
 
-CREATE TABLE Fotografia(
-    idFotografia BIGINT NOT NULL AUTO_INCREMENT,
-    tituloFotografia VARCHAR(50),
-    descripcionFotografia VARCHAR(200),
-    aperturaDiafragma VARCHAR(50),
-    fabricanteCamara VARCHAR(50),
-    modeloCamara VARCHAR(50),
-    distanciaFocal VARCHAR(50),
-    velocidadObturacion VARCHAR(50),
-    iso VARCHAR(50),
-    resolucion VARCHAR(50),
-    datosJpg MEDIUMBLOB,
-    datosRaw MEDIUMBLOB,
-    fechaSubida DATETIME,
-    fechaInicioParticipacion DATETIME,
-    estadoModeracion TINYINT,
-    idCategoria BIGINT,
-    CONSTRAINT Fotografia_pk PRIMARY KEY(idFotografia),
-    CONSTRAINT Fotografia_id_categoria_fk FOREIGN KEY(idCategoria)
-                       REFERENCES CategoriaFotografica(idCategoria)
-);
-
 CREATE TABLE Concurso(
     idConcurso BIGINT NOT NULL AUTO_INCREMENT,
     nombreConcurso VARCHAR(50),
@@ -104,6 +82,31 @@ CREATE TABLE Concurso(
     basesConcurso LONGTEXT,
     CONSTRAINT Concurso_fk PRIMARY KEY(idConcurso),
     CONSTRAINT Nombre_concurso_unique UNIQUE(nombreConcurso)
+);
+
+CREATE TABLE Fotografia(
+    idFotografia BIGINT NOT NULL AUTO_INCREMENT,
+    tituloFotografia VARCHAR(50),
+    descripcionFotografia VARCHAR(200),
+    aperturaDiafragma VARCHAR(50),
+    fabricanteCamara VARCHAR(50),
+    modeloCamara VARCHAR(50),
+    distanciaFocal VARCHAR(50),
+    velocidadObturacion VARCHAR(50),
+    iso VARCHAR(50),
+    resolucion VARCHAR(50),
+    datosJpg LONGTEXT,
+    datosRaw LONGTEXT,
+    fechaSubida DATETIME,
+    fechaInicioParticipacion DATETIME,
+    estadoModeracion TINYINT,
+    idCategoria BIGINT,
+    idConcurso BIGINT,
+    CONSTRAINT Fotografia_pk PRIMARY KEY(idFotografia),
+    CONSTRAINT Fotografia_id_categoria_fk FOREIGN KEY(idCategoria)
+       REFERENCES CategoriaFotografica(idCategoria),
+    CONSTRAINT Fotografia_id_concurso_fk FOREIGN KEY(idConcurso)
+       REFERENCES Concurso(idConcurso)
 );
 
 CREATE TABLE UsuarioGustaCategoria(

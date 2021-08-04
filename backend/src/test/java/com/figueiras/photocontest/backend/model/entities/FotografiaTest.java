@@ -191,23 +191,19 @@ public class FotografiaTest {
     @Test
     public void setDatosJpgTest() {
         Fotografia fotografia = new Fotografia();
-        byte[] byteArr = new byte[20];
-        new Random().nextBytes(byteArr);
 
-        fotografia.setDatosJpg(byteArr);
+        fotografia.setDatosJpg(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getDatosJpg(), byteArr);
+        Assertions.assertEquals(fotografia.getDatosJpg(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test
     public void setDatosRawTest() {
         Fotografia fotografia = new Fotografia();
-        byte[] byteArr = new byte[20];
-        new Random().nextBytes(byteArr);
 
-        fotografia.setDatosRaw(byteArr);
+        fotografia.setDatosRaw(UtilidadesParaPruebas.CADENA_MEDIA);
 
-        Assertions.assertEquals(fotografia.getDatosRaw(), byteArr);
+        Assertions.assertEquals(fotografia.getDatosRaw(), UtilidadesParaPruebas.CADENA_MEDIA);
     }
 
     @Test

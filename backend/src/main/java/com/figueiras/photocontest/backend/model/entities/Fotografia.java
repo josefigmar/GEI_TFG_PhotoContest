@@ -26,12 +26,8 @@ public class Fotografia {
     private String iso;
     @Size(max=50)
     private String resolucion;
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
-    private byte[] datosJpg;
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
-    private byte[] datosRaw;
+    private String datosJpg;
+    private String datosRaw;
     private LocalDateTime fechaInicioParticipacion;
     private EstadoModeracion estadoModeracion;
     private CategoriaFotografica categoriaFotografica;
@@ -123,19 +119,19 @@ public class Fotografia {
         this.resolucion = resolucion;
     }
 
-    public byte[] getDatosJpg() {
+    public String getDatosJpg() {
         return datosJpg;
     }
 
-    public void setDatosJpg(byte[] datosJpg) {
+    public void setDatosJpg(String datosJpg) {
         this.datosJpg = datosJpg;
     }
 
-    public byte[] getDatosRaw() {
+    public String getDatosRaw() {
         return datosRaw;
     }
 
-    public void setDatosRaw(byte[] datosRaw) {
+    public void setDatosRaw(String datosRaw) {
         this.datosRaw = datosRaw;
     }
 

@@ -81,7 +81,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         // Si el usuario está editando un concurso
         LocalDateTime fechaCreacion = null;
-        if ((Long) datosConcurso.getIdConcurso() != null) {
+        if ((Long) datosConcurso.getIdConcurso() != 0) {
             Optional<Concurso> concursoOptional = concursoDao.findById(datosConcurso.getIdConcurso());
             fechaCreacion = concursoOptional.get().getFechaCreacion();
             eliminarConcurso(datosConcurso.getIdConcurso());

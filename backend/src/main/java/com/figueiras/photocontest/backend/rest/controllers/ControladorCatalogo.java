@@ -12,6 +12,7 @@ import com.figueiras.photocontest.backend.model.services.ServicioConcurso;
 import com.figueiras.photocontest.backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -132,11 +133,15 @@ public class ControladorCatalogo {
     }
 
     @PostMapping("/concursos")
-    public void crearConcurso(@RequestParam String userName,
+    public ResponseEntity crearConcurso(@RequestParam String userName,
                               @RequestBody ConcursoDto datosConcurso)
             throws InstanceNotFoundException, DatosDeConcursoNoValidosException {
 
         servicioConcurso.crearConcurso(datosConcurso, userName);
+
+        // After a resource has been created successfully, the server
+        // should respond with HTTP 201 (Created)
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("/concursos/{nombreConcurso}")
@@ -146,5 +151,16 @@ public class ControladorCatalogo {
         ConcursoDto concursoDto = servicioConcurso.recuperarDatosConcurso(idConcurso);
 
         return concursoDto;
+    }
+
+    @DeleteMapping("/concursos/{nombreConcurso}")
+    public ResponseEntity eliminarConcurso(@RequestBody Long idConcurso)
+            throws InstanceNotFoundException {
+
+        servicioConcurso.eliminarConcurso(idConcurso);
+
+        //  (No content) is used to indicate a successful deletion with no
+        //  additional information (response body is empty).
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

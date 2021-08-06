@@ -45,6 +45,7 @@ const Body = () => {
                 <Route exact path="/notifications/:userName"><Notifications /></Route>
                 {!isUserLoggedIn && <Route exact path="/contests/create-contest"><LogIn /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/create-contest"><CreateContest /></Route>}
+                {isUserLoggedIn && <Route exact path="/contests/create-contest/:contestId/:contestName"><CreateContest /></Route>}
                 {!isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><LogIn /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><ContestDemux /></Route>}
                 <Route><Home /></Route>

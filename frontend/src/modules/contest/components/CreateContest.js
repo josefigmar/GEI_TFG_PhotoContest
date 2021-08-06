@@ -1,7 +1,7 @@
 import { Button, Container, Form, Jumbotron } from "react-bootstrap";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import commonFunctions from "../../commons/functions";
 import { Multiselect } from 'multiselect-react-dropdown';
 import Errors from "../../commons/components/Errors";
@@ -11,6 +11,7 @@ import CreateCategory from "./CreateCategory";
 const CreateContest = () => {
 
     const intl = useIntl();
+    const { contestId, contestName } = useParams();
     const history = useHistory();
     const [listaUsuariosMultiselect, setListaUsuariosMultiselect] = useState(null);
     const [listaOrganizadoresMultiselect, setListaOrganizadoresMultiselect] = useState([]);
@@ -56,6 +57,7 @@ const CreateContest = () => {
         if (form.checkValidity()) {
             backend.catalogService.createContest(
                 {
+                    idConcurso: contestId,
                     nombreConcurso,
                     descripcionConcurso,
                     fotoConcurso,
@@ -97,11 +99,60 @@ const CreateContest = () => {
         }
     }
 
+    const setContestData = result => {
+
+        setNombreConcurso(result.nombreConcurso)
+        setDescripcionConcurso(result.descripcionConcurso)
+        setFotoConcurso(result.fotoConcurso)
+        setBasesConcurso(result.basesConcurso)
+        setCategoriaUnica(result.categoriaUnica)
+        setListaCategorias(result.listaCategorias)
+        setMiembrosDeLaOrganizacion(result.miembrosDeLaOrganizacion)
+        setParticipantes(result.participantes)
+        setMiembrosDelJurado(result.miembrosDelJurado)
+        setFechaInicio(result.fechaInicio)
+        setFechaInicioVotacion(result.fechaInicioVotacion)
+        setIdCategoria(result.idCategoria)
+        setParticipanteAbierto(result.participanteAbierto)
+        setNumeroMaximoFotografias(result.numeroMaximoFotografias)
+        setNumeroMaximoFotografiasParticipante(result.numeroMaximoFotografiasParticipante)
+        setFormatoRequerido(result.formatoRequerido)
+        setTituloRequerido(result.tituloRequerido)
+        setDescripcionRequerida(result.descripcionRequerida)
+        setDatosExifRequeridos(result.datosExifRequeridos)
+        setLocalizacionRequerida(result.localizacionRequerida)
+        setOcultarFotosHastaVotacion(result.ocultarFotosHastaVotacion)
+        setOcultarResultadosHastaFinal(result.ocultarResultadosHastaFinal)
+        setActivarModeracion(result.activarModeracion)
+        setTipoVotante(result.tipoVotante)
+        setMetodoVoto(result.metodoVoto)
+        setDescripcionVotacionJurado(result.descripcionVotacionJurado)
+        setFechaLimiteVotacion(result.fechaLimiteVotacion)
+        setNumeroMaximoVotosPorUsuario(result.numeroMaximoVotosPorUsuario)
+        setNumeroMaximoDeFotografiasGanadoras(result.numeroMaximoDeFotografiasGanadoras)
+    }
+
     const removeElementsFromTwoLists = (list, collection1, collection2) => {
         let auxList = list.filter(e => !collection1.includes(e));
         auxList = auxList.filter(e => !collection2.includes(e));
         return auxList;
     }
+
+    useEffect(() => {
+        // This page is reused for editing a contest. The flag is contestId, if it
+        // has a value, it is because the user is trying to edit a contest, not
+        // to create it.
+        if (contestId !== undefined) {
+            backend.catalogService.getContestData(
+                {
+                    contestId,
+                    contestName
+                },
+                result => setContestData(result)
+            );
+        }
+        // eslint-disable-next-line
+    }, [])
 
     useEffect(() => {
 
@@ -120,7 +171,7 @@ const CreateContest = () => {
             // la opción de que los jueces son los participantes
             setListaJuradoMultiselect(removeElementsFromTwoLists(listaUsuariosMultiselect, miembrosDeLaOrganizacion, participantes));
         }
-
+        // eslint-disable-next-line
     }, [listaUsuariosMultiselect, miembrosDeLaOrganizacion, participantes, miembrosDelJurado]);
 
     useEffect(() => {
@@ -132,7 +183,14 @@ const CreateContest = () => {
         <Container>
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <br />
-            <h2><FormattedMessage id="contest.CreateContest.Title" /></h2>
+            {
+                // This page is valid for create and for edit a contest
+                contestId !== undefined ?
+                    <h2><FormattedMessage id="contest.EditContest.Title" /></h2>
+                    :
+                    <h2><FormattedMessage id="contest.CreateContest.Title" /></h2>
+            }
+
             <hr />
             <h4><FormattedMessage id="contest.CreateContest.GeneralInfoSection" /></h4>
             <form ref={node => form = node} onSubmit={e => handleSubmit(e)} noValidate={false}>
@@ -140,8 +198,6 @@ const CreateContest = () => {
                 <Form.Group className="mb-3" controlId="NombreConcurso">
                     <Form.Label><FormattedMessage id='contest.CreateContest.NombreConcurso' /></Form.Label>
                     <Form.Control value={nombreConcurso} maxLength="50" onChange={e => setNombreConcurso(e.target.value)} required={true} />
-                    <Form.Text className="text-muted">
-                    </Form.Text>
                 </Form.Group>
                 {/*Descripción del concurso*/}
                 <Form.Group className="mb-3" controlId="DescripcionConcurso">
@@ -157,13 +213,13 @@ const CreateContest = () => {
                     <br />
                     <Form.Group className="mb-3" controlId="contestPhoto">
                         <Form.Label><FormattedMessage id='contest.CreateContest.SubirFoto' /></Form.Label>
-                        <Form.Control type="file" accept="image/jpeg, image/png" required onChange={e => commonFunctions.fileToBase64(e.target.files[0], setFotoConcurso)} />
+                        <Form.Control type="file" required={contestId === undefined} accept="image/jpeg, image/png" onChange={e => commonFunctions.fileToBase64(e.target.files[0], setFotoConcurso)} />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="contestRules">
                         <Form.Label><FormattedMessage id='contest.CreateContest.SubirBases' /></Form.Label>
-                        <Form.Control type="file" accept="application/pdf" required onChange={e => commonFunctions.fileToBase64(e.target.files[0], setBasesConcurso)} />
+                        <Form.Control type="file" accept="application/pdf" required={contestId === undefined} onChange={e => commonFunctions.fileToBase64(e.target.files[0], setBasesConcurso)} />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
@@ -171,7 +227,7 @@ const CreateContest = () => {
 
                 <Form.Group className="mb-3" controlId="fechaInicio">
                     <Form.Label><FormattedMessage id='contest.CreateContest.FechaInicio' /></Form.Label>
-                    <Form.Control type="datetime-local" required value={fechaInicio} onChange={e => setFechaInicio(e.target.value)} />
+                    <Form.Control type="datetime-local" step="0" required value={fechaInicio} onChange={e => setFechaInicio(e.target.value)} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
@@ -226,7 +282,7 @@ const CreateContest = () => {
                 <h6><FormattedMessage id='contest.CreateContest.ParticipantTypeQuestion' /></h6>
                 <input type="radio" name="tipoParticipante" checked={participanteAbierto} onChange={e => setParticipanteAbierto(e.target.checked)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.ParticipantTypeOpen' /></label>&emsp;
-                <input type="radio" name="tipoParticipante" onChange={e => setParticipanteAbierto(false)} />&nbsp;
+                <input type="radio" name="tipoParticipante" checked={!participanteAbierto} onChange={e => setParticipanteAbierto(false)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.ParticipantTypeRestricted' /></label><br /><br />
                 <Multiselect
                     placeholder={intl.formatMessage({ id: 'contest.CreateContest.ParticipantList' })}
@@ -248,12 +304,12 @@ const CreateContest = () => {
                 <input type="number" value={numeroMaximoFotografiasParticipante} min="1" max="3" required onChange={e => setNumeroMaximoFotografiasParticipante(e.target.value)} /><br /><br />
 
                 <h6><FormattedMessage id='contest.CreateContest.FormatQuestion' /></h6>
-                <input type="radio" name="tipoFormato" value="JPG" required onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
-                <label><FormattedMessage id='contest.CreateContest.FormatJPEG' /></label>&emsp;
-                <input type="radio" name="tipoFormato" value="RAW" onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
+                <input type="radio" name="tipoFormato" checked={formatoRequerido === "JPG"} value="JPG" required onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
+                <label><FormattedMessage id='contest.CreateContest.FormatJPG' /></label>&emsp;
+                <input type="radio" name="tipoFormato" checked={formatoRequerido === "RAW"} value="RAW" onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.FormatRAW' /></label>&emsp;
-                <input type="radio" name="tipoFormato" value="JPG_Y_RAW" onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
-                <label><FormattedMessage id='contest.CreateContest.FormatJPEG+RAW' /></label><br /><br />
+                <input type="radio" name="tipoFormato" checked={formatoRequerido === "JPG_Y_RAW"} value="JPG_Y_RAW" onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
+                <label><FormattedMessage id='contest.CreateContest.FormatJPG+RAW' /></label><br /><br />
 
                 <h6><FormattedMessage id='contest.CreateContest.Configurables' /></h6><br />
                 <input type="checkbox" name="tituloRequerido" checked={tituloRequerido} onChange={e => setTituloRequerido(e.target.checked)} />&nbsp;
@@ -276,11 +332,11 @@ const CreateContest = () => {
                 <h4><FormattedMessage id='contest.CreateContest.VotingSection' /></h4><br />
 
                 <h6><FormattedMessage id='contest.CreateContest.VotingTypeQuestion' /></h6>
-                <input type="radio" name="tipoVotante" value="CUALQUIERA" required onChange={e => setTipoVotante(e.target.value)} />&nbsp;
+                <input type="radio" name="tipoVotante" checked={tipoVotante === "CUALQUIERA"} value="CUALQUIERA" required onChange={e => setTipoVotante(e.target.value)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.VotingTypeEveryone' /></label>&emsp;
-                <input type="radio" name="tipoVotante" value="JURADO" onChange={e => setTipoVotante(e.target.value)} />&nbsp;
+                <input type="radio" name="tipoVotante" checked={tipoVotante === "JURADO"} value="JURADO" onChange={e => setTipoVotante(e.target.value)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.VotingTypeJury' /></label>&emsp;
-                <input type="radio" name="tipoVotante" value="PARTICIPANTE" onChange={e => setTipoVotante(e.target.value)} />&nbsp;
+                <input type="radio" name="tipoVotante" checked={tipoVotante === "PARTICIPANTE"} value="PARTICIPANTE" onChange={e => setTipoVotante(e.target.value)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.VotingTypeContenders' /></label><br /><br />
 
                 <Form.Group className="mb-3" controlId="DesripcionVotacionJurado">
@@ -300,11 +356,11 @@ const CreateContest = () => {
                 <labe><FormattedMessage id='contest.CreateContest.VotingEndDate' /></labe>:&nbsp;
                 <input type="datetime-local" value={fechaLimiteVotacion} min={fechaInicioVotacion} required onChange={e => setFechaLimiteVotacion(e.target.value)} /><br /><br />
                 <label><FormattedMessage id='contest.CreateContest.VotingModel' /></label>&emsp;
-                <select name="metodoVoto" required onChange={e => setMetodoVoto(e.target.value)}>
+                <select name="metodoVoto" selec required onChange={e => setMetodoVoto(e.target.value)}>
                     <option value=""></option>
-                    <option value="SIMPLE">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelSimple' })}</option>
-                    <option value="CINCO_ESTRELLAS">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelFiveStars' })}</option>
-                    <option value="EUROVISION">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelEurovision' })}</option>
+                    <option selected={metodoVoto === "SIMPLE"} value="SIMPLE">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelSimple' })}</option>
+                    <option selected={metodoVoto === "CINCO_ESTRELLAS"} value="CINCO_ESTRELLAS">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelFiveStars' })}</option>
+                    <option selected={metodoVoto === "EUROVISION"} value="EUROVISION">{intl.formatMessage({ id: 'contest.CreateContest.VotingModelEurovision' })}</option>
                 </select><br /><br />
 
                 <h6><FormattedMessage id='contest.CreateContest.MaxVotesPerUser.Desc' /></h6>
@@ -315,7 +371,15 @@ const CreateContest = () => {
                 <input type="number" value={numeroMaximoDeFotografiasGanadoras} min="1" max="10" required onChange={e => setNumeroMaximoDeFotografiasGanadoras(e.target.value)} /><br /><br />
                 <div className="d-flex justify-content-center">
                     <Button variant="success" type="submit" onClick={e => handleSubmit(e)}>
-                        <FormattedMessage id='app.RedirectHome.ButtonCreateContest' />
+
+                        {
+                            // This page is valid for create and for edit a contest
+                            contestId !== undefined ?
+                                <FormattedMessage id='contest.EditContest.SaveChangues' />
+                                :
+                                <FormattedMessage id='app.RedirectHome.ButtonCreateContest' />
+
+                        }
                     </Button>
                 </div>
 

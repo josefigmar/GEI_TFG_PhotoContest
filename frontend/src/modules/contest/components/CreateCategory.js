@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import Errors from "../../commons/components/Errors";
 import backend from "../../../backend";
 
-const CreateCategory = ({onNew}) => {
+const CreateCategory = ({ onNew }) => {
 
     const [nombreCategoria, setNombreCategoria] = useState("");
     const [descripcion, setDescripcion] = useState("");
@@ -17,7 +17,7 @@ const CreateCategory = ({onNew}) => {
     }
 
     const handleSubmit = e => {
-        
+
         e.preventDefault();
         backend.catalogService.createCategory(
             {
@@ -25,7 +25,7 @@ const CreateCategory = ({onNew}) => {
                 descripcion
             },
             () => clearData(),
-            errors => setBackendErrors(errors)            
+            errors => setBackendErrors(errors)
         )
 
     }
@@ -34,18 +34,18 @@ const CreateCategory = ({onNew}) => {
         <Jumbotron>
             <Form>
                 <h4><FormattedMessage id='contest.CreateContest.CreateCategory' /></h4><br />
-                <h6><FormattedMessage id='contest.CreateContest.CreateCategoryDesc' /></h6><br/>
+                <h6><FormattedMessage id='contest.CreateContest.CreateCategoryDesc' /></h6><br />
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
                 <Form.Group className="mb-3">
                     <Form.Label><FormattedMessage id='contest.CreateContest.CreateCategory.Name' /></Form.Label>
-                    <Form.Control type="text" value={nombreCategoria} onChange={e => setNombreCategoria(e.target.value)} required/>
+                    <Form.Control type="text" value={nombreCategoria} onChange={e => setNombreCategoria(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label><FormattedMessage id='contest.CreateContest.CreateCategory.Desc' /></Form.Label>
-                    <Form.Control as="textarea" required value={descripcion} onChange={e => setDescripcion(e.target.value)} />
+                    <Form.Control as="textarea" value={descripcion} onChange={e => setDescripcion(e.target.value)} />
                 </Form.Group>
 
-                <Button variant="success"  onClick={e => handleSubmit(e)}>
+                <Button variant="success" onClick={e => handleSubmit(e)}>
                     <FormattedMessage id='contest.CreateContest.CreateCategoryConfirm' />
                 </Button>
             </Form>

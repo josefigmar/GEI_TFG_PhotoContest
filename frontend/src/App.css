@@ -125,3 +125,10 @@ hr {
   font-family: Helvetica, sans-serif;
   margin-left: auto;
 }
+
+.p2bold {
+  display: inline;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  margin-left: auto;
+}

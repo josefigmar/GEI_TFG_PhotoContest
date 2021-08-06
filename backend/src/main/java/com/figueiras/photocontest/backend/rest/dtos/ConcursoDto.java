@@ -1,5 +1,7 @@
 package com.figueiras.photocontest.backend.rest.dtos;
 
+import java.util.List;
+
 public class ConcursoDto {
 
     private long idConcurso;
@@ -10,13 +12,13 @@ public class ConcursoDto {
     private String estadoConcurso;
     private boolean categoriaUnica;
     private long idCategoria;
-    private String[] listaCategorias;
-    private String[] miembrosDeLaOrganizacion;
+    private List<String> listaCategorias;
+    private List<String> miembrosDeLaOrganizacion;
     private String fechaInicio;
     private String fechaInicioVotacion;
     private boolean participanteAbierto;
     private String tipoAcceso;
-    private String[] participantes;
+    private List<String> participantes;
     private int numeroMaximoFotografias;
     private int numeroMaximoFotografiasParticipante;
     private String formatoRequerido;
@@ -28,7 +30,7 @@ public class ConcursoDto {
     private boolean ocultarResultadosHastaFinal;
     private boolean activarModeracion;
     private String tipoVotante;
-    private String[] miembrosDelJurado;
+    private List<String> miembrosDelJurado;
     private String metodoVoto;
     private String descripcionVotacionJurado;
     private String fechaLimiteVotacion;
@@ -102,11 +104,11 @@ public class ConcursoDto {
         this.categoriaUnica = categoriaUnica;
     }
 
-    public String[] getListaCategorias() {
+    public List<String> getListaCategorias() {
         return listaCategorias;
     }
 
-    public void setListaCategorias(String[] listaCategorias) {
+    public void setListaCategorias(List<String> listaCategorias) {
         this.listaCategorias = listaCategorias;
     }
 
@@ -214,27 +216,27 @@ public class ConcursoDto {
         this.ocultarResultadosHastaFinal = ocultarResultadosHastaFinal;
     }
 
-    public String[] getMiembrosDeLaOrganizacion() {
+    public List<String> getMiembrosDeLaOrganizacion() {
         return miembrosDeLaOrganizacion;
     }
 
-    public void setMiembrosDeLaOrganizacion(String[] miembrosDeLaOrganizacion) {
+    public void setMiembrosDeLaOrganizacion(List<String> miembrosDeLaOrganizacion) {
         this.miembrosDeLaOrganizacion = miembrosDeLaOrganizacion;
     }
 
-    public String[] getParticipantes() {
+    public List<String> getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(String[] participantes) {
+    public void setParticipantes(List<String> participantes) {
         this.participantes = participantes;
     }
 
-    public String[] getMiembrosDelJurado() {
+    public List<String> getMiembrosDelJurado() {
         return miembrosDelJurado;
     }
 
-    public void setMiembrosDelJurado(String[] miembrosDelJurado) {
+    public void setMiembrosDelJurado(List<String> miembrosDelJurado) {
         this.miembrosDelJurado = miembrosDelJurado;
     }
 

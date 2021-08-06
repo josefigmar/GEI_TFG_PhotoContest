@@ -61,9 +61,13 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getFotoPerfil() { return fotoPerfil; }
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
 
-    public void setFotoPerfil(String fotoPerfil) { this.fotoPerfil = fotoPerfil; }
+    public void setFotoPerfil(String fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
+    }
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -161,7 +165,7 @@ public class Usuario {
         this.rolUsuarioSistema = rolUsuarioSistema;
     }
 
-    @OneToMany(mappedBy="usuarioSeguidor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuarioSeguidor", fetch = FetchType.LAZY)
     public Set<UsuarioSigueUsuario> getUsuariosQueSigue() {
         return usuariosQueSigue;
     }
@@ -170,7 +174,7 @@ public class Usuario {
         this.usuariosQueSigue = usuariosQueSigue;
     }
 
-    @OneToMany(mappedBy="usuarioSeguido", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuarioSeguido", fetch = FetchType.LAZY)
     public Set<UsuarioSigueUsuario> getUsuariosQueLoSiguen() {
         return usuariosQueLoSiguen;
     }
@@ -188,7 +192,7 @@ public class Usuario {
         this.notificacionesUsuario = notificacionesUsuario;
     }
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     public Set<UsuarioParticipaConcurso> getConcursosEnLosQueParticipa() {
         return concursosEnLosQueParticipa;
     }

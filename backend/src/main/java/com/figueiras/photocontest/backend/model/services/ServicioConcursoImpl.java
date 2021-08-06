@@ -18,27 +18,25 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class ServicioConcursoImpl implements ServicioConcurso{
-
-    @Autowired
-    private ConcursoDao concursoDao;
-
-    @Autowired
-    private UsuarioParticipaConcursoDao usuarioParticipaConcursoDao;
-
-    @Autowired
-    private ServicioUsuario servicioUsuario;
-
-    @Autowired
-    private CategoriaFotograficaDao categoriaFotograficaDao;
+public class ServicioConcursoImpl implements ServicioConcurso {
 
     @Autowired
     MessageSource messageSource;
+    @Autowired
+    private ConcursoDao concursoDao;
+    @Autowired
+    private UsuarioParticipaConcursoDao usuarioParticipaConcursoDao;
+    @Autowired
+    private ServicioUsuario servicioUsuario;
+    @Autowired
+    private CategoriaFotograficaDao categoriaFotograficaDao;
+    @Autowired
+    private FotografiaDao fotografiaDao;
 
     @Override
     public Block<Concurso> recuperarConcursos(Long idCategoria, Integer estado, String nombre,
                                               int page, int size) {
-        if(nombre == null && estado == null && idCategoria == null) {
+        if (nombre == null && estado == null && idCategoria == null) {
             PageRequest pageRequest = PageRequest.of(page, size);
             Slice<Concurso> sliceConcursos = concursoDao.buscarConcursosOrdenarPorFechaCreacion(pageRequest);
 
@@ -46,7 +44,7 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         }
         EstadoConcurso[] estadoConcursos = EstadoConcurso.values();
         Optional<CategoriaFotografica> categoriaFotograficaOpt = categoriaFotograficaDao.findById(idCategoria);
-        Slice<Concurso> sliceConcursos = concursoDao.find(estado==null? null : estadoConcursos[estado], categoriaFotograficaOpt.get(), nombre, page, size);
+        Slice<Concurso> sliceConcursos = concursoDao.find(estado == null ? null : estadoConcursos[estado], categoriaFotograficaOpt.get(), nombre, page, size);
 
         return new Block<>(sliceConcursos.getContent(), sliceConcursos.hasNext());
     }
@@ -55,7 +53,7 @@ public class ServicioConcursoImpl implements ServicioConcurso{
     public Concurso recuperarConcurso(Long idConcurso) throws InstanceNotFoundException {
 
         Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
-        if(concursoOptional.isEmpty()){
+        if (concursoOptional.isEmpty()) {
             throw new InstanceNotFoundException(Concurso.class.getName(), idConcurso);
         }
         return concursoOptional.get();
@@ -65,7 +63,7 @@ public class ServicioConcursoImpl implements ServicioConcurso{
     public ConcursoDto recuperarDatosConcurso(Long idConcurso) throws InstanceNotFoundException {
 
         Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
-        if(concursoOptional.isEmpty()){
+        if (concursoOptional.isEmpty()) {
             throw new InstanceNotFoundException(Concurso.class.getName(), idConcurso);
         }
         ConcursoDto resultado = ConcursoConversor.toConcursoDto(concursoOptional.get());
@@ -80,20 +78,29 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         Usuario usuario = servicioUsuario.recuperarUsuario(nombreUsuario);
         validarConcurso(datosConcurso, usuario);
 
-        Concurso nuevoConcurso = ConcursoConversor.toConcurso(datosConcurso, nombreUsuario);
+
+        // Si el usuario está editando un concurso
+        LocalDateTime fechaCreacion = null;
+        if ((Long) datosConcurso.getIdConcurso() != null) {
+            Optional<Concurso> concursoOptional = concursoDao.findById(datosConcurso.getIdConcurso());
+            fechaCreacion = concursoOptional.get().getFechaCreacion();
+            eliminarConcurso(datosConcurso.getIdConcurso());
+        }
+
+        Concurso nuevoConcurso = ConcursoConversor.toConcurso(datosConcurso, nombreUsuario, fechaCreacion);
 
         // Se persiste el nuevo concurso
         concursoDao.save(nuevoConcurso);
 
         // Se actualiza cada uno de los usuarios que participan en el nuevo concurso
         // con el nuevo concurso y su respectivo rol.
-        for(UsuarioParticipaConcurso usuarioParticipante : nuevoConcurso.getUsuariosQueParticipan()){
+        for (UsuarioParticipaConcurso usuarioParticipante : nuevoConcurso.getUsuariosQueParticipan()) {
             usuarioParticipaConcursoDao.save(usuarioParticipante);
             servicioUsuario.actualizarUsuario(usuarioParticipante.getUsuario());
         }
 
         // Se actualiza cada categoría participante añadiendo el concurso a su lista
-        for(CategoriaFotografica c : nuevoConcurso.getCategoriasPermitidas()){
+        for (CategoriaFotografica c : nuevoConcurso.getCategoriasPermitidas()) {
             Set<Concurso> concuros = c.getConcursosEnDondeSeUsa();
             concuros.add(nuevoConcurso);
             c.setConcursosEnDondeSeUsa(concuros);
@@ -108,7 +115,7 @@ public class ServicioConcursoImpl implements ServicioConcurso{
                 categoriaFotograficaDao.findByNombreCategoria(datosCategoria.getNombreCategoria());
 
         // Se comprueba si la categoría ya existe
-        if(categoriaFotograficaOptional.isPresent()){
+        if (categoriaFotograficaOptional.isPresent()) {
             throw new CategoriaDuplicadaException();
         }
         CategoriaFotografica categoriaFotografica = new CategoriaFotografica();
@@ -124,14 +131,14 @@ public class ServicioConcursoImpl implements ServicioConcurso{
 
         Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
 
-        if(concursoOptional.isEmpty()){
+        if (concursoOptional.isEmpty()) {
             return 0;
         }
 
         int numeroDeParticipantes = 0;
 
-        for (UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()){
-            if(upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.INSCRITO)){
+        for (UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()) {
+            if (upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.INSCRITO)) {
                 numeroDeParticipantes++;
             }
         }
@@ -145,12 +152,12 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         Usuario usuario = servicioUsuario.recuperarUsuario(nombreUsuario);
         Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
 
-        if(concursoOptional.isEmpty()){
+        if (concursoOptional.isEmpty()) {
             throw new InstanceNotFoundException(Concurso.class.toString(), idConcurso);
         }
 
-        for(UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()){
-            if(upc.getUsuario().equals(usuario) && upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.ORGANIZADOR)){
+        for (UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()) {
+            if (upc.getUsuario().equals(usuario) && upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.ORGANIZADOR)) {
                 result = true;
                 break;
             }
@@ -200,6 +207,20 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         return jurado;
     }
 
+    @Override
+    public void eliminarConcurso(long idConcurso) throws InstanceNotFoundException {
+
+        Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
+        if (concursoOptional.isEmpty()) {
+            throw new InstanceNotFoundException(Concurso.class.toString(), idConcurso);
+        }
+
+        Concurso concurso = concursoOptional.get();
+        vaciarParticipantesConcurso(concurso);
+        vaciarFotografiasConcurso(concurso);
+        concursoDao.delete(concurso);
+    }
+
     private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)
             throws DatosDeConcursoNoValidosException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -208,26 +229,26 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         List<ErrorCampoDto> erroresCampoDtoList = new ArrayList<>();
 
         // La fecha de inicio del concurso debe ser inferior a la fecha de inicio de votación
-        if(LocalDateTime.parse(datosConcurso.getFechaInicio(), formatter).
-                compareTo(LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter)) >=0){
+        if (LocalDateTime.parse(datosConcurso.getFechaInicio(), formatter).
+                compareTo(LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter)) >= 0) {
             hayErrores = true;
             ErrorCampoDto errorFechas1 = new ErrorCampoDto(
                     messageSource.getMessage(
-                    "project.fields.createContest.contestStartData",
-                    null,
-                    new Locale(usuario.getLenguaje().toString())
+                            "project.fields.createContest.contestStartData",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
                     ),
                     messageSource.getMessage(
                             "project.exceptions.fechaInicioConcursoInferiorAInicioVotacion",
                             null,
                             new Locale(usuario.getLenguaje().toString()))
-                    );
+            );
             erroresCampoDtoList.add(errorFechas1);
         }
 
         // Lafecha de inicio de votación debe ser inferior a la fecha de fin de votación
-        if(LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter).
-                compareTo(LocalDateTime.parse(datosConcurso.getFechaLimiteVotacion(), formatter)) >= 0){
+        if (LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter).
+                compareTo(LocalDateTime.parse(datosConcurso.getFechaLimiteVotacion(), formatter)) >= 0) {
             hayErrores = true;
             ErrorCampoDto errorFechas2 = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -245,7 +266,7 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         }
 
         // El número máximo de fotografías permitidas en un concurso es de 200
-        if(datosConcurso.getNumeroMaximoFotografias() > 200){
+        if (datosConcurso.getNumeroMaximoFotografias() > 200) {
             hayErrores = true;
             ErrorCampoDto errorMaxFotos = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -262,7 +283,7 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         }
 
         // El número máximo de fotografías permitidas por usuario es 5
-        if(datosConcurso.getNumeroMaximoFotografiasParticipante() > 5){
+        if (datosConcurso.getNumeroMaximoFotografiasParticipante() > 5) {
             hayErrores = true;
             ErrorCampoDto errorMaxFotosUsuario = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -279,7 +300,7 @@ public class ServicioConcursoImpl implements ServicioConcurso{
         }
 
         // El número máximo de fotografías ganadoras es de 10
-        if(datosConcurso.getNumeroMaximoDeFotografiasGanadoras() > 10){
+        if (datosConcurso.getNumeroMaximoDeFotografiasGanadoras() > 10) {
             hayErrores = true;
             ErrorCampoDto errorNumeroFotosGanadoras = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -295,9 +316,30 @@ public class ServicioConcursoImpl implements ServicioConcurso{
             erroresCampoDtoList.add(errorNumeroFotosGanadoras);
         }
 
-        if(hayErrores){
+        if (hayErrores) {
             ErroresDto erroresDto = new ErroresDto(erroresCampoDtoList);
             throw new DatosDeConcursoNoValidosException(erroresDto);
+        }
+    }
+
+    private void vaciarParticipantesConcurso(Concurso concurso) {
+        Set<UsuarioParticipaConcurso> usuariosQueParticipan = new HashSet<>(concurso.getUsuariosQueParticipan());
+        for (UsuarioParticipaConcurso upc : usuariosQueParticipan) {
+            Usuario usuario = upc.getUsuario();
+            Set<UsuarioParticipaConcurso> concursosEnLosQueParticipa = usuario.getConcursosEnLosQueParticipa();
+            concursosEnLosQueParticipa.remove(upc);
+            Set<UsuarioParticipaConcurso> usuarioParticipaConcursos = concurso.getUsuariosQueParticipan();
+            usuarioParticipaConcursos.remove(upc);
+            servicioUsuario.actualizarUsuario(usuario);
+            concursoDao.save(concurso);
+            usuarioParticipaConcursoDao.delete(upc);
+        }
+    }
+
+    private void vaciarFotografiasConcurso(Concurso concurso) {
+        List<Fotografia> fotografiasDeConcurso = fotografiaDao.recuperarFotografias(concurso.getIdConcurso());
+        for (Fotografia f : fotografiasDeConcurso) {
+            fotografiaDao.delete(f);
         }
     }
 }

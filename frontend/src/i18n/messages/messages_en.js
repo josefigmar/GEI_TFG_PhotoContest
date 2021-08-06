@@ -70,8 +70,8 @@ export default {
     'user.Login.RegisterMsg': 'You need an account?',
     'user.Login.ForgotPassword': 'Did you forgot your password?',
 
-    'user.RecoverUser.UserName' : 'Input your username',
-    'user.RecoverUser.SendRecoveryLink' : 'Send recovery link',
+    'user.RecoverUser.UserName': 'Input your username',
+    'user.RecoverUser.SendRecoveryLink': 'Send recovery link',
 
     'user.FindUsers.PlaceHolder': 'Username',
 
@@ -107,6 +107,9 @@ export default {
     'user.Notifications.Read': 'Read',
     'user.Notifications.Unread': 'Unread',
 
+    'contest.EditContest.Title': 'Edit contest',
+    'contest.EditContest.SaveChangues': 'Save changes',
+
     'contest.CreateContest.Title': 'New contest creation',
     'contest.CreateContest.GeneralInfoSection': 'General contest information',
     'contest.CreateContest.NombreConcurso': 'Contest name',
@@ -138,9 +141,9 @@ export default {
     'contest.CreateContest.MaxPhotographiesPerUser': 'Maximum number of photographies admitted per contender',
     'contest.CreateContest.MaxPhotographiesPerUser.Desc': 'The maximum possible value is 3, and the lower is 1.',
     'contest.CreateContest.FormatQuestion': 'Formato requerido',
-    'contest.CreateContest.FormatJPEG': 'JPEG',
+    'contest.CreateContest.FormatJPG': 'JPG',
     'contest.CreateContest.FormatRAW': 'RAW',
-    'contest.CreateContest.FormatJPEG+RAW': 'JPEG + RAW',
+    'contest.CreateContest.FormatJPG+RAW': 'JPG + RAW',
     'contest.CreateContest.Configurables': 'On/Off options',
     'contest.CreateContest.RequiredTitle': 'Title required',
     'contest.CreateContest.RequiredDescription': 'Description required',
@@ -166,28 +169,31 @@ export default {
     'contest.CreateContest.NumberOfWiningPhotos': 'Maximun number of winning photos',
     'contest.CreateContest.NumberOfWiningPhotos.Desc': 'The maximum value possible is 10. The minimum, 1.',
 
-    'contest.contestDetail.Header.contestInfoTable.Title' : 'Contest information',
-    'contest.contestDetail.Header.contestInfoTable.Status' : 'Status',
-    'contest.contestDetail.Header.contestInfoTable.Access' : 'Access',
-    'contest.contestDetail.Header.contestInfoTable.Access.PUBLICO' : 'Open',
-    'contest.contestDetail.Header.contestInfoTable.Access.PRIVADO' : 'Private',
-    'contest.contestDetail.Header.contestInfoTable.WhoCanVote' : 'Who can vote',
-    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.CUALQUIERA' : 'Everybody',
-    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.JURADO' : 'Jury',
-    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.PARTICIPANTE' : 'Contenders',
-    'contest.contestDetail.Header.contestInfoTable.NumberOfContenders' : 'Number of contenders',
-    'contest.contestDetail.Header.contestInfoTable.InitialUploadDate' : 'Initial upload date',
-    'contest.contestDetail.Header.contestInfoTable.StartOfVoting' : 'Voting start date',
-    'contest.contestDetail.Header.contestInfoTable.EndContestDate' : 'End date',
-    'contest.contestDetail.Header.contestInfoTable.Staff' : 'Staff',
-    'contest.contestDetail.Header.contestInfoTable.Contenders' : 'Contenders',
-    'contest.contestDetail.Header.contestInfoTable.Jury' : 'Jury',
-    'contest.contestDetail.Header.contestInfoTable.DownloadRules' : 'Download rules',
-    
-    'contest.contestDetail.Header.contestHeaderButtons.EditContest' : 'Edit contest',
-    'contest.contestDetail.Header.contestHeaderButtons.DeleteContest' : 'Delete contest',
+    'contest.contestDetail.Header.contestPresentation.ContestDescription': 'Description',
 
-    'contest.contestDetail.Body.PreparationState.CountDown.Title' : 'Time remaining for contest start',
+    'contest.contestDetail.Header.contestInfoTable.Title': 'Contest information',
+    'contest.contestDetail.Header.contestInfoTable.Status': 'Status',
+    'contest.contestDetail.Header.contestInfoTable.Access': 'Access',
+    'contest.contestDetail.Header.contestInfoTable.Access.PUBLICO': 'Open',
+    'contest.contestDetail.Header.contestInfoTable.Access.PRIVADO': 'Private',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote': 'Who can vote',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.CUALQUIERA': 'Everybody',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.JURADO': 'Jury',
+    'contest.contestDetail.Header.contestInfoTable.WhoCanVote.PARTICIPANTE': 'Contenders',
+    'contest.contestDetail.Header.contestInfoTable.NumberOfContenders': 'Number of contenders',
+    'contest.contestDetail.Header.contestInfoTable.InitialUploadDate': 'Initial upload date',
+    'contest.contestDetail.Header.contestInfoTable.StartOfVoting': 'Voting start date',
+    'contest.contestDetail.Header.contestInfoTable.EndContestDate': 'End date',
+    'contest.contestDetail.Header.contestInfoTable.Staff': 'Staff',
+    'contest.contestDetail.Header.contestInfoTable.Contenders': 'Contenders',
+    'contest.contestDetail.Header.contestInfoTable.Jury': 'Jury',
+    'contest.contestDetail.Header.contestInfoTable.DownloadRules': 'Download rules',
+
+    'contest.contestDetail.Header.contestHeaderButtons.EditContest': 'Edit contest',
+    'contest.contestDetail.Header.contestHeaderButtons.DeleteContest': 'Delete contest',
+    'contest.contestDetail.Header.contestHeaderButtons.DeleteContest.Msg': 'Are you sure you want to delete this contest?',
+
+    'contest.contestDetail.Body.PreparationState.CountDown.Title': 'Time remaining for contest start',
 
 
 }

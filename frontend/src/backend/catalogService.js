@@ -26,7 +26,7 @@ export const getNumberContenders = (contestId, onSuccess) => {
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const isOrganizador = ({userName, contestId}, onSuccess) => {
+export const isOrganizador = ({ userName, contestId }, onSuccess) => {
 
     let path = `/catalogo-concursos/concursos/${contestId}/${userName}/esOrganizador`;
 
@@ -54,29 +54,36 @@ export const createCategory = (categoryData, onSuccess, onErrors) => {
     appFetch(path, config('POST', categoryData), onSuccess, onErrors);
 }
 
-export const findStaff = ({contestId, page=0, size}, onSuccess) =>{
-    
+export const findStaff = ({ contestId, page = 0, size }, onSuccess) => {
+
     let path = `/catalogo-concursos/concursos/${contestId}/organizadores?page=${page}`;
 
-    path += size? `&size=${size}` : "";
+    path += size ? `&size=${size}` : "";
 
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const findContenders = ({contestId, page=0, size}, onSuccess) =>{
-    
+export const findContenders = ({ contestId, page = 0, size }, onSuccess) => {
+
     let path = `/catalogo-concursos/concursos/${contestId}/participantes?page=${page}`;
 
-    path += size? `&size=${size}` : "";
+    path += size ? `&size=${size}` : "";
 
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const findJury = ({contestId, page=0, size}, onSuccess) =>{
-    
+export const findJury = ({ contestId, page = 0, size }, onSuccess) => {
+
     let path = `/catalogo-concursos/concursos/${contestId}/jurado?page=${page}`;
 
-    path += size? `&size=${size}` : "";
+    path += size ? `&size=${size}` : "";
 
     appFetch(path, config('GET'), onSuccess);
+}
+
+export const deleteContest = ({ contestName, contestId }, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}`;
+
+    appFetch(path, config('DELETE', contestId), onSuccess);
 }

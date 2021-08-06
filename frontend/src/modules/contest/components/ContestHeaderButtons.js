@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import * as userSelectors from "../../user/selectors";
+import { useHistory } from "react-router";
+import DeleteContest from "./DeleteContest";
 import backend from "../../../backend";
 
 const ContestHeaderButtons = ({ contestData }) => {
 
+    const history = useHistory();
     const [isStaff, setIsStaff] = useState(false);
     const userNameLogged = useSelector(userSelectors.getUserName);
 
@@ -27,16 +30,22 @@ const ContestHeaderButtons = ({ contestData }) => {
             {/* If the user is a Staff member, he/her has the right to manage and delete the contest in this stage */}
             {isStaff ?
 
-                <div>
-                    <Button variant="primary" ><FormattedMessage id='contest.contestDetail.Header.contestHeaderButtons.EditContest' /></Button>
+                <div className="d-flex">
+                    <form onSubmit={() => history.push(`/contests/create-contest/${contestData.idConcurso}/${contestData.nombreConcurso}`)}>
+                        <Button
+                            variant="primary"
+                            type="submit">
+                            <FormattedMessage id='contest.contestDetail.Header.contestHeaderButtons.EditContest' />
+                        </Button>
+                    </form>
                     &ensp;
-                    <Button variant="danger" ><FormattedMessage id='contest.contestDetail.Header.contestHeaderButtons.DeleteContest' /></Button>
+                    <DeleteContest contestData={contestData} />
                     &ensp;
                 </div>
 
                 :
 
-                    null
+                null
             }
         </div>
     )

@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,10 +30,18 @@ public class ConcursoConversor {
                 Utilidades.toMillis(concurso.getFechaFinConcurso()));
     }
 
-    public static Concurso toConcurso(ConcursoDto datosConcurso, String nombreUsuarioCreador)
+    public static Concurso toConcurso(ConcursoDto datosConcurso, String nombreUsuarioCreador,
+                                      LocalDateTime fechaCreacion)
             throws InstanceNotFoundException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
         Concurso nuevoConcurso = new Concurso();
+
+        // Si se está editando un concurso, se mantiene la fecha de creación que tenía para
+        // que aparezca en la misma posicion de la lista de concursos
+        if (fechaCreacion != null) {
+            nuevoConcurso.setFechaCreacion(fechaCreacion);
+        }
 
         nuevoConcurso.setNombreConcurso(datosConcurso.getNombreConcurso());
         nuevoConcurso.setDescripcionConcurso(datosConcurso.getDescripcionConcurso());
@@ -169,7 +174,7 @@ public class ConcursoConversor {
         return nuevoConcurso;
     }
 
-    public static ConcursoDto toConcursoDto(Concurso concurso){
+    public static ConcursoDto toConcursoDto(Concurso concurso) {
         ConcursoDto concursoDto = new ConcursoDto();
 
         concursoDto.setIdConcurso(concurso.getIdConcurso());
@@ -179,16 +184,16 @@ public class ConcursoConversor {
         concursoDto.setBasesConcurso(concurso.getBasesConcurso());
         concursoDto.setEstadoConcurso(concurso.getEstadoConcurso().toString());
         concursoDto.setCategoriaUnica(concurso.getCategoriaUnica());
-        concursoDto.setIdCategoria(concurso.getIdConcurso());
         // Seteo de la lista de categorías
-        if(!concursoDto.isCategoriaUnica()){
-            String[] listaCategorias = new String[1000];
-            int i = 0;
-            for(CategoriaFotografica c : concurso.getCategoriasPermitidas()){
-                listaCategorias[i] = c.getNombreCategoria();
-                i++;
+        if (!concursoDto.isCategoriaUnica()) {
+            List<String> listaCategorias = new ArrayList<>();
+            for (CategoriaFotografica c : concurso.getCategoriasPermitidas()) {
+                listaCategorias.add(c.getNombreCategoria());
             }
             concursoDto.setListaCategorias(listaCategorias);
+        } else {
+            for (CategoriaFotografica c : concurso.getCategoriasPermitidas())
+                concursoDto.setIdCategoria(c.getIdCategoria());
         }
         // Fechas
         concursoDto.setFechaInicio(concurso.getFechaInicioConcurso().toString());
@@ -206,6 +211,44 @@ public class ConcursoConversor {
         concursoDto.setActivarModeracion(concurso.getModeracion());
         concursoDto.setMetodoVoto(concurso.getTipoVotoConcurso().toString());
         concursoDto.setDescripcionVotacionJurado(concurso.getDescVotacion());
+        concursoDto.setParticipanteAbierto(concurso.getTipoAccesoConcurso().equals(TipoAcceso.PUBLICO));
+        concursoDto.setNumeroMaximoFotografias(concurso.getMaxFotos());
+        concursoDto.setNumeroMaximoFotografiasParticipante(concurso.getMaxFotosUsuario());
+        concursoDto.setFormatoRequerido(concurso.getFormato().toString());
+        concursoDto.setTipoVotante(concurso.getTipoVotanteConcurso().toString());
+        concursoDto.setMetodoVoto(concurso.getTipoVotoConcurso().toString());
+        concursoDto.setNumeroMaximoVotosPorUsuario(concurso.getMaxVotosUsuario());
+        concursoDto.setNumeroMaximoDeFotografiasGanadoras(concurso.getNumGanadores());
+        // Seteo de la lista de organizadores
+        List<String> organizadores = new ArrayList<>();
+        for (UsuarioParticipaConcurso upc : concurso.getUsuariosQueParticipan()) {
+            if (upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.ORGANIZADOR)) {
+                organizadores.add(upc.getUsuario().getNombreUsuario());
+            }
+        }
+        concursoDto.setMiembrosDeLaOrganizacion(organizadores);
+
+        // Seteo de la lista de participantes
+        List<String> participantes = new ArrayList<>();
+        if (concurso.getTipoAccesoConcurso().equals(TipoAcceso.PRIVADO)) {
+            for (UsuarioParticipaConcurso upc : concurso.getUsuariosQueParticipan()) {
+                if (upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.INSCRITO)) {
+                    participantes.add(upc.getUsuario().getNombreUsuario());
+                }
+            }
+        }
+        concursoDto.setParticipantes(participantes);
+
+        // Seteo de la lista de jurado
+        List<String> miembrosJurado = new ArrayList<>();
+        if (concurso.getTipoVotanteConcurso().equals(TipoVotante.JURADO)) {
+            for (UsuarioParticipaConcurso upc : concurso.getUsuariosQueParticipan()) {
+                if (upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.JURADO)) {
+                    miembrosJurado.add(upc.getUsuario().getNombreUsuario());
+                }
+            }
+        }
+        concursoDto.setMiembrosDelJurado(miembrosJurado);
 
         return concursoDto;
     }

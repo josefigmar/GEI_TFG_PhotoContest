@@ -101,10 +101,13 @@ CREATE TABLE Fotografia(
     fechaInicioParticipacion DATETIME,
     estadoModeracion TINYINT,
     idCategoria BIGINT,
+    idUsuario BIGINT,
     idConcurso BIGINT,
     CONSTRAINT Fotografia_pk PRIMARY KEY(idFotografia),
     CONSTRAINT Fotografia_id_categoria_fk FOREIGN KEY(idCategoria)
        REFERENCES CategoriaFotografica(idCategoria),
+    CONSTRAINT Fotografia_id_usuario_fk FOREIGN KEY(idUsuario)
+        REFERENCES Usuario(idUsuario),
     CONSTRAINT Fotografia_id_concurso_fk FOREIGN KEY(idConcurso)
        REFERENCES Concurso(idConcurso)
 );

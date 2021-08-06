@@ -1,24 +1,24 @@
-import {config, appFetch} from './appFetch';
+import { config, appFetch } from './appFetch';
 
-export const findUsers = ({nombre, page=0, size}, onSuccess) =>{
-    
+export const findUsers = ({ nombre, page = 0, size }, onSuccess) => {
+
     let path = `/catalogo-usuarios/usuarios?page=${page}`;
 
-    path += nombre? `&nombreUsuario=${nombre}` : "";
-    path += size? `&size=${size}` : "";
+    path += nombre ? `&nombreUsuario=${nombre}` : "";
+    path += size ? `&size=${size}` : "";
 
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const findUserNames = (onSuccess) =>{
-    
+export const findUserNames = (onSuccess) => {
+
     let path = `/catalogo-usuarios/usuarios/nombresUsuario`;
 
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const findUser = ({userName}, onSuccess) =>{
-    
+export const findUser = ({ userName }, onSuccess) => {
+
     let path = `/catalogo-usuarios/usuarios/${userName}`;
 
     appFetch(path, config('GET'), onSuccess);
@@ -38,27 +38,27 @@ export const logIn = (usuarioDto, onSuccess, onErrors) => {
     appFetch(path, config('POST', usuarioDto), onSuccess, onErrors);
 }
 
-export const followersOfUser = ({userName, page, size}, onSuccess) => {
+export const followersOfUser = ({ userName, page, size }, onSuccess) => {
     let path = `/catalogo-usuarios/usuarios/${userName}/followers`;
 
-    path += page === 0 || page? `?page=${page}` : "";
-    path += size? `&size=${size}` : "";
+    path += page === 0 || page ? `?page=${page}` : "";
+    path += size ? `&size=${size}` : "";
 
     appFetch(path, config('GET'), onSuccess);
 }
 
-export const followingOfUser = ({userName, page, size}, onSuccess) => {
+export const followingOfUser = ({ userName, page, size }, onSuccess) => {
     let path = `/catalogo-usuarios/usuarios/${userName}/following`;
 
-    path += page === 0 || page? `?page=${page}` : "";
-    path += size? `&size=${size}` : "";
+    path += page === 0 || page ? `?page=${page}` : "";
+    path += size ? `&size=${size}` : "";
 
     appFetch(path, config('GET'), onSuccess);
 }
 
 export const changuePassword = (changuePasswordDto, isFromReset, onSuccess, onErrors) => {
     let path = `/catalogo-usuarios/usuarios/${changuePasswordDto.userName}/cambio-contrasena`;
-    isFromReset? path+= `?isFromReset=${isFromReset}` : path+="";
+    isFromReset ? path += `?isFromReset=${isFromReset}` : path += "";
 
     appFetch(path, config('POST', changuePasswordDto), onSuccess, onErrors);
 }

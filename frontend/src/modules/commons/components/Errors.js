@@ -18,8 +18,7 @@ const Errors = ({errors, onClose}) => {
     } else if (errors.erroresCampos) {
         fieldErrors = [];
         errors.erroresCampos.forEach(e => {
-            let fieldName = intl.formatMessage({id: `project.global.fields.${e.nombreCampo}`});
-            fieldErrors.push(`${fieldName}: ${e.mensaje}`)
+            fieldErrors.push(`${e.nombreCampo}: ${e.mensaje}`)
         });
 
     }

@@ -1,9 +1,6 @@
 package com.figueiras.photocontest.backend.rest.controllers;
 
-import com.figueiras.photocontest.backend.model.exceptions.CampoDuplicadoException;
-import com.figueiras.photocontest.backend.model.exceptions.CamposIntroducidosNoValidosException;
-import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
-import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
+import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.ErroresDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -43,6 +40,24 @@ public class ControllerAdvice {
                 new Object[] {nombreMensaje, e.getName().toString()}, INSTANCE_NOT_FOUND_EXCEPTION_CODE, locale);
 
         return  new ErroresDto(mensajeExcepcion);
+    }
+
+    @ExceptionHandler(UsuarioNoPuedeParticiparException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErroresDto manejarExcepcionUsuarioNoPuedeParticiparException(
+            UsuarioNoPuedeParticiparException e, Locale locale){
+
+        return e.getErroresDto();
+    }
+
+    @ExceptionHandler(DatosDeFotografiaNoValidosException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErroresDto manejarExcepcionUsuarioNoPuedeParticiparException(
+            DatosDeFotografiaNoValidosException e, Locale locale){
+
+        return e.getErroresDto();
     }
 
     @ExceptionHandler(CategoriaDuplicadaException.class)

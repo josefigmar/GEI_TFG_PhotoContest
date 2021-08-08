@@ -1,12 +1,7 @@
 package com.figueiras.photocontest.backend.rest.controllers;
 
-import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
-import com.figueiras.photocontest.backend.model.entities.CategoriaFotograficaDao;
-import com.figueiras.photocontest.backend.model.entities.Concurso;
-import com.figueiras.photocontest.backend.model.entities.Usuario;
-import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
-import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
-import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
+import com.figueiras.photocontest.backend.model.entities.*;
+import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.model.services.Block;
 import com.figueiras.photocontest.backend.model.services.ServicioConcurso;
 import com.figueiras.photocontest.backend.rest.dtos.*;
@@ -52,9 +47,20 @@ public class ControladorCatalogo {
         for(CategoriaFotografica cf: categoriaFotograficaIterator){
             categoriaFotograficaDtoList.add(CategoriaFotograficaConversor.toCategoriaFotograficaDto(cf));
         }
-
         return categoriaFotograficaDtoList;
+    }
 
+    @GetMapping("/concursos/{idConcurso}/categorias")
+    public List<CategoriaFotograficaDto> recuperarCategoriasConcurso(@PathVariable long idConcurso)
+            throws InstanceNotFoundException {
+
+        List<CategoriaFotografica> categoriaFotograficas = servicioConcurso.recuperarCategoriasConcurso(idConcurso);
+        List<CategoriaFotograficaDto> categoriaFotograficaDtoList = new ArrayList<>();
+
+        for(CategoriaFotografica cf: categoriaFotograficas){
+            categoriaFotograficaDtoList.add(CategoriaFotograficaConversor.toCategoriaFotograficaDto(cf));
+        }
+        return categoriaFotograficaDtoList;
     }
 
     @GetMapping("/concursos")
@@ -127,7 +133,25 @@ public class ControladorCatalogo {
     public boolean esOrganizador(@PathVariable long idConcurso, @PathVariable String nombreUsuario)
             throws InstanceNotFoundException {
 
-        boolean resultado = servicioConcurso.isOrganizador(nombreUsuario, idConcurso);
+        boolean resultado = servicioConcurso.isRol(nombreUsuario, idConcurso, RolUsuarioConcurso.ORGANIZADOR);
+
+        return resultado;
+    }
+
+    @GetMapping("/concursos/{idConcurso}/{nombreUsuario}/esParticipante")
+    public boolean esParticipante(@PathVariable long idConcurso, @PathVariable String nombreUsuario)
+            throws InstanceNotFoundException {
+
+        boolean resultado = servicioConcurso.isRol(nombreUsuario, idConcurso, RolUsuarioConcurso.INSCRITO);
+
+        return resultado;
+    }
+
+    @GetMapping("/concursos/{idConcurso}/{nombreUsuario}/esJurado")
+    public boolean esJurado(@PathVariable long idConcurso, @PathVariable String nombreUsuario)
+            throws InstanceNotFoundException {
+
+        boolean resultado = servicioConcurso.isRol(nombreUsuario, idConcurso, RolUsuarioConcurso.JURADO);
 
         return resultado;
     }
@@ -162,5 +186,16 @@ public class ControladorCatalogo {
         //  (No content) is used to indicate a successful deletion with no
         //  additional information (response body is empty).
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/concursos/{nombreConcurso}/fotografias")
+    public ResponseEntity participar(@RequestBody FotografiaDto datosFotografia)
+            throws UsuarioNoPuedeParticiparException, InstanceNotFoundException, DatosDeFotografiaNoValidosException {
+
+        servicioConcurso.participarConcurso(datosFotografia);
+
+        // After a resource has been created successfully, the server
+        // should respond with HTTP 201 (Created)
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }

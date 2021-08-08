@@ -1,9 +1,7 @@
 package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
-import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
-import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
-import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
+import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -109,6 +107,38 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     }
 
     @Override
+    public void participarConcurso(FotografiaDto datosFotografia)
+            throws InstanceNotFoundException, DatosDeFotografiaNoValidosException, UsuarioNoPuedeParticiparException {
+
+        Usuario usuario = servicioUsuario.recuperarUsuario(datosFotografia.getNombreUsuario());
+        Optional<Concurso> concursoOptional = concursoDao.findById(datosFotografia.getIdConcurso());
+        if (concursoOptional.isEmpty()) {
+            throw new InstanceNotFoundException(Concurso.class.toString(), datosFotografia.getIdConcurso());
+        }
+        Concurso concurso = concursoOptional.get();
+        validarParticipacion(datosFotografia, concurso, usuario);
+
+        Fotografia fotografia = FotografiaConversor.toFotografia(datosFotografia, concurso, usuario);
+        fotografiaDao.save(fotografia);
+
+        Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
+                usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
+                        usuario.getIdUsuario(),
+                        datosFotografia.getIdConcurso(),
+                        RolUsuarioConcurso.INSCRITO);
+        if (usuarioParticipaConcursoOptional.isEmpty()) {
+            UsuarioParticipaConcurso usuarioParticipaConcurso = new UsuarioParticipaConcurso();
+            usuarioParticipaConcurso.setConcurso(concurso);
+            usuarioParticipaConcurso.setUsuario(usuario);
+            usuarioParticipaConcurso.setRolUsuarioConcurso(RolUsuarioConcurso.INSCRITO);
+            if (!concurso.getModeracion()) {
+                usuarioParticipaConcurso.setFechaInicioParticipacion(LocalDateTime.now());
+            }
+            usuarioParticipaConcursoDao.save(usuarioParticipaConcurso);
+        }
+    }
+
+    @Override
     public void crearCategoria(CategoriaFotograficaDto datosCategoria) throws CategoriaDuplicadaException {
 
         Optional<CategoriaFotografica> categoriaFotograficaOptional =
@@ -146,7 +176,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     }
 
     @Override
-    public boolean isOrganizador(String nombreUsuario, long idConcurso) throws InstanceNotFoundException {
+    public boolean isRol(String nombreUsuario, long idConcurso, RolUsuarioConcurso rol) throws InstanceNotFoundException {
 
         boolean result = false;
         Usuario usuario = servicioUsuario.recuperarUsuario(nombreUsuario);
@@ -157,7 +187,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         }
 
         for (UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()) {
-            if (upc.getUsuario().equals(usuario) && upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.ORGANIZADOR)) {
+            if (upc.getUsuario().equals(usuario) && upc.getRolUsuarioConcurso().equals(rol)) {
                 result = true;
                 break;
             }
@@ -205,6 +235,18 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 juradoSlice.hasNext());
 
         return jurado;
+    }
+
+    @Override
+    public List<CategoriaFotografica> recuperarCategoriasConcurso(long idConcurso) throws InstanceNotFoundException {
+
+        Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
+        if (concursoOptional.isEmpty()) {
+            throw new InstanceNotFoundException(Concurso.class.toString(), idConcurso);
+        }
+
+        Concurso concurso = concursoOptional.get();
+        return new ArrayList<>(concurso.getCategoriasPermitidas());
     }
 
     @Override
@@ -340,6 +382,304 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         List<Fotografia> fotografiasDeConcurso = fotografiaDao.recuperarFotografias(concurso.getIdConcurso());
         for (Fotografia f : fotografiasDeConcurso) {
             fotografiaDao.delete(f);
+        }
+    }
+
+    private void validarParticipacion(FotografiaDto datosFotografia, Concurso concurso, Usuario usuario)
+            throws UsuarioNoPuedeParticiparException, DatosDeFotografiaNoValidosException {
+
+        boolean hayErrores = false;
+        List<ErrorCampoDto> erroresCampoDtoList = new ArrayList<>();
+
+        // El usuario tiene que haber aceptado las normas
+        if(!datosFotografia.isAceptoLasNormas()){
+            String errorMsg = messageSource.getMessage("project.exceptions.NoRulesAcceptance",
+                    null,
+                    new Locale(usuario.getLenguaje().toString()));
+            ErroresDto erroresDto = new ErroresDto(errorMsg);
+            throw new UsuarioNoPuedeParticiparException(erroresDto);
+        }
+
+        // El usuario no debe ser jurado del concurso
+        Optional<UsuarioParticipaConcurso> usuarioParticipaJurado =
+                usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
+                        usuario.getIdUsuario(),
+                        concurso.getIdConcurso(),
+                        RolUsuarioConcurso.JURADO);
+        if (usuarioParticipaJurado.isPresent()) {
+            String errorMsg = messageSource.getMessage("project.exceptions.OtherRole",
+                    null,
+                    new Locale(usuario.getLenguaje().toString()));
+            ErroresDto erroresDto = new ErroresDto(errorMsg);
+            throw new UsuarioNoPuedeParticiparException(erroresDto);
+
+        }
+
+        // El usuario no debe ser organizador del concurso
+        Optional<UsuarioParticipaConcurso> usuarioParticipaOrganizando =
+                usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
+                        usuario.getIdUsuario(),
+                        concurso.getIdConcurso(),
+                        RolUsuarioConcurso.ORGANIZADOR);
+        if (usuarioParticipaOrganizando.isPresent()) {
+            String errorMsg = messageSource.getMessage("project.exceptions.OtherRole",
+                    null,
+                    new Locale(usuario.getLenguaje().toString()));
+            ErroresDto erroresDto = new ErroresDto(errorMsg);
+            throw new UsuarioNoPuedeParticiparException(erroresDto);
+        }
+
+        // Se verifica que si el concurso es privado, el usuario está dentro de los inscritos
+        if (concurso.getTipoAccesoConcurso().equals(TipoAcceso.PRIVADO)) {
+            boolean estaInscrito = false;
+            for (UsuarioParticipaConcurso upc : concurso.getUsuariosQueParticipan()) {
+                if (upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.INSCRITO)) {
+                    if (upc.getUsuario().getIdUsuario().equals(usuario.getIdUsuario())) {
+                        estaInscrito = true;
+                    }
+                }
+            }
+            if (!estaInscrito) {
+                String errorMsg = messageSource.getMessage("project.exceptions.UnregisteredUser",
+                        null,
+                        new Locale(usuario.getLenguaje().toString()));
+                ErroresDto erroresDto = new ErroresDto(errorMsg);
+                throw new UsuarioNoPuedeParticiparException(erroresDto);
+            }
+        }
+
+        // Se recuperan todos los participantes del concurso para ver si el usuario puede participar.
+        List<UsuarioParticipaConcurso> usuariosParticipaConcursoList =
+                usuarioParticipaConcursoDao.findByConcursoIdConcursoAndRolUsuarioConcurso(concurso.getIdConcurso(),
+                        RolUsuarioConcurso.INSCRITO);
+
+        if (usuariosParticipaConcursoList.size() > concurso.getMaxFotos()) {
+            String errorMsg = messageSource.getMessage("project.exceptions.MaxPhotos",
+                    null,
+                    new Locale(usuario.getLenguaje().toString()));
+            ErroresDto erroresDto = new ErroresDto(errorMsg);
+            throw new UsuarioNoPuedeParticiparException(erroresDto);
+        }
+
+        // Se recuperan todas las participaciones del usuario para ver si puede seguir participando
+        List<Fotografia> fotografiasUsuario = fotografiaDao.recuperarFotografiasConcursoUsuario(
+                concurso.getIdConcurso(), usuario.getIdUsuario());
+
+        if (fotografiasUsuario.size() >= concurso.getMaxFotosUsuario()) {
+            String errorMsg = messageSource.getMessage("project.exceptions.MaxUserPhotos",
+                    null,
+                    new Locale(usuario.getLenguaje().toString()));
+            ErroresDto erroresDto = new ErroresDto(errorMsg);
+            throw new UsuarioNoPuedeParticiparException(erroresDto);
+        }
+
+        // Validación de los datos del formulario
+
+        if (datosFotografia.getDatosJpg().equals("")) {
+            hayErrores = true;
+            ErrorCampoDto errorTitulo = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.participate.jpgphoto",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    ),
+                    messageSource.getMessage(
+                            "project.exceptions.participate.jpgphoto",
+                            null,
+                            new Locale(usuario.getLenguaje().toString()))
+            );
+            erroresCampoDtoList.add(errorTitulo);
+        }
+
+        if (datosFotografia.getDatosRaw().equals("") && !concurso.getFormato().equals(FormatoFotografia.JPG)) {
+            hayErrores = true;
+            ErrorCampoDto errorTitulo = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.participate.rawphoto",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    ),
+                    messageSource.getMessage(
+                            "project.exceptions.participate.rawphoto",
+                            null,
+                            new Locale(usuario.getLenguaje().toString()))
+            );
+            erroresCampoDtoList.add(errorTitulo);
+        }
+
+        if (concurso.getTituloReq()) {
+            String titulo = datosFotografia.getTituloFotografia();
+            if (titulo.equals("") || titulo.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorTitulo = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.title",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.title",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorTitulo);
+            }
+        }
+
+        if (concurso.getDescReq()) {
+            String desc = datosFotografia.getDescripcionFotografia();
+            if (desc.equals("") || desc.length() > 200) {
+                hayErrores = true;
+                ErrorCampoDto errorDesc = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.desc",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.desc",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorDesc);
+            }
+        }
+
+        if (concurso.getDatosExifReq()) {
+            String make = datosFotografia.getFabricanteCamara();
+            if (make.equals("") || make.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorExif = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorExif);
+            }
+            String model = datosFotografia.getModeloCamara();
+            if (model.equals("") || model.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorExif = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorExif);
+            }
+            String distFocal = datosFotografia.getDistanciaFocal();
+            if (distFocal.equals("") || distFocal.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorExif = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorExif);
+            }
+            String apertura = datosFotografia.getAperturaDiafragma();
+            if (apertura.equals("") || apertura.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorExif = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorExif);
+            }
+            String velObturacion = datosFotografia.getVelocidadObturacion();
+            if (velObturacion.equals("") || velObturacion.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorExif = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorExif);
+            }
+            String ISO = datosFotografia.getIso();
+            if (ISO.equals("") || ISO.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorExif = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorExif);
+            }
+            String resolucion = datosFotografia.getResolucion();
+            if (resolucion.equals("") || resolucion.length() > 50) {
+                hayErrores = true;
+                ErrorCampoDto errorExif = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.participate.exifdata",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorExif);
+            }
+        }
+
+        // Si no viene la categoria
+        if (datosFotografia.getIdCategoria() == 0) {
+            hayErrores = true;
+            ErrorCampoDto errorCategory = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.participate.category",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    ),
+                    messageSource.getMessage(
+                            "project.exceptions.participate.category",
+                            null,
+                            new Locale(usuario.getLenguaje().toString()))
+            );
+            erroresCampoDtoList.add(errorCategory);
+        }
+
+        if (hayErrores) {
+            ErroresDto erroresDto = new ErroresDto(erroresCampoDtoList);
+            throw new DatosDeFotografiaNoValidosException(erroresDto);
         }
     }
 }

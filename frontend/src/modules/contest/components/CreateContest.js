@@ -7,12 +7,16 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import Errors from "../../commons/components/Errors";
 import backend from "../../../backend";
 import CreateCategory from "./CreateCategory";
+import * as selectors from "../../user/selectors";
+import { useSelector } from 'react-redux';
 
 const CreateContest = () => {
 
     const intl = useIntl();
     const { contestId, contestName } = useParams();
     const history = useHistory();
+    const userName = useSelector(selectors.getUserName);
+
     const [listaUsuariosMultiselect, setListaUsuariosMultiselect] = useState(null);
     const [listaOrganizadoresMultiselect, setListaOrganizadoresMultiselect] = useState([]);
     const [listaParticipantesMultiselect, setListaParticipantesMultiselect] = useState([]);
@@ -88,11 +92,9 @@ const CreateContest = () => {
                     numeroMaximoVotosPorUsuario,
                     numeroMaximoDeFotografiasGanadoras
                 },
-                "josefigueirasm",
+                userName,
                 () => history.push("/"),
                 errors => setBackendErrors(errors)
-
-
             )
         } else {
             form.classList.add('was-validated');

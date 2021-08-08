@@ -9,4 +9,6 @@ public interface FotografiaDao extends PagingAndSortingRepository<Fotografia, Lo
 
     @Query("SELECT f FROM Fotografia f WHERE f.concurso.idConcurso = :idConcurso")
     List<Fotografia> recuperarFotografias(long idConcurso);
+    @Query("SELECT f FROM Fotografia f WHERE f.concurso.idConcurso = :idConcurso AND f.usuario.idUsuario = :idUsuario")
+    List<Fotografia> recuperarFotografiasConcursoUsuario(long idConcurso, long idUsuario);
 }

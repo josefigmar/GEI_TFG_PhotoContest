@@ -1,12 +1,15 @@
 package com.figueiras.photocontest.backend.model.services;
 
+import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
 import com.figueiras.photocontest.backend.model.entities.Concurso;
+import com.figueiras.photocontest.backend.model.entities.RolUsuarioConcurso;
 import com.figueiras.photocontest.backend.model.entities.Usuario;
-import com.figueiras.photocontest.backend.model.exceptions.CategoriaDuplicadaException;
-import com.figueiras.photocontest.backend.model.exceptions.DatosDeConcursoNoValidosException;
-import com.figueiras.photocontest.backend.model.exceptions.InstanceNotFoundException;
+import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.CategoriaFotograficaDto;
 import com.figueiras.photocontest.backend.rest.dtos.ConcursoDto;
+import com.figueiras.photocontest.backend.rest.dtos.FotografiaDto;
+
+import java.util.List;
 
 public interface ServicioConcurso {
 
@@ -20,17 +23,23 @@ public interface ServicioConcurso {
     void crearConcurso(ConcursoDto datosConcurso, String nombreUsuario)
             throws InstanceNotFoundException, DatosDeConcursoNoValidosException;
 
+    void participarConcurso(FotografiaDto datosFotografia)
+            throws InstanceNotFoundException, DatosDeFotografiaNoValidosException, UsuarioNoPuedeParticiparException;
+
     void crearCategoria(CategoriaFotograficaDto datosCategoria) throws CategoriaDuplicadaException;
 
     int getNumeroDeParticipantes(long idConcurso);
 
-    boolean isOrganizador(String nombreUsuario, long idConcurso) throws InstanceNotFoundException;
+    boolean isRol(String nombreUsuario, long idConcurso, RolUsuarioConcurso rolUsuarioConcurso)
+            throws InstanceNotFoundException;
 
     Block<Usuario> recuperarOrganizadores(long idConcurso, int page, int size) throws InstanceNotFoundException;
 
     Block<Usuario> recuperarParticipantes(long idConcurso, int page, int size);
 
     Block<Usuario> recuperarJurado(long idConcurso, int page, int size);
+
+    List<CategoriaFotografica> recuperarCategoriasConcurso(long idConcurso) throws InstanceNotFoundException;
 
     void eliminarConcurso(long idConcurso) throws InstanceNotFoundException;
 }

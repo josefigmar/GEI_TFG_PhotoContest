@@ -189,9 +189,33 @@ export default {
     'contest.contestDetail.Header.contestInfoTable.Jury': 'Xurado',
     'contest.contestDetail.Header.contestInfoTable.DownloadRules': 'Descargar bases',
 
+    'contest.contestDetail.Header.contestHeaderButtons.Participate': 'Participar',
+    'contest.contestDetail.Header.contestHeaderButtons.Supervise': 'Supervisión de novas fotografías',
     'contest.contestDetail.Header.contestHeaderButtons.EditContest': 'Editar o concurso',
     'contest.contestDetail.Header.contestHeaderButtons.DeleteContest': 'Borrar o concurso',
     'contest.contestDetail.Header.contestHeaderButtons.DeleteContest.Msg': 'Está seguro de que desexa eliminar este concurso?',
 
     'contest.contestDetail.Body.PreparationState.CountDown.Title': 'Tempo restante para o comezo do concurso',
+
+    'contest.contestDetail.Body.OpenState.CountDown.Title': 'Tempo restante para participar',
+    'contest.contestDetail.Body.OpenState.PhotographySection.NoPhotos': 'Todavia non hai fotografías',
+    'contest.contestDetail.Body.OpenState.PhotographySection.NoPhotosUntilVoting': 'As fotografías estarán disponibles na fase de votación',
+
+    'contest.participate.Title': 'Participar',
+    'contest.participate.photographySection.Title': 'Selección da fotografía',
+    'contest.participate.photographySection.JPG': 'Fotografía en formato JPG',
+    'contest.participate.photographySection.RAW': 'Fotografía en formato RAW',
+
+    'contest.participate.dataSection.PhotoTitle': 'Título da fotografía',
+    'contest.participate.dataSection.PhotoDesc': 'Descripción da fotografía',
+    'contest.participate.dataSection.ExifData': 'Datos EXIF',
+    'contest.participate.dataSection.CameraBrand': 'Marca da cámara',
+    'contest.participate.dataSection.CameraModel': 'Modelo da cámara',
+    'contest.participate.dataSection.FocalDistance' : 'Distancia focal',
+    'contest.participate.dataSection.Aperture' : 'Apertura',
+    'contest.participate.dataSection.ShutterSpeed' : 'Velocidade de obturación',
+    'contest.participate.dataSection.ISO' : 'ISO',
+    'contest.participate.dataSection.Resolution' : 'Resolución',
+    'contest.participate.dataSection.RulesAcceptance' : 'Leín as normas e aceptoas',
+    'contest.participate.dataSection.RulesAcceptanceMsg' : 'Debes de aceptar as normas',
 }

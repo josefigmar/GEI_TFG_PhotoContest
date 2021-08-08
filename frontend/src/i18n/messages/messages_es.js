@@ -189,10 +189,34 @@ export default {
     'contest.contestDetail.Header.contestInfoTable.Jury': 'Jurado',
     'contest.contestDetail.Header.contestInfoTable.DownloadRules': 'Descargar bases',
 
+    'contest.contestDetail.Header.contestHeaderButtons.Participate': 'Participar',
+    'contest.contestDetail.Header.contestHeaderButtons.Supervise': 'Supervisión de nuevas fotografías',
     'contest.contestDetail.Header.contestHeaderButtons.EditContest': 'Editar el concurso',
     'contest.contestDetail.Header.contestHeaderButtons.DeleteContest': 'Borrar el concurso',
     'contest.contestDetail.Header.contestHeaderButtons.DeleteContest.Msg': '¿Está seguro de que desea eliminar este concurso?',
 
     'contest.contestDetail.Body.PreparationState.CountDown.Title': 'Tiempo restante para que se inicie el concurso',
+
+    'contest.contestDetail.Body.OpenState.CountDown.Title': 'Tiempo restante para participar',
+    'contest.contestDetail.Body.OpenState.PhotographySection.NoPhotos': 'Todavia non hay fotografías',
+    'contest.contestDetail.Body.OpenState.PhotographySection.NoPhotosUntilVoting': 'Las fotografías estarán disponibles en la fase de votación',
+
+    'contest.participate.Title': 'Participar',
+    'contest.participate.photographySection.Title': 'Selección de fotografía',
+    'contest.participate.photographySection.JPG': 'Fotografía en formato JPG',
+    'contest.participate.photographySection.RAW': 'Fotografía en formato RAW',
+
+    'contest.participate.dataSection.PhotoTitle': 'Título de la fotografía',
+    'contest.participate.dataSection.PhotoDesc': 'Descripción de la fotografía',
+    'contest.participate.dataSection.ExifData': 'Datos EXIF',
+    'contest.participate.dataSection.CameraBrand': 'Marca de la cámara',
+    'contest.participate.dataSection.CameraModel': 'Modelo de la cámara',
+    'contest.participate.dataSection.FocalDistance' : 'Distancia focal',
+    'contest.participate.dataSection.Aperture' : 'Apertura',
+    'contest.participate.dataSection.ShutterSpeed' : 'Velocidad de obturación',
+    'contest.participate.dataSection.ISO' : 'ISO',
+    'contest.participate.dataSection.Resolution' : 'Resolución',
+    'contest.participate.dataSection.RulesAcceptance' : 'He leido las normas y las acepto',
+    'contest.participate.dataSection.RulesAcceptanceMsg' : 'Has de aceptar las normas',
 
 }

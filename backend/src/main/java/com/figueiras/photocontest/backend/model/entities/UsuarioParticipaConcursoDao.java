@@ -5,12 +5,15 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioParticipaConcursoDao
         extends PagingAndSortingRepository<UsuarioParticipaConcurso, UsuarioParticipaConcursoPK> {
 
-    Optional<UsuarioParticipaConcurso> findByUsuarioIdUsuarioAndConcursoIdConcurso(Long idUsuario, Long idConcurso);
+    Optional<UsuarioParticipaConcurso> findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
+            Long idUsuario, Long idConcurso, RolUsuarioConcurso rolConcurso);
+    List<UsuarioParticipaConcurso> findByConcursoIdConcursoAndRolUsuarioConcurso(Long idConcurso, RolUsuarioConcurso rolConcurso);
     @Query("SELECT u FROM UsuarioParticipaConcurso u WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuarioConcurso = 2")
     Slice<UsuarioParticipaConcurso> findJurado(Long idConcurso, Pageable pageable);
     @Query("SELECT u FROM UsuarioParticipaConcurso u WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuarioConcurso = 0")

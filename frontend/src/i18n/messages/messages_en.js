@@ -189,11 +189,37 @@ export default {
     'contest.contestDetail.Header.contestInfoTable.Jury': 'Jury',
     'contest.contestDetail.Header.contestInfoTable.DownloadRules': 'Download rules',
 
+    'contest.contestDetail.Header.contestHeaderButtons.Participate': 'Participate',
+    'contest.contestDetail.Header.contestHeaderButtons.Supervise': 'New photographies supervision',
     'contest.contestDetail.Header.contestHeaderButtons.EditContest': 'Edit contest',
     'contest.contestDetail.Header.contestHeaderButtons.DeleteContest': 'Delete contest',
     'contest.contestDetail.Header.contestHeaderButtons.DeleteContest.Msg': 'Are you sure you want to delete this contest?',
 
-    'contest.contestDetail.Body.PreparationState.CountDown.Title': 'Time remaining for contest start',
+    'contest.contestDetail.Body.PreparationState.CountDown.Title': 'Remaining time for contest start',
+    
+    'contest.contestDetail.Body.OpenState.CountDown.Title': 'Remaining time for participating',
+    'contest.contestDetail.Body.OpenState.PhotographySection.NoPhotos': 'There is yet no photographies',
+    'contest.contestDetail.Body.OpenState.PhotographySection.NoPhotosUntilVoting': 'Photographies will be available in voting stage',
+
+    'contest.participate.Title': 'Participate',
+
+    'contest.participate.photographySection.Title': 'Photography selection',
+    'contest.participate.photographySection.JPG': 'Photography in JPG format',
+    'contest.participate.photographySection.RAW': 'Photography in RAW format',
+
+    'contest.participate.dataSection.PhotoTitle': 'Photography title',
+    'contest.participate.dataSection.PhotoDesc': 'Photography description',
+    'contest.participate.dataSection.ExifData': 'EXIF data',
+    'contest.participate.dataSection.CameraBrand': 'Camera brand',
+    'contest.participate.dataSection.CameraModel': 'Camera model',
+    'contest.participate.dataSection.FocalDistance' : 'Focal distance',
+    'contest.participate.dataSection.Aperture' : 'Aperture',
+    'contest.participate.dataSection.ShutterSpeed' : 'Shutter speed',
+    'contest.participate.dataSection.ISO' : 'ISO',
+    'contest.participate.dataSection.Resolution' : 'Resolution',
+    'contest.participate.dataSection.RulesAcceptance' : 'I declare that I have read the rules and I accept them',
+    'contest.participate.dataSection.RulesAcceptanceMsg' : 'You must accept the rules',
+
 
 
 }

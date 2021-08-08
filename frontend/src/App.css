@@ -115,6 +115,10 @@ hr {
   margin: auto;
 }
 
+.centeredParagraph {
+  text-align: center;
+}
+
 .centeredImg {
   display: block;
   margin: auto;

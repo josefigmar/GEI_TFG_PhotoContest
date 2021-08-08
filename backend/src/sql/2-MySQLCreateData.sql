@@ -352,3 +352,10 @@ INSERT INTO CategoriaFotografica
 (nombreCategoria, descripcionCategoria)
 VALUES
 ('Aviación', 'Aviacion desc');
+
+-- ConcursoPermiteCategoria
+
+INSERT INTO ConcursoPermiteCategoria
+(idConcurso, idCategoria)
+VALUES
+(5, 2);

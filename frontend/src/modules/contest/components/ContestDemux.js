@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ContestPreparationStatus from "./ContestPreparationStatus";
 import backend from "../../../backend";
+import ContestOpenStatus from "./ContestOpenStatus";
 
 const ContestDemux = () => {
 
@@ -30,15 +31,21 @@ const ContestDemux = () => {
         )
     }
 
-    // STATUS = IN PREPARATION
-    if(contestData.estadoConcurso === "EN_PREPARACION")
-    return (
-        <div>
-            <ContestPreparationStatus contestData={contestData}/>
-        </div>
-
-    )
-
+    // eslint-disable-next-line
+    switch (contestData.estadoConcurso) {
+        case "EN_PREPARACION":
+            return (
+                <div>
+                    <ContestPreparationStatus contestData={contestData} />
+                </div>
+            )
+        case "ABIERTO":
+            return (
+                <div>
+                    <ContestOpenStatus contestData={contestData} />
+                </div>
+            )
+    }
 }
 
 export default ContestDemux;

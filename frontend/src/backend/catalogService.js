@@ -33,9 +33,30 @@ export const isOrganizador = ({ userName, contestId }, onSuccess) => {
     appFetch(path, config('GET'), onSuccess);
 }
 
+export const isContender = ({ userName, contestId }, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestId}/${userName}/esParticipante`;
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
+export const isJury = ({ userName, contestId }, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestId}/${userName}/esJurado`;
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
 export const findCategories = (onSuccess) => {
 
     let path = "/catalogo-concursos/categorias";
+
+    appFetch(path, config('GET'), onSuccess);
+}
+
+export const findCategoriesOfContest = ({contestId}, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestId}/categorias`;
 
     appFetch(path, config('GET'), onSuccess);
 }
@@ -86,4 +107,12 @@ export const deleteContest = ({ contestName, contestId }, onSuccess) => {
     let path = `/catalogo-concursos/concursos/${contestName}`;
 
     appFetch(path, config('DELETE', contestId), onSuccess);
+}
+
+export const participate = (datosFotografia, contestname, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/concursos/${contestname}/fotografias`;
+
+    appFetch(path, config('POST', datosFotografia), onSuccess, onErrors);
+
 }

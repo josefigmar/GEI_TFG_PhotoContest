@@ -1,9 +1,6 @@
 package com.figueiras.photocontest.backend.model.services;
 
-import com.figueiras.photocontest.backend.model.entities.CategoriaFotografica;
-import com.figueiras.photocontest.backend.model.entities.Concurso;
-import com.figueiras.photocontest.backend.model.entities.RolUsuarioConcurso;
-import com.figueiras.photocontest.backend.model.entities.Usuario;
+import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.CategoriaFotograficaDto;
 import com.figueiras.photocontest.backend.rest.dtos.ConcursoDto;
@@ -19,6 +16,8 @@ public interface ServicioConcurso {
     Concurso recuperarConcurso(Long idConcurso) throws InstanceNotFoundException;
 
     ConcursoDto recuperarDatosConcurso(Long idConcurso) throws InstanceNotFoundException;
+
+    Block<Fotografia> recuperarFotografiasModeracion(Long idConcurso, int page, int size);
 
     void crearConcurso(ConcursoDto datosConcurso, String nombreUsuario)
             throws InstanceNotFoundException, DatosDeConcursoNoValidosException;

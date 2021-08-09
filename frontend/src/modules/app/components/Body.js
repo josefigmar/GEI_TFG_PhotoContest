@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import ContestDemux from '../../contest/components/ContestDemux';
 import UserList from '../../commons/components/UserList';
 import Participate from '../../contest/components/Participate';
+import PhotographiesSupervision from '../../contest/components/PhotographiesSupervision';
 
 const Body = () => {
 
@@ -50,6 +51,7 @@ const Body = () => {
                 {!isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><LogIn /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><ContestDemux /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/participate"><Participate/> </Route>}
+                {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/supervise"><PhotographiesSupervision/> </Route>}
                 <Route><Home /></Route>
             </Switch>
         </Container>

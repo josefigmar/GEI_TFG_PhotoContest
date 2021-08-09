@@ -80,7 +80,7 @@ const ContestHeaderButtons = ({ contestData }) => {
                             // You can only supervise photos if the contest allows photo upload (Open state)
                             isOpen()?
 
-                                <form onSubmit={() => history.push(`dirección para listado de propuestas fotoráficas`)}>
+                                <form onSubmit={() => history.push(`/contests/${contestData.nombreConcurso}/${contestData.idConcurso}/supervise`)}>
                                     <Button
                                         variant="info"
                                         type="submit">

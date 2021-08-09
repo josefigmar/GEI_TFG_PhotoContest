@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class FotografiaConversor {
@@ -51,5 +53,34 @@ public class FotografiaConversor {
         fotografia.setConcurso(concurso);
 
         return fotografia;
+    }
+
+    public static List<FotografiaDto> toFotografiasDto(List<Fotografia> fotografias){
+        List<FotografiaDto> fotografiaDtoList =
+                fotografias.stream().map(f -> toFotografiaDto(f)).collect(Collectors.toList());
+
+        return fotografiaDtoList;
+    }
+
+    public static FotografiaDto toFotografiaDto(Fotografia datosFotografia){
+
+        FotografiaDto fotografiaDto = new FotografiaDto();
+
+        fotografiaDto.setTituloFotografia(datosFotografia.getTituloFotografia());
+        fotografiaDto.setDescripcionFotografia(datosFotografia.getDescripcionFotografia());
+        fotografiaDto.setAperturaDiafragma(datosFotografia.getAperturaDiafragma());
+        fotografiaDto.setFabricanteCamara(datosFotografia.getFabricanteCamara());
+        fotografiaDto.setModeloCamara(datosFotografia.getModeloCamara());
+        fotografiaDto.setDistanciaFocal(datosFotografia.getDistanciaFocal());
+        fotografiaDto.setVelocidadObturacion(datosFotografia.getVelocidadObturacion());
+        fotografiaDto.setIso(datosFotografia.getIso());
+        fotografiaDto.setResolucion(datosFotografia.getResolucion());
+        fotografiaDto.setDatosJpg(datosFotografia.getDatosJpg());
+        fotografiaDto.setDatosRaw(datosFotografia.getDatosRaw());
+        fotografiaDto.setNombreCategoria(datosFotografia.getCategoriaFotografica().getNombreCategoria());
+        fotografiaDto.setNombreUsuario(datosFotografia.getUsuario().getNombreUsuario());
+        fotografiaDto.setIdConcurso(datosFotografia.getIdFotografia());
+
+        return fotografiaDto;
     }
 }

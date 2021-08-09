@@ -116,3 +116,13 @@ export const participate = (datosFotografia, contestname, onSuccess, onErrors) =
     appFetch(path, config('POST', datosFotografia), onSuccess, onErrors);
 
 }
+
+export const supervise = (datosFotografia, contestName, page, size, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}/fotografias/enEspera?page=${page}`;
+
+    path += size ? `&size=${size}` : "";
+
+    appFetch(path, config('POST', datosFotografia), onSuccess, onErrors);
+
+}

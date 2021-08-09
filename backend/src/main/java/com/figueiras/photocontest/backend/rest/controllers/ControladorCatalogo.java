@@ -198,4 +198,16 @@ public class ControladorCatalogo {
         // should respond with HTTP 201 (Created)
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    @PostMapping("/concursos/{nombreConcurso}/fotografias/enEspera")
+    public Block<FotografiaDto> fotografiasEnEspera(@RequestBody FotografiaDto datos,
+                                                    @RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "5") int size){
+
+        Block<Fotografia> fotografiaBlock =
+                servicioConcurso.recuperarFotografiasModeracion(datos.getIdConcurso(), page, size);
+
+        return new Block<FotografiaDto>(
+                FotografiaConversor.toFotografiasDto(fotografiaBlock.getItems()), fotografiaBlock.getExistMoreItems());
+    }
 }

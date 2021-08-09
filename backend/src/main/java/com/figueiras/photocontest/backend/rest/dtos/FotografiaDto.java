@@ -17,6 +17,7 @@ public class FotografiaDto {
     private String iso;
     private String resolucion;
     private long idCategoria;
+    private String nombreCategoria;
 
     public boolean isAceptoLasNormas() {
         return aceptoLasNormas;
@@ -136,5 +137,13 @@ public class FotografiaDto {
 
     public void setIdCategoria(long idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
     }
 }

@@ -219,4 +219,11 @@ export default {
     'contest.participate.dataSection.RulesAcceptance' : 'He leido las normas y las acepto',
     'contest.participate.dataSection.RulesAcceptanceMsg' : 'Has de aceptar las normas',
 
+    'contest.supervision.title' : 'Supervisión de fotografías',
+    'contest.supervision.table.previsualization' : 'Previsualización',
+    'contest.supervision.table.username' : 'Nombre de usuario',
+    'contest.supervision.table.category' : 'Categoría',
+    'contest.supervision.table.manage' : 'Gestionar',
+
+
 }

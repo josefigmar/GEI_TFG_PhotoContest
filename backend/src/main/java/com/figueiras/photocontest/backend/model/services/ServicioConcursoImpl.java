@@ -70,6 +70,19 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     }
 
     @Override
+    public Block<Fotografia> recuperarFotografiasModeracion(Long idConcurso, int page , int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Slice<Fotografia> fotografiaSlice = fotografiaDao.findByConcursoIdConcursoAndEstadoModeracion(
+                idConcurso, EstadoModeracion.EN_ESPERA, pageable);
+
+        Block<Fotografia> fotografiaBlock = new Block<>(fotografiaSlice.getContent(), fotografiaSlice.hasNext());
+
+        return fotografiaBlock;
+    }
+
+    @Override
     public void crearConcurso(ConcursoDto datosConcurso, String nombreUsuario)
             throws InstanceNotFoundException, DatosDeConcursoNoValidosException {
 

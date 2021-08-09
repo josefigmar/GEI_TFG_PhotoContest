@@ -218,4 +218,10 @@ export default {
     'contest.participate.dataSection.Resolution' : 'Resolución',
     'contest.participate.dataSection.RulesAcceptance' : 'Leín as normas e aceptoas',
     'contest.participate.dataSection.RulesAcceptanceMsg' : 'Debes de aceptar as normas',
+
+    'contest.supervision.title' : 'Supervisión de fotografías',
+    'contest.supervision.table.previsualization' : 'Previsualización',
+    'contest.supervision.table.username' : 'Nome de usuario',
+    'contest.supervision.table.category' : 'Categoría',
+    'contest.supervision.table.manage' : 'Xestionar',
 }

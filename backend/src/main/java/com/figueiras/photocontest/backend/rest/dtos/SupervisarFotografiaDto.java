@@ -9,6 +9,7 @@ public class SupervisarFotografiaDto {
     private String decision;
     private String motivo;
     private String nombreUsuarioAutor;
+    private String nombreUsuarioSupervisor;
 
     public long getIdFotografia() {
         return idFotografia;
@@ -64,5 +65,13 @@ public class SupervisarFotografiaDto {
 
     public void setNombreUsuarioAutor(String nombreUsuarioAutor) {
         this.nombreUsuarioAutor = nombreUsuarioAutor;
+    }
+
+    public String getNombreUsuarioSupervisor() {
+        return nombreUsuarioSupervisor;
+    }
+
+    public void setNombreUsuarioSupervisor(String nombreUsuarioSupervisor) {
+        this.nombreUsuarioSupervisor = nombreUsuarioSupervisor;
     }
 }

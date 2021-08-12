@@ -49,5 +49,6 @@ public interface ServicioConcurso {
 
     void supervisarFotografia(long idFotografia, String nombreFotografia,
                               long idConcurso, String nombreConcurso, String decision, String motivo,
-                              String nombreUsuarioAutor) throws InstanceNotFoundException;
+                              String nombreUsuarioAutor, String nombreUsuarioSupervisor)
+            throws InstanceNotFoundException, DatosSupervisionFotografiaNovalidosException;
 }

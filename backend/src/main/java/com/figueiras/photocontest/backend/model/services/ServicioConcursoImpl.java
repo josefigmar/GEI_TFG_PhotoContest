@@ -321,8 +321,12 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     @Override
     public void supervisarFotografia(long idFotografia, String nombreFotografia,
                                      long idConcurso, String nombreConcurso, String decision, String motivo,
-                                     String nombreUsuarioAutor)
-            throws InstanceNotFoundException {
+                                     String nombreUsuarioAutor, String nombreUsuarioSupervisor)
+            throws InstanceNotFoundException, DatosSupervisionFotografiaNovalidosException {
+
+        // Validación de datos en lado servidor
+        Usuario usuarioSupervisor = servicioUsuario.recuperarUsuario(nombreUsuarioSupervisor);
+        validarDatosSupervision(decision, motivo, usuarioSupervisor);
 
         // Recuperacion de la fotografía
         Optional<Fotografia> fotografiaOptional = fotografiaDao.findById(idFotografia);
@@ -840,5 +844,29 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     private void eliminarFotografia(Fotografia fotografia){
 
         fotografiaDao.delete(fotografia);
+    }
+
+    private void validarDatosSupervision(String decision, String motivo, Usuario usuarioSupervisor)
+            throws DatosSupervisionFotografiaNovalidosException {
+
+        boolean hayErrores = false;
+
+        if(decision.equals("") || decision == null){
+            hayErrores = true;
+        }
+
+        if(motivo.equals("") || motivo == null){
+            hayErrores = true;
+        }
+
+        if (hayErrores) {
+            ErroresDto erroresDto = new ErroresDto( messageSource.getMessage(
+                    "project.exceptions.supervise.dataRequired",
+                    null,
+                    new Locale(usuarioSupervisor.getLenguaje().toString()))
+            );
+
+            throw new DatosSupervisionFotografiaNovalidosException(erroresDto);
+        }
     }
 }

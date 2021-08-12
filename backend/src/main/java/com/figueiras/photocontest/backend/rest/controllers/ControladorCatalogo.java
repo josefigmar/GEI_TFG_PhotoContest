@@ -230,11 +230,11 @@ public class ControladorCatalogo {
 
     @PostMapping("/concursos/{nombreConcurso}/fotografias/{idFotografia}/supervisar")
     public void supervisarFotografia(@RequestBody SupervisarFotografiaDto datosSupervision)
-            throws InstanceNotFoundException{
+            throws InstanceNotFoundException, DatosSupervisionFotografiaNovalidosException {
 
         servicioConcurso.supervisarFotografia(datosSupervision.getIdFotografia(),
                 datosSupervision.getNombreFotografia(), datosSupervision.getIdConcurso(),
                 datosSupervision.getNombreConcurso(), datosSupervision.getDecision(), datosSupervision.getMotivo(),
-                datosSupervision.getNombreUsuarioAutor());
+                datosSupervision.getNombreUsuarioAutor(), datosSupervision.getNombreUsuarioSupervisor());
     }
 }

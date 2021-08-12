@@ -94,4 +94,12 @@ public class ControllerAdvice {
 
         return  new ErroresDto(mensajeExcepcion);
     }
+
+    @ExceptionHandler(DatosSupervisionFotografiaNovalidosException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErroresDto manejarExcepcionDatosSupervisionNoValidos(DatosSupervisionFotografiaNovalidosException e){
+
+        return e.getErroresDto();
+    }
 }

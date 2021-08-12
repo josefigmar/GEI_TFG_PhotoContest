@@ -22,6 +22,7 @@ const PhotographySupervision = () => {
             result => setPhotographyData(result),
             () => null
         )
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -34,6 +35,7 @@ const PhotographySupervision = () => {
                 result => setUserData(result)
             )
         }
+
     }, [photographyData])
 
     return (

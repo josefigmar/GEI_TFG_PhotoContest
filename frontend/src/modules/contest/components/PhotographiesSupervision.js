@@ -29,6 +29,7 @@ const PhotographiesSupervision = () => {
 
     useEffect(() => {
         retrievePhotographies();
+        // eslint-disable-next-line
     }, [])
 
     if (photographiesData === "") {

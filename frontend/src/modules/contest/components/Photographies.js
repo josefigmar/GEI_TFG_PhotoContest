@@ -1,10 +1,7 @@
 import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
 const Photographies = (pageData) => {
-
-    const history = useHistory();
 
     return (
         <table className="table table-striped table-hover">

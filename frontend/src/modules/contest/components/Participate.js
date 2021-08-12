@@ -26,7 +26,6 @@ const Participate = () => {
     const [imagenRAW, setImagenRAW] = useState("");
     const [tituloFotografia, setTituloFotografia] = useState("");
     const [descripcionFotografia, setDescripcionFotografia] = useState("");
-    const [photoTitle, setPhotoTitle] = useState("");
     const [cameraBrand, setCameraBrand] = useState("");
     const [cameraModel, setCameraModel] = useState("");
     const [focalDistance, setFocalDistance] = useState("");
@@ -67,15 +66,15 @@ const Participate = () => {
 
         event.preventDefault();
 
-        if(!rulesAcceptance){
-            let msg = intl.formatMessage({id:'contest.participate.dataSection.RulesAcceptanceMsg'});
-            setBackendErrors({errorGlobal : msg});
+        if (!rulesAcceptance) {
+            let msg = intl.formatMessage({ id: 'contest.participate.dataSection.RulesAcceptanceMsg' });
+            setBackendErrors({ errorGlobal: msg });
             return;
         }
 
         backend.catalogService.participate(
             {
-                aceptoLasNormas : rulesAcceptance,
+                aceptoLasNormas: rulesAcceptance,
                 idConcurso: contestId,
                 nombreUsuario: userName,
                 datosJpg: imagenJPG,
@@ -113,6 +112,7 @@ const Participate = () => {
         if (imagenJPG !== "") {
             getEXIFData();
         }
+        // eslint-disable-next-line
     }, [imagenJPG])
 
     useEffect(() => {
@@ -121,6 +121,7 @@ const Participate = () => {
                 contestId
             },
             result => setListaCategoriasMultiselect(result));
+        // eslint-disable-next-line
     }, [])
 
     // While backend responds
@@ -243,8 +244,8 @@ const Participate = () => {
                     &nbsp;
                     <FormattedMessage id='contest.contestDetail.Header.contestInfoTable.DownloadRules' />
                 </a>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <label><FormattedMessage id='contest.participate.dataSection.RulesAcceptance' /></label><br />
                 <input required type="checkbox" name="descripcionRequerida" checked={rulesAcceptance} onChange={e => setRulesAcceptance(e.target.checked)} />&nbsp;
                 <br />

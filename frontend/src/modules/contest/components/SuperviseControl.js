@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { Form, Button } from "react-bootstrap";
 import backend from "../../../backend";
 import { useHistory } from "react-router";
+import Errors from "../../commons/components/Errors";
 
 const SuperviseControl = (props) => {
 
@@ -42,6 +43,7 @@ const SuperviseControl = (props) => {
 
     return (
         <div className="photographySupervisionControl centeredParagraph">
+            <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
             <form ref={node => form = node} noValidate={false}>
                 <h5><FormattedMessage id='contest.supervision.table.manage' /></h5>
                 <br />

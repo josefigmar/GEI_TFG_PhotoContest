@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useIntl} from 'react-intl';
 
-const Errors = ({errors, onClose}) => {
-
-    const intl = useIntl();
+const Errors = ({ errors, onClose }) => {
 
     if (!errors) {
         return null;
@@ -35,11 +32,11 @@ const Errors = ({errors, onClose}) => {
                         <li key={index}>{fieldError}</li>
                     )}
                 </ul>
-                : 
+                :
                 ''
             }
 
-            <button type="button" className="close" data-dismiss="alert" aria-label="Close" 
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close"
                 onClick={() => onClose()}>
                 <span aria-hidden="true">&times;</span>
             </button>

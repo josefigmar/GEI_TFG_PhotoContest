@@ -220,10 +220,17 @@ export default {
     'contest.participate.dataSection.RulesAcceptance' : 'I declare that I have read the rules and I accept them',
     'contest.participate.dataSection.RulesAcceptanceMsg' : 'You must accept the rules',
 
+    'contest.photographyPresentation.DownloadImg' : 'Download image',
+
     'contest.supervision.title' : 'Photography supervision',
     'contest.supervision.table.previsualization' : 'Previsualization',
     'contest.supervision.table.username' : 'Username',
     'contest.supervision.table.category' : 'Category',
     'contest.supervision.table.manage' : 'Manage',
+
+    'contest.supervision.superviseControl.Approved' : 'Approved',
+    'contest.supervision.superviseControl.Denied' : 'Denied',
+    'contest.supervision.superviseControl.Decision' : 'Decision',
+    'contest.supervision.superviseControl.Explanation' : 'Reason',
 
 }

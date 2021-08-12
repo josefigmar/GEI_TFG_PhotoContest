@@ -50,7 +50,7 @@ const PhotographiesSupervision = () => {
             </h5>
             <br/>
 
-            <Photographies photographies={photographiesData.items} />
+            <Photographies photographies={photographiesData.items} contestName={contestName} />
             <Pager
                 back={{
                     enabled: page >= 1,

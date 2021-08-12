@@ -2,6 +2,7 @@ package com.figueiras.photocontest.backend.rest.dtos;
 
 public class FotografiaDto {
 
+    private long idFotografia;
     private boolean aceptoLasNormas;
     private long idConcurso;
     private String nombreUsuario;
@@ -18,6 +19,14 @@ public class FotografiaDto {
     private String resolucion;
     private long idCategoria;
     private String nombreCategoria;
+
+    public long getIdFotografia() {
+        return idFotografia;
+    }
+
+    public void setIdFotografia(long idFotografia) {
+        this.idFotografia = idFotografia;
+    }
 
     public boolean isAceptoLasNormas() {
         return aceptoLasNormas;

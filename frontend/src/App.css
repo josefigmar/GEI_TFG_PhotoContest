@@ -136,3 +136,50 @@ hr {
   font-weight: bold;
   margin-left: auto;
 }
+
+.centeredDiv {
+  margin:auto
+}
+
+.photographyDescDiv {
+  margin: auto;
+  height: 100px;
+  width: 700px;
+}
+
+.exifDataDiv {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  height: 80px;
+  width: 700px;
+}
+
+.photographyPresentationUserData {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  height: 50px;
+  width: 700px;
+}
+
+.photographySupervisionControl {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  height: 300px;
+  width: 700px;
+}
+
+.divFlexDirectionColumn{
+  display: flex;
+  flex-direction: column;
+}
+
+.photograhyPresentationProfileImg {
+  vertical-align: middle;
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}

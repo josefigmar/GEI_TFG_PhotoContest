@@ -210,4 +210,31 @@ public class ControladorCatalogo {
         return new Block<FotografiaDto>(
                 FotografiaConversor.toFotografiasDto(fotografiaBlock.getItems()), fotografiaBlock.getExistMoreItems());
     }
+
+    @GetMapping("/concursos/{nombreConcurso}/fotografias/{idFotografia}")
+    public FotografiaDto recuperarFotografia(@PathVariable long idFotografia)
+            throws InstanceNotFoundException{
+
+        Fotografia fotografia = servicioConcurso.recuperarDatosFotografia(idFotografia);
+
+        return FotografiaConversor.toFotografiaDto(fotografia);
+    }
+
+    @PostMapping("/concursos/{nombreConcurso}/fotografias/")
+    public List<FotografiaDto> recuperarFotografiasConcurso(@RequestBody FotografiaDto datosFotografia) {
+
+        List<Fotografia> fotografias = servicioConcurso.recuperarFotografiasDeConcurso(datosFotografia.getIdConcurso());
+
+        return FotografiaConversor.toFotografiasDto(fotografias);
+    }
+
+    @PostMapping("/concursos/{nombreConcurso}/fotografias/{idFotografia}/supervisar")
+    public void supervisarFotografia(@RequestBody SupervisarFotografiaDto datosSupervision)
+            throws InstanceNotFoundException{
+
+        servicioConcurso.supervisarFotografia(datosSupervision.getIdFotografia(),
+                datosSupervision.getNombreFotografia(), datosSupervision.getIdConcurso(),
+                datosSupervision.getNombreConcurso(), datosSupervision.getDecision(), datosSupervision.getMotivo(),
+                datosSupervision.getNombreUsuarioAutor());
+    }
 }

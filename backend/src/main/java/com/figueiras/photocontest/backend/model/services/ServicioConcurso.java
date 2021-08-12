@@ -5,6 +5,7 @@ import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.CategoriaFotograficaDto;
 import com.figueiras.photocontest.backend.rest.dtos.ConcursoDto;
 import com.figueiras.photocontest.backend.rest.dtos.FotografiaDto;
+import com.figueiras.photocontest.backend.rest.dtos.SupervisarFotografiaDto;
 
 import java.util.List;
 
@@ -41,4 +42,12 @@ public interface ServicioConcurso {
     List<CategoriaFotografica> recuperarCategoriasConcurso(long idConcurso) throws InstanceNotFoundException;
 
     void eliminarConcurso(long idConcurso) throws InstanceNotFoundException;
+
+    Fotografia recuperarDatosFotografia(long idFotografia) throws InstanceNotFoundException;
+
+    List<Fotografia> recuperarFotografiasDeConcurso(long idConcurso);
+
+    void supervisarFotografia(long idFotografia, String nombreFotografia,
+                              long idConcurso, String nombreConcurso, String decision, String motivo,
+                              String nombreUsuarioAutor) throws InstanceNotFoundException;
 }

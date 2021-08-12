@@ -114,7 +114,6 @@ export const participate = (datosFotografia, contestname, onSuccess, onErrors) =
     let path = `/catalogo-concursos/concursos/${contestname}/fotografias`;
 
     appFetch(path, config('POST', datosFotografia), onSuccess, onErrors);
-
 }
 
 export const supervise = (datosFotografia, contestName, page, size, onSuccess, onErrors) => {
@@ -124,5 +123,26 @@ export const supervise = (datosFotografia, contestName, page, size, onSuccess, o
     path += size ? `&size=${size}` : "";
 
     appFetch(path, config('POST', datosFotografia), onSuccess, onErrors);
-
 }
+
+export const getPhotography = ({contestName, photographyId}, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}/fotografias/${photographyId}`;
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}
+
+export const getPhotographies = ({contestName, contestId, photographyId}, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}/fotografias/${photographyId}`;
+
+    appFetch(path, config('POST'), contestId, onSuccess, onErrors);
+}
+
+export const supervisePhotography = (superviseData, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/concursos/${superviseData.nombreConcurso}/fotografias/${superviseData.idFotografia}/supervisar`;
+
+    appFetch(path, config('POST', superviseData), onSuccess, onErrors);
+}
+

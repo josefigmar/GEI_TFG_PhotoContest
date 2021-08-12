@@ -16,8 +16,10 @@ public class UsuarioConversor {
         usuarioParticipaConcursoDto.setIdConcurso(usuarioParticipaConcurso.getConcurso().getIdConcurso());
         usuarioParticipaConcursoDto.setNombreConcurso(usuarioParticipaConcurso.getConcurso().getNombreConcurso());
         usuarioParticipaConcursoDto.setRolUsuario(usuarioParticipaConcurso.getRolUsuarioConcurso().toString());
-        usuarioParticipaConcursoDto.setFechaInicioParticipacion(
-                Utilidades.toMillis(usuarioParticipaConcurso.getFechaInicioParticipacion()));
+        if(usuarioParticipaConcursoDto.getFechaInicioParticipacion() != null){
+            usuarioParticipaConcursoDto.setFechaInicioParticipacion(
+                    Utilidades.toMillis(usuarioParticipaConcurso.getFechaInicioParticipacion()));
+        }
         usuarioParticipaConcursoDto.setEstadoConcurso(
                 usuarioParticipaConcurso.getConcurso().getEstadoConcurso().name());
 

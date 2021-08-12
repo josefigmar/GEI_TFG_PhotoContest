@@ -219,11 +219,18 @@ export default {
     'contest.participate.dataSection.RulesAcceptance' : 'He leido las normas y las acepto',
     'contest.participate.dataSection.RulesAcceptanceMsg' : 'Has de aceptar las normas',
 
+    'contest.photographyPresentation.DownloadImg' : 'Descargar imagen',
+
     'contest.supervision.title' : 'Supervisión de fotografías',
     'contest.supervision.table.previsualization' : 'Previsualización',
     'contest.supervision.table.username' : 'Nombre de usuario',
     'contest.supervision.table.category' : 'Categoría',
     'contest.supervision.table.manage' : 'Gestionar',
+
+    'contest.supervision.superviseControl.Approved' : 'Aprobada',
+    'contest.supervision.superviseControl.Denied' : 'Denegada',
+    'contest.supervision.superviseControl.Decision' : 'Decision',
+    'contest.supervision.superviseControl.Explanation' : 'Motivo',
 
 
 }

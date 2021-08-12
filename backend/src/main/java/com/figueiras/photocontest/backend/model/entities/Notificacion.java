@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Notificacion {
 
     private Long idNotificacion;
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     private String nombreNotificacion;
     @Size(min = 1, max = 200)
     private String mensajeNotificacion;

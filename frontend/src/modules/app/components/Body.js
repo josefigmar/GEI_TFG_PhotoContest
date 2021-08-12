@@ -19,6 +19,9 @@ import ContestDemux from '../../contest/components/ContestDemux';
 import UserList from '../../commons/components/UserList';
 import Participate from '../../contest/components/Participate';
 import PhotographiesSupervision from '../../contest/components/PhotographiesSupervision';
+import PhotographyPresentation from '../../contest/components/PhotographyPresentation';
+import PhotographySupervision from '../../contest/components/PhotographySupervision';
+
 
 const Body = () => {
 
@@ -52,6 +55,8 @@ const Body = () => {
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><ContestDemux /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/participate"><Participate/> </Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/supervise"><PhotographiesSupervision/> </Route>}
+                {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/photography/:photographyId"><PhotographyPresentation/> </Route>}
+                {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/photography/:photographyId/supervise"><PhotographySupervision/> </Route>}
                 <Route><Home /></Route>
             </Switch>
         </Container>

@@ -87,7 +87,7 @@ const Participate = () => {
                 modeloCamara: cameraModel,
                 distanciaFocal: focalDistance,
                 velocidadObturacion: shutterSpeed,
-                iso: ISO ? ISO : "",
+                iso: ISO ? ISO : "100",
                 resolucion: resolution,
                 idCategoria
             },

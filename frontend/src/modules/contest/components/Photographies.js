@@ -1,10 +1,8 @@
-import { useEffect } from "react";
-import { Button } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-const Photographies = ({ photographies }) => {
+const Photographies = (pageData) => {
 
     const history = useHistory();
 
@@ -29,7 +27,7 @@ const Photographies = ({ photographies }) => {
 
             <tbody>
                 {
-                    photographies.map(photography =>
+                    pageData.photographies.map(photography =>
 
                         <tr key={Math.floor(Math.random() * 100)}>
                             {
@@ -50,7 +48,7 @@ const Photographies = ({ photographies }) => {
                                 {`${photography.nombreCategoria}`}
                             </td>
                             <td className="align-middle">
-                                <Link>
+                                <Link to={`/contests/${pageData.contestName}/${photography.idConcurso}/photography/${photography.idFotografia}/supervise`}>
                                     <FormattedMessage id='contest.supervision.table.manage' />
                                 </Link>
                             </td>

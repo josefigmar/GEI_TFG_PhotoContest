@@ -3,6 +3,7 @@ package com.figueiras.photocontest.backend.model.services;
 import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.*;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -30,6 +32,10 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     private CategoriaFotograficaDao categoriaFotograficaDao;
     @Autowired
     private FotografiaDao fotografiaDao;
+    @Autowired
+    private ServicioEmail servicioEmail;
+    @Autowired
+    private ServicioNotificacion servicioNotificacion;
 
     @Override
     public Block<Concurso> recuperarConcursos(Long idCategoria, Integer estado, String nombre,
@@ -139,6 +145,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                         usuario.getIdUsuario(),
                         datosFotografia.getIdConcurso(),
                         RolUsuarioConcurso.INSCRITO);
+        // Si es la primera vez que participa
         if (usuarioParticipaConcursoOptional.isEmpty()) {
             UsuarioParticipaConcurso usuarioParticipaConcurso = new UsuarioParticipaConcurso();
             usuarioParticipaConcurso.setConcurso(concurso);
@@ -147,7 +154,21 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             if (!concurso.getModeracion()) {
                 usuarioParticipaConcurso.setFechaInicioParticipacion(LocalDateTime.now());
             }
+            // Se persisten los datos
             usuarioParticipaConcursoDao.save(usuarioParticipaConcurso);
+
+            //// Se actualizan los concursos en el usuario
+            //Set<UsuarioParticipaConcurso> nuevoConjuntoParaUsuario = usuario.getConcursosEnLosQueParticipa();
+            //nuevoConjuntoParaUsuario.add(usuarioParticipaConcurso);
+            //usuario.setConcursosEnLosQueParticipa(nuevoConjuntoParaUsuario);
+
+            //// Se actualizan los usuarios en el concurso
+            //Set<UsuarioParticipaConcurso> nuevoConjuntoParaConcurso = concurso.getUsuariosQueParticipan();
+            //nuevoConjuntoParaConcurso.add(usuarioParticipaConcurso);
+            //concurso.setUsuariosQueParticipan(nuevoConjuntoParaConcurso);
+
+            //servicioUsuario.actualizarUsuario(usuario);
+            //concursoDao.save(concurso);
         }
     }
 
@@ -274,6 +295,126 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         vaciarParticipantesConcurso(concurso);
         vaciarFotografiasConcurso(concurso);
         concursoDao.delete(concurso);
+    }
+
+    @Override
+    public Fotografia recuperarDatosFotografia(long idFotografia) throws InstanceNotFoundException {
+
+        Optional<Fotografia> fotografiaOptional = fotografiaDao.findById(idFotografia);
+
+        if(fotografiaOptional.isEmpty()){
+            throw new InstanceNotFoundException(Fotografia.class.toString(), idFotografia);
+        }
+
+        return fotografiaOptional.get();
+    }
+
+    @Override
+    public List<Fotografia> recuperarFotografiasDeConcurso(long idConcurso) {
+
+        List<Fotografia> fotografiaList = fotografiaDao.recuperarFotografias(idConcurso);
+
+        return fotografiaList;
+
+    }
+
+    @Override
+    public void supervisarFotografia(long idFotografia, String nombreFotografia,
+                                     long idConcurso, String nombreConcurso, String decision, String motivo,
+                                     String nombreUsuarioAutor)
+            throws InstanceNotFoundException {
+
+        // Recuperacion de la fotografía
+        Optional<Fotografia> fotografiaOptional = fotografiaDao.findById(idFotografia);
+        Usuario usuario = servicioUsuario.recuperarUsuario(nombreUsuarioAutor);
+        Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
+        if(fotografiaOptional.isEmpty() || concursoOptional.isEmpty()){
+            throw new InstanceNotFoundException(Fotografia.class.toString(), idFotografia);
+        }
+
+        Fotografia fotografia = fotografiaOptional.get();
+        Concurso concurso = concursoOptional.get();
+
+        // Si el resultado de la moderación es DENEGADA, se procede a eliminar la participación
+        // provisional del usuario y los datos de la foto en BBDD
+        if(decision.equals(EstadoModeracion.DENEGADA.toString())){
+
+            Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
+                    usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
+                            usuario.getIdUsuario(),
+                            idConcurso,
+                            RolUsuarioConcurso.INSCRITO);
+            if(usuarioParticipaConcursoOptional.isEmpty()){
+                throw new InstanceNotFoundException(UsuarioParticipaConcurso.class.toString(), usuario.getIdUsuario());
+            }
+            UsuarioParticipaConcurso usuarioParticipaConcurso = usuarioParticipaConcursoOptional.get();
+            //// Se elimina la participación del concurso
+            //Set<UsuarioParticipaConcurso> nuevoConjuntoUsuarioParticipaConcurso =
+            //        concurso.getUsuariosQueParticipan();
+            //nuevoConjuntoUsuarioParticipaConcurso.remove(usuarioParticipaConcurso);
+            //concurso.setUsuariosQueParticipan(nuevoConjuntoUsuarioParticipaConcurso);
+
+            //// Se elimina la participación del usuario
+            //Set<UsuarioParticipaConcurso> nuevoConjuntoUsuarioParticipaConcursoUsuario =
+            //        usuario.getConcursosEnLosQueParticipa();
+            //nuevoConjuntoUsuarioParticipaConcursoUsuario.remove(usuarioParticipaConcurso);
+            //usuario.setConcursosEnLosQueParticipa(nuevoConjuntoUsuarioParticipaConcursoUsuario);
+
+            //// Una vez se ha eliminado de las entidades en donde se usaba, se elimina la propia entidad
+            usuarioParticipaConcursoDao.delete(usuarioParticipaConcurso);
+
+            // Se eliminan los datos de la fotografía
+            eliminarFotografia(fotografia);
+
+            servicioNotificacion.crearNotificacion(
+                    messageSource.getMessage("project.supervisePhotography.photographyDenied",
+                            new Object[]{nombreFotografia, nombreConcurso},
+                            new Locale(usuario.getLenguaje().toString())),
+                    motivo,
+                    usuario.getNombreUsuario());
+
+            servicioEmail.enviarMailGmail(
+                    usuario.getCorreoElectronicoUsuario(),
+                    messageSource.getMessage("project.supervisePhotography.photographyDenied",
+                            new Object[]{nombreFotografia, nombreConcurso},
+                            new Locale(usuario.getLenguaje().toString())),
+                    motivo
+            );
+
+            return;
+        }
+        // Si ha sido aprobada
+        fotografia.setEstadoModeracion(EstadoModeracion.APROBADA);
+        fotografia.setFechaInicioParticipacion(LocalDateTime.now());
+        Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
+                usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
+                        usuario.getIdUsuario(),
+                        idConcurso,
+                        RolUsuarioConcurso.INSCRITO);
+        if(usuarioParticipaConcursoOptional.isEmpty()){
+            throw new InstanceNotFoundException(UsuarioParticipaConcurso.class.toString(), usuario.getIdUsuario());
+        }
+        UsuarioParticipaConcurso usuarioParticipaConcurso = usuarioParticipaConcursoOptional.get();
+        usuarioParticipaConcurso.setFechaInicioParticipacion(LocalDateTime.now());
+
+        usuarioParticipaConcursoDao.save(usuarioParticipaConcurso);
+        fotografiaDao.save(fotografia);
+
+        servicioNotificacion.crearNotificacion(
+                messageSource.getMessage("project.supervisePhotography.photographyApproved",
+                        new Object[]{nombreFotografia, nombreConcurso},
+                        new Locale(usuario.getLenguaje().toString())),
+                motivo,
+                usuario.getNombreUsuario());
+
+        servicioEmail.enviarMailGmail(
+                usuario.getCorreoElectronicoUsuario(),
+                messageSource.getMessage("project.supervisePhotography.photographyApproved",
+                        new Object[]{nombreFotografia, nombreConcurso},
+                        new Locale(usuario.getLenguaje().toString())),
+                motivo
+        );
+
     }
 
     private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)
@@ -694,5 +835,10 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             ErroresDto erroresDto = new ErroresDto(erroresCampoDtoList);
             throw new DatosDeFotografiaNoValidosException(erroresDto);
         }
+    }
+
+    private void eliminarFotografia(Fotografia fotografia){
+
+        fotografiaDao.delete(fotografia);
     }
 }

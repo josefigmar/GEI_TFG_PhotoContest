@@ -66,6 +66,7 @@ public class FotografiaConversor {
 
         FotografiaDto fotografiaDto = new FotografiaDto();
 
+        fotografiaDto.setIdFotografia(datosFotografia.getIdFotografia());
         fotografiaDto.setTituloFotografia(datosFotografia.getTituloFotografia());
         fotografiaDto.setDescripcionFotografia(datosFotografia.getDescripcionFotografia());
         fotografiaDto.setAperturaDiafragma(datosFotografia.getAperturaDiafragma());
@@ -79,7 +80,7 @@ public class FotografiaConversor {
         fotografiaDto.setDatosRaw(datosFotografia.getDatosRaw());
         fotografiaDto.setNombreCategoria(datosFotografia.getCategoriaFotografica().getNombreCategoria());
         fotografiaDto.setNombreUsuario(datosFotografia.getUsuario().getNombreUsuario());
-        fotografiaDto.setIdConcurso(datosFotografia.getIdFotografia());
+        fotografiaDto.setIdConcurso(datosFotografia.getConcurso().getIdConcurso());
 
         return fotografiaDto;
     }

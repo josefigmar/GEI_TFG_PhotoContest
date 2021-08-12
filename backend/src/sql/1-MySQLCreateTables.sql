@@ -40,7 +40,7 @@ CREATE TABLE Usuario(
 
 CREATE TABLE Notificacion(
     idNotificacion BIGINT NOT NULL AUTO_INCREMENT,
-    nombreNotificacion VARCHAR(50),
+    nombreNotificacion VARCHAR(100),
     mensajeNotificacion VARCHAR(200),
     fechaCreacion datetime,
     leida TINYINT,

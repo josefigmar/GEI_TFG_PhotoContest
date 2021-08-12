@@ -219,9 +219,16 @@ export default {
     'contest.participate.dataSection.RulesAcceptance' : 'Leín as normas e aceptoas',
     'contest.participate.dataSection.RulesAcceptanceMsg' : 'Debes de aceptar as normas',
 
+    'contest.photographyPresentation.DownloadImg' : 'Descargar imaxe',
+
     'contest.supervision.title' : 'Supervisión de fotografías',
     'contest.supervision.table.previsualization' : 'Previsualización',
     'contest.supervision.table.username' : 'Nome de usuario',
     'contest.supervision.table.category' : 'Categoría',
     'contest.supervision.table.manage' : 'Xestionar',
+
+    'contest.supervision.superviseControl.Approved' : 'Aprobada',
+    'contest.supervision.superviseControl.Denied' : 'Denegada',
+    'contest.supervision.superviseControl.Decision' : 'Decision',
+    'contest.supervision.superviseControl.Explanation' : 'Motivo',
 }

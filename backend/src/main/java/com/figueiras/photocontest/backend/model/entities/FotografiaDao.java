@@ -9,6 +9,10 @@ import java.util.List;
 
 public interface FotografiaDao extends PagingAndSortingRepository<Fotografia, Long> {
 
+    @Query("SELECT f FROM Fotografia f WHERE f.concurso.nombreConcurso = :nombreConcurso AND " +
+            "f.estadoModeracion = :estadoModeracion ORDER BY f.fechaInicioParticipacion DESC")
+    Slice<Fotografia> recuperarFotografiasPaginadas(String nombreConcurso, EstadoModeracion estadoModeracion,
+                                                    Pageable pageable);
     @Query("SELECT f FROM Fotografia f WHERE f.concurso.idConcurso = :idConcurso")
     List<Fotografia> recuperarFotografias(long idConcurso);
     @Query("SELECT f FROM Fotografia f WHERE f.concurso.idConcurso = :idConcurso AND f.usuario.idUsuario = :idUsuario")

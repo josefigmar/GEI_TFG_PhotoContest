@@ -45,7 +45,7 @@ public interface ServicioConcurso {
 
     Fotografia recuperarDatosFotografia(long idFotografia) throws InstanceNotFoundException;
 
-    List<Fotografia> recuperarFotografiasDeConcurso(long idConcurso);
+    Block<Fotografia> recuperarFotografiasDeConcurso(String nombreConcurso, int page, int size);
 
     void supervisarFotografia(long idFotografia, String nombreFotografia,
                               long idConcurso, String nombreConcurso, String decision, String motivo,

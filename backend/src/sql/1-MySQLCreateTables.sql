@@ -53,7 +53,7 @@ CREATE TABLE Notificacion(
 
 CREATE TABLE Concurso(
     idConcurso BIGINT NOT NULL AUTO_INCREMENT,
-    nombreConcurso VARCHAR(50),
+    nombreConcurso VARCHAR(50) UNIQUE,
     descripcionConcurso VARCHAR(500),
     estadoConcurso INT,
     tipoAccesoConcurso INT,

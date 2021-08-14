@@ -11,7 +11,7 @@ const Notifications = () => {
 
     const [notificationsData, setNotificationsData] = useState("");
     const [page, setPage] = useState(0);
-    const SIZE = 5;
+    const size = 5;
     const { userName } = useParams();
 
     const notificationPhoto = (databasePhoto) => {
@@ -27,7 +27,7 @@ const Notifications = () => {
             {
                 userName,
                 page,
-                size: SIZE
+                size
             },
             (result) => setNotificationsData(result)
         );
@@ -103,11 +103,11 @@ const Notifications = () => {
             <Pager
                 back={{
                     enabled: page >= 1,
-                    onClick: () => backend.notificationService.findNotifications({ userName, page: page - 1, SIZE }, result => { setNotificationsData(result); setPage(page - 1) })
+                    onClick: () => backend.notificationService.findNotifications({ userName, page: page - 1, size }, result => { setNotificationsData(result); setPage(page - 1) })
                 }}
                 next={{
                     enabled: notificationsData.existMoreItems,
-                    onClick: () => backend.notificationService.findNotifications({ userName, page: page + 1, SIZE }, result => { setNotificationsData(result); setPage(page + 1) })
+                    onClick: () => backend.notificationService.findNotifications({ userName, page: page + 1, size }, result => { setNotificationsData(result); setPage(page + 1) })
                 }} />
 
 

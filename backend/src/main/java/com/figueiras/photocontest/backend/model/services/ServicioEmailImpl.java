@@ -39,7 +39,7 @@ public class ServicioEmailImpl implements ServicioEmail{
             message.setFrom(new InternetAddress(remitente));
             message.addRecipient(Message.RecipientType.TO, direccionDestinatario);   //Se podrían añadir varios de la misma manera
             message.setSubject(asunto);
-            message.setText(cuerpo);
+            message.setText(asunto + "\n" + cuerpo);
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", remitente, "k8:xJCa5szYDPj-");
             transport.sendMessage(message, message.getAllRecipients());

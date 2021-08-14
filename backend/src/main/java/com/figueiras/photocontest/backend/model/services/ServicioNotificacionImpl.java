@@ -87,7 +87,7 @@ public class ServicioNotificacionImpl implements ServicioNotificacion {
     @Override
     public boolean notificacionesPendientesDeVisualizar(String nombreUsuario) {
 
-         return notificacionDao.existenNotificacionesSinLeer(nombreUsuario) == 1;
+         return notificacionDao.existenNotificacionesSinLeer(nombreUsuario) != 0;
     }
 
     public void marcarComoLeidas(List<Notificacion> notificaciones){

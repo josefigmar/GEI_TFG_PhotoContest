@@ -232,5 +232,7 @@ export default {
     'contest.supervision.superviseControl.Decision' : 'Decision',
     'contest.supervision.superviseControl.Explanation' : 'Motivo',
 
+    'contest.photographyGrid.card.button.text' : 'Ver en detalle',
+
 
 }

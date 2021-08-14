@@ -81,6 +81,7 @@ public class FotografiaConversor {
         fotografiaDto.setNombreCategoria(datosFotografia.getCategoriaFotografica().getNombreCategoria());
         fotografiaDto.setNombreUsuario(datosFotografia.getUsuario().getNombreUsuario());
         fotografiaDto.setIdConcurso(datosFotografia.getConcurso().getIdConcurso());
+        fotografiaDto.setNombreConcurso(datosFotografia.getConcurso().getNombreConcurso());
 
         return fotografiaDto;
     }

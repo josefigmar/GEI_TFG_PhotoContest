@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import { useState } from "react";
 import { useEffect } from "react";
-import PhotographyPresentation from "./PhotographyPresentation";
+import Photography from "./Photography";
 import SuperviseControl from "./SuperviseControl";
 import backend from "../../../backend";
 
@@ -40,7 +40,7 @@ const PhotographySupervision = () => {
 
     return (
         <div>
-            <PhotographyPresentation photographyData={photographyData} userData={userData} />
+            <Photography photographyData={photographyData} userData={userData} />
             <SuperviseControl photographyData={photographyData} userData={userData} contestName={contestName}/>
         </div>
 

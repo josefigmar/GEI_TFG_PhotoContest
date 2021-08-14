@@ -310,11 +310,15 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     }
 
     @Override
-    public List<Fotografia> recuperarFotografiasDeConcurso(long idConcurso) {
+    public Block<Fotografia> recuperarFotografiasDeConcurso(String nombreConcurso, int page, int size) {
 
-        List<Fotografia> fotografiaList = fotografiaDao.recuperarFotografias(idConcurso);
+        Pageable pageable = PageRequest.of(page, size);
+        Slice<Fotografia> fotografiaSlice = fotografiaDao.recuperarFotografiasPaginadas(nombreConcurso,
+                EstadoModeracion.APROBADA, pageable);
 
-        return fotografiaList;
+        Block<Fotografia> fotografiaBlock = new Block<>(fotografiaSlice.getContent(), fotografiaSlice.hasNext());
+
+        return fotografiaBlock;
 
     }
 
@@ -339,33 +343,24 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         Fotografia fotografia = fotografiaOptional.get();
         Concurso concurso = concursoOptional.get();
 
-        // Si el resultado de la moderación es DENEGADA, se procede a eliminar la participación
-        // provisional del usuario y los datos de la foto en BBDD
+        // Si el resultado de la moderación es DENEGADA, se procede, si es la última participación provisional, a
+        // eliminar la participación y sí o sí eliminar los datos de la foto en BBDD
         if(decision.equals(EstadoModeracion.DENEGADA.toString())){
 
-            Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
-                    usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
-                            usuario.getIdUsuario(),
-                            idConcurso,
-                            RolUsuarioConcurso.INSCRITO);
-            if(usuarioParticipaConcursoOptional.isEmpty()){
-                throw new InstanceNotFoundException(UsuarioParticipaConcurso.class.toString(), usuario.getIdUsuario());
+            // Se elimina la participación del concurso si era su última fotografía
+            if(fotografiaDao.recuperarFotografiasConcursoUsuario(idConcurso, usuario.getIdUsuario()).size() == 1){
+                Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
+                        usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
+                                usuario.getIdUsuario(),
+                                idConcurso,
+                                RolUsuarioConcurso.INSCRITO);
+                if(usuarioParticipaConcursoOptional.isEmpty()){
+                    throw new InstanceNotFoundException(UsuarioParticipaConcurso.class.toString(), usuario.getIdUsuario());
+                }
+                UsuarioParticipaConcurso usuarioParticipaConcurso = usuarioParticipaConcursoOptional.get();
+
+                usuarioParticipaConcursoDao.delete(usuarioParticipaConcurso);
             }
-            UsuarioParticipaConcurso usuarioParticipaConcurso = usuarioParticipaConcursoOptional.get();
-            //// Se elimina la participación del concurso
-            //Set<UsuarioParticipaConcurso> nuevoConjuntoUsuarioParticipaConcurso =
-            //        concurso.getUsuariosQueParticipan();
-            //nuevoConjuntoUsuarioParticipaConcurso.remove(usuarioParticipaConcurso);
-            //concurso.setUsuariosQueParticipan(nuevoConjuntoUsuarioParticipaConcurso);
-
-            //// Se elimina la participación del usuario
-            //Set<UsuarioParticipaConcurso> nuevoConjuntoUsuarioParticipaConcursoUsuario =
-            //        usuario.getConcursosEnLosQueParticipa();
-            //nuevoConjuntoUsuarioParticipaConcursoUsuario.remove(usuarioParticipaConcurso);
-            //usuario.setConcursosEnLosQueParticipa(nuevoConjuntoUsuarioParticipaConcursoUsuario);
-
-            //// Una vez se ha eliminado de las entidades en donde se usaba, se elimina la propia entidad
-            usuarioParticipaConcursoDao.delete(usuarioParticipaConcurso);
 
             // Se eliminan los datos de la fotografía
             eliminarFotografia(fotografia);
@@ -633,7 +628,8 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         // Validación de los datos del formulario
 
-        if (datosFotografia.getDatosJpg().equals("")) {
+        String datosJpg = datosFotografia.getDatosJpg();
+        if (datosJpg == null || datosJpg.equals("")) {
             hayErrores = true;
             ErrorCampoDto errorTitulo = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -648,8 +644,8 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             );
             erroresCampoDtoList.add(errorTitulo);
         }
-
-        if (datosFotografia.getDatosRaw().equals("") && !concurso.getFormato().equals(FormatoFotografia.JPG)) {
+        String datosRaw = datosFotografia.getDatosRaw();
+        if ((datosRaw == null || datosRaw.equals("")) && !concurso.getFormato().equals(FormatoFotografia.JPG)) {
             hayErrores = true;
             ErrorCampoDto errorTitulo = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -667,7 +663,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         if (concurso.getTituloReq()) {
             String titulo = datosFotografia.getTituloFotografia();
-            if (titulo.equals("") || titulo.length() > 50) {
+            if (titulo == null || titulo.equals("") || titulo.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorTitulo = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -686,7 +682,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         if (concurso.getDescReq()) {
             String desc = datosFotografia.getDescripcionFotografia();
-            if (desc.equals("") || desc.length() > 200) {
+            if (desc == null || desc.equals("") || desc.length() > 200) {
                 hayErrores = true;
                 ErrorCampoDto errorDesc = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -705,7 +701,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         if (concurso.getDatosExifReq()) {
             String make = datosFotografia.getFabricanteCamara();
-            if (make.equals("") || make.length() > 50) {
+            if (make == null || make.equals("") || make.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorExif = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -721,7 +717,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 erroresCampoDtoList.add(errorExif);
             }
             String model = datosFotografia.getModeloCamara();
-            if (model.equals("") || model.length() > 50) {
+            if (model == null || model.equals("") || model.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorExif = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -737,7 +733,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 erroresCampoDtoList.add(errorExif);
             }
             String distFocal = datosFotografia.getDistanciaFocal();
-            if (distFocal.equals("") || distFocal.length() > 50) {
+            if (distFocal == null || distFocal.equals("") || distFocal.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorExif = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -753,7 +749,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 erroresCampoDtoList.add(errorExif);
             }
             String apertura = datosFotografia.getAperturaDiafragma();
-            if (apertura.equals("") || apertura.length() > 50) {
+            if (apertura == null || apertura.equals("") || apertura.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorExif = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -769,7 +765,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 erroresCampoDtoList.add(errorExif);
             }
             String velObturacion = datosFotografia.getVelocidadObturacion();
-            if (velObturacion.equals("") || velObturacion.length() > 50) {
+            if (velObturacion == null || velObturacion.equals("") || velObturacion.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorExif = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -785,7 +781,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 erroresCampoDtoList.add(errorExif);
             }
             String ISO = datosFotografia.getIso();
-            if (ISO.equals("") || ISO.length() > 50) {
+            if (ISO == null || ISO.equals("") || ISO.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorExif = new ErrorCampoDto(
                         messageSource.getMessage(
@@ -801,7 +797,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 erroresCampoDtoList.add(errorExif);
             }
             String resolucion = datosFotografia.getResolucion();
-            if (resolucion.equals("") || resolucion.length() > 50) {
+            if (resolucion == null || resolucion.equals("") || resolucion.length() > 50) {
                 hayErrores = true;
                 ErrorCampoDto errorExif = new ErrorCampoDto(
                         messageSource.getMessage(

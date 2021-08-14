@@ -4,11 +4,13 @@ import { Form, Button } from "react-bootstrap";
 import backend from "../../../backend";
 import { useHistory } from "react-router";
 import Errors from "../../commons/components/Errors";
+import * as selectors from "../../user/selectors";
+import { useSelector } from "react-redux";
 
 const SuperviseControl = (props) => {
 
+    const userName = useSelector(selectors.getUserName);
     let photographyData = props.photographyData;
-    let userData = props.userData;
     let contestName = props.contestName;
 
     const intl = useIntl();
@@ -30,9 +32,10 @@ const SuperviseControl = (props) => {
                     nombreFotografia: photographyData.tituloFotografia,
                     decision: decision,
                     motivo: explanation,
-                    nombreUsuarioAutor: userData.nombreUsuario
+                    nombreUsuarioAutor: photographyData.nombreUsuario,
+                    nombreUsuarioSupervisor: userName
                 },
-                history.push("/"),
+                history.push(`/contests/${contestName}/${photographyData.idConcurso}`),
                 errors => setBackendErrors(errors)
             );
         } else {

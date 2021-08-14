@@ -220,12 +220,18 @@ public class ControladorCatalogo {
         return FotografiaConversor.toFotografiaDto(fotografia);
     }
 
-    @PostMapping("/concursos/{nombreConcurso}/fotografias/")
-    public List<FotografiaDto> recuperarFotografiasConcurso(@RequestBody FotografiaDto datosFotografia) {
+    @GetMapping("/concursos/{nombreConcurso}/fotografias")
+    public Block<FotografiaDto> recuperarFotografiasConcurso(@PathVariable String nombreConcurso,
+                                                             @RequestParam (defaultValue = "0") int page,
+                                                             @RequestParam (defaultValue = "5") int size) {
 
-        List<Fotografia> fotografias = servicioConcurso.recuperarFotografiasDeConcurso(datosFotografia.getIdConcurso());
+        Block<Fotografia> fotografias = servicioConcurso.recuperarFotografiasDeConcurso(
+                nombreConcurso, page, size);
 
-        return FotografiaConversor.toFotografiasDto(fotografias);
+        Block<FotografiaDto> fotografiaDtoBlock = new Block<>(
+                FotografiaConversor.toFotografiasDto(fotografias.getItems()), fotografias.getExistMoreItems());
+
+        return fotografiaDtoBlock;
     }
 
     @PostMapping("/concursos/{nombreConcurso}/fotografias/{idFotografia}/supervisar")

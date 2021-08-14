@@ -25,6 +25,13 @@ img {
   border-radius: 50%;
 }
 
+.photographyGridImages {
+  vertical-align: middle;
+  object-fit: cover;
+  max-height: 200px;
+  max-width: 300px;
+}
+
 .notificationImg {
   vertical-align: middle;
   object-fit: cover;

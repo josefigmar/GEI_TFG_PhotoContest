@@ -2,6 +2,7 @@ import ContestHeader from "./ContestHeader";
 import Countdown from "react-countdown";
 import { Container, Spinner } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
+import PhotographyGridPaginated from "./PhotographyGridPaginated";
 
 const ContestOpenStatus = ({ contestData }) => {
 
@@ -26,7 +27,7 @@ const ContestOpenStatus = ({ contestData }) => {
             <hr />
             {/* Depending of the configuration of the contest, The photographies may be shown in this state. */
 
-                isOcutarFotosHastaVotacion ?
+                isOcutarFotosHastaVotacion() ?
 
 
                     <h4 className="centeredParagraph"><FormattedMessage id='contest.contestDetail.Body.OpenState.PhotographySection.NoPhotosUntilVoting' /></h4>
@@ -34,8 +35,7 @@ const ContestOpenStatus = ({ contestData }) => {
 
                     :
 
-                    //Elemento de fotografías
-                    null
+                    <PhotographyGridPaginated contestName={contestData.nombreConcurso} contestId={contestData.idConcurso}/>
             }
             <Container className="centering">
                 <h4><FormattedMessage id='contest.contestDetail.Body.OpenState.CountDown.Title' /></h4>

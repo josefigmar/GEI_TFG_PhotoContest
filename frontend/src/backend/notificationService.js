@@ -1,10 +1,8 @@
 import { config, appFetch } from './appFetch';
 
-export const findNotifications = ({ userName, page = 0, size }, onSuccess) => {
+export const findNotifications = ({ userName, page, size }, onSuccess) => {
 
-    let path = `/catalogo-notificaciones/notificaciones/${userName}?page=${page}`;
-
-    path += size ? `&size=${size}` : "";
+    let path = `/catalogo-notificaciones/notificaciones/${userName}?page=${page}&size=${size}`;
 
     appFetch(path, config('GET'), onSuccess);
 }

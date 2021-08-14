@@ -5,6 +5,7 @@ public class FotografiaDto {
     private long idFotografia;
     private boolean aceptoLasNormas;
     private long idConcurso;
+    private String nombreConcurso;
     private String nombreUsuario;
     private String datosJpg;
     private String datosRaw;
@@ -38,6 +39,14 @@ public class FotografiaDto {
 
     public long getIdConcurso() {
         return idConcurso;
+    }
+
+    public String getNombreConcurso() {
+        return nombreConcurso;
+    }
+
+    public void setNombreConcurso(String nombreConcurso) {
+        this.nombreConcurso = nombreConcurso;
     }
 
     public void setIdConcurso(long idConcurso) {

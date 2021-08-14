@@ -233,4 +233,6 @@ export default {
     'contest.supervision.superviseControl.Decision' : 'Decision',
     'contest.supervision.superviseControl.Explanation' : 'Reason',
 
+    'contest.photographyGrid.card.button.text' : 'Watch in detail',
+
 }

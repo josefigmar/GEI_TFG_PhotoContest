@@ -132,11 +132,11 @@ export const getPhotography = ({contestName, photographyId}, onSuccess, onErrors
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
 
-export const getPhotographies = ({contestName, contestId, photographyId}, onSuccess, onErrors) => {
+export const getPhotographies = ({contestName, page, size}, onSuccess, onErrors) => {
 
-    let path = `/catalogo-concursos/concursos/${contestName}/fotografias/${photographyId}`;
+    let path = `/catalogo-concursos/concursos/${contestName}/fotografias?page=${page}&size=${size}`;
 
-    appFetch(path, config('POST'), contestId, onSuccess, onErrors);
+    appFetch(path, config('GET'), onSuccess, onErrors);
 }
 
 export const supervisePhotography = (superviseData, onSuccess, onErrors) => {

@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import ContestPreparationStatus from "./ContestPreparationStatus";
 import backend from "../../../backend";
 import ContestOpenStatus from "./ContestOpenStatus";
+import ContestVotingStatus from "./ContestVotingStatus";
 
 const ContestDemux = () => {
 
@@ -43,6 +44,12 @@ const ContestDemux = () => {
             return (
                 <div>
                     <ContestOpenStatus contestData={contestData} />
+                </div>
+            )
+        case "VOTACION":
+            return (
+                <div>
+                    <ContestVotingStatus contestData={contestData} />
                 </div>
             )
     }

@@ -21,5 +21,7 @@ public interface UsuarioParticipaConcursoDao
     @Query("SELECT u FROM UsuarioParticipaConcurso u " +
             "WHERE u.concurso.idConcurso = :idConcurso AND u.rolUsuarioConcurso = 1")
     Slice<UsuarioParticipaConcurso> findInscritos(Long idConcurso, Pageable pageable);
+    @Query("SELECT u FROM UsuarioParticipaConcurso  u WHERE u.usuario.nombreUsuario = :nombreUsuario AND u.concurso.nombreConcurso = :nombreConcurso")
+    Optional<UsuarioParticipaConcurso> findByUsuarioConcurso(String nombreUsuario, String nombreConcurso);
 
 }

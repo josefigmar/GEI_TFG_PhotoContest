@@ -2,10 +2,7 @@ package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
-import com.figueiras.photocontest.backend.rest.dtos.CategoriaFotograficaDto;
-import com.figueiras.photocontest.backend.rest.dtos.ConcursoDto;
-import com.figueiras.photocontest.backend.rest.dtos.FotografiaDto;
-import com.figueiras.photocontest.backend.rest.dtos.SupervisarFotografiaDto;
+import com.figueiras.photocontest.backend.rest.dtos.*;
 
 import java.util.List;
 
@@ -51,4 +48,10 @@ public interface ServicioConcurso {
                               long idConcurso, String nombreConcurso, String decision, String motivo,
                               String nombreUsuarioAutor, String nombreUsuarioSupervisor)
             throws InstanceNotFoundException, DatosSupervisionFotografiaNovalidosException;
+
+    RolConcursoInfoDto recuperarDatosRolUsuario(String nombreConcurso, String nombreUsuario);
+
+    DatosParaVotarDto recuperarInfoVoto(long idFotografia, String nombreConcurso, String nombreUsuario);
+
+    void votarFotografia(String nombreUsuario, long idFotografia, String nombreConcurso, int puntuacion) throws InstanceNotFoundException;
 }

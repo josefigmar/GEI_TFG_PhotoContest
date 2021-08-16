@@ -12,4 +12,6 @@ public interface ConcursoDao extends PagingAndSortingRepository<Concurso, Long>,
     @Query("SELECT c FROM Concurso c ORDER BY c.fechaCreacion ASC")
     Slice<Concurso> buscarConcursosOrdenarPorFechaCreacion(Pageable pageable);
 
+    Optional<Concurso> findByNombreConcurso(String nombreConcurso);
+
 }

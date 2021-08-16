@@ -170,6 +170,7 @@ CREATE TABLE UsuarioVotaFotografia(
    idUsuario BIGINT NOT NULL,
    idFotografia BIGINT NOT NULL,
    puntuacion INT,
+   idConcurso BIGINT,
    fechaVoto DATETIME,
    CONSTRAINT Usuario_vota_fotografia_pk PRIMARY KEY(idUsuario, idFotografia),
    CONSTRAINT Usuario_vota_fotografia_id_usuario_fk
@@ -177,5 +178,8 @@ CREATE TABLE UsuarioVotaFotografia(
            REFERENCES Usuario(idUsuario),
    CONSTRAINT Usuario_vota_fotografia_id_fotografia
        FOREIGN KEY(idFotografia)
-           REFERENCES Fotografia(idFotografia)
+           REFERENCES Fotografia(idFotografia),
+   CONSTRAINT Usuario_vota_fotografia_fk_id_concurso
+       FOREIGN KEY(idConcurso)
+           REFERENCES Concurso(idConcurso)
 );

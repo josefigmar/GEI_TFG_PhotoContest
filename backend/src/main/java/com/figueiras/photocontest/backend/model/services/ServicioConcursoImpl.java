@@ -36,6 +36,8 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     private ServicioEmail servicioEmail;
     @Autowired
     private ServicioNotificacion servicioNotificacion;
+    @Autowired
+    private UsuarioVotaFotografiaDao usuarioVotaFotografiaDao;
 
     @Override
     public Block<Concurso> recuperarConcursos(Long idCategoria, Integer estado, String nombre,
@@ -414,6 +416,102 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 motivo
         );
 
+    }
+
+    @Override
+    public RolConcursoInfoDto recuperarDatosRolUsuario(String nombreConcurso, String nombreUsuario) {
+
+        RolConcursoInfoDto resultado = new RolConcursoInfoDto();
+
+        Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
+                usuarioParticipaConcursoDao.findByUsuarioConcurso(nombreUsuario, nombreConcurso);
+        if(usuarioParticipaConcursoOptional.isEmpty()){
+            resultado.setParticipa(false);
+            Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(nombreConcurso);
+            if(concursoOptional.isPresent()){
+                Concurso concurso = concursoOptional.get();
+                resultado.setTipoVoto(concurso.getTipoVotoConcurso().toString());
+                resultado.setTipoVotante(concurso.getTipoVotanteConcurso().toString());
+                resultado.setEstadoConcurso(concurso.getEstadoConcurso().toString());
+            }
+        } else {
+            UsuarioParticipaConcurso usuarioParticipaConcurso = usuarioParticipaConcursoOptional.get();
+            resultado.setParticipa(true);
+            resultado.setRolConcurso(usuarioParticipaConcurso.getRolUsuarioConcurso().toString());
+            resultado.setTipoVoto(usuarioParticipaConcurso.getConcurso().getTipoVotoConcurso().toString());
+            resultado.setTipoVotante(usuarioParticipaConcurso.getConcurso().getTipoVotanteConcurso().toString());
+            resultado.setEstadoConcurso(usuarioParticipaConcurso.getConcurso().getEstadoConcurso().toString());
+        }
+
+        return resultado;
+    }
+
+    @Override
+    public DatosParaVotarDto recuperarInfoVoto(long idFotografia, String nombreConcurso, String nombreUsuario) {
+
+        DatosParaVotarDto resultado = new DatosParaVotarDto();
+        resultado.setPuntuacion(0);
+
+        Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(nombreConcurso);
+        if(concursoOptional.isPresent()){
+            resultado.setNumeroMaximoVotosPorUsuarioConcurso(concursoOptional.get().getMaxVotosUsuario());
+            resultado.setOcultarVotos(concursoOptional.get().getOcultarVotos());
+        }
+
+        Optional<UsuarioVotaFotografia> usuarioVotaFotografiaOptional =
+                usuarioVotaFotografiaDao.findByFotografiaUsuario(idFotografia, nombreUsuario);
+        if(usuarioVotaFotografiaOptional.isPresent()){
+            resultado.setHaVotado(true);
+            resultado.setPuntuacion(usuarioVotaFotografiaOptional.get().getPuntuacion());
+        }
+
+        List<UsuarioVotaFotografia> usuarioVotaFotografiaList = usuarioVotaFotografiaDao.findByConcursoUsuario(
+                nombreConcurso, nombreUsuario);
+        List<Integer> puntuacionesEurovision =  new ArrayList<>();
+
+        for (UsuarioVotaFotografia u: usuarioVotaFotografiaList) {
+            puntuacionesEurovision.add(u.getPuntuacion());
+        }
+        resultado.setPuntuacionesEurovision(puntuacionesEurovision);
+        resultado.setNumeroDeVotosUsuario(usuarioVotaFotografiaList.size());
+
+        List<UsuarioVotaFotografia> usuarioVotaFotografiaListOfFotography =
+                usuarioVotaFotografiaDao.findByFotografiaIdFotografia(idFotografia);
+        int puntuacionTotal = 0;
+        for (UsuarioVotaFotografia u: usuarioVotaFotografiaListOfFotography) {
+            puntuacionTotal += u.getPuntuacion();
+        }
+
+        resultado.setPuntuacionTotal(puntuacionTotal);
+
+
+        return resultado;
+
+    }
+
+    @Override
+    public void votarFotografia(String nombreUsuario, long idFotografia, String nombreConcurso, int puntuacion) throws InstanceNotFoundException {
+
+        Usuario votante = servicioUsuario.recuperarUsuario(nombreUsuario);
+        Optional<Fotografia> fotografiaOptional = fotografiaDao.findById(idFotografia);
+        Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(nombreConcurso);
+        if(fotografiaOptional.isEmpty()){
+            System.out.println("Fotografia inexistente");
+        }
+        Fotografia fotografia = fotografiaOptional.get();
+        if(concursoOptional.isEmpty()){
+            System.out.println("Fotografia inexistente");
+        }
+        Concurso concurso = concursoOptional.get();
+
+        UsuarioVotaFotografia usuarioVotaFotografia = new UsuarioVotaFotografia();
+        usuarioVotaFotografia.setUsuario(votante);
+        usuarioVotaFotografia.setFotografia(fotografia);
+        usuarioVotaFotografia.setFechaVoto(LocalDateTime.now());
+        usuarioVotaFotografia.setConcurso(concurso);
+        usuarioVotaFotografia.setPuntuacion(puntuacion);
+
+        usuarioVotaFotografiaDao.save(usuarioVotaFotografia);
     }
 
     private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)

@@ -146,3 +146,24 @@ export const supervisePhotography = (superviseData, onSuccess, onErrors) => {
     appFetch(path, config('POST', superviseData), onSuccess, onErrors);
 }
 
+export const getContestRolInfo = ({contestName, userName}, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}/${userName}/informacionRol`;
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}
+
+export const getVoteInfo = ({contestName, userName, photographyId}, onSuccess, onErrors) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}/fotografias/${photographyId}/${userName}/informacionVoto`;
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}
+
+export const vote = (voteData, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${voteData.nombreConcurso}/fotografias/${voteData.idFotografia}/votar`;
+
+    appFetch(path, config('POST', voteData), onSuccess);
+}
+

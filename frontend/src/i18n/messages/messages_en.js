@@ -235,4 +235,12 @@ export default {
 
     'contest.photographyGrid.card.button.text' : 'Watch in detail',
 
+    'contest.contestDetail.Body.VotingState.CountDown.Title' : 'Remaining time to finalizate',
+
+    'contest.contestDetail.Body.VotingState.Voting.Button.Name' : 'Vote',
+    'contest.contestDetail.Body.VotingState.Voting.NumberOfPoints' : 'points',
+    'contest.contestDetail.Body.VotingState.Voting.LimitOfVotes' : 'You have reached the max. number of votes per user.',
+    'contest.contestDetail.Body.VotingState.Voting.Eurovision.DefaultOption' : 'Choose a number of points',
+    'contest.contestDetail.Body.VotingState.Voting.AlreadyVotted' : 'You already voted this photography.',
+
 }

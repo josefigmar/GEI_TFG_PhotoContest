@@ -243,4 +243,34 @@ public class ControladorCatalogo {
                 datosSupervision.getNombreConcurso(), datosSupervision.getDecision(), datosSupervision.getMotivo(),
                 datosSupervision.getNombreUsuarioAutor(), datosSupervision.getNombreUsuarioSupervisor());
     }
+
+    @GetMapping("/concursos/{nombreConcurso}/{nombreUsuario}/informacionRol")
+    public RolConcursoInfoDto recuperarInfoRolConcurso(@PathVariable String nombreConcurso, @PathVariable String nombreUsuario){
+        RolConcursoInfoDto rolConcursoInfoDto = servicioConcurso.recuperarDatosRolUsuario(nombreConcurso,
+                nombreUsuario);
+
+        return rolConcursoInfoDto;
+    }
+
+    @GetMapping("/concursos/{nombreConcurso}/fotografias/{idFotografia}/{nombreUsuario}/informacionVoto")
+    public DatosParaVotarDto recuperarInfoVotoConcurso(@PathVariable String nombreConcurso,
+                                                        @PathVariable long idFotografia,
+                                                        @PathVariable String nombreUsuario){
+        DatosParaVotarDto datosParaVotar = servicioConcurso.recuperarInfoVoto(idFotografia,
+                nombreConcurso, nombreUsuario);
+
+        return datosParaVotar;
+    }
+
+    @PostMapping("/concursos/{nombreConcurso}/fotografias/{idFotografia}/votar")
+    public void votar(@RequestBody UsuarioVotaFotografiaDto datosVoto) {
+
+        try {
+            servicioConcurso.votarFotografia(datosVoto.getNombreUsuario(), datosVoto.getIdFotografia(),
+                    datosVoto.getNombreConcurso(), datosVoto.getPuntuacion());
+        } catch (InstanceNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

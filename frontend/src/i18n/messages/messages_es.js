@@ -234,5 +234,13 @@ export default {
 
     'contest.photographyGrid.card.button.text' : 'Ver en detalle',
 
+    'contest.contestDetail.Body.VotingState.CountDown.Title' : 'Tempo restate para finalización',
+
+    'contest.contestDetail.Body.VotingState.Voting.Button.Name' : 'Votar',
+    'contest.contestDetail.Body.VotingState.Voting.NumberOfPoints' : 'puntos',
+    'contest.contestDetail.Body.VotingState.Voting.LimitOfVotes' : 'Has llegado al número máximo de votos por usuario',
+    'contest.contestDetail.Body.VotingState.Voting.Eurovision.DefaultOption' : 'Escoja un número de puntos',
+    'contest.contestDetail.Body.VotingState.Voting.AlreadyVotted' : 'Ya has votado esta foto',
+
 
 }

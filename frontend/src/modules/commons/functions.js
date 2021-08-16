@@ -44,6 +44,16 @@ const fileToBase64 = (file, funcion) => {
     }
 }
 
-let exportObj = {tipoLabelConcurso, tipoLabelAcceso, tipoLabelVotante, fileToBase64}
+const calculateDiffBetweenDates = (date2, date1) => {
+
+    let diff = date2 - date1;
+    if (diff > 0) {
+        return diff;
+    } else {
+        return 0;
+    }
+}
+
+let exportObj = {tipoLabelConcurso, tipoLabelAcceso, tipoLabelVotante, fileToBase64, calculateDiffBetweenDates}
 
 export default exportObj;

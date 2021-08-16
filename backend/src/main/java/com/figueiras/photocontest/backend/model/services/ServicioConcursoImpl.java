@@ -504,6 +504,14 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         }
         Concurso concurso = concursoOptional.get();
 
+        Optional<UsuarioVotaFotografia> usuarioVotaFotografiaOptional =
+                usuarioVotaFotografiaDao.findByFotografiaUsuario(idFotografia, nombreUsuario);
+
+        // El usuario ya ha votado, petición malintencionada.
+        if(usuarioVotaFotografiaOptional.isPresent()){
+            return;
+        }
+
         UsuarioVotaFotografia usuarioVotaFotografia = new UsuarioVotaFotografia();
         usuarioVotaFotografia.setUsuario(votante);
         usuarioVotaFotografia.setFotografia(fotografia);

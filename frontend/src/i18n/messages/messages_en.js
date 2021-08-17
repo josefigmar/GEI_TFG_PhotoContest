@@ -243,4 +243,7 @@ export default {
     'contest.contestDetail.Body.VotingState.Voting.Eurovision.DefaultOption' : 'Choose a number of points',
     'contest.contestDetail.Body.VotingState.Voting.AlreadyVotted' : 'You already voted this photography.',
 
+    'contest.contestDetail.Body.FinishedStatus.Winners.Title' : 'The winners',
+    'contest.contestDetail.Body.FinishedStatus.Winners.Position' : 'Place',
+
 }

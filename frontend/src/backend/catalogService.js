@@ -167,3 +167,10 @@ export const vote = (voteData, onSuccess) => {
     appFetch(path, config('POST', voteData), onSuccess);
 }
 
+export const getWinners = (contestName, ganadoras, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}/fotografias/ganadoras?size=${ganadoras}`;
+
+    appFetch(path, config('GET'), onSuccess);
+}
+

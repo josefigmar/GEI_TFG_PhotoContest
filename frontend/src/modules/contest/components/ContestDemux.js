@@ -5,6 +5,7 @@ import ContestPreparationStatus from "./ContestPreparationStatus";
 import backend from "../../../backend";
 import ContestOpenStatus from "./ContestOpenStatus";
 import ContestVotingStatus from "./ContestVotingStatus";
+import ContestFinishStatus from "./ContestFinishStatus";
 
 const ContestDemux = () => {
 
@@ -50,6 +51,13 @@ const ContestDemux = () => {
             return (
                 <div>
                     <ContestVotingStatus contestData={contestData} />
+                </div>
+            )
+
+        case "FINALIZADO":
+            return (
+                <div>
+                    <ContestFinishStatus contestData={contestData} />
                 </div>
             )
     }

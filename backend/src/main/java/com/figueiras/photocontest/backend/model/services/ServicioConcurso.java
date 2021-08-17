@@ -53,5 +53,9 @@ public interface ServicioConcurso {
 
     DatosParaVotarDto recuperarInfoVoto(long idFotografia, String nombreConcurso, String nombreUsuario);
 
-    void votarFotografia(String nombreUsuario, long idFotografia, String nombreConcurso, int puntuacion) throws InstanceNotFoundException;
+    void votarFotografia(String nombreUsuario, long idFotografia, String nombreConcurso, int puntuacion)
+            throws InstanceNotFoundException;
+
+    List<ResultadoConcursoDto> recuperarGanadoras(String nombreConcurso, int numeroGanadoras);
+
 }

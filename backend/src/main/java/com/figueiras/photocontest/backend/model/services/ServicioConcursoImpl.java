@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Tuple;
 import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -520,6 +521,59 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         usuarioVotaFotografia.setPuntuacion(puntuacion);
 
         usuarioVotaFotografiaDao.save(usuarioVotaFotografia);
+    }
+
+    @Override
+    public List<ResultadoConcursoDto> recuperarGanadoras(String nombreConcurso, int numeroGanadoras) {
+
+        List<Tuple> tuplas = usuarioVotaFotografiaDao.findGanadoras(nombreConcurso);
+
+        List<ResultadoConcursoDto> resultado = new ArrayList<>();
+        List<ResultadoConcursoDto> vencedores = new ArrayList<>();
+        int posicion = 1;
+        int lastPoints = 0;
+        for (int i = 0; i < tuplas.size(); i++){
+
+            Tuple tupla = tuplas.get(i);
+            Optional<Fotografia> fotografiaOptional = fotografiaDao.findById((long)tupla.get(1));
+            // Si la fotografia anterior tuvo más puntos, esta fotografía tendrá una posición inferior (en caso de
+            // que tengan los mismos puntos, tendrán la misma posición)
+
+            if(lastPoints > Math.toIntExact((long)tupla.get(0))){
+                posicion++;
+            }
+            if(fotografiaOptional.isPresent()){
+                lastPoints = Math.toIntExact((long)tupla.get(0));
+
+                resultado.add(new ResultadoConcursoDto(
+                        Math.toIntExact((long)tupla.get(0)),
+                        posicion,
+                        FotografiaConversor.toFotografiaDto(fotografiaOptional.get())));
+            }
+
+        }
+
+        // Para que sea justo en caso de empate, se devuelven todas las fotografías que entren dentro del número de
+        // ganadores. Por ejemplo, si 3 fotografías tienen posicion 1 y dos fotografias posición 2 y hay 2 ganadores,
+        // se devuelven los 3 que quedaron en 1 posición.
+        posicion = 1;
+
+        for(int i = 0; i < resultado.size(); i++){
+            if(resultado.get(i).getPosicion() == posicion){
+                vencedores.add(resultado.get(i));
+            } else {
+                if(vencedores.size() < numeroGanadoras){
+                    vencedores.add(resultado.get(i));
+                    posicion++;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        //Notificar a vencedores
+
+        return vencedores;
     }
 
     private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)

@@ -241,4 +241,7 @@ export default {
     'contest.contestDetail.Body.VotingState.Voting.LimitOfVotes' : 'Chegastes ao número máximo de votos por usuario',
     'contest.contestDetail.Body.VotingState.Voting.Eurovision.DefaultOption' : 'Escolla un número de puntos',
     'contest.contestDetail.Body.VotingState.Voting.AlreadyVotted' : 'Xa votaches esta foto.',
+
+    'contest.contestDetail.Body.FinishedStatus.Winners.Title' : 'Vencedoras',
+    'contest.contestDetail.Body.FinishedStatus.Winners.Position' : 'Posición',
 }

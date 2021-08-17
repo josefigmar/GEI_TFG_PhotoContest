@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/catalogo-concursos/concursos/*/fotografias/*/*/informacionVoto").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios").permitAll()
                 .antMatchers("/catalogo-concursos/concursos/*/fotografias/*/votar").permitAll()
+                .antMatchers("/catalogo-concursos/concursos/*/fotografias/ganadoras").permitAll()
                 .antMatchers("/catalogo-usuarios/usuarios/*").permitAll()
                 .antMatchers("/catalogo-usuarios/registrarse").permitAll()
                 .antMatchers("/catalogo-usuarios/iniciar-sesion").permitAll()

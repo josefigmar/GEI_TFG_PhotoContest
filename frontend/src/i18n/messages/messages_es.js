@@ -242,5 +242,8 @@ export default {
     'contest.contestDetail.Body.VotingState.Voting.Eurovision.DefaultOption' : 'Escoja un número de puntos',
     'contest.contestDetail.Body.VotingState.Voting.AlreadyVotted' : 'Ya has votado esta foto',
 
+    'contest.contestDetail.Body.FinishedStatus.Winners.Title' : 'Ganadoras',
+    'contest.contestDetail.Body.FinishedStatus.Winners.Position' : 'Posición',
+
 
 }

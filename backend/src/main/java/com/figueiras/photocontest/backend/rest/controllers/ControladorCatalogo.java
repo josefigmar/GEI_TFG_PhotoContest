@@ -271,6 +271,16 @@ public class ControladorCatalogo {
         } catch (InstanceNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @GetMapping("/concursos/{nombreConcurso}/fotografias/ganadoras")
+    public List<ResultadoConcursoDto> recuperarGanadoras(@PathVariable String nombreConcurso,
+                                                   @RequestParam (defaultValue = "1") int size) {
+
+        List<ResultadoConcursoDto> listaResultadoConcursos = servicioConcurso.recuperarGanadoras(nombreConcurso, size);
+
+        return listaResultadoConcursos;
 
     }
+
 }

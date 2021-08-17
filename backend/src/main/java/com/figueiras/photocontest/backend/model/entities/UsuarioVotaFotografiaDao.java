@@ -16,6 +16,8 @@ public interface UsuarioVotaFotografiaDao
     List<UsuarioVotaFotografia> findByFotografiaIdFotografia(Long idFotografia);
     @Query("SELECT u FROM UsuarioVotaFotografia u WHERE u.concurso.nombreConcurso = :nombreConcurso AND u.usuario.nombreUsuario = :nombreUsuario")
     List<UsuarioVotaFotografia> findByConcursoUsuario(String nombreConcurso, String nombreUsuario);
+    @Query("SELECT u FROM UsuarioVotaFotografia u WHERE u.concurso.nombreConcurso = :nombreConcurso")
+    List<UsuarioVotaFotografia> findByConcurso(String nombreConcurso);
     @Query("SELECT u FROM UsuarioVotaFotografia u WHERE u.fotografia.idFotografia = :idFotografia AND u.usuario.nombreUsuario = :nombreUsuario")
     Optional<UsuarioVotaFotografia> findByFotografiaUsuario(Long idFotografia, String nombreUsuario);
     @Query("SELECT SUM(u.puntuacion), u.fotografia.idFotografia FROM UsuarioVotaFotografia u WHERE u.concurso.nombreConcurso = :nombreConcurso GROUP BY u.fotografia.idFotografia ORDER BY SUM(u.puntuacion) DESC")

@@ -174,3 +174,10 @@ export const getWinners = (contestName, ganadoras, onSuccess) => {
     appFetch(path, config('GET'), onSuccess);
 }
 
+export const getVotes = ({contestName}, onSuccess) => {
+
+    let path = `/catalogo-concursos/concursos/${contestName}/votos`;
+
+    appFetch(path, config('GET'), onSuccess);
+}
+

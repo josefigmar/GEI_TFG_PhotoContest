@@ -5,11 +5,14 @@ import { FormattedMessage } from "react-intl";
 import * as userSelectors from "../../user/selectors";
 import { useHistory } from "react-router";
 import DeleteContest from "./DeleteContest";
+import { jsPDF } from "jspdf";
 import backend from "../../../backend";
 
 const ContestHeaderButtons = ({ contestData }) => {
 
     const history = useHistory();
+    const doc = new jsPDF();
+    const [pdfText, setPdfText] = useState("nada");
     const [isStaff, setIsStaff] = useState(false);
     const [isContender, setIsContender] = useState(false);
     const userNameLogged = useSelector(userSelectors.getUserName);
@@ -24,9 +27,24 @@ const ContestHeaderButtons = ({ contestData }) => {
         return contestData.estadoConcurso === "ABIERTO";
     }
 
+    const isFinished = () => {
+
+        return contestData.estadoConcurso === "FINALIZADO";
+    }
+
     const isPublicAccess = () => {
 
         return contestData.tipoAcceso === "PUBLICO";
+    }
+
+    const createPDF = result => {
+        if (result) {
+            doc.text(result, 10, 10);
+        }
+    }
+
+    const downloadResultReport = () => {
+        doc.save(`${contestData.nombreConcurso}-VOTING-REPORT.pdf`);
     }
 
     useEffect(() => {
@@ -46,6 +64,13 @@ const ContestHeaderButtons = ({ contestData }) => {
             },
             result => setIsContender(result)
         )
+        // eslint-disable-next-line
+    }, [])
+
+    useEffect(() => {
+        if (isFinished()) {
+        createPDF(contestData.resumenVotacion);
+        }
         // eslint-disable-next-line
     }, [])
 
@@ -78,7 +103,7 @@ const ContestHeaderButtons = ({ contestData }) => {
                         &ensp;
                         {
                             // You can only supervise photos if the contest allows photo upload (Open state)
-                            isOpen()?
+                            isOpen() ?
 
                                 <form onSubmit={() => history.push(`/contests/${contestData.nombreConcurso}/${contestData.idConcurso}/supervise`)}>
                                     <Button
@@ -93,7 +118,6 @@ const ContestHeaderButtons = ({ contestData }) => {
                                 null
 
                         }
-
                         &ensp;
                         <DeleteContest contestData={contestData} />
                         &ensp;
@@ -121,6 +145,23 @@ const ContestHeaderButtons = ({ contestData }) => {
                     :
 
                     null
+            }
+
+            {
+                isFinished() ?
+
+                    <Button className="centeredLink" onClick={() => downloadResultReport()} variant="info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+                        </svg>
+                        &nbsp;
+                        <FormattedMessage id='contest.contestDetail.Body.FinishedStatus.Winners.ResultReport' />
+                    </Button>
+
+                    :
+
+                    null
+
             }
         </div>
     )

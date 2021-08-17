@@ -58,4 +58,6 @@ public interface ServicioConcurso {
 
     List<ResultadoConcursoDto> recuperarGanadoras(String nombreConcurso, int numeroGanadoras);
 
+    String generarPDFResultados(String nombreConcurso);
+
 }

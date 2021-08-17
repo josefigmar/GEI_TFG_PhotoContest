@@ -283,4 +283,13 @@ public class ControladorCatalogo {
 
     }
 
+    @GetMapping("/concursos/{nombreConcurso}/votos")
+    public String recuperarVotos(@PathVariable String nombreConcurso) {
+
+        String resultado = servicioConcurso.generarPDFResultados(nombreConcurso);
+
+        return resultado;
+
+    }
+
 }

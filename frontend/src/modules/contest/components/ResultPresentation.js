@@ -64,7 +64,6 @@ const ResultPresentation = ({ contestData }) => {
                         <br />
                         <hr />
                     </div>
-
                 )
             }
             <br />

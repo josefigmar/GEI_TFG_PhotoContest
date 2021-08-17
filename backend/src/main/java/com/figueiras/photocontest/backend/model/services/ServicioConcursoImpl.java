@@ -75,6 +75,10 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         }
         ConcursoDto resultado = ConcursoConversor.toConcursoDto(concursoOptional.get());
 
+        if(resultado.getEstadoConcurso().equals(EstadoConcurso.FINALIZADO.toString())){
+            resultado.setResumenVotacion(generarPDFResultados(resultado.getNombreConcurso()));
+        }
+
         return resultado;
     }
 
@@ -574,6 +578,24 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         //Notificar a vencedores
 
         return vencedores;
+    }
+
+    @Override
+    public String generarPDFResultados(String nombreConcurso) {
+
+        StringBuilder textoPdf = new StringBuilder();
+        List<UsuarioVotaFotografia> usuarioVotaFotografiaList =
+                usuarioVotaFotografiaDao.findByConcurso(nombreConcurso);
+
+        textoPdf.append(nombreConcurso + "\n\n");
+
+        for (UsuarioVotaFotografia u: usuarioVotaFotografiaList) {
+            textoPdf.append(u.getFechaVoto() + " - " + u.getUsuario().getNombreUsuario() + " voted -> " +
+                    u.getFotografia().getTituloFotografia() + " with " + u.getPuntuacion() + " points\n");
+
+        }
+
+        return textoPdf.toString();
     }
 
     private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)

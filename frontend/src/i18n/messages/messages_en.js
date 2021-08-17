@@ -245,5 +245,6 @@ export default {
 
     'contest.contestDetail.Body.FinishedStatus.Winners.Title' : 'The winners',
     'contest.contestDetail.Body.FinishedStatus.Winners.Position' : 'Place',
+    'contest.contestDetail.Body.FinishedStatus.Winners.ResultReport' : 'Download result report',
 
 }

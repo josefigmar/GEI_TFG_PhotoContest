@@ -36,6 +36,7 @@ public class ConcursoDto {
     private String fechaLimiteVotacion;
     private int numeroMaximoVotosPorUsuario;
     private int numeroMaximoDeFotografiasGanadoras;
+    private String resumenVotacion;
 
     public ConcursoDto() {
     }
@@ -294,5 +295,13 @@ public class ConcursoDto {
 
     public void setNumeroMaximoDeFotografiasGanadoras(int numeroMaximoDeFotografiasGanadoras) {
         this.numeroMaximoDeFotografiasGanadoras = numeroMaximoDeFotografiasGanadoras;
+    }
+
+    public String getResumenVotacion() {
+        return resumenVotacion;
+    }
+
+    public void setResumenVotacion(String resumenVotacion) {
+        this.resumenVotacion = resumenVotacion;
     }
 }

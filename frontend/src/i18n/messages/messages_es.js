@@ -244,6 +244,7 @@ export default {
 
     'contest.contestDetail.Body.FinishedStatus.Winners.Title' : 'Ganadoras',
     'contest.contestDetail.Body.FinishedStatus.Winners.Position' : 'Posición',
+    'contest.contestDetail.Body.FinishedStatus.Winners.ResultReport' : 'Descargar informe de resultados',
 
 
 }

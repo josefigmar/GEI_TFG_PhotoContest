@@ -3,6 +3,7 @@ package com.figueiras.photocontest.backend.model.services;
 import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
 import com.figueiras.photocontest.backend.rest.dtos.*;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
@@ -173,19 +174,30 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             }
             // Se persisten los datos
             usuarioParticipaConcursoDao.save(usuarioParticipaConcurso);
+        }
 
-            //// Se actualizan los concursos en el usuario
-            //Set<UsuarioParticipaConcurso> nuevoConjuntoParaUsuario = usuario.getConcursosEnLosQueParticipa();
-            //nuevoConjuntoParaUsuario.add(usuarioParticipaConcurso);
-            //usuario.setConcursosEnLosQueParticipa(nuevoConjuntoParaUsuario);
+        // Enviar mensaje a organizadores si el concurso tiene supervisión
+        if(concurso.getModeracion()){
+            Set<UsuarioParticipaConcurso> usuarioParticipaConcursos = concurso.getUsuariosQueParticipan();
+            for (UsuarioParticipaConcurso u : usuarioParticipaConcursos) {
 
-            //// Se actualizan los usuarios en el concurso
-            //Set<UsuarioParticipaConcurso> nuevoConjuntoParaConcurso = concurso.getUsuariosQueParticipan();
-            //nuevoConjuntoParaConcurso.add(usuarioParticipaConcurso);
-            //concurso.setUsuariosQueParticipan(nuevoConjuntoParaConcurso);
+                if(u.getRolUsuarioConcurso().equals(RolUsuarioConcurso.ORGANIZADOR)){
 
-            //servicioUsuario.actualizarUsuario(usuario);
-            //concursoDao.save(concurso);
+                    String asunto = messageSource.getMessage(
+                        "project.Participate.MessageToStaff.title",
+                            null,
+                            new Locale(u.getUsuario().getLenguaje().toString())
+                    );
+                    String textoMensaje = messageSource.getMessage(
+                            "project.Participate.MessageToStaff.msg",
+                            new Object[]{datosFotografia.getNombreUsuario(), concurso.getNombreConcurso()},
+                            new Locale(u.getUsuario().getLenguaje().toString())
+                    );
+
+                    servicioEmail.enviarMailGmail(u.getUsuario().getCorreoElectronicoUsuario(), asunto, textoMensaje);
+                    servicioNotificacion.crearNotificacion(asunto, textoMensaje, u.getUsuario().getNombreUsuario());
+                }
+            }
         }
     }
 

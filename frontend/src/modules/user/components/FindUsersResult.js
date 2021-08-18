@@ -33,6 +33,10 @@ const FindUsersResult = ({findUsersResult, updateFindUsersResult}) =>{
                 next={{
                     enabled: findUsersResult.result.existMoreItems,
                     onClick: () => backend.userService.findUsers({nombre: findUsersResult.nombre, page: findUsersResult.page + 1, size: findUsersResult.size}, result => updateUsers({...findUsersResult, result, page: findUsersResult.page+1}))}}/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
         </div>
     );
 }

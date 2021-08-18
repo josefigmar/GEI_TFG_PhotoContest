@@ -12,8 +12,8 @@ const tipoLabelConcurso = (estado) => {
 const tipoLabelAcceso = (estado) => {
 
     switch(estado){
-        case true : return "success"
-        case false : return "warning"
+        case "PUBLICO" : return "success"
+        case "PRIVADO" : return "warning"
         default : return "success"
     }
 }

@@ -151,7 +151,7 @@ public class Fotografia {
         this.estadoModeracion = estadoModeracion;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idCategoria")
     public CategoriaFotografica getCategoriaFotografica() {
         return categoriaFotografica;
@@ -161,7 +161,7 @@ public class Fotografia {
         this.categoriaFotografica = categoriaFotografica;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idUsuario")
     public Usuario getUsuario() {
         return usuario;
@@ -171,7 +171,7 @@ public class Fotografia {
         this.usuario = usuario;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idConcurso")
     public Concurso getConcurso() {
         return concurso;

@@ -597,8 +597,6 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             }
         }
 
-        //Notificar a vencedores
-
         return vencedores;
     }
 
@@ -679,7 +677,41 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 Usuario usuario = upc.getUsuario();
                 mandarMensajesCambioDeEstado(EstadoConcurso.VOTACION, concurso.getEstadoConcurso(),
                         concurso.getNombreConcurso(), usuario);
+                notificarGanadores(concurso.getNombreConcurso(), concurso.getNumGanadores());
             }
+
+        }
+    }
+
+    private void notificarGanadores(String nombreConcurso, int numeroGanadoras){
+
+        List<ResultadoConcursoDto> vencedoras = recuperarGanadoras(nombreConcurso, numeroGanadoras);
+
+        for (ResultadoConcursoDto rc : vencedoras) {
+
+            try{
+                Usuario ganador = servicioUsuario.recuperarUsuario(rc.getFotografiaDto().getNombreUsuario());
+
+                Locale locale = new Locale(ganador.getLenguaje().toString());
+
+                String asunto = messageSource.getMessage(
+                    "project.Winners.title",
+                        null,
+                        locale
+                );
+                String textoMensaje = messageSource.getMessage(
+                    "project.Winners.msg",
+                        new Object[]{rc.getPosicion(), rc.getFotografiaDto().getNombreConcurso()},
+                        locale
+                );
+
+                servicioNotificacion.crearNotificacion(asunto, textoMensaje, ganador.getNombreUsuario());
+                servicioEmail.enviarMailGmail(ganador.getCorreoElectronicoUsuario(), asunto, textoMensaje);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+
         }
     }
 

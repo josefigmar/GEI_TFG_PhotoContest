@@ -51,10 +51,11 @@ const Body = () => {
                 {!isUserLoggedIn && <Route exact path="/contests/create-contest"><LogIn /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/create-contest"><CreateContest /></Route>}
                 {isUserLoggedIn && <Route exact path="/contests/create-contest/:contestId/:contestName"><CreateContest /></Route>}
-                {!isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><LogIn /></Route>}
-                {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId"><ContestDemux /></Route>}
+                <Route exact path="/contests/:contestName/:contestId"><ContestDemux /></Route>
+                {!isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/participate"><LogIn/> </Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/participate"><Participate/> </Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/supervise"><PhotographiesSupervision/> </Route>}
+                {!isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/photography/:photographyId"><LogIn/> </Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/photography/:photographyId"><PhotographyPresentation/> </Route>}
                 {isUserLoggedIn && <Route exact path="/contests/:contestName/:contestId/photography/:photographyId/supervise"><PhotographySupervision/> </Route>}
                 <Route><Home /></Route>

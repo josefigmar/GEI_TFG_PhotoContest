@@ -1,4 +1,4 @@
-package com.figueiras.photocontest.backend.model.entities;
+package com.figueiras.photocontest.backend.model.services.clases;
 
 public class ResultadoConcurso {
 

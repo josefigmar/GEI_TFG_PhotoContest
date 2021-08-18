@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface ServicioNotificacion {
 
-    Notificacion crearNotificacion(String nombreNotificacion,
-                                   String mensaje, String nombreUsuario) throws InstanceNotFoundException;
+    Notificacion crearNotificacion(String nombreNotificacion, String mensaje, String nombreUsuario);
     Block<Notificacion> buscarNotificacionesDeUsuario(String nombreUsuario, int page, int size);
     boolean notificacionesPendientesDeVisualizar(String nombreUsuario);
     public void marcarComoLeidas(List<Notificacion> notificaciones);

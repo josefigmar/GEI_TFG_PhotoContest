@@ -2,8 +2,8 @@ package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
+import com.figueiras.photocontest.backend.model.services.clases.ConcursosParaCambioDeEstado;
 import com.figueiras.photocontest.backend.rest.dtos.*;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Tuple;
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -596,6 +595,93 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         }
 
         return textoPdf.toString();
+    }
+
+    @Override
+    public void comprobarYRealizarCambiosDeEstado() {
+
+        List<Concurso> enPreparacionAAbierto =
+                concursoDao.concursosQueNecesitanCambioDeEnPreparacionAAbierto(EstadoConcurso.EN_PREPARACION);
+        List<Concurso> abiertoAVotacion =
+                concursoDao.concursosQueNecesitanCambioDeAbiertoAVotacion(EstadoConcurso.ABIERTO);
+        List<Concurso> votacionAFinalizado =
+                concursoDao.concursosQueNecesitanCambioDeVotacionAFinalizado(EstadoConcurso.VOTACION);
+
+        for (Concurso c : enPreparacionAAbierto) {
+            cambiarEstadoConcurso(c);
+        }
+
+        for (Concurso c : abiertoAVotacion) {
+            cambiarEstadoConcurso(c);
+        }
+
+        for (Concurso c : votacionAFinalizado) {
+            cambiarEstadoConcurso(c);
+        }
+
+    }
+
+    private void cambiarEstadoConcurso(Concurso concurso){
+
+        if(concurso.getEstadoConcurso().equals(EstadoConcurso.EN_PREPARACION)){
+
+            concurso.setEstadoConcurso(EstadoConcurso.ABIERTO);
+            concursoDao.save(concurso);
+            Set<UsuarioParticipaConcurso> usuarios = concurso.getUsuariosQueParticipan();
+            for (UsuarioParticipaConcurso upc : usuarios) {
+                Usuario usuario = upc.getUsuario();
+                mandarMensajesCambioDeEstado(EstadoConcurso.EN_PREPARACION, concurso.getEstadoConcurso(),
+                        concurso.getNombreConcurso(), usuario);
+            }
+        }
+
+        if(concurso.getEstadoConcurso().equals(EstadoConcurso.ABIERTO)){
+
+            concurso.setEstadoConcurso(EstadoConcurso.VOTACION);
+            concursoDao.save(concurso);
+            Set<UsuarioParticipaConcurso> usuarios = concurso.getUsuariosQueParticipan();
+            for (UsuarioParticipaConcurso upc : usuarios) {
+                Usuario usuario = upc.getUsuario();
+                mandarMensajesCambioDeEstado(EstadoConcurso.ABIERTO, concurso.getEstadoConcurso(),
+                        concurso.getNombreConcurso(), usuario);
+            }
+        }
+
+        if(concurso.getEstadoConcurso().equals(EstadoConcurso.VOTACION)){
+
+            concurso.setEstadoConcurso(EstadoConcurso.FINALIZADO);
+            concursoDao.save(concurso);
+            Set<UsuarioParticipaConcurso> usuarios = concurso.getUsuariosQueParticipan();
+            for (UsuarioParticipaConcurso upc : usuarios) {
+                Usuario usuario = upc.getUsuario();
+                mandarMensajesCambioDeEstado(EstadoConcurso.VOTACION, concurso.getEstadoConcurso(),
+                        concurso.getNombreConcurso(), usuario);
+            }
+        }
+    }
+
+    private void mandarMensajesCambioDeEstado(EstadoConcurso estadoInicial, EstadoConcurso estadoFinal,
+                                             String nombreConcurso, Usuario u){
+
+        String estadoUno = messageSource.getMessage(
+                estadoInicial.toString(),
+                null,
+                new Locale(u.getLenguaje().toString()));
+        String estadoDos = messageSource.getMessage(
+                estadoFinal.toString(),
+                null,
+                new Locale(u.getLenguaje().toString()));
+        String asunto = messageSource.getMessage(
+                "project.changueContestState.title",
+                null,
+                new Locale(u.getLenguaje().toString()));
+        String cuerpoMensaje = messageSource.getMessage(
+                "project.changueContestState.msg",
+                new Object[]{nombreConcurso, estadoUno, estadoDos},
+                new Locale(u.getLenguaje().toString()));
+        servicioEmail.enviarMailGmail( u.getCorreoElectronicoUsuario(), asunto, cuerpoMensaje );
+        servicioNotificacion.crearNotificacion( asunto, cuerpoMensaje, u.getNombreUsuario());
+
     }
 
     private void validarConcurso(ConcursoDto datosConcurso, Usuario usuario)

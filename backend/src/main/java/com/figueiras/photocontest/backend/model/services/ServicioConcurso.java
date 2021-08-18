@@ -2,6 +2,7 @@ package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
+import com.figueiras.photocontest.backend.model.services.clases.ConcursosParaCambioDeEstado;
 import com.figueiras.photocontest.backend.rest.dtos.*;
 
 import java.util.List;
@@ -59,5 +60,7 @@ public interface ServicioConcurso {
     List<ResultadoConcursoDto> recuperarGanadoras(String nombreConcurso, int numeroGanadoras);
 
     String generarPDFResultados(String nombreConcurso);
+
+    void comprobarYRealizarCambiosDeEstado();
 
 }

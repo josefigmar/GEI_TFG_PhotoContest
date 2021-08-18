@@ -31,18 +31,18 @@ public class ServicioNotificacionImpl implements ServicioNotificacion {
      * @param nombreNotificacion Es el título que tendrá la notificación creada
      * @param mensaje   El contenido principal de la notificación
      * @param nombreUsuario El usuario al que va dirigida la notificación
-     * @return  Devuelve la nueva notificación
+     * @return  Devuelve la nueva notificación o una notificación vacía si el usuario no existe
      * @throws InstanceNotFoundException    En caso de que el usuario no exista
      */
     @Override
     public Notificacion crearNotificacion(
             final String nombreNotificacion,
-            final String mensaje, final String nombreUsuario) throws InstanceNotFoundException {
+            final String mensaje, final String nombreUsuario) {
 
         Optional<Usuario> uOpt = usuarioDao.findByNombreUsuario(nombreUsuario);
 
-        if (!uOpt.isPresent()) {
-            throw new InstanceNotFoundException(Usuario.class.getName(), nombreUsuario);
+        if (uOpt.isEmpty()) {
+            return new Notificacion();
         }
 
         Notificacion notificacionResultado = new Notificacion();

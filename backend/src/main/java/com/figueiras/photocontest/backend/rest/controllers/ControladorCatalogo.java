@@ -102,8 +102,7 @@ public class ControladorCatalogo {
     @GetMapping("/concursos/{idConcurso}/participantes")
     public Block<UsuarioTablaDto> recuperarParticipantes(@PathVariable long idConcurso,
                                                          @RequestParam(defaultValue = "0") int page,
-                                                         @RequestParam(defaultValue = "5") int size)
-            throws InstanceNotFoundException {
+                                                         @RequestParam(defaultValue = "5") int size) {
 
         Block<Usuario> blockUsuarios = servicioConcurso.recuperarParticipantes(idConcurso, page, size);
 
@@ -117,8 +116,7 @@ public class ControladorCatalogo {
     @GetMapping("/concursos/{idConcurso}/jurado")
     public Block<UsuarioTablaDto> recuperarJurado(@PathVariable long idConcurso,
                                                          @RequestParam(defaultValue = "0") int page,
-                                                         @RequestParam(defaultValue = "5") int size)
-            throws InstanceNotFoundException {
+                                                         @RequestParam(defaultValue = "5") int size) {
 
         Block<Usuario> blockUsuarios = servicioConcurso.recuperarJurado(idConcurso, page, size);
 
@@ -207,7 +205,7 @@ public class ControladorCatalogo {
         Block<Fotografia> fotografiaBlock =
                 servicioConcurso.recuperarFotografiasModeracion(datos.getIdConcurso(), page, size);
 
-        return new Block<FotografiaDto>(
+        return new Block<>(
                 FotografiaConversor.toFotografiasDto(fotografiaBlock.getItems()), fotografiaBlock.getExistMoreItems());
     }
 

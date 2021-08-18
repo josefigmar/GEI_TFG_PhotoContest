@@ -274,7 +274,7 @@ public class Concurso {
         this.categoriasPermitidas = categoriasPermitidas;
     }
 
-    @OneToMany(mappedBy = "concurso")
+    @OneToMany(mappedBy = "concurso", fetch = FetchType.EAGER)
     public Set<UsuarioParticipaConcurso> getUsuariosQueParticipan() {
         return usuariosQueParticipan;
     }

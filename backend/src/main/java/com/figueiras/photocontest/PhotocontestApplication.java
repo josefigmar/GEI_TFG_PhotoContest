@@ -1,5 +1,6 @@
 package com.figueiras.photocontest;
 
+import com.figueiras.photocontest.backend.model.services.ServicioSegundoPlano;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
@@ -8,12 +9,21 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 @SpringBootApplication
 public class PhotocontestApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(PhotocontestApplication.class, args);
+		ServicioSegundoPlano.correrComprobacionDeEstadoConcursos();
 	}
+
+
 
 	/**
 	 * Se crea el Bean que encriptará y desencriptará las contraseñas

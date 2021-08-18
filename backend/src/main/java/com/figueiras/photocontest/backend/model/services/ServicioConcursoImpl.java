@@ -2,7 +2,6 @@ package com.figueiras.photocontest.backend.model.services;
 
 import com.figueiras.photocontest.backend.model.entities.*;
 import com.figueiras.photocontest.backend.model.exceptions.*;
-import com.figueiras.photocontest.backend.model.services.clases.ConcursosParaCambioDeEstado;
 import com.figueiras.photocontest.backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -52,9 +51,9 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         Slice<Concurso> sliceConcursos = null;
 
-        if(idCategoria != null){
+        if (idCategoria != null) {
             Optional<CategoriaFotografica> categoriaFotograficaOpt = categoriaFotograficaDao.findById(idCategoria);
-            if(categoriaFotograficaOpt.isPresent()){
+            if (categoriaFotograficaOpt.isPresent()) {
                 sliceConcursos = concursoDao.find(estado == null ? null : estadoConcursos[estado],
                         categoriaFotograficaOpt.get(), nombre, page, size);
             }
@@ -62,7 +61,6 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             sliceConcursos = concursoDao.find(estado == null ? null : estadoConcursos[estado],
                     null, nombre, page, size);
         }
-
 
 
         return new Block<>(sliceConcursos.getContent(), sliceConcursos.hasNext());
@@ -87,7 +85,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         }
         ConcursoDto resultado = ConcursoConversor.toConcursoDto(concursoOptional.get());
 
-        if(resultado.getEstadoConcurso().equals(EstadoConcurso.FINALIZADO.toString())){
+        if (resultado.getEstadoConcurso().equals(EstadoConcurso.FINALIZADO.toString())) {
             resultado.setResumenVotacion(generarPDFResultados(resultado.getNombreConcurso()));
         }
 
@@ -95,7 +93,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     }
 
     @Override
-    public Block<Fotografia> recuperarFotografiasModeracion(Long idConcurso, int page , int size) {
+    public Block<Fotografia> recuperarFotografiasModeracion(Long idConcurso, int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
@@ -321,7 +319,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         Optional<Fotografia> fotografiaOptional = fotografiaDao.findById(idFotografia);
 
-        if(fotografiaOptional.isEmpty()){
+        if (fotografiaOptional.isEmpty()) {
             throw new InstanceNotFoundException(Fotografia.class.toString(), idFotografia);
         }
 
@@ -355,7 +353,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         Optional<Fotografia> fotografiaOptional = fotografiaDao.findById(idFotografia);
         Usuario usuario = servicioUsuario.recuperarUsuario(nombreUsuarioAutor);
         Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
-        if(fotografiaOptional.isEmpty() || concursoOptional.isEmpty()){
+        if (fotografiaOptional.isEmpty() || concursoOptional.isEmpty()) {
             throw new InstanceNotFoundException(Fotografia.class.toString(), idFotografia);
         }
 
@@ -364,16 +362,16 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         // Si el resultado de la moderación es DENEGADA, se procede, si es la última participación provisional, a
         // eliminar la participación y sí o sí eliminar los datos de la foto en BBDD
-        if(decision.equals(EstadoModeracion.DENEGADA.toString())){
+        if (decision.equals(EstadoModeracion.DENEGADA.toString())) {
 
             // Se elimina la participación del concurso si era su última fotografía
-            if(fotografiaDao.recuperarFotografiasConcursoUsuario(idConcurso, usuario.getIdUsuario()).size() == 1){
+            if (fotografiaDao.recuperarFotografiasConcursoUsuario(idConcurso, usuario.getIdUsuario()).size() == 1) {
                 Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
                         usuarioParticipaConcursoDao.findByUsuarioIdUsuarioAndConcursoIdConcursoAndRolUsuarioConcurso(
                                 usuario.getIdUsuario(),
                                 idConcurso,
                                 RolUsuarioConcurso.INSCRITO);
-                if(usuarioParticipaConcursoOptional.isEmpty()){
+                if (usuarioParticipaConcursoOptional.isEmpty()) {
                     throw new InstanceNotFoundException(UsuarioParticipaConcurso.class.toString(), usuario.getIdUsuario());
                 }
                 UsuarioParticipaConcurso usuarioParticipaConcurso = usuarioParticipaConcursoOptional.get();
@@ -409,7 +407,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                         usuario.getIdUsuario(),
                         idConcurso,
                         RolUsuarioConcurso.INSCRITO);
-        if(usuarioParticipaConcursoOptional.isEmpty()){
+        if (usuarioParticipaConcursoOptional.isEmpty()) {
             throw new InstanceNotFoundException(UsuarioParticipaConcurso.class.toString(), usuario.getIdUsuario());
         }
         UsuarioParticipaConcurso usuarioParticipaConcurso = usuarioParticipaConcursoOptional.get();
@@ -442,10 +440,10 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         Optional<UsuarioParticipaConcurso> usuarioParticipaConcursoOptional =
                 usuarioParticipaConcursoDao.findByUsuarioConcurso(nombreUsuario, nombreConcurso);
-        if(usuarioParticipaConcursoOptional.isEmpty()){
+        if (usuarioParticipaConcursoOptional.isEmpty()) {
             resultado.setParticipa(false);
             Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(nombreConcurso);
-            if(concursoOptional.isPresent()){
+            if (concursoOptional.isPresent()) {
                 Concurso concurso = concursoOptional.get();
                 resultado.setTipoVoto(concurso.getTipoVotoConcurso().toString());
                 resultado.setTipoVotante(concurso.getTipoVotanteConcurso().toString());
@@ -470,23 +468,23 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         resultado.setPuntuacion(0);
 
         Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(nombreConcurso);
-        if(concursoOptional.isPresent()){
+        if (concursoOptional.isPresent()) {
             resultado.setNumeroMaximoVotosPorUsuarioConcurso(concursoOptional.get().getMaxVotosUsuario());
             resultado.setOcultarVotos(concursoOptional.get().getOcultarVotos());
         }
 
         Optional<UsuarioVotaFotografia> usuarioVotaFotografiaOptional =
                 usuarioVotaFotografiaDao.findByFotografiaUsuario(idFotografia, nombreUsuario);
-        if(usuarioVotaFotografiaOptional.isPresent()){
+        if (usuarioVotaFotografiaOptional.isPresent()) {
             resultado.setHaVotado(true);
             resultado.setPuntuacion(usuarioVotaFotografiaOptional.get().getPuntuacion());
         }
 
         List<UsuarioVotaFotografia> usuarioVotaFotografiaList = usuarioVotaFotografiaDao.findByConcursoUsuario(
                 nombreConcurso, nombreUsuario);
-        List<Integer> puntuacionesEurovision =  new ArrayList<>();
+        List<Integer> puntuacionesEurovision = new ArrayList<>();
 
-        for (UsuarioVotaFotografia u: usuarioVotaFotografiaList) {
+        for (UsuarioVotaFotografia u : usuarioVotaFotografiaList) {
             puntuacionesEurovision.add(u.getPuntuacion());
         }
         resultado.setPuntuacionesEurovision(puntuacionesEurovision);
@@ -495,7 +493,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         List<UsuarioVotaFotografia> usuarioVotaFotografiaListOfFotography =
                 usuarioVotaFotografiaDao.findByFotografiaIdFotografia(idFotografia);
         int puntuacionTotal = 0;
-        for (UsuarioVotaFotografia u: usuarioVotaFotografiaListOfFotography) {
+        for (UsuarioVotaFotografia u : usuarioVotaFotografiaListOfFotography) {
             puntuacionTotal += u.getPuntuacion();
         }
 
@@ -512,11 +510,11 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         Usuario votante = servicioUsuario.recuperarUsuario(nombreUsuario);
         Optional<Fotografia> fotografiaOptional = fotografiaDao.findById(idFotografia);
         Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(nombreConcurso);
-        if(fotografiaOptional.isEmpty()){
+        if (fotografiaOptional.isEmpty()) {
             System.out.println("Fotografia inexistente");
         }
         Fotografia fotografia = fotografiaOptional.get();
-        if(concursoOptional.isEmpty()){
+        if (concursoOptional.isEmpty()) {
             System.out.println("Fotografia inexistente");
         }
         Concurso concurso = concursoOptional.get();
@@ -525,7 +523,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 usuarioVotaFotografiaDao.findByFotografiaUsuario(idFotografia, nombreUsuario);
 
         // El usuario ya ha votado, petición malintencionada.
-        if(usuarioVotaFotografiaOptional.isPresent()){
+        if (usuarioVotaFotografiaOptional.isPresent()) {
             return;
         }
 
@@ -548,21 +546,21 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         List<ResultadoConcursoDto> vencedores = new ArrayList<>();
         int posicion = 1;
         int lastPoints = 0;
-        for (int i = 0; i < tuplas.size(); i++){
+        for (int i = 0; i < tuplas.size(); i++) {
 
             Tuple tupla = tuplas.get(i);
-            Optional<Fotografia> fotografiaOptional = fotografiaDao.findById((long)tupla.get(1));
+            Optional<Fotografia> fotografiaOptional = fotografiaDao.findById((long) tupla.get(1));
             // Si la fotografia anterior tuvo más puntos, esta fotografía tendrá una posición inferior (en caso de
             // que tengan los mismos puntos, tendrán la misma posición)
 
-            if(lastPoints > Math.toIntExact((long)tupla.get(0))){
+            if (lastPoints > Math.toIntExact((long) tupla.get(0))) {
                 posicion++;
             }
-            if(fotografiaOptional.isPresent()){
-                lastPoints = Math.toIntExact((long)tupla.get(0));
+            if (fotografiaOptional.isPresent()) {
+                lastPoints = Math.toIntExact((long) tupla.get(0));
 
                 resultado.add(new ResultadoConcursoDto(
-                        Math.toIntExact((long)tupla.get(0)),
+                        Math.toIntExact((long) tupla.get(0)),
                         posicion,
                         FotografiaConversor.toFotografiaDto(fotografiaOptional.get())));
             }
@@ -574,11 +572,11 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         // se devuelven los 3 que quedaron en 1 posición.
         posicion = 1;
 
-        for(int i = 0; i < resultado.size(); i++){
-            if(resultado.get(i).getPosicion() == posicion){
+        for (int i = 0; i < resultado.size(); i++) {
+            if (resultado.get(i).getPosicion() == posicion) {
                 vencedores.add(resultado.get(i));
             } else {
-                if(vencedores.size() < numeroGanadoras){
+                if (vencedores.size() < numeroGanadoras) {
                     vencedores.add(resultado.get(i));
                     posicion++;
                 } else {
@@ -601,7 +599,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         textoPdf.append(nombreConcurso + "\n\n");
 
-        for (UsuarioVotaFotografia u: usuarioVotaFotografiaList) {
+        for (UsuarioVotaFotografia u : usuarioVotaFotografiaList) {
             textoPdf.append(u.getFechaVoto() + " - " + u.getUsuario().getNombreUsuario() + " voted -> " +
                     u.getFotografia().getTituloFotografia() + " with " + u.getPuntuacion() + " points\n");
 
@@ -634,9 +632,9 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
     }
 
-    private void cambiarEstadoConcurso(Concurso concurso){
+    private void cambiarEstadoConcurso(Concurso concurso) {
 
-        if(concurso.getEstadoConcurso().equals(EstadoConcurso.EN_PREPARACION)){
+        if (concurso.getEstadoConcurso().equals(EstadoConcurso.EN_PREPARACION)) {
 
             concurso.setEstadoConcurso(EstadoConcurso.ABIERTO);
             concursoDao.save(concurso);
@@ -648,7 +646,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             }
         }
 
-        if(concurso.getEstadoConcurso().equals(EstadoConcurso.ABIERTO)){
+        if (concurso.getEstadoConcurso().equals(EstadoConcurso.ABIERTO)) {
 
             concurso.setEstadoConcurso(EstadoConcurso.VOTACION);
             concursoDao.save(concurso);
@@ -660,7 +658,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             }
         }
 
-        if(concurso.getEstadoConcurso().equals(EstadoConcurso.VOTACION)){
+        if (concurso.getEstadoConcurso().equals(EstadoConcurso.VOTACION)) {
 
             concurso.setEstadoConcurso(EstadoConcurso.FINALIZADO);
             concursoDao.save(concurso);
@@ -674,7 +672,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     }
 
     private void mandarMensajesCambioDeEstado(EstadoConcurso estadoInicial, EstadoConcurso estadoFinal,
-                                             String nombreConcurso, Usuario u){
+                                              String nombreConcurso, Usuario u) {
 
         String estadoUno = messageSource.getMessage(
                 estadoInicial.toString(),
@@ -692,8 +690,8 @@ public class ServicioConcursoImpl implements ServicioConcurso {
                 "project.changueContestState.msg",
                 new Object[]{nombreConcurso, estadoUno, estadoDos},
                 new Locale(u.getLenguaje().toString()));
-        servicioEmail.enviarMailGmail( u.getCorreoElectronicoUsuario(), asunto, cuerpoMensaje );
-        servicioNotificacion.crearNotificacion( asunto, cuerpoMensaje, u.getNombreUsuario());
+        servicioEmail.enviarMailGmail(u.getCorreoElectronicoUsuario(), asunto, cuerpoMensaje);
+        servicioNotificacion.crearNotificacion(asunto, cuerpoMensaje, u.getNombreUsuario());
 
     }
 
@@ -704,45 +702,272 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         List<ErrorCampoDto> erroresCampoDtoList = new ArrayList<>();
 
-        // La fecha de inicio del concurso debe ser inferior a la fecha de inicio de votación
-        if (LocalDateTime.parse(datosConcurso.getFechaInicio(), formatter).
-                compareTo(LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter)) >= 0) {
+        String nombreConcurso = datosConcurso.getNombreConcurso();
+        if (nombreConcurso == null || nombreConcurso.equals("") || nombreConcurso.length() > 50) {
             hayErrores = true;
-            ErrorCampoDto errorFechas1 = new ErrorCampoDto(
+            ErrorCampoDto errorNombre = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.contestName",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
+            );
+            erroresCampoDtoList.add(errorNombre);
+        } else {
+            // Se comprueba si el nombre ya está cogido
+            Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(datosConcurso.getNombreConcurso());
+            if (concursoOptional.isPresent()) {
+                hayErrores = true;
+                ErrorCampoDto errorNombreRepetido = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.createContest.contestName",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())),
+                        messageSource.getMessage(
+                                "project.exceptions.createContest.nameAlreadyTaken",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        )
+                );
+                erroresCampoDtoList.add(errorNombreRepetido);
+            }
+        }
+
+        String desc = datosConcurso.getDescripcionConcurso();
+        if (desc == null || desc.equals("") || desc.length() > 500) {
+            hayErrores = true;
+            ErrorCampoDto errorDescripcion = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.contestDescription",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
+            );
+            erroresCampoDtoList.add(errorDescripcion);
+        }
+
+        String foto = datosConcurso.getFotoConcurso();
+        if (foto == null || foto.equals("")) {
+            hayErrores = true;
+            ErrorCampoDto errorFoto = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.contestPhoto",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
+            );
+            erroresCampoDtoList.add(errorFoto);
+        }
+
+        String bases = datosConcurso.getBasesConcurso();
+        if (bases == null || bases.equals("")) {
+            hayErrores = true;
+            ErrorCampoDto errorBases = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.contestRules",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
+            );
+            erroresCampoDtoList.add(errorBases);
+        }
+
+        String basesStr = datosConcurso.getBasesConcurso();
+        if (basesStr == null || basesStr.equals("")) {
+            hayErrores = true;
+            ErrorCampoDto errorBases = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.contestRules",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
+            );
+            erroresCampoDtoList.add(errorBases);
+        }
+
+        String fechaInicioConcurso = datosConcurso.getFechaInicio();
+        if (fechaInicioConcurso == null || fechaInicioConcurso.equals("")) {
+            hayErrores = true;
+            ErrorCampoDto errorFechaInicio = new ErrorCampoDto(
                     messageSource.getMessage(
                             "project.fields.createContest.contestStartData",
                             null,
-                            new Locale(usuario.getLenguaje().toString())
-                    ),
+                            new Locale(usuario.getLenguaje().toString())),
                     messageSource.getMessage(
-                            "project.exceptions.fechaInicioConcursoInferiorAInicioVotacion",
+                            "project.exceptions.dataRequired",
                             null,
-                            new Locale(usuario.getLenguaje().toString()))
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
             );
-            erroresCampoDtoList.add(errorFechas1);
+            erroresCampoDtoList.add(errorFechaInicio);
+        } else {
+            // La fecha de inicio del concurso debe ser inferior a la fecha de inicio de votación
+            if (LocalDateTime.parse(datosConcurso.getFechaInicio(), formatter).
+                    compareTo(LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter)) >= 0) {
+                hayErrores = true;
+                ErrorCampoDto errorFechas1 = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.createContest.contestStartData",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.fechaInicioConcursoInferiorAInicioVotacion",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorFechas1);
+            }
         }
 
-        // Lafecha de inicio de votación debe ser inferior a la fecha de fin de votación
-        if (LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter).
-                compareTo(LocalDateTime.parse(datosConcurso.getFechaLimiteVotacion(), formatter)) >= 0) {
+        String fechaInicioVotacion = datosConcurso.getFechaInicioVotacion();
+        if (fechaInicioVotacion == null || fechaInicioVotacion.equals("")) {
             hayErrores = true;
-            ErrorCampoDto errorFechas2 = new ErrorCampoDto(
+            ErrorCampoDto errorFechaInicio = new ErrorCampoDto(
                     messageSource.getMessage(
                             "project.fields.createContest.votingStartData",
                             null,
-                            new Locale(usuario.getLenguaje().toString())
-                    ),
+                            new Locale(usuario.getLenguaje().toString())),
                     messageSource.getMessage(
-                            "project.exceptions.fechaInicioVotacionInferiorAFinVotacion",
+                            "project.exceptions.dataRequired",
                             null,
-                            new Locale(usuario.getLenguaje().toString()))
-            );
-            erroresCampoDtoList.add(errorFechas2);
+                            new Locale(usuario.getLenguaje().toString())
+                    )
 
+            );
+            erroresCampoDtoList.add(errorFechaInicio);
+        } else {
+            // La fecha de inicio de votación debe ser inferior a la fecha de fin de votación
+            if (LocalDateTime.parse(datosConcurso.getFechaInicioVotacion(), formatter).
+                    compareTo(LocalDateTime.parse(datosConcurso.getFechaLimiteVotacion(), formatter)) >= 0) {
+                hayErrores = true;
+                ErrorCampoDto errorFechas2 = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.createContest.votingStartData",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        ),
+                        messageSource.getMessage(
+                                "project.exceptions.fechaInicioVotacionInferiorAFinVotacion",
+                                null,
+                                new Locale(usuario.getLenguaje().toString()))
+                );
+                erroresCampoDtoList.add(errorFechas2);
+
+            }
         }
 
-        // El número máximo de fotografías permitidas en un concurso es de 200
-        if (datosConcurso.getNumeroMaximoFotografias() > 200) {
+        // Comprobación categoria/s
+
+        if (datosConcurso.isCategoriaUnica()) {
+            long idCategoria = datosConcurso.getIdCategoria();
+            Optional<CategoriaFotografica> categoriaFotograficaOptional = categoriaFotograficaDao.findById(idCategoria);
+            if (categoriaFotograficaOptional.isEmpty()) {
+                hayErrores = true;
+                ErrorCampoDto errorCategoria = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.createContest.category",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())),
+                        messageSource.getMessage(
+                                "project.exceptions.dataRequired",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        )
+
+                );
+                erroresCampoDtoList.add(errorCategoria);
+            }
+        } else {
+            List<String> categorias = datosConcurso.getListaCategorias();
+            if (categorias.size() == 0) {
+                hayErrores = true;
+                ErrorCampoDto errorCategorias = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.createContest.categories",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())),
+                        messageSource.getMessage(
+                                "project.exceptions.dataRequired",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        )
+
+                );
+                erroresCampoDtoList.add(errorCategorias);
+            }
+        }
+
+        List<String> organizadores = datosConcurso.getMiembrosDeLaOrganizacion();
+        if (organizadores.size() == 0) {
+            hayErrores = true;
+            ErrorCampoDto errorOrganizadores = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.whoCanOrganizate",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
+            );
+            erroresCampoDtoList.add(errorOrganizadores);
+        }
+
+        boolean participanteAbierto = datosConcurso.isParticipanteAbierto();
+
+        if (!participanteAbierto) {
+            List<String> participantes = datosConcurso.getParticipantes();
+            if (participantes.size() == 0) {
+                hayErrores = true;
+                ErrorCampoDto errorParticipantes = new ErrorCampoDto(
+                        messageSource.getMessage(
+                                "project.fields.createContest.whoCanParticipate",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())),
+                        messageSource.getMessage(
+                                "project.exceptions.dataRequired",
+                                null,
+                                new Locale(usuario.getLenguaje().toString())
+                        )
+
+                );
+                erroresCampoDtoList.add(errorParticipantes);
+            }
+        }
+
+
+        // El número máximo de fotografías permitidas en un concurso es de 200 y mínimo 2
+        int numeroMaximoFotografiasPermitidas = datosConcurso.getNumeroMaximoFotografias();
+        if (numeroMaximoFotografiasPermitidas < 2 || numeroMaximoFotografiasPermitidas > 200) {
             hayErrores = true;
             ErrorCampoDto errorMaxFotos = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -759,7 +984,8 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         }
 
         // El número máximo de fotografías permitidas por usuario es 5
-        if (datosConcurso.getNumeroMaximoFotografiasParticipante() > 5) {
+        int numeroMaximoFotografiasPorParticipante = datosConcurso.getNumeroMaximoFotografiasParticipante();
+        if (numeroMaximoFotografiasPorParticipante < 1 || numeroMaximoFotografiasPorParticipante > 3) {
             hayErrores = true;
             ErrorCampoDto errorMaxFotosUsuario = new ErrorCampoDto(
                     messageSource.getMessage(
@@ -775,19 +1001,150 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             erroresCampoDtoList.add(errorMaxFotosUsuario);
         }
 
-        // El número máximo de fotografías ganadoras es de 10
-        if (datosConcurso.getNumeroMaximoDeFotografiasGanadoras() > 10) {
+        String formatoRequerido = datosConcurso.getFormatoRequerido();
+        if (formatoRequerido == null || !formatoRequerido.equals(FormatoFotografia.JPG.toString()) &&
+                !formatoRequerido.equals(FormatoFotografia.JPG_Y_RAW.toString())) {
             hayErrores = true;
-            ErrorCampoDto errorNumeroFotosGanadoras = new ErrorCampoDto(
+            ErrorCampoDto errorFormato = new ErrorCampoDto(
                     messageSource.getMessage(
-                            "project.exceptions.MaxFotosGanadoras",
+                            "project.fields.createContest.requiredFormat",
                             null,
                             new Locale(usuario.getLenguaje().toString())
                     ),
                     messageSource.getMessage(
-                            "project.fields.createContest.maxWinningPhotos",
+                            "project.exceptions.dataRequired",
                             null,
                             new Locale(usuario.getLenguaje().toString()))
+            );
+            erroresCampoDtoList.add(errorFormato);
+        }
+
+        String quienPuedeVotar = datosConcurso.getTipoVotante();
+        if (quienPuedeVotar == null || !quienPuedeVotar.equals(TipoVotante.JURADO.toString()) &&
+                !quienPuedeVotar.equals(TipoVotante.CUALQUIERA.toString()) &&
+                !quienPuedeVotar.equals(TipoVotante.PARTICIPANTE.toString())) {
+            hayErrores = true;
+            ErrorCampoDto errorVotante = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.whoCanVote",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    ),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString()))
+            );
+            erroresCampoDtoList.add(errorVotante);
+        } else {
+            if (quienPuedeVotar.equals(TipoVotante.JURADO.toString())) {
+                String descJurado = datosConcurso.getDescripcionVotacionJurado();
+                List<String> listaJurado = datosConcurso.getMiembrosDelJurado();
+
+                if (descJurado == null || !descJurado.equals("") || descJurado.length() > 500) {
+                    hayErrores = true;
+                    ErrorCampoDto errorDescJurado = new ErrorCampoDto(
+                            messageSource.getMessage(
+                                    "project.fields.createContest.juryDesc",
+                                    null,
+                                    new Locale(usuario.getLenguaje().toString())
+                            ),
+                            messageSource.getMessage(
+                                    "project.exceptions.dataRequired",
+                                    null,
+                                    new Locale(usuario.getLenguaje().toString()))
+                    );
+                    erroresCampoDtoList.add(errorDescJurado);
+                }
+
+                if (listaJurado.size() == 0) {
+                    hayErrores = true;
+                    ErrorCampoDto errorListaJurado = new ErrorCampoDto(
+                            messageSource.getMessage(
+                                    "project.fields.createContest.juryMembers",
+                                    null,
+                                    new Locale(usuario.getLenguaje().toString())
+                            ),
+                            messageSource.getMessage(
+                                    "project.exceptions.dataRequired",
+                                    null,
+                                    new Locale(usuario.getLenguaje().toString()))
+                    );
+                    erroresCampoDtoList.add(errorListaJurado);
+                }
+            }
+        }
+
+        String fechaFin = datosConcurso.getFechaLimiteVotacion();
+        if (fechaFin == null) {
+            hayErrores = true;
+            ErrorCampoDto errorFechaFin = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.contestEndData",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    ),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString()))
+            );
+            erroresCampoDtoList.add(errorFechaFin);
+        }
+
+        String metodoVotacion = datosConcurso.getMetodoVoto();
+        if (metodoVotacion == null || !metodoVotacion.equals(TipoVoto.CINCO_ESTRELLAS.toString()) &&
+                !metodoVotacion.equals(TipoVoto.EUROVISION.toString()) &&
+                !metodoVotacion.equals(TipoVoto.SIMPLE.toString())) {
+            hayErrores = true;
+            ErrorCampoDto errorMetodoVoto = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.votingMethod",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    ),
+                    messageSource.getMessage(
+                            "project.exceptions.dataRequired",
+                            null,
+                            new Locale(usuario.getLenguaje().toString()))
+            );
+            erroresCampoDtoList.add(errorMetodoVoto);
+        }
+
+        // El número máximo de votos por votante
+        int numeroMaximoVotos = datosConcurso.getNumeroMaximoVotosPorUsuario();
+        if (numeroMaximoVotos < 1 || numeroMaximoVotos > 5) {
+            hayErrores = true;
+            ErrorCampoDto errorNumeroVotos = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.maxVoterPerVoter",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.MaxFotosGanadoras",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
+            );
+            erroresCampoDtoList.add(errorNumeroVotos);
+        }
+
+        // El número máximo de fotografías ganadoras es de 10
+        int numeroMaximoGanadoras = datosConcurso.getNumeroMaximoDeFotografiasGanadoras();
+        if (numeroMaximoGanadoras < 1 || numeroMaximoGanadoras > 10) {
+            hayErrores = true;
+            ErrorCampoDto errorNumeroFotosGanadoras = new ErrorCampoDto(
+                    messageSource.getMessage(
+                            "project.fields.createContest.maxWinningPhotos",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())),
+                    messageSource.getMessage(
+                            "project.exceptions.MaxVotosUser",
+                            null,
+                            new Locale(usuario.getLenguaje().toString())
+                    )
+
             );
             erroresCampoDtoList.add(errorNumeroFotosGanadoras);
         }
@@ -826,7 +1183,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         List<ErrorCampoDto> erroresCampoDtoList = new ArrayList<>();
 
         // El usuario tiene que haber aceptado las normas
-        if(!datosFotografia.isAceptoLasNormas()){
+        if (!datosFotografia.isAceptoLasNormas()) {
             String errorMsg = messageSource.getMessage("project.exceptions.NoRulesAcceptance",
                     null,
                     new Locale(usuario.getLenguaje().toString()));
@@ -1118,7 +1475,7 @@ public class ServicioConcursoImpl implements ServicioConcurso {
         }
     }
 
-    private void eliminarFotografia(Fotografia fotografia){
+    private void eliminarFotografia(Fotografia fotografia) {
 
         fotografiaDao.delete(fotografia);
     }
@@ -1128,16 +1485,16 @@ public class ServicioConcursoImpl implements ServicioConcurso {
 
         boolean hayErrores = false;
 
-        if(decision.equals("") || decision == null){
+        if (decision.equals("") || decision == null) {
             hayErrores = true;
         }
 
-        if(motivo.equals("") || motivo == null){
+        if (motivo.equals("") || motivo == null) {
             hayErrores = true;
         }
 
         if (hayErrores) {
-            ErroresDto erroresDto = new ErroresDto( messageSource.getMessage(
+            ErroresDto erroresDto = new ErroresDto(messageSource.getMessage(
                     "project.exceptions.supervise.dataRequired",
                     null,
                     new Locale(usuarioSupervisor.getLenguaje().toString()))

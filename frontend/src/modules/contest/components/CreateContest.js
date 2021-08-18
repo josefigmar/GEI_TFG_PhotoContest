@@ -196,11 +196,13 @@ const CreateContest = () => {
             <hr />
             <h4><FormattedMessage id="contest.CreateContest.GeneralInfoSection" /></h4>
             <form ref={node => form = node} onSubmit={e => handleSubmit(e)} noValidate={false}>
+
                 {/*Nombre del concurso*/}
                 <Form.Group className="mb-3" controlId="NombreConcurso">
                     <Form.Label><FormattedMessage id='contest.CreateContest.NombreConcurso' /></Form.Label>
                     <Form.Control value={nombreConcurso} maxLength="50" onChange={e => setNombreConcurso(e.target.value)} required={true} />
                 </Form.Group>
+
                 {/*Descripción del concurso*/}
                 <Form.Group className="mb-3" controlId="DescripcionConcurso">
                     <Form.Label><FormattedMessage id='contest.CreateContest.DescripcionConcurso' /></Form.Label>
@@ -208,42 +210,54 @@ const CreateContest = () => {
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
+
                 {/*Foto y bases*/}
                 <Jumbotron>
                     <h5><FormattedMessage id='contest.CreateContest.Foto&BasesTitle' /></h5><br />
                     <h6><FormattedMessage id='contest.CreateContest.Foto&BasesDesc' /></h6>
                     <br />
+
                     <Form.Group className="mb-3" controlId="contestPhoto">
                         <Form.Label><FormattedMessage id='contest.CreateContest.SubirFoto' /></Form.Label>
                         <Form.Control type="file" required={contestId === undefined} accept="image/jpeg, image/png" onChange={e => commonFunctions.fileToBase64(e.target.files[0], setFotoConcurso)} />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
+
                     <Form.Group className="mb-3" controlId="contestRules">
                         <Form.Label><FormattedMessage id='contest.CreateContest.SubirBases' /></Form.Label>
                         <Form.Control type="file" accept="application/pdf" required={contestId === undefined} onChange={e => commonFunctions.fileToBase64(e.target.files[0], setBasesConcurso)} />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
+                    
                 </Jumbotron>
 
+                {/* Fecha de inicio */}
                 <Form.Group className="mb-3" controlId="fechaInicio">
                     <Form.Label><FormattedMessage id='contest.CreateContest.FechaInicio' /></Form.Label>
                     <Form.Control type="datetime-local" step="0" required value={fechaInicio} onChange={e => setFechaInicio(e.target.value)} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
+
+                {/* Fecha de inicio de votación*/}
                 <Form.Group className="mb-3" controlId="fechaInicioVotacion">
                     <Form.Label><FormattedMessage id='contest.CreateContest.FechaLimiteSubida' /></Form.Label>
                     <Form.Control type="datetime-local" min={fechaInicio} required value={fechaInicioVotacion} onChange={e => setFechaInicioVotacion(e.target.value)} />
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
+
+                {/* Categoría única*/}
                 <input type="checkbox" checked={categoriaUnica} onChange={e => setCategoriaUnica(e.target.checked)} />
                 &nbsp;
                 <label><FormattedMessage id='contest.CreateContest.UniqueCategory' /></label>
                 <br />
+
+                {/* Nueva categoría*/}
                 <CreateCategory onNew={(a) => setTriggerCategoryUpdate(a)} />
+                
                 {/* Selector de categoria unica */}
                 <select id="categoryId" className="custom-select my-1 mr-sm-2"
                     required={categoriaUnica} value={idCategoria} onChange={e => setIdCategoria(e.target.value)} disabled={!categoriaUnica} >
@@ -264,6 +278,7 @@ const CreateContest = () => {
                 </div>
 
                 <br /><hr />
+                
                 {/*Seccion de Miembros de la organización*/}
                 <h4><FormattedMessage id="contest.CreateContest.OrganizationMembersSection" /></h4><br />
                 <h6><FormattedMessage id='contest.CreateContest.OrganizationMembersSection.Desc' /></h6>
@@ -371,6 +386,7 @@ const CreateContest = () => {
                 <h6><FormattedMessage id='contest.CreateContest.NumberOfWiningPhotos.Desc' /></h6>
                 <label><FormattedMessage id='contest.CreateContest.NumberOfWiningPhotos' /></label>:&nbsp;
                 <input type="number" value={numeroMaximoDeFotografiasGanadoras} min="1" max="10" required onChange={e => setNumeroMaximoDeFotografiasGanadoras(e.target.value)} /><br /><br />
+                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
                 <div className="d-flex justify-content-center">
                     <Button variant="success" type="submit" onClick={e => handleSubmit(e)}>
 

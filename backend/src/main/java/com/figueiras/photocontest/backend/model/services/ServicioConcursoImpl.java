@@ -49,8 +49,21 @@ public class ServicioConcursoImpl implements ServicioConcurso {
             return new Block<>(sliceConcursos.getContent(), sliceConcursos.hasNext());
         }
         EstadoConcurso[] estadoConcursos = EstadoConcurso.values();
-        Optional<CategoriaFotografica> categoriaFotograficaOpt = categoriaFotograficaDao.findById(idCategoria);
-        Slice<Concurso> sliceConcursos = concursoDao.find(estado == null ? null : estadoConcursos[estado], categoriaFotograficaOpt.get(), nombre, page, size);
+
+        Slice<Concurso> sliceConcursos = null;
+
+        if(idCategoria != null){
+            Optional<CategoriaFotografica> categoriaFotograficaOpt = categoriaFotograficaDao.findById(idCategoria);
+            if(categoriaFotograficaOpt.isPresent()){
+                sliceConcursos = concursoDao.find(estado == null ? null : estadoConcursos[estado],
+                        categoriaFotograficaOpt.get(), nombre, page, size);
+            }
+        } else {
+            sliceConcursos = concursoDao.find(estado == null ? null : estadoConcursos[estado],
+                    null, nombre, page, size);
+        }
+
+
 
         return new Block<>(sliceConcursos.getContent(), sliceConcursos.hasNext());
     }

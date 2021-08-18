@@ -85,8 +85,8 @@ const ContestHeaderButtons = ({ contestData }) => {
                         {
                             // Si el estado ha pasado a abierto, el concurso ya no se puede editar.
                             isPreparationState() ?
+                                <div className="contestHeaderButtons">
 
-                                <div>
                                     <form onSubmit={() => history.push(`/contests/create-contest/${contestData.idConcurso}/${contestData.nombreConcurso}`)}>
                                         <Button
                                             variant="info"
@@ -94,6 +94,9 @@ const ContestHeaderButtons = ({ contestData }) => {
                                             <FormattedMessage id='contest.contestDetail.Header.contestHeaderButtons.EditContest' />
                                         </Button>
                                     </form>
+                                    &ensp;
+                                    <DeleteContest contestData={contestData} />
+                                    &ensp;
                                 </div>
 
                                 :
@@ -118,14 +121,13 @@ const ContestHeaderButtons = ({ contestData }) => {
                                 null
 
                         }
-                        &ensp;
-                        <DeleteContest contestData={contestData} />
-                        &ensp;
                     </div>
+
 
                     :
 
                     null
+
             }
             <br />
             {
@@ -161,7 +163,6 @@ const ContestHeaderButtons = ({ contestData }) => {
                     :
 
                     null
-
             }
         </div>
     )

@@ -7,6 +7,7 @@ import com.figueiras.photocontest.backend.rest.common.JwtInfo;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioCambioContraseñaDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioDto;
 import com.figueiras.photocontest.backend.rest.dtos.UsuarioLoginDto;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
@@ -282,6 +283,19 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         usuarioSigueUsuarioDao.save(usuarioSigueUsuario);
         usuarioDao.save(usuarioSeguidor);
         usuarioDao.save(usuarioSeguido);
+
+        String asunto = messageSource.getMessage(
+                "project.Follow.title",
+                null,
+                new Locale(usuarioSeguido.getLenguaje().toString()));
+
+        String textoCuerpo = messageSource.getMessage(
+                "project.Follow.msg",
+                new Object[]{nombreUsuarioSeguidor},
+                new Locale(usuarioSeguido.getLenguaje().toString()));
+
+        servicioEmail.enviarMailGmail(usuarioSeguido.getCorreoElectronicoUsuario(), asunto, textoCuerpo);
+        servicioNotificacion.crearNotificacion(asunto, textoCuerpo, usuarioSeguido.getNombreUsuario());
 
         return usuarioSeguidor;
     }

@@ -12,7 +12,6 @@ const ContestHeaderButtons = ({ contestData }) => {
 
     const history = useHistory();
     const doc = new jsPDF();
-    const [pdfText, setPdfText] = useState("nada");
     const [isStaff, setIsStaff] = useState(false);
     const [isContender, setIsContender] = useState(false);
     const userNameLogged = useSelector(userSelectors.getUserName);
@@ -39,7 +38,8 @@ const ContestHeaderButtons = ({ contestData }) => {
 
     const createPDF = result => {
         if (result) {
-            doc.text(result, 10, 10);
+            doc.setFontSize(11);
+            doc.text(result, 5, 10);
         }
     }
 
@@ -69,7 +69,7 @@ const ContestHeaderButtons = ({ contestData }) => {
 
     useEffect(() => {
         if (isFinished()) {
-        createPDF(contestData.resumenVotacion);
+            createPDF(contestData.resumenVotacion);
         }
         // eslint-disable-next-line
     }, [])

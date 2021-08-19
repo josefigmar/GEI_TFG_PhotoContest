@@ -180,7 +180,7 @@ export default {
     'contest.contestDetail.Header.contestInfoTable.WhoCanVote.CUALQUIERA': 'Everybody',
     'contest.contestDetail.Header.contestInfoTable.WhoCanVote.JURADO': 'Jury',
     'contest.contestDetail.Header.contestInfoTable.WhoCanVote.PARTICIPANTE': 'Contenders',
-    'contest.contestDetail.Header.contestInfoTable.NumberOfContenders': 'Number of contenders',
+    'contest.contestDetail.Header.contestInfoTable.NumberOfContenders': 'Number of photographies',
     'contest.contestDetail.Header.contestInfoTable.InitialUploadDate': 'Initial upload date',
     'contest.contestDetail.Header.contestInfoTable.StartOfVoting': 'Voting start date',
     'contest.contestDetail.Header.contestInfoTable.EndContestDate': 'End date',

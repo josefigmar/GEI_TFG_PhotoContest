@@ -220,22 +220,17 @@ public class ServicioConcursoImpl implements ServicioConcurso {
     }
 
     @Override
-    public int getNumeroDeParticipantes(long idConcurso) {
+    public int getNumeroDeFotos(String nombreConcurso) {
 
-        Optional<Concurso> concursoOptional = concursoDao.findById(idConcurso);
+        Optional<Concurso> concursoOptional = concursoDao.findByNombreConcurso(nombreConcurso);
 
         if (concursoOptional.isEmpty()) {
             return 0;
         }
 
-        int numeroDeParticipantes = 0;
+        List<Fotografia> fotografiaList = fotografiaDao.recuperarFotografias(concursoOptional.get().getIdConcurso());
 
-        for (UsuarioParticipaConcurso upc : concursoOptional.get().getUsuariosQueParticipan()) {
-            if (upc.getRolUsuarioConcurso().equals(RolUsuarioConcurso.INSCRITO)) {
-                numeroDeParticipantes++;
-            }
-        }
-        return numeroDeParticipantes;
+        return fotografiaList.size();
     }
 
     @Override

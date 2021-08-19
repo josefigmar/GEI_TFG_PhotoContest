@@ -19,9 +19,9 @@ export const getContestData = ({ contestId, contestName }, onSuccess) => {
     appFetch(path, config('POST', contestId), onSuccess);
 }
 
-export const getNumberContenders = (contestId, onSuccess) => {
+export const getNumberPhotos = (contestName, onSuccess) => {
 
-    let path = `/catalogo-concursos/concursos/${contestId}/numeroParticipantes`;
+    let path = `/catalogo-concursos/concursos/${contestName}/numeroFotos`;
 
     appFetch(path, config('GET'), onSuccess);
 }

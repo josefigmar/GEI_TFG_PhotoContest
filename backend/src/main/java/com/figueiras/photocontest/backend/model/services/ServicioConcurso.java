@@ -26,7 +26,7 @@ public interface ServicioConcurso {
 
     void crearCategoria(CategoriaFotograficaDto datosCategoria) throws CategoriaDuplicadaException;
 
-    int getNumeroDeParticipantes(long idConcurso);
+    int getNumeroDeFotos(String idConcurso);
 
     boolean isRol(String nombreUsuario, long idConcurso, RolUsuarioConcurso rolUsuarioConcurso)
             throws InstanceNotFoundException;

@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 const ContestInfoTable = ({ contestData }) => {
 
     const intl = useIntl();
-    const [numeroParticipantes, setNumeroParticipantes] = useState(0);
+    const [numeroFotos, setNumeroFotos] = useState(0);
 
     useEffect(() => {
-        backend.catalogService.getNumberContenders(
-            contestData.idConcurso,
-            result => setNumeroParticipantes(result)
+        backend.catalogService.getNumberPhotos(
+            contestData.nombreConcurso,
+            result => setNumeroFotos(result)
         )
         // eslint-disable-next-line
     }, [])
@@ -44,7 +44,7 @@ const ContestInfoTable = ({ contestData }) => {
             <h6>
                 &ensp;
                 <FormattedMessage id='contest.contestDetail.Header.contestInfoTable.NumberOfContenders' />:&nbsp;
-                <p className="p2">{numeroParticipantes}/200</p>
+                <p className="p2">{numeroFotos}/{contestData.numeroMaximoFotografias}</p>
             </h6>
             <hr />
             <h6>

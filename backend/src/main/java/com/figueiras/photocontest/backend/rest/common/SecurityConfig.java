@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/catalogo-concursos/categorias").permitAll()
                 .antMatchers("/catalogo-concursos/concursos/*").permitAll()
                 .antMatchers("/catalogo-concursos/concursos/*/*").permitAll()
-                .antMatchers("/catalogo-concursos/concursos/*/numeroParticipantes").permitAll()
+                .antMatchers("/catalogo-concursos/concursos/*/numeroFotos").permitAll()
                 .antMatchers("/catalogo-concursos/concursos/*/*/esOrganizador").permitAll()
                 .antMatchers("/catalogo-concursos/concursos/*/*/esParticipante").permitAll()
                 .antMatchers("/catalogo-concursos/concursos/*/categorias").permitAll()

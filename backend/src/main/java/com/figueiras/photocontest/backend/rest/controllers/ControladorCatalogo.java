@@ -76,12 +76,12 @@ public class ControladorCatalogo {
         return new Block<>(toConcursosTablaDto( blockConcursos.getItems()), blockConcursos.getExistMoreItems());
     }
 
-    @GetMapping("/concursos/{idConcurso}/numeroParticipantes")
-    public int numeroDeParticipantes(@PathVariable long idConcurso){
+    @GetMapping("/concursos/{nombreConcurso}/numeroFotos")
+    public int numeroDeParticipantes(@PathVariable String nombreConcurso){
 
-        int numeroDeParticipantes = servicioConcurso.getNumeroDeParticipantes(idConcurso);
+        int numeroDeFotos = servicioConcurso.getNumeroDeFotos(nombreConcurso);
 
-        return numeroDeParticipantes;
+        return numeroDeFotos;
     }
 
     @GetMapping("/concursos/{idConcurso}/organizadores")

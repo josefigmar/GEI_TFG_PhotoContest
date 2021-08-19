@@ -31,11 +31,11 @@ const Photography = (props) => {
                 {
                     photographyData.datosJpg === "" ?
 
-                        <img className="contestHeaderImg" alt="previsualization" src={"data:image/jpeg;base64," + photographyData.datosRaw} />
+                        <img className="photographyDetail" alt="previsualization" src={"data:image/jpeg;base64," + photographyData.datosRaw} />
 
                         :
 
-                        <img className="contestHeaderImg" alt="previsualization" src={"data:image/jpeg;base64," + photographyData.datosJpg} />
+                        <img className="photographyDetail" alt="previsualization" src={"data:image/jpeg;base64," + photographyData.datosJpg} />
                 }
             </div>
             <br/>

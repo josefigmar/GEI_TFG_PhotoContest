@@ -323,8 +323,6 @@ const CreateContest = () => {
                 <h6><FormattedMessage id='contest.CreateContest.FormatQuestion' /></h6>
                 <input type="radio" name="tipoFormato" checked={formatoRequerido === "JPG"} value="JPG" required onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.FormatJPG' /></label>&emsp;
-                <input type="radio" name="tipoFormato" checked={formatoRequerido === "RAW"} value="RAW" onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
-                <label><FormattedMessage id='contest.CreateContest.FormatRAW' /></label>&emsp;
                 <input type="radio" name="tipoFormato" checked={formatoRequerido === "JPG_Y_RAW"} value="JPG_Y_RAW" onChange={e => setFormatoRequerido(e.target.value)} />&nbsp;
                 <label><FormattedMessage id='contest.CreateContest.FormatJPG+RAW' /></label><br /><br />
 

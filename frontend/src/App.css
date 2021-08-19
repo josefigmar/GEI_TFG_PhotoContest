@@ -28,8 +28,8 @@ img {
 .photographyGridImages {
   vertical-align: middle;
   object-fit: cover;
-  max-height: 200px;
-  max-width: 300px;
+  max-height: 300px;
+  max-width: 400px;
 }
 
 .photographyDetail {

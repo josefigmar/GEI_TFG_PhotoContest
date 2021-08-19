@@ -9,7 +9,8 @@ const PhotographyGrid = ({ photographies }) => {
     const column = data => {
         let column = (
             <Col sm={4}>
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '18rem' }} bg="light">
+                    
                     <Card.Img className="photographyGridImages" variant="top" src={`data:image/jpeg;base64, ${data.datosJpg}`} />
                     <Card.Body>
                         <Card.Title className="centeredParagraph">{data.tituloFotografia}</Card.Title>

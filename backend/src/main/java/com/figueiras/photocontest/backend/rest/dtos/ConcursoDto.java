@@ -25,7 +25,6 @@ public class ConcursoDto {
     private boolean tituloRequerido;
     private boolean descripcionRequerida;
     private boolean datosExifRequeridos;
-    private boolean localizacionRequerida;
     private boolean ocutarFotosHastaVotacion;
     private boolean ocultarResultadosHastaFinal;
     private boolean activarModeracion;
@@ -191,14 +190,6 @@ public class ConcursoDto {
 
     public void setDatosExifRequeridos(boolean datosExifRequeridos) {
         this.datosExifRequeridos = datosExifRequeridos;
-    }
-
-    public boolean isLocalizacionRequerida() {
-        return localizacionRequerida;
-    }
-
-    public void setLocalizacionRequerida(boolean localizacionRequerida) {
-        this.localizacionRequerida = localizacionRequerida;
     }
 
     public boolean isOcutarFotosHastaVotacion() {

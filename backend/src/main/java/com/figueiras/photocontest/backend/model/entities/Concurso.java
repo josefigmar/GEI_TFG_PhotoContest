@@ -28,7 +28,6 @@ public class Concurso {
     private Boolean tituloReq;
     private Boolean descReq;
     private Boolean datosExifReq;
-    private Boolean locReq;
     private Boolean ocultarFotos;
     private Boolean moderacion;
     private FormatoFotografia formato;
@@ -177,14 +176,6 @@ public class Concurso {
 
     public void setDatosExifReq(Boolean datosExifReq) {
         this.datosExifReq = datosExifReq;
-    }
-
-    public Boolean getLocReq() {
-        return locReq;
-    }
-
-    public void setLocReq(Boolean locReq) {
-        this.locReq = locReq;
     }
 
     public Boolean getOcultarFotos() {

@@ -4,7 +4,6 @@ DROP TABLE UsuarioSigueUsuario;
 DROP TABLE UsuarioParticipaConcurso;
 DROP TABLE UsuarioVotaFotografia;
 DROP TABLE ConcursoPermiteCategoria;
-DROP TABLE UsuarioGustaCategoria;
 DROP TABLE Notificacion;
 DROP TABLE Fotografia;
 DROP TABLE CategoriaFotografica;
@@ -59,7 +58,6 @@ CREATE TABLE Concurso(
     tipoAccesoConcurso INT,
     tipoVotanteConcurso INT,
     tipoVotoConcurso INT,
-    velocidadObturacion VARCHAR(50),
     fotoConcurso LONGTEXT,
     categoriaUnica TINYINT,
     maxFotos INT,
@@ -69,7 +67,6 @@ CREATE TABLE Concurso(
     tituloReq TINYINT,
     descReq TINYINT,
     datosExifReq TINYINT,
-    locReq TINYINT,
     ocultarFotos TINYINT,
     moderacion TINYINT,
     formato INT,
@@ -110,18 +107,6 @@ CREATE TABLE Fotografia(
         REFERENCES Usuario(idUsuario),
     CONSTRAINT Fotografia_id_concurso_fk FOREIGN KEY(idConcurso)
        REFERENCES Concurso(idConcurso)
-);
-
-CREATE TABLE UsuarioGustaCategoria(
-    idUsuario BIGINT NOT NULL,
-    idCategoria BIGINT NOT NULL,
-    CONSTRAINT Usuario_gusta_categoria_pk PRIMARY KEY(idUsuario, idCategoria),
-    CONSTRAINT Usuario_gusta_categoria_id_usuario_fk
-        FOREIGN KEY(idUsuario)
-            REFERENCES Usuario(idUsuario),
-    CONSTRAINT Usuario_gusta_categoria_id_categoria_fk
-        FOREIGN KEY(idCategoria)
-            REFERENCES CategoriaFotografica(idCategoria)
 );
 
 CREATE TABLE UsuarioSigueUsuario(

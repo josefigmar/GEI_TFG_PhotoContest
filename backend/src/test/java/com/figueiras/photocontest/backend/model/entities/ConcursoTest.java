@@ -184,15 +184,6 @@ public class ConcursoTest {
     }
 
     @Test
-    public void setLocReqTest() {
-        Concurso concurso = new Concurso();
-
-        concurso.setLocReq(Boolean.FALSE);
-
-        Assertions.assertEquals(concurso.getLocReq(), Boolean.FALSE);
-    }
-
-    @Test
     public void setOcultarFotosTest() {
         Concurso concurso = new Concurso();
 

@@ -160,7 +160,6 @@ public class ConcursoConversor {
         nuevoConcurso.setTituloReq(datosConcurso.isTituloRequerido());
         nuevoConcurso.setDescReq(datosConcurso.isDescripcionRequerida());
         nuevoConcurso.setDatosExifReq(datosConcurso.isDatosExifRequeridos());
-        nuevoConcurso.setLocReq(datosConcurso.isLocalizacionRequerida());
         nuevoConcurso.setOcultarFotos(datosConcurso.isOcutarFotosHastaVotacion());
         nuevoConcurso.setOcultarVotos(datosConcurso.isOcultarResultadosHastaFinal());
         nuevoConcurso.setModeracion(datosConcurso.isActivarModeracion());
@@ -205,7 +204,6 @@ public class ConcursoConversor {
         concursoDto.setTituloRequerido(concurso.getTituloReq());
         concursoDto.setDescripcionRequerida(concurso.getDescReq());
         concursoDto.setDatosExifRequeridos(concurso.getDatosExifReq());
-        concursoDto.setLocalizacionRequerida(concurso.getLocReq());
         concursoDto.setOcutarFotosHastaVotacion(concurso.getOcultarFotos());
         concursoDto.setOcultarResultadosHastaFinal(concurso.getOcultarVotos());
         concursoDto.setActivarModeracion(concurso.getModeracion());
